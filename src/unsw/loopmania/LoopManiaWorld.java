@@ -7,6 +7,9 @@ import java.util.Random;
 import org.javatuples.Pair;
 
 import javafx.beans.property.SimpleIntegerProperty;
+import unsw.loopmania.Buildings.VampireCastleBuilding;
+import unsw.loopmania.Cards.Card;
+import unsw.loopmania.Cards.VampireCastleCard;
 
 /**
  * A backend world.
@@ -83,6 +86,7 @@ public class LoopManiaWorld {
         return height;
     }
 
+
     /**
      * set the character. This is necessary because it is loaded as a special entity out of the file
      * @param character the character
@@ -148,6 +152,8 @@ public class LoopManiaWorld {
             // due to mutating list we're iterating over
             killEnemy(e);
         }
+        
+
         return defeatedEnemies;
     }
 
