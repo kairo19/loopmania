@@ -95,8 +95,8 @@ When killing an enemy, the hero received a specified amount of experience.
 
 -----------------------------------------------------------------------------------------------------------------------------------
 ### Item Assumptions:
-***All pieces of equipment sold at the hero's castle will be sold for half the gold it is purchased for.***
-#### WeaponAssumptions:
+***All pieces of equipment destroyed will reward the character with half the gold it is purchased for.***
+#### WeaponAssumptitions:
 ##### SwordAssumptions:
 - A sword can be purchased for **20** gold from the hero's castle.
 - A sword adds **15** additional damage to the character's attack.
@@ -126,6 +126,7 @@ When killing an enemy, the hero received a specified amount of experience.
 #### ConsumableItemAssumptions:
 - Health potions can be purchased for **20** gold from the hero's castle.
 - Health potions heal the character for **40** health points.
+- Health potions are consumed immediately when stepped over or purchased from the hero's castle.
 
 #### RareItemAssumptions:
 - The One Ring has a **1%** chance of dropping from a defeated enemy.
