@@ -3,6 +3,7 @@ package unsw.loopmania.item.weapon;
 import java.util.Random;
 
 import javafx.beans.property.SimpleIntegerProperty;
+import unsw.loopmania.BasicEnemy;
 import unsw.loopmania.StaticEntity;
 
 /**
@@ -15,8 +16,8 @@ public class Staff extends StaticEntity implements Weapon {
     }    
 
     @Override
-    public int damageBoost(BasicEnemy basicEnemy) {
-        return damageBoost;
+    public void damageBoost(Character character) {
+        character.setDamage(character.getDamage() + damageBoost);
     };
     
     @Override

@@ -1,7 +1,8 @@
 package unsw.loopmania.item.weapon;
 
+import unsw.loopmania.BasicEnemy;
+
 public interface Weapon {
-    // TODO: BasicEnemy requires implementation
-    public int damageBoost(BasicEnemy basicEnemy);
+    public void damageBoost(Character character);
     public void doSpecial(BasicEnemy basicEnemy, Character character); // can be replaced with a gettype() method?
 }
