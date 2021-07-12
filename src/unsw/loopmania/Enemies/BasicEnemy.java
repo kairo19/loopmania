@@ -58,4 +58,8 @@ public class BasicEnemy extends MovingEntity {
     public String getType() {
         return type;
     }
+
+    // public void dealDamage(Character character) {
+    //     character.setDamage(character.getDamage() - this.damage);
+    // }
 }
