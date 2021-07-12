@@ -2,13 +2,26 @@ package unsw.loopmania;
 
 import java.util.Random;
 
+import unsw.loopmania.MovingEntity;
+import unsw.loopmania.PathPosition;
+
 /**
  * a basic form of enemy in the world
  */
 public class BasicEnemy extends MovingEntity {
     // TODO = modify this, and add additional forms of enemy
+    private int health;
+    private int damage;
+    private String type;
     public BasicEnemy(PathPosition position) {
         super(position);
+    }
+
+    public BasicEnemy(PathPosition position, int health, int damage, String type) {
+        this(position);
+        this.health = health; 
+        this.damage = damage;
+        this.type = type;
     }
 
     /**
@@ -25,4 +38,28 @@ public class BasicEnemy extends MovingEntity {
             moveDownPath();
         }
     }
+
+    public int getHealth() {
+        return health;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
+    public int getDamage() {
+        return damage;
+    }
+
+    public void setDamage(int damage) {
+        this.damage = damage;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    // public void dealDamage(Character character) {
+    //     character.setDamage(character.getDamage() - this.damage);
+    // }
 }

@@ -33,63 +33,103 @@ public class Character extends MovingEntity {
         this.allies = 0;
         this.health = 100;
         this.damage = 5;
+        this.equippedArmour = false;
+        this.equippedHelmet = false;
+        this.equippedShield = false;
     }
 
-    // 
+    // Health
+
     public int getHealth() {
-        return health;
+        return this.health;
     }
 
     public void setHealth(int health) {
-    //this.health = this.health + health    
+        this.health = this.health + health;    
     }
 
+    // Damage
+
+    public int getDamage() {
+        return damage;
+    }
+
+    public void setDamage(int damage) {
+        this.damage = damage;
+    }
+
+    // Allies
+
     public void gainAlly() {
-        /*
-            this.allies = this.allies + 1;
-        */
+        this.allies = this.allies + 1;
     }
 
     public void loseAlly() {
-        /* 
-            this.allies = this.allies - 1;
-        */
+        this.allies = this.allies - 1;
     }
 
+    public int getAlly() {
+        return this.allies;
+    }
+
+    // Armour
+
     public void equipArmour() {
-        //this.equippedArmour = True;
+        this.equippedArmour = true;
     }
 
     public void unequipArmour(){
-        //this.equippedArmour = False;
+        this.equippedArmour = false;
     }
 
+    public boolean getArmourStatus(){
+        return this.equippedArmour;
+    }
+
+    // Helmet
+
     public void equipHelmet() {
-        //this.equippeHelmet = True;
+        this.equippedHelmet = true;
     }
 
     public void unequipHelmet(){
-        //this.equippedHelmet = False;
+        this.equippedHelmet = false;
     }
 
+    public boolean getHelmetStatus(){
+        return this.equippedHelmet;
+    }
+
+    // Shield
+
     public void equipShield() {
-        //this.equippedShield = True;
+        this.equippedShield = true;
     }
 
     public void unequipShield(){
-        //this.equippedShield = False;
+        this.equippedShield = false;
     }
 
-    public void setWeapon(Weapon weapon){
-        //this.equippedWeapon = weapon;
-        //this.damage += weapon.damage;
+    public boolean getShieldStatus(){
+        return this.equippedShield;
     }
+
+    //Weapons
+    /*
+    public void setWeapon(Weapon weapon){
+        this.equippedWeapon = weapon;
+    }
+   
 
     public void removeWeapon() {
-        //this.damage = this.damage - this.equippedWeapon.damage;
-        //this.equippedWeapon = NULL;
-        
+        this.equippedWeapon = NULL;
     }
+    */
+
+    public void dealDamage(BasicEnemy Enemy) {
+        Enemy.setHealth(Enemy.getHealth() - this.getDamage());
+    }
+    
 
 
     /*

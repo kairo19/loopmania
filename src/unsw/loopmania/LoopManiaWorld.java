@@ -348,4 +348,8 @@ public class LoopManiaWorld {
 
         return newBuilding;
     }
+
+    public List<Pair<Integer, Integer>> getOrderedPath() {
+        return orderedPath;
+    }
 }
