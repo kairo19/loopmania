@@ -20,12 +20,13 @@ public class Staff extends StaticEntity implements Weapon {
     };
     
     @Override
-    public void doSpecial(BasicEnemy basicEnemy) {
+    public void doSpecial(BasicEnemy basicEnemy, Character character) {
         Random r = new Random();
         int i = r.nextInt(100);
         if (i < 10) { 
             // convert enemy to ally
+            // character.gainAlly();
+            // basicEnemy.setTranced();
         }
-        // do nothing
     };
 }

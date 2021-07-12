@@ -18,7 +18,7 @@ public class Sword extends StaticEntity implements Weapon {
     }
 
     @Override
-    public void doSpecial(BasicEnemy basicEnemy) {
+    public void doSpecial(BasicEnemy basicEnemy, Character character) {
         // do nothing - sword not special :(
     }
 
