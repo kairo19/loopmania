@@ -7,6 +7,7 @@ import java.util.Random;
 import org.javatuples.Pair;
 
 import javafx.beans.property.SimpleIntegerProperty;
+import unsw.OccupiedBuildings;
 import unsw.loopmania.Buildings.VampireCastleBuilding;
 import unsw.loopmania.Cards.Card;
 import unsw.loopmania.Cards.VampireCastleCard;
@@ -59,6 +60,8 @@ public class LoopManiaWorld {
      */
     private List<Pair<Integer, Integer>> orderedPath;
 
+    private OccupiedBuildings occupied;
+
     /**
      * create the world (constructor)
      * 
@@ -76,6 +79,7 @@ public class LoopManiaWorld {
         unequippedInventoryItems = new ArrayList<>();
         this.orderedPath = orderedPath;
         buildingEntities = new ArrayList<>();
+        this.occupied = new OccupiedBuildings();
     }
 
     public int getWidth() {
