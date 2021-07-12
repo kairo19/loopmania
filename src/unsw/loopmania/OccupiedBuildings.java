@@ -1,4 +1,4 @@
-package unsw;
+package unsw.loopmania;
 import org.javatuples.Pair;
 import java.util.List;
 import javafx.beans.property.SimpleIntegerProperty;

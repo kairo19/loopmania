@@ -1,6 +1,6 @@
 package unsw.loopmania.Buildings;
 import javafx.beans.property.SimpleIntegerProperty;
-import unsw.OccupiedBuildings;
+import unsw.loopmania.OccupiedBuildings;
 import unsw.loopmania.PathPosition;
 import unsw.loopmania.StaticEntity;
 
