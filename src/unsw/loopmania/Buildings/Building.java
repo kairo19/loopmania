@@ -6,7 +6,7 @@ import unsw.loopmania.StaticEntity;
 
 public class Building extends StaticEntity {
     private int radius;
-    private PathPosition position;
+    //private PathPosition position;
     public Building(SimpleIntegerProperty x, SimpleIntegerProperty y) {
         super(x, y);
         this.radius = 0;
