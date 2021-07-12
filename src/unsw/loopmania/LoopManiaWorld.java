@@ -89,6 +89,9 @@ public class LoopManiaWorld {
     public int getHeight() {
         return height;
     }
+    public OccupiedBuildings getOccupied() {
+        return occupied;
+    }
 
 
     /**
@@ -358,4 +361,5 @@ public class LoopManiaWorld {
 
         return newBuilding;
     }
+
 }
