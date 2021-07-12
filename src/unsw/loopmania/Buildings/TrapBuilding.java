@@ -6,6 +6,6 @@ public class TrapBuilding extends Building {
     
     public TrapBuilding(SimpleIntegerProperty x, SimpleIntegerProperty y) {
         super(x, y);
-        this.setRadius();
+        this.setRadius(1);
     }
 }

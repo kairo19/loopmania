@@ -10,11 +10,10 @@ public class Building extends StaticEntity {
     public Building(SimpleIntegerProperty x, SimpleIntegerProperty y) {
         super(x, y);
         this.radius = 0;
-        this.position = 
     }   
     
     public boolean checkInRange(PathPosition position) {
-
+        return true;
     }
     public int getRadius() {
         return radius;
@@ -22,8 +21,8 @@ public class Building extends StaticEntity {
     public void setRadius(int radius) {
         this.radius = radius;
     }
-    public void checkPosition(OccupiedBuildings occupied) {
-        return occupied.CheckBuildingExists(x, y);
+    public boolean checkPosition(OccupiedBuildings occupied) {
+        return occupied.CheckBuildingExists(getX(), getY());
     }
 
 }
