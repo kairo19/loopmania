@@ -110,7 +110,7 @@ When killing an enemy, the hero received a specified amount of experience.
 - A staff can be purchased for **40** gold from the hero's castle.
 - A staff adds **2** additional damage to the character's attack.
 - A staff has a 10% chance of temporarily converting an enemy into an allied soldier, during combat.
-- Increases the character's attack damage significantly by 50% when combating vampires.
+
 
 #### DefensiveItemAssumptions:
 ##### ArmourAssumptions:
