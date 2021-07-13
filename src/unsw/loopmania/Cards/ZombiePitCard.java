@@ -1,7 +1,9 @@
 package unsw.loopmania.Cards;
 
+import java.util.List;
+
 import javafx.beans.property.SimpleIntegerProperty;
-import unsw.loopmania.PathPosition;
+import javafx.util.Pair;
 
 public class ZombiePitCard extends Card {
     public ZombiePitCard(SimpleIntegerProperty x, SimpleIntegerProperty y) {
@@ -9,8 +11,10 @@ public class ZombiePitCard extends Card {
     }   
     
     @Override
-    public boolean CheckPlacable(PathPosition position, int x, int y) {
-        // TODO Auto-generated method stub
-        return super.CheckPlacable(position, x, y);
+    public boolean CheckPathParam(List<Pair<Integer, Integer>> orderedPath) {
+        if (!CheckOnPath(orderedPath) && CheckAdjacentPath(orderedPath)) {
+            return true;
+        }
+        return false;
     }
 }

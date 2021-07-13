@@ -27,7 +27,7 @@ public abstract class Card extends StaticEntity {
     public boolean CheckAdjacentPath(List<Pair<Integer, Integer>> orderedPath) {
         return false;
     }
-    public boolean CheckPathParam() {
+    public boolean CheckPathParam(List<Pair<Integer, Integer>> orderedPath) {
         return true;
     }
 }

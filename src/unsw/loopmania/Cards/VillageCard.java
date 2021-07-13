@@ -1,15 +1,19 @@
 package unsw.loopmania.Cards;
 
+import java.util.List;
+
 import javafx.beans.property.SimpleIntegerProperty;
-import unsw.loopmania.PathPosition;
+import javafx.util.Pair;
 
 public class VillageCard extends Card {
     public VillageCard(SimpleIntegerProperty x, SimpleIntegerProperty y) {
         super(x, y);
     }   
     @Override
-    public boolean CheckPlacable(PathPosition position, int x, int y) {
-        // TODO Auto-generated method stub
-        return super.CheckPlacable(position, x, y);
+    public boolean CheckPathParam(List<Pair<Integer, Integer>> orderedPath) {
+        if (CheckOnPath(orderedPath)) {
+            return true;
+        }
+        return false;
     }
 }
