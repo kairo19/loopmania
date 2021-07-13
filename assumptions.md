@@ -121,6 +121,7 @@ When killing an enemy, the hero received a specified amount of experience.
 
 ##### HelmetAssumptions:
 - A helmet can be purchased for **20** gold from the hero's castle.
+- A helmet reduces enemy attack by **10**.
 - A helmet reduced the character's attack by **10**.
 
 #### ConsumableItemAssumptions:
