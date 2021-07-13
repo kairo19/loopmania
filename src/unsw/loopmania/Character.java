@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import unsw.loopmania.item.defensiveitem.Armour;
 import unsw.loopmania.item.defensiveitem.DefensiveItem;
+import unsw.loopmania.item.defensiveitem.Helmet;
+import unsw.loopmania.item.defensiveitem.Shield;
 import unsw.loopmania.item.weapon.Weapon;
 
 /**
@@ -72,54 +74,63 @@ public class Character extends MovingEntity {
     public void unequipArmour(){
         this.equippedArmour = null;
     }
-
-    public boolean getArmour(){
+    public DefensiveItem getArmour(){
         return this.equippedArmour;
     }
 
     // Helmet
 
-    public void equipHelmet() {
-        this.equippedHelmet = true;
+    public void equipHelmet(Helmet helmet) {
+        this.equippedHelmet = helmet;
     }
 
-    public void unequipHelmet(){
-        this.equippedHelmet = false;
+    public void unequipHelmet() {
+        this.equippedHelmet = null;
     }
 
-    public boolean getHelmetStatus(){
+    public DefensiveItem getHelmetStatus() {
         return this.equippedHelmet;
     }
 
     // Shield
 
-    public void equipShield() {
-        this.equippedShield = true;
+    public void equipShield(Shield shield) {
+        this.equippedShield = shield;
     }
 
     public void unequipShield(){
-        this.equippedShield = false;
+        this.equippedShield = null;
     }
 
-    public boolean getShieldStatus(){
+    public DefensiveItem getShieldStatus(){
         return this.equippedShield;
     }
 
-    //Weapons
-    /*
     public void setWeapon(Weapon weapon){
         this.equippedWeapon = weapon;
     }
+    public void removeWeapon() {
+        this.equippedWeapon = null;
+    }
+    // public void addWeaponDamage() {
+    //     equippedWeapon.damageBoost(this);
+    // }
+
+    // public void dealDamage(BasicEnemy Enemy) {
+    //     int damagedealt = damage;
+
+    //     damagedealt += equippedWeapon.damageboost(this);
+    //     weapon.doSpecial(enemy, this);
+    //     damagedealt -= helmet.damageReduction();
+    //     Enemy.setHealth(Enemy.getHealth() - this.getDamage());
+    // }
+
+    //Weapons
+    /*
    
 
-    public void removeWeapon() {
-        this.equippedWeapon = NULL;
-    }
     */
 
-    public void dealDamage(BasicEnemy Enemy) {
-        Enemy.setHealth(Enemy.getHealth() - this.getDamage());
-    }
     
 
 
