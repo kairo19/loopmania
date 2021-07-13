@@ -60,6 +60,15 @@ public class BasicEnemy extends MovingEntity {
     }
 
     // public void dealDamage(Character character) {
-    //     character.setDamage(character.getDamage() - this.damage);
+    //     int damageDealt = this.damage;
+    //     damageDealt *= character.getArmourReduction();
+    //     damageDealt -= character.getShieldReduction();
+    //     damageDealt -= character.getHelmetReduction();
+
+    //     if (this.type.equals("Vampire")) {
+    //         character.lowerCritChance();
+    //     }
+
+    //     character.setHealth(character.getHealth() - this.damage);
     // }
 }
