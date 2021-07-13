@@ -25,14 +25,5 @@ public abstract class Building extends StaticEntity {
     public void setRadius(int radius) {
         this.radius = radius;
     }
-    public boolean CheckPosition(OccupiedBuildings occupied) {
-        return occupied.CheckBuildingExists(getX(), getY());
-    }
-    public boolean CheckOnPath(List<Pair<Integer, Integer>> orderedPath) {
-        return false;
-    }
 
-    public boolean CheckAdjacentPath() {
-        return false;
-    }
 }
