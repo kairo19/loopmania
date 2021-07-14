@@ -12,7 +12,7 @@ import java.util.ArrayList;
  */
 
  
-public class Character extends MovingEntity {
+public class Character extends MovingEntity implements battlephase {
     // TODO = potentially implement relationships between this class and other classes
     private int health;
     private int damage;
@@ -121,17 +121,24 @@ public class Character extends MovingEntity {
     }
    
 
-    public void removeWeapon() {
+    public void removeWeapon(Weapon weapon) {
+        this.damage = this.damage - weapon.damageBoost;
         this.equippedWeapon = NULL;
+        
     }
     */
-
-    public void dealDamage(BasicEnemy Enemy) {
-        Enemy.setHealth(Enemy.getHealth() - this.getDamage());
-    }
     
+    @Override
+    public void HitDamage(Character character, BasicEnemy enemy) {
+        
+        enemy.setHealth(enemy.getHealth() - this.getDamage());
+        
+    }
 
-
+    @Override
+    public void buildingInteraction(Character character, BasicEnemy enemy, Building building){
+        
+    }
     /*
      //checkAttackDamage (check nearby boost, check equipped inventory)
     // returns int
