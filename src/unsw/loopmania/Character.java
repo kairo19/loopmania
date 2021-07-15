@@ -24,9 +24,9 @@ public class Character extends MovingEntity {
     private int damage;
     private int allies;                     // current placeholder
     private Weapon equippedWeapon;
-    private DefensiveItem equippedArmour;
-    private DefensiveItem equippedHelmet;
-    private DefensiveItem equippedShield;
+    private Armour equippedArmour;
+    private Helmet equippedHelmet;
+    private Shield equippedShield;
     
     /*
     private Armour equippedArmour;
@@ -74,7 +74,7 @@ public class Character extends MovingEntity {
     public void unequipArmour(){
         this.equippedArmour = null;
     }
-    public DefensiveItem getArmour(){
+    public Armour getArmour(){
         return this.equippedArmour;
     }
 
@@ -88,7 +88,7 @@ public class Character extends MovingEntity {
         this.equippedHelmet = null;
     }
 
-    public DefensiveItem getHelmetStatus() {
+    public Helmet getHelmet() {
         return this.equippedHelmet;
     }
 
@@ -102,7 +102,7 @@ public class Character extends MovingEntity {
         this.equippedShield = null;
     }
 
-    public DefensiveItem getShieldStatus(){
+    public Shield getShield(){
         return this.equippedShield;
     }
 
@@ -113,16 +113,28 @@ public class Character extends MovingEntity {
         this.equippedWeapon = null;
     }
 
-    public void addWeaponBaseDamage() {
-        equippedWeapon.damageBoost(this);
+    public double getArmourReduction() {
+        return equippedArmour.damageReduction();
+    }
+
+    public double getShieldReduction() {
+        return equippedShield.damageReduction();
+    }
+
+    public double getHelmetReduction() {
+        return equippedHelmet.damageReduction();
+    }
+
+    public int getHelmetDebuff() {
+        return equippedHelmet.debuff();
     }
 
     public void dealDamage(BasicEnemy enemy) {
         equippedWeapon.damageBoost(this);
         equippedWeapon.doSpecial(enemy, this);
         int damagedealt = damage;
-        damagedealt -= equippedHelmet.damageReduction(enemy);
-        // enemy.setHealth(enemy.getHealth() - this.getDamage());
+        damagedealt -= getHelmetDebuff();
+        enemy.setHealth(enemy.getHealth() - this.getDamage());
     }
 
 

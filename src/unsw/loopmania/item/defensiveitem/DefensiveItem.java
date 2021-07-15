@@ -1,7 +1,19 @@
 package unsw.loopmania.item.defensiveitem;
 
-import unsw.loopmania.BasicEnemy;
+import javafx.beans.property.SimpleIntegerProperty;
 
-public interface DefensiveItem {
-    public double damageReduction(BasicEnemy basicEnemy);
+import unsw.loopmania.BasicEnemy;
+import unsw.loopmania.StaticEntity;
+
+public abstract class DefensiveItem extends StaticEntity {
+    private double damageReduction;
+    public DefensiveItem(SimpleIntegerProperty x, SimpleIntegerProperty y, double damageReduction) {
+        super(x, y);
+        this.damageReduction = damageReduction;
+    }
+
+    public double damageReduction() {
+        return damageReduction;
+    }
+    
 }
