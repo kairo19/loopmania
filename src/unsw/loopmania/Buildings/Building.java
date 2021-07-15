@@ -17,6 +17,7 @@ public abstract class Building extends StaticEntity {
     }   
     
     public boolean checkInRange(PathPosition position) {
+        int distance = this.radius;
         return true;
     }
     public int getRadius() {

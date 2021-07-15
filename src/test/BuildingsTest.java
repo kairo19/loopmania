@@ -9,8 +9,10 @@ import org.junit.jupiter.api.Test;
 
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.util.Pair;
+import unsw.loopmania.BasicEnemy;
 import unsw.loopmania.LoopManiaWorld;
 import unsw.loopmania.Buildings.Building;
+import unsw.loopmania.Buildings.TowerBuilding;
 import unsw.loopmania.Buildings.VampireCastleBuilding;
 import unsw.loopmania.Buildings.VillageBuilding;
 import unsw.loopmania.Buildings.ZombiePitBuilding;
@@ -79,6 +81,27 @@ public class BuildingsTest {
         buildingEntities.add(newBuilding);
 
         Character character = new Character();
+        int new_health = character.getHealth() + 50;
+        newBuilding.RegainHealth(character);
+        assertEquals(new_health, character.gethealth());
+    }
+    
+    @Test
+    public void TowerBuildingTest(){
+        List<Pair<Integer, Integer>> orderedpath = new ArrayList<>();
+        List<Building> buildingEntities = new ArrayList<>();
+
+
+        orderedpath.add(new Pair<Integer, Integer>(1, 1));
+        orderedpath.add(new Pair<Integer, Integer>(1, 2));
+        orderedpath.add(new Pair<Integer, Integer>(2, 1));
+        orderedpath.add(new Pair<Integer, Integer>(2, 2));
+        
+        LoopManiaWorld d = new LoopManiaWorld(4, 4, orderedpath);
+        TowerBuilding newBuilding = new TowerBuilding(new SimpleIntegerProperty(1), new SimpleIntegerProperty(1));
+        buildingEntities.add(newBuilding);
+
+        BasicEnemy enemy = new BasicEnemy();
         int new_health = character.getHealth() + 50;
         newBuilding.RegainHealth(character);
         assertEquals(new_health, character.gethealth());
