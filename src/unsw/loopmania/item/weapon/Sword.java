@@ -2,6 +2,7 @@ package unsw.loopmania.item.weapon;
 
 import javafx.beans.property.SimpleIntegerProperty;
 import unsw.loopmania.BasicEnemy;
+import unsw.loopmania.Character;
 import unsw.loopmania.StaticEntity;
 
 /**
@@ -15,7 +16,7 @@ public class Sword extends StaticEntity implements Weapon {
 
     @Override
     public void damageBoost(Character character) {
-        // character.setDamage(character.getDamage() + damageBoost);
+        character.setDamage(character.getDamage() + damageBoost);
     }
 
     @Override

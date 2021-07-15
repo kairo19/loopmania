@@ -4,6 +4,7 @@ import java.lang.ProcessBuilder.Redirect.Type;
 
 import javafx.beans.property.SimpleIntegerProperty;
 import unsw.loopmania.BasicEnemy;
+import unsw.loopmania.Character;
 import unsw.loopmania.StaticEntity;
 
 /**
@@ -17,13 +18,13 @@ public class Stake extends StaticEntity implements Weapon {
 
     @Override
     public void damageBoost(Character character) {
-        // character.setDamage(character.getDamage() + damageBoost);
+        character.setDamage(character.getDamage() + damageBoost);
     }
 
     @Override
     public void doSpecial(BasicEnemy basicEnemy, Character character) {
-        // if (basicEnemy.getType().equals("Vampire")) {
-        //     character.setDamage(character.getDamage() * 1.5);
-        // }     
+        if (basicEnemy.getType().equals("Vampire")) {
+            character.setDamage((int) (character.getDamage() * 1.5));
+        }     
     }
 }

@@ -112,26 +112,18 @@ public class Character extends MovingEntity {
     public void removeWeapon() {
         this.equippedWeapon = null;
     }
-    // public void addWeaponDamage() {
-    //     equippedWeapon.damageBoost(this);
-    // }
 
-    // public void dealDamage(BasicEnemy Enemy) {
-    //     int damagedealt = damage;
+    public void addWeaponBaseDamage() {
+        equippedWeapon.damageBoost(this);
+    }
 
-    //     damagedealt += equippedWeapon.damageboost(this);
-    //     weapon.doSpecial(enemy, this);
-    //     damagedealt -= helmet.damageReduction();
-    //     Enemy.setHealth(Enemy.getHealth() - this.getDamage());
-    // }
-
-    //Weapons
-    /*
-   
-
-    */
-
-    
+    public void dealDamage(BasicEnemy enemy) {
+        equippedWeapon.damageBoost(this);
+        equippedWeapon.doSpecial(enemy, this);
+        int damagedealt = damage;
+        damagedealt -= equippedHelmet.damageReduction(enemy);
+        // enemy.setHealth(enemy.getHealth() - this.getDamage());
+    }
 
 
     /*
