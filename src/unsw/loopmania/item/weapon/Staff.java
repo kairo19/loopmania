@@ -11,14 +11,14 @@ import unsw.loopmania.StaticEntity;
  * represents an equipped or unequipped staff in the backend world
  */
 public class Staff extends StaticEntity implements Weapon {
-    private int damageBoost = 2;
+    private static final int DAMAGE_BOOST = 2;
     public Staff(SimpleIntegerProperty x, SimpleIntegerProperty y) {
         super(x, y);
     }    
 
     @Override
     public void damageBoost(Character character) {
-        character.setDamage(character.getDamage() + damageBoost);
+        character.setDamage(character.getDamage() + DAMAGE_BOOST);
     };
     
     @Override

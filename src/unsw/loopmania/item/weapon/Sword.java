@@ -9,14 +9,14 @@ import unsw.loopmania.StaticEntity;
  * represents an equipped or unequipped sword in the backend world
  */
 public class Sword extends StaticEntity implements Weapon {
-    private int damageBoost = 15;  
+    private static final int DAMAGE_BOOST = 15;  
     public Sword(SimpleIntegerProperty x, SimpleIntegerProperty y) {
         super(x, y);
     }
 
     @Override
     public void damageBoost(Character character) {
-        character.setDamage(character.getDamage() + damageBoost);
+        character.setDamage(character.getDamage() + DAMAGE_BOOST);
     }
 
     @Override
