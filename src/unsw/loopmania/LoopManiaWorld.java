@@ -12,6 +12,7 @@ import unsw.loopmania.Cards.Card;
 import unsw.loopmania.Cards.VampireCastleCard;
 import unsw.loopmania.item.weapon.Sword;
 
+
 /**
  * A backend world.
  *
@@ -137,7 +138,82 @@ public class LoopManiaWorld {
      */
     public List<BasicEnemy> runBattles() {
         // TODO = modify this - currently the character automatically wins all battles without any damage!
+        BasicEnemy firstEnemy;
+
+        // Stores all the defeated enemies
         List<BasicEnemy> defeatedEnemies = new ArrayList<BasicEnemy>();
+
+        /*
+        // Stores all the enemies within battle and support radius (no duplicates)
+        List<BasicEnemy> queuedEnemies = new ArrayList<BasicEnemy>();
+
+
+        // Loop through the enemy list for battle radius, then get the battling enemy
+        // Only need one enemy from the list to lessen its complications
+        for (BasicEnemy e: enemies) {
+            if (Math.pow((character.getX()-e.getX()), 2) +  Math.pow((character.getY()-e.getY()), 2) < Math.pow(e.getBattleRadius(), 2)) {
+                // queue battle enemies
+                queuedEnemies.add(e);
+                firstEnemy = e;
+                break;
+            }
+        }
+        
+        // Only vampires have support radius
+        // Find all the enemies for which character is within support radius
+        for (BasicEnemy e: enemies) {
+            if (Math.pow((character.getX()-e.getX()), 2) +  Math.pow((character.getY()-e.getY()), 2) < Math.pow(e.getSupportRadius(), 2)
+                && e != firstEnemy) {
+                // queue battle enemies
+                queuedEnemies.add(e);
+                break;
+            }
+        }
+
+
+        // time for the battle
+        for (BasicEnemy e: queuedEnemies) {
+
+            while (e.getHealth() > 0 && character.getHealth() > 0) {
+                // character attacks enemy first
+                character.dealDamage(e);
+
+                // check if enemy is alive, if not skip and remove from queue + kill
+                if (e.getHealth() <= 0) {
+                    killEnemy(e);
+                } else {
+                    // if enemy alive, then it deals damage to character
+                    e.dealDamage(character);
+
+                    // implement the buff here
+
+                }
+
+                // insert function to keep track of who dies and who lives
+                // if character dies, call something
+            }
+
+        }
+        
+
+        return queuedEnemies;
+        */
+
+        // drop items/weapons here if you want
+
+
+        /*
+            ! vs a, b, c, d, e
+
+            first battle: ! -> a
+
+            second battle: a + b + c + d + e -> !
+
+
+
+        */
+
+        
         for (BasicEnemy e: enemies){
             // Pythagoras: a^2+b^2 < radius^2 to see if within radius
             // TODO = you should implement different RHS on this inequality, based on influence radii and battle radii
@@ -146,6 +222,7 @@ public class LoopManiaWorld {
                 defeatedEnemies.add(e);
             }
         }
+
         for (BasicEnemy e: defeatedEnemies){
             // IMPORTANT = we kill enemies here, because killEnemy removes the enemy from the enemies list
             // if we killEnemy in prior loop, we get java.util.ConcurrentModificationException
@@ -153,7 +230,9 @@ public class LoopManiaWorld {
             killEnemy(e);
         }
         return defeatedEnemies;
+        
     }
+
 
     /**
      * spawn a card in the world and return the card entity
