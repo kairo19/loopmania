@@ -100,10 +100,10 @@ public class CharacterTest {
         d.setCharacter(character);
         
         character.equipShield(equippedShield);
-        assertEquals(character.getShieldStatus(), equippedShield);
+        assertEquals(character.getShield(), equippedShield);
 
         character.unequipShield();
-        assertEquals(character.getShieldStatus(), null);
+        assertEquals(character.getShield(), null);
     }
 
 

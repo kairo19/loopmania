@@ -137,6 +137,10 @@ public class Character extends MovingEntity {
         enemy.setHealth(enemy.getHealth() - this.getDamage());
     }
 
+    public PathPosition getPosition() {
+        return position;
+    }
+
 
     /*
      //checkAttackDamage (check nearby boost, check equipped inventory)
