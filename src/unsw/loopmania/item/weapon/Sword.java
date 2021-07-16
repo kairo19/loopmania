@@ -23,4 +23,10 @@ public class Sword extends StaticEntity implements Weapon {
     public void doSpecial(BasicEnemy basicEnemy, Character character) {
         // do nothing - sword not special :(
     }
+
+    @Override
+    public String toString() {
+        // TODO Auto-generated method stub
+        return "Sword";
+    }
 }

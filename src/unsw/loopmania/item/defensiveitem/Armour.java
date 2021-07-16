@@ -11,4 +11,10 @@ public class Armour extends DefensiveItem {
         super(x, y, damageReduction);
     }    
 
+    @Override
+    public String toString() {
+        // TODO Auto-generated method stub
+        return "Armour";
+    }
+
 }

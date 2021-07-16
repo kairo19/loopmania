@@ -17,4 +17,10 @@ public class Helmet extends DefensiveItem implements Blinder {
         return debuffValue;
     }
 
+    @Override
+    public String toString() {
+        // TODO Auto-generated method stub
+        return "Helmet";
+    }
+
 }

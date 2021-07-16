@@ -27,4 +27,9 @@ public class Stake extends StaticEntity implements Weapon {
             character.setDamage((int) (character.getDamage() * 1.5));
         }     
     }
+    @Override
+    public String toString() {
+        // TODO Auto-generated method stub
+        return "Stake";
+    }
 }

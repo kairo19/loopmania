@@ -12,4 +12,10 @@ public class Shield extends DefensiveItem {
     }
     
     // lowerCriticalDamage method here
+
+    @Override
+    public String toString() {
+        // TODO Auto-generated method stub
+        return "Shield";
+    }
 }

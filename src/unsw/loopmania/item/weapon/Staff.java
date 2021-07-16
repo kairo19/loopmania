@@ -31,4 +31,10 @@ public class Staff extends StaticEntity implements Weapon {
             // basicEnemy.setTranced();
         }
     };
+
+    @Override
+    public String toString() {
+        // TODO Auto-generated method stub
+        return "Staff";
+    }
 }

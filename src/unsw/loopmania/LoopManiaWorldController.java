@@ -32,6 +32,7 @@ import unsw.loopmania.Buildings.VampireCastleBuilding;
 import unsw.loopmania.Cards.VampireCastleCard;
 import unsw.loopmania.item.weapon.Sword;
 
+
 import java.util.EnumMap;
 
 import java.io.File;
@@ -121,6 +122,12 @@ public class LoopManiaWorldController {
     private Image vampireCastleCardImage;
     private Image basicEnemyImage;
     private Image swordImage;
+    private Image staffImage;
+    private Image stakeImage;
+    private Image armourImage;
+    private Image shieldImage;
+    private Image helmetImage;
+
     private Image basicBuildingImage;
 
     /**
@@ -171,6 +178,11 @@ public class LoopManiaWorldController {
         vampireCastleCardImage = new Image((new File("src/images/vampire_castle_card.png")).toURI().toString());
         basicEnemyImage = new Image((new File("src/images/slug.png")).toURI().toString());
         swordImage = new Image((new File("src/images/basic_sword.png")).toURI().toString());
+        staffImage = new Image((new File("src/images/staff.png")).toURI().toString());
+        stakeImage = new Image((new File("src/images/stake.png")).toURI().toString());
+        armourImage = new Image((new File("src/images/armour.png")).toURI().toString());
+        shieldImage = new Image((new File("src/images/shield.png")).toURI().toString());
+        helmetImage = new Image((new File("src/images/helmet.png")).toURI().toString());
         basicBuildingImage = new Image((new File("src/images/vampire_castle_building_purple_background.png")).toURI().toString());
         currentlyDraggedImage = null;
         currentlyDraggedType = null;
@@ -288,11 +300,12 @@ public class LoopManiaWorldController {
     /**
      * load a sword from the world, and pair it with an image in the GUI
      */
-    private void loadSword(){
+    private void loadItem(){
         // TODO = load more types of weapon
         // start by getting first available coordinates
-        Sword sword = world.addUnequippedSword();
-        onLoad(sword);
+        StaticEntity item = world.addUnequippedItem();
+        onLoad(item);
+        
     }
 
     /**
@@ -303,7 +316,7 @@ public class LoopManiaWorldController {
         // react to character defeating an enemy
         // in starter code, spawning extra card/weapon...
         // TODO = provide different benefits to defeating the enemy based on the type of enemy
-        loadSword();
+        loadItem();
         loadVampireCard();
     }
 
@@ -330,11 +343,35 @@ public class LoopManiaWorldController {
      * and load the image into the unequippedInventory GridPane.
      * @param sword
      */
-    private void onLoad(Sword sword) {
-        ImageView view = new ImageView(swordImage);
+    private void onLoad(StaticEntity item) {
+        ImageView view = new ImageView(Image(item));
         addDragEventHandlers(view, DRAGGABLE_TYPE.ITEM, unequippedInventory, equippedItems);
-        addEntity(sword, view);
+        addEntity(item, view);
         unequippedInventory.getChildren().add(view);
+    }
+
+    private Image Image(StaticEntity item) {
+        switch(item.toString()) {
+            case "Sword":
+                return swordImage;
+                
+            case "Staff":
+                return staffImage;
+            
+            case "Stake":
+                return stakeImage;
+
+            case "Armour":
+                return armourImage;
+            
+            case "Shield":
+                return shieldImage;
+            
+            case "Helmet":
+                return helmetImage;
+
+        }
+        return null;
     }
 
     /**
@@ -717,5 +754,6 @@ public class LoopManiaWorldController {
         System.out.println("current method = "+currentMethodLabel);
         System.out.println("In application thread? = "+Platform.isFxApplicationThread());
         System.out.println("Current system time = "+java.time.LocalDateTime.now().toString().replace('T', ' '));
+        
     }
 }
