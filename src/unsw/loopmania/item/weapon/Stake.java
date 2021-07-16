@@ -11,14 +11,14 @@ import unsw.loopmania.StaticEntity;
  * represents an equipped or unequipped stake in the backend world
  */
 public class Stake extends StaticEntity implements Weapon {
-    private int damageBoost = 5;
+    private static final int DAMAGE_BOOST = 5;
     public Stake(SimpleIntegerProperty x, SimpleIntegerProperty y) {
         super(x, y);
     }
 
     @Override
     public void damageBoost(Character character) {
-        character.setDamage(character.getDamage() + damageBoost);
+        character.setDamage(character.getDamage() + DAMAGE_BOOST);
     }
 
     @Override

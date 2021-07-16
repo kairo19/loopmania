@@ -6,9 +6,9 @@ import unsw.loopmania.BasicEnemy;
 import unsw.loopmania.StaticEntity;
 
 public class Armour extends DefensiveItem {
-    private static final double damageReduction = 0.5;
+    private static final double DAMAGE_REDUCTION = 0.5;
     public Armour(SimpleIntegerProperty x, SimpleIntegerProperty y) {
-        super(x, y, damageReduction);
+        super(x, y, DAMAGE_REDUCTION);
     }    
 
 }
