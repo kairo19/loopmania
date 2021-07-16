@@ -37,26 +37,8 @@ public class testCharacter {
     private Character character;
     private LoopManiaWorldControllerLoader controller;
 
-
     @Test
-    public void blahTest2() {
-        List<Pair<Integer, Integer>> orderedpath  = new ArrayList<>();
-        orderedpath.add(new Pair<Integer, Integer>(1, 1));
-        LoopManiaWorld d = new LoopManiaWorld(1, 2, orderedpath);
-        Character c = new Character(new PathPosition(0, orderedpath));
-        d.setCharacter(c);
-        assertEquals(c.getHealth(), 100);
-        
-        //LoopManiaWorldControllerLoader loopManiaLoader = new LoopManiaWorldControllerLoader("world_with_twists_and_turns.json");
-        //LoopManiaWorld d = controller.load();
-        //d.setCharacter(character);
-        //character = new Character(new PathPosition(0, d.getOrderedPath()));
-        //character.getHealth();
-        //assertEquals(d.getWidth(), 1);
-    }
-
-    @Test
-    public void Test1(){
+    public void TestHealth(){
         
         List<Pair<Integer, Integer>> orderedpath  = new ArrayList<>();
         orderedpath.add(new Pair<Integer, Integer>(1, 1));
@@ -77,11 +59,29 @@ public class testCharacter {
         character.setHealth(-120);
         assertEquals(character.getHealth(), 100);
 
+    }
+
+
+    public void TestAlly(){
+            
+        List<Pair<Integer, Integer>> orderedpath  = new ArrayList<>();
+        orderedpath.add(new Pair<Integer, Integer>(1, 1));
+        LoopManiaWorld d = new LoopManiaWorld(1, 2, orderedpath);
+        Character character = new Character(new PathPosition(0, orderedpath));
+
         // Check character ally
         for (int i = 0; i < 2; i++) {
             character.gainAlly();
             assertEquals(character.getAlly(), i + 1);
         }
+    }
+
+    public void TestArmour(){
+            
+        List<Pair<Integer, Integer>> orderedpath  = new ArrayList<>();
+        orderedpath.add(new Pair<Integer, Integer>(1, 1));
+        LoopManiaWorld d = new LoopManiaWorld(1, 2, orderedpath);
+        Character character = new Character(new PathPosition(0, orderedpath));
 
         // Check character armour
         character.equipArmour();
@@ -89,8 +89,14 @@ public class testCharacter {
 
         character.unequipArmour();
         assertEquals(character.getArmourStatus(), false);
+    }
 
-
+    public void TestHelmet(){
+            
+        List<Pair<Integer, Integer>> orderedpath  = new ArrayList<>();
+        orderedpath.add(new Pair<Integer, Integer>(1, 1));
+        LoopManiaWorld d = new LoopManiaWorld(1, 2, orderedpath);
+        Character character = new Character(new PathPosition(0, orderedpath));
 
         // Check character helmet
         character.equipHelmet();
@@ -98,8 +104,14 @@ public class testCharacter {
 
         character.unequipHelmet();
         assertEquals(character.getHelmetStatus(), false);
+    }
 
-
+    public void TestShield(){
+            
+        List<Pair<Integer, Integer>> orderedpath  = new ArrayList<>();
+        orderedpath.add(new Pair<Integer, Integer>(1, 1));
+        LoopManiaWorld d = new LoopManiaWorld(1, 2, orderedpath);
+        Character character = new Character(new PathPosition(0, orderedpath));
 
         // Check character shield
         character.equipShield();
@@ -107,9 +119,6 @@ public class testCharacter {
 
         character.unequipShield();
         assertEquals(character.getShieldStatus(), false);
-
-
     }
+
 }
-
-
