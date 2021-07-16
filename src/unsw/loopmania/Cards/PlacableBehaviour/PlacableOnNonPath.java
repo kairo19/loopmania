@@ -1,4 +1,4 @@
-package unsw.loopmania.Cards;
+package unsw.loopmania.Cards.PlacableBehaviour;
 
 public class PlacableOnNonPath implements PlacableBehaviour{
 

@@ -30,6 +30,7 @@ import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
 import unsw.loopmania.Buildings.VampireCastleBuilding;
 import unsw.loopmania.Cards.VampireCastleCard;
+import unsw.loopmania.Enemies.BasicEnemy;
 import unsw.loopmania.item.weapon.Sword;
 
 import java.util.EnumMap;
@@ -119,7 +120,13 @@ public class LoopManiaWorldController {
     private Timeline timeline;
 
     private Image vampireCastleCardImage;
-    private Image basicEnemyImage;
+    //private Image basicEnemyImage;
+
+    private Image slugImage;
+    private Image zombieImage;
+    //private Image vampireImage;
+    
+
     private Image swordImage;
     private Image basicBuildingImage;
 
@@ -169,7 +176,14 @@ public class LoopManiaWorldController {
         this.world = world;
         entityImages = new ArrayList<>(initialEntities);
         vampireCastleCardImage = new Image((new File("src/images/vampire_castle_card.png")).toURI().toString());
-        basicEnemyImage = new Image((new File("src/images/slug.png")).toURI().toString());
+        //basicEnemyImage = new Image((new File("src/images/slug.png")).toURI().toString());
+
+        slugImage = new Image((new File("src/images/slug.png")).toURI().toString());
+        zombieImage = new Image((new File("src/images/zombie.png")).toURI().toString());
+
+        
+
+
         swordImage = new Image((new File("src/images/basic_sword.png")).toURI().toString());
         basicBuildingImage = new Image((new File("src/images/vampire_castle_building_purple_background.png")).toURI().toString());
         currentlyDraggedImage = null;
@@ -237,28 +251,15 @@ public class LoopManiaWorldController {
         // trigger adding code to process main game logic to queue. JavaFX will target framerate of 0.3 seconds
         timeline = new Timeline(new KeyFrame(Duration.seconds(0.3), event -> {
             world.runTickMoves();
-
-            // check if near village, then heal
-
-
-            // Search for enemies and attack
             List<BasicEnemy> defeatedEnemies = world.runBattles();
-            // Displaying/reacting to enemy defeat
             for (BasicEnemy e: defeatedEnemies){
                 reactToEnemyDefeat(e);
             }
-
-            // have something to display death if needed
-
-
-            // Spawning enemies here
             List<BasicEnemy> newEnemies = world.possiblySpawnEnemies();
             for (BasicEnemy newEnemy: newEnemies){
                 onLoad(newEnemy);
             }
             printThreadingNotes("HANDLED TIMER");
-
-
         }));
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
@@ -355,9 +356,21 @@ public class LoopManiaWorldController {
      * @param enemy
      */
     private void onLoad(BasicEnemy enemy) {
-        ImageView view = new ImageView(basicEnemyImage);
+        ImageView view = new ImageView(getEnemyImage(enemy));
         addEntity(enemy, view);
         squares.getChildren().add(view);
+    }
+
+    private Image getEnemyImage(BasicEnemy enemy) {
+        String name = enemy.getType();
+
+        switch(name){
+            case "Slug":
+                return slugImage;
+            case "Zombie":
+                return zombieImage;
+        }
+        return null;
     }
 
     /**

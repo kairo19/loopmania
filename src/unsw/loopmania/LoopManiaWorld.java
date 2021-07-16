@@ -11,6 +11,9 @@ import unsw.loopmania.Buildings.Building;
 import unsw.loopmania.Buildings.VampireCastleBuilding;
 import unsw.loopmania.Cards.Card;
 import unsw.loopmania.Cards.VampireCastleCard;
+import unsw.loopmania.Enemies.BasicEnemy;
+import unsw.loopmania.Enemies.Slug;
+import unsw.loopmania.Enemies.Zombie;
 import unsw.loopmania.item.weapon.Sword;
 import unsw.loopmania.item.weapon.Weapon;
 
@@ -122,31 +125,36 @@ public class LoopManiaWorld {
         List<BasicEnemy> spawningEnemies = new ArrayList<>();
         if (pos != null){
             int indexInPath = orderedPath.indexOf(pos);
-            BasicEnemy enemy = new BasicEnemy(new PathPosition(indexInPath, orderedPath));
+            //BasicEnemy enemy = new BasicEnemy(new PathPosition(indexInPath, orderedPath));
 
-            /*
+            
             Random r = new Random();
-            int num = r.nextInt(1);
+            int num = r.nextInt(2);
 
-            switch() {
+            // TODO: SUSS OUT ON THE SPAWNING LOCATION!!!!!!
+            
+            switch(num) {
                 // Slugs spawning
                 case 0:
-                SlugEnemy slug = new BasicEnemy(new PathPosition(indexInPath, orderedPath));
-                enemies.add(slug);
+                    Slug slug = new Slug(new PathPosition(indexInPath, orderedPath));
+                    enemies.add(slug);
+                    spawningEnemies.add(slug);
+                    return spawningEnemies;
 
                 // Zombies spawning
                 case 1:
-                VampireEnemy vampire = new VampireEnemy(new PathPosition(indexInPath, orderedPath))
-                enemies.add(vampire);
+                    Zombie zombie = new Zombie(new PathPosition(indexInPath, orderedPath));
+                    enemies.add(zombie);
+                    spawningEnemies.add(zombie);
+                    return spawningEnemies;
 
             }
 
-            */
-
-            enemies.add(enemy);
-            spawningEnemies.add(enemy);
+            //enemies.add(enemy);
+            //spawningEnemies.add(enemy);
         }
         return spawningEnemies;
+        
     }
 
     /**

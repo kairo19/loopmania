@@ -1,9 +1,9 @@
 package unsw.loopmania.item.weapon;
 
 import javafx.beans.property.SimpleIntegerProperty;
-import unsw.loopmania.BasicEnemy;
 import unsw.loopmania.Character;
 import unsw.loopmania.StaticEntity;
+import unsw.loopmania.Enemies.BasicEnemy;
 
 /**
  * represents an equipped or unequipped sword in the backend world
