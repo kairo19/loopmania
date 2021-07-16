@@ -9,7 +9,7 @@ Game is won when:
 ### CharacterAssumptions:
 - Character starts with **100** health points.
 - Character start with **0** gold and experience points.
-- Character starts with a default attack value of **X**.
+- Character starts with a default attack value of **5**.
 - Character can hold at most **1 weapon, 1 armour, 1 shield and 1 helmet.**
 - Character can hold at most **16** items in inventory.
 - Character can have at most **10** allies at a time.

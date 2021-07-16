@@ -5,16 +5,16 @@ import javafx.beans.property.SimpleIntegerProperty;
 import unsw.loopmania.BasicEnemy;
 import unsw.loopmania.StaticEntity;
 
-public class Helmet extends StaticEntity implements DefensiveItem {
-    private double damageReduction = 10.0;
+public class Helmet extends DefensiveItem implements Blinder {
+    private static final double damageReduction = 10.0;
+    private static final int debuffValue = 10;
     public Helmet(SimpleIntegerProperty x, SimpleIntegerProperty y) {
-        super(x, y);
+        super(x, y, damageReduction);
     }
 
     @Override
-    public double damageReduction(BasicEnemy basicEnemy) {
-        return damageReduction;
+    public int debuff() {
+        return debuffValue;
     }
 
-    // damage reduction of character method here
 }
