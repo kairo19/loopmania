@@ -17,7 +17,7 @@
             <Image url="@../../images/86460032_732772417128623_2378339892506656768_n.png" />
          </image>
       </ImageView>
-      <Label text="Main Menu" />
+      <Label contentDisplay="BOTTOM" text="Gilbert Hu's Dangerous Dungeon" textFill="#01defc" />
       <!-- clicking button should start/resume the game -->
       <Button fx:id="startGameButton" onAction="#switchToGame" text="Start Game" />
    </children>

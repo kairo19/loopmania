@@ -13,6 +13,7 @@ import unsw.loopmania.Cards.Card;
 import unsw.loopmania.Cards.VampireCastleCard;
 import unsw.loopmania.Enemies.BasicEnemy;
 import unsw.loopmania.Enemies.Slug;
+import unsw.loopmania.Enemies.Vampire;
 import unsw.loopmania.Enemies.Zombie;
 import unsw.loopmania.item.weapon.Sword;
 import unsw.loopmania.item.weapon.Weapon;
@@ -128,7 +129,7 @@ public class LoopManiaWorld {
             //BasicEnemy enemy = new BasicEnemy(new PathPosition(indexInPath, orderedPath));
 
             Random r = new Random();
-            int num = r.nextInt(2);
+            int num = r.nextInt(3);
 
             // TODO: SUSS OUT ON THE SPAWNING LOCATION!!!!!!
 
@@ -145,6 +146,12 @@ public class LoopManiaWorld {
                     Zombie zombie = new Zombie(new PathPosition(indexInPath, orderedPath));
                     enemies.add(zombie);
                     spawningEnemies.add(zombie);
+                    return spawningEnemies;
+                
+                case 2:
+                    Vampire vampire = new Vampire(new PathPosition(indexInPath, orderedPath));
+                    enemies.add(vampire);
+                    spawningEnemies.add(vampire);
                     return spawningEnemies;
 
             }
@@ -228,10 +235,12 @@ public class LoopManiaWorld {
         // Finding character buffs available in the characters radius for battle
         for (Building b: buildingEntities) {
             if (b.toString() == "Tower") {
+                // also implement to check if in radius
                 extraDamage += b.getDamage();
             } else if (b.toString() == "Campfire") {
                 // current implementation is to double the base damage
                 // can do total damage otherwise.
+                // also implement to check if in radius
                 extraDamage += character.getDamage();
             }
         }
