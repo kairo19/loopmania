@@ -91,7 +91,7 @@ public class LoopManiaWorld {
         this.goal = null;
         this.gameOver = false;
     }
-
+    
     public int getWidth() {
         return width;
     }

@@ -10,9 +10,9 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import javafx.beans.property.SimpleIntegerProperty;
-import unsw.loopmania.goal.AndGoal;
 import unsw.loopmania.goal.GoalExperience;
 import unsw.loopmania.goal.GoalGold;
+import unsw.loopmania.goal.GoalNode;
 import unsw.loopmania.goal.GoalRound;
 
 import java.util.List;
@@ -153,9 +153,9 @@ public abstract class LoopManiaWorldLoader {
     }
 
     // currently does take quantity in json object AND does not take into consideration AND or OR goals
-    private Goal loadGoal(JSONObject goalJson, LoopManiaWorld world) {
-        String goalType = json.getString("goal");
-        Goal goal = new GoalExperience(world);      // current placeholder 
+    private GoalNode loadGoal(JSONObject goalJson, LoopManiaWorld world) {
+        String goalType = goalJson.getString("goal");
+        GoalNode goal = new GoalExperience(world);      // current placeholder 
         switch (goalType) {
             case "gold":
                 goal = new GoalGold(world);
