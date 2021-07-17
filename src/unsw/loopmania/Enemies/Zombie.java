@@ -25,6 +25,7 @@ public class Zombie extends BasicEnemy implements CriticalStriker {
         if (chance < 10) {
             character.loseAlly();
             // spawn new zombie
+            
         }
     }
 }

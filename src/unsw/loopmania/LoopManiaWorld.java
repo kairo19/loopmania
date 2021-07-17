@@ -127,7 +127,6 @@ public class LoopManiaWorld {
             int indexInPath = orderedPath.indexOf(pos);
             //BasicEnemy enemy = new BasicEnemy(new PathPosition(indexInPath, orderedPath));
 
-            
             Random r = new Random();
             int num = r.nextInt(2);
 
@@ -154,6 +153,10 @@ public class LoopManiaWorld {
             //spawningEnemies.add(enemy);
         }
         return spawningEnemies;
+    }
+
+    // function to spawn a zombie if ally was bit by zombie
+    private void spawnZombieCrit(Zombie zombie) {
         
     }
 
@@ -234,6 +237,7 @@ public class LoopManiaWorld {
         }
         */
 
+        character.gainAlly();
         
         // time for the battle
         for (BasicEnemy e: queuedEnemies) {
@@ -249,19 +253,20 @@ public class LoopManiaWorld {
 
                 // check if enemy is alive, if not skip and remove from queue + kill
                 if (e.getHealth() <= 0) {
-                    
                     //gold += e.getGold();
                     //xp += e.getXP();
-                    
-                    killEnemy(e);
+
+                    try {
+                        killEnemy(e);
+                    } catch (Exception p) {
+
+                    }
                     
                 } else {
                     // if enemy alive, then it deals damage to character
-                    
                     e.dealDamage(character);
+                    // somewhere here that we will spawn the enemy out of ally soldiers
                     
-                    
-
                 }
             }
             
@@ -293,21 +298,10 @@ public class LoopManiaWorld {
         return defeatedEnemies;
         */
 
-
-        /*
-            Notes for Giobert the hostage:
-            - Fully implement the doDamage within characters
-            - Fully implement the doDamage within BasicEnemies
-
-            Wait till me to come back to do:
-            - Run Battles + Support 
-
-        */
-
         /*
             finish: 
-            zombie.docrit()
-            vampire docrit()
+            zombie.docrit() --> do later, it is way too complicated
+            vampire docrit() -> do later, too complicated
             implement staff dospecial
             make backend for equipping items
             
@@ -315,10 +309,7 @@ public class LoopManiaWorld {
             building damage
             connect front end with equipping items
 
-        */
-        
-        
-        
+        */ 
     }
 
 
