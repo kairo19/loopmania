@@ -7,9 +7,22 @@ import java.util.Random;
 import org.javatuples.Pair;
 
 import javafx.beans.property.SimpleIntegerProperty;
+import unsw.loopmania.Buildings.BarracksBuilding;
+import unsw.loopmania.Buildings.Building;
+import unsw.loopmania.Buildings.CampfireBuilding;
+import unsw.loopmania.Buildings.TowerBuilding;
+import unsw.loopmania.Buildings.TrapBuilding;
 import unsw.loopmania.Buildings.VampireCastleBuilding;
+import unsw.loopmania.Buildings.VillageBuilding;
+import unsw.loopmania.Buildings.ZombiePitBuilding;
+import unsw.loopmania.Cards.BarracksCard;
+import unsw.loopmania.Cards.CampfireCard;
 import unsw.loopmania.Cards.Card;
+import unsw.loopmania.Cards.TowerCard;
+import unsw.loopmania.Cards.TrapCard;
 import unsw.loopmania.Cards.VampireCastleCard;
+import unsw.loopmania.Cards.VillageCard;
+import unsw.loopmania.Cards.ZombiePitCard;
 import unsw.loopmania.item.weapon.Sword;
 
 /**
@@ -53,7 +66,7 @@ public class LoopManiaWorld {
     private List<Entity> unequippedInventoryItems;
 
     // TODO = expand the range of buildings
-    private List<VampireCastleBuilding> buildingEntities;
+    private List<Building> buildingEntities;
 
     /**
      * list of x,y coordinate pairs in the order by which moving entities traverse them
@@ -159,15 +172,46 @@ public class LoopManiaWorld {
      * spawn a card in the world and return the card entity
      * @return a card to be spawned in the controller as a JavaFX node
      */
-    public VampireCastleCard loadVampireCard(){
+    public Card loadCard(){
         // if adding more cards than have, remove the first card...
         if (cardEntities.size() >= getWidth()){
             // TODO = give some cash/experience/item rewards for the discarding of the oldest card
             removeCard(0);
         }
-        VampireCastleCard vampireCastleCard = new VampireCastleCard(new SimpleIntegerProperty(cardEntities.size()), new SimpleIntegerProperty(0));
-        cardEntities.add(vampireCastleCard);
-        return vampireCastleCard;
+        Random r = new Random();
+        int random = r.nextInt(7);
+        
+        switch(random) {
+            case 0:
+                VampireCastleCard vampireCastleCard = new VampireCastleCard(new SimpleIntegerProperty(cardEntities.size()), new SimpleIntegerProperty(0));
+                cardEntities.add(vampireCastleCard);
+                return vampireCastleCard;
+            case 1:
+                ZombiePitCard zombiePitCard = new ZombiePitCard(new SimpleIntegerProperty(cardEntities.size()), new SimpleIntegerProperty(0));
+                cardEntities.add(zombiePitCard);
+                return zombiePitCard;
+            case 2:
+                TowerCard towerCard = new TowerCard(new SimpleIntegerProperty(cardEntities.size()), new SimpleIntegerProperty(0));
+                cardEntities.add(towerCard);
+                return towerCard;
+            case 3:
+                VillageCard villageCard = new VillageCard(new SimpleIntegerProperty(cardEntities.size()), new SimpleIntegerProperty(0));
+                cardEntities.add(villageCard);
+                return villageCard;
+            case 4:
+                BarracksCard BarracksCard = new BarracksCard(new SimpleIntegerProperty(cardEntities.size()), new SimpleIntegerProperty(0));
+                cardEntities.add(BarracksCard);
+                return BarracksCard;
+            case 5:
+                TrapCard trapCard = new TrapCard(new SimpleIntegerProperty(cardEntities.size()), new SimpleIntegerProperty(0));
+                cardEntities.add(trapCard);
+                return trapCard;
+            case 6:
+                CampfireCard campfireCard = new CampfireCard(new SimpleIntegerProperty(cardEntities.size()), new SimpleIntegerProperty(0));
+                cardEntities.add(campfireCard);
+                return campfireCard;
+        }
+        return null;
     }
 
     /**
@@ -331,7 +375,7 @@ public class LoopManiaWorld {
      * @param buildingNodeX x index from 0 to width-1 of building to be added
      * @param buildingNodeY y index from 0 to height-1 of building to be added
      */
-    public VampireCastleBuilding convertCardToBuildingByCoordinates(int cardNodeX, int cardNodeY, int buildingNodeX, int buildingNodeY) {
+    public Building convertCardToBuildingByCoordinates(int cardNodeX, int cardNodeY, int buildingNodeX, int buildingNodeY) {
         // start by getting card
         Card card = null;
         for (Card c: cardEntities){
@@ -340,16 +384,57 @@ public class LoopManiaWorld {
                 break;
             }
         }
-        
+        switch (card.toString()) {
+            case "VampireCastleCard":
+                VampireCastleBuilding vampireCastle = new VampireCastleBuilding(new SimpleIntegerProperty(buildingNodeX), new SimpleIntegerProperty(buildingNodeY));
+                buildingEntities.add(vampireCastle);
+                DestroyCard(card, cardNodeX);
+                return vampireCastle;
+
+            case "ZombiePitCard":
+                ZombiePitBuilding zombiePit = new ZombiePitBuilding(new SimpleIntegerProperty(buildingNodeX), new SimpleIntegerProperty(buildingNodeY));
+                buildingEntities.add(zombiePit);
+                DestroyCard(card, cardNodeX);
+                return zombiePit;
+            case "TowerCard":
+                TowerBuilding tower = new TowerBuilding(new SimpleIntegerProperty(buildingNodeX), new SimpleIntegerProperty(buildingNodeY));
+                buildingEntities.add(tower);
+                DestroyCard(card, cardNodeX);
+                return tower;
+            case "VillageCard":
+                VillageBuilding village = new VillageBuilding(new SimpleIntegerProperty(buildingNodeX), new SimpleIntegerProperty(buildingNodeY));
+                buildingEntities.add(village);
+                DestroyCard(card, cardNodeX);
+                return village;
+            case "BarracksCard":
+                BarracksBuilding barracks = new BarracksBuilding(new SimpleIntegerProperty(buildingNodeX), new SimpleIntegerProperty(buildingNodeY));
+                buildingEntities.add(barracks);
+                DestroyCard(card, cardNodeX);
+                return barracks;
+            case "TrapCard":
+                TrapBuilding trap = new TrapBuilding(new SimpleIntegerProperty(buildingNodeX), new SimpleIntegerProperty(buildingNodeY));
+                buildingEntities.add(trap);
+                DestroyCard(card, cardNodeX);
+                return trap;
+            case "CampfireCard":
+                CampfireBuilding campfire = new CampfireBuilding(new SimpleIntegerProperty(buildingNodeX), new SimpleIntegerProperty(buildingNodeY));
+                buildingEntities.add(campfire);
+                DestroyCard(card, cardNodeX);
+                return campfire;
+        }
         // now spawn building
-        VampireCastleBuilding newBuilding = new VampireCastleBuilding(new SimpleIntegerProperty(buildingNodeX), new SimpleIntegerProperty(buildingNodeY));
-        buildingEntities.add(newBuilding);
+        System.out.println("PLS BRO ");
+        return null;
 
         // destroy the card
+        
+
+        
+    }
+
+    public void DestroyCard(Card card, int cardNodeX) {
         card.destroy();
         cardEntities.remove(card);
         shiftCardsDownFromXCoordinate(cardNodeX);
-
-        return newBuilding;
     }
 }

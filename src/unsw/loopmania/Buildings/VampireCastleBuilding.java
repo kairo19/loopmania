@@ -18,4 +18,9 @@ public class VampireCastleBuilding extends Building {
     public void SpawnVampire(int rounds) {
 
     }
+
+    @Override
+    public String toString() {
+        return "VampireCastleBuilding";
+    }
 }

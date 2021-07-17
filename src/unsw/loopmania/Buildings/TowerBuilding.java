@@ -16,4 +16,9 @@ public class TowerBuilding extends Building {
     public void ShootEnemy(BasicEnemy Enemy) {
         
     }
+
+    @Override
+    public String toString() {
+        return "TowerBuilding";
+    }
 }

@@ -20,15 +20,18 @@ public class HerosCastleBuilding extends Building {
         return false;
     }
     
-    public void ShowStore(List<Item> Shop) {
+    // public void ShowStore(List<Item> Shop) {
 
-    }
+    // }
     public boolean ScaleStats(int Cycle) {
         if (Cycle % 10 == 0) {
             return true;
         }
         return false;
     }
-
+    @Override
+    public String toString() {
+        return "HerosCastleBuilding";
+    }
 
 }

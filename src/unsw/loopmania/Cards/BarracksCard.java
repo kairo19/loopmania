@@ -13,4 +13,8 @@ public class BarracksCard extends Card {
         super(x, y);
         placable = new PlacableOnNonPath();
     }  
+    @Override
+    public String toString() {
+        return "BarracksCard";
+    }
 }

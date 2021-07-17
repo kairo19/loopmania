@@ -16,4 +16,9 @@ public class VampireCastleCard extends Card {
         this.placable = new PlaceableOnAdjacentPath();
     }    
 
+    @Override
+    public String toString() {
+        return "VampireCastleCard";
+    }
+
 }

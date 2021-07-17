@@ -14,9 +14,12 @@ public class CampfireBuilding extends Building {
         setRadius(5);
     }
 
-    public void DoubleAttack(Character character) {
-        int damage = character.getDamage() * 2;
-        character.setDamage(damage);
+    // public void DoubleAttack(Character character) {
+    //     int damage = character.getDamage() * 2;
+    //     character.setDamage(damage);
+    // }
+    @Override
+    public String toString() {
+        return "CampfireBuilding";
     }
-    
 }

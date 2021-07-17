@@ -11,8 +11,13 @@ public class VillageBuilding extends Building {
         super(x, y);
     }
 
-    public void RegainHealth(Character character) {
-        int new_health = character.gethealth() + 20;
-        character.sethealth(new_health);
+    // public void RegainHealth(Character character) {
+    //     int new_health = character.gethealth() + 20;
+    //     character.sethealth(new_health);
+    // }
+
+    @Override
+    public String toString() {
+        return "VillageBuilding";
     }
 }

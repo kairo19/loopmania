@@ -28,7 +28,9 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
+import unsw.loopmania.Buildings.Building;
 import unsw.loopmania.Buildings.VampireCastleBuilding;
+import unsw.loopmania.Cards.Card;
 import unsw.loopmania.Cards.VampireCastleCard;
 import unsw.loopmania.item.weapon.Sword;
 
@@ -119,9 +121,23 @@ public class LoopManiaWorldController {
     private Timeline timeline;
 
     private Image vampireCastleCardImage;
+    private Image zombiePitImage;
+    private Image zombiePitCardImage;
     private Image basicEnemyImage;
     private Image swordImage;
     private Image basicBuildingImage;
+    private Image vampireCastleImage;
+    private Image TowerImage;
+    private Image TowerCardImage;
+    private Image VillageImage;
+    private Image VillageCardImage;
+    private Image BarracksImage;
+    private Image BarracksCardImage;
+    private Image TrapImage;
+    private Image TrapCardImage;
+    private Image CampfireImage;
+    private Image CampfireCardImage;
+    private Image HeroCastleImage;
 
     /**
      * the image currently being dragged, if there is one, otherwise null.
@@ -169,7 +185,21 @@ public class LoopManiaWorldController {
         this.world = world;
         entityImages = new ArrayList<>(initialEntities);
         vampireCastleCardImage = new Image((new File("src/images/vampire_castle_card.png")).toURI().toString());
+        vampireCastleImage = new Image((new File("src/images/vampire_castle_building_purple_background.png")).toURI().toString());
+        zombiePitCardImage = new Image((new File("src/images/zombie_pit_card.png")).toURI().toString());
+        zombiePitImage = new Image((new File("src/images/zombie_pit.png")).toURI().toString());
         basicEnemyImage = new Image((new File("src/images/slug.png")).toURI().toString());
+        TowerImage = new Image((new File("src/images/tower.png")).toURI().toString());
+        TowerCardImage = new Image((new File("src/images/tower_card.png")).toURI().toString());
+        VillageImage = new Image((new File("src/images/village.png")).toURI().toString());
+        VillageCardImage = new Image((new File("src/images/village_card.png")).toURI().toString());
+        BarracksImage = new Image((new File("src/images/barracks.png")).toURI().toString());
+        BarracksCardImage = new Image((new File("src/images/barracks_card.png")).toURI().toString());
+        TrapImage = new Image((new File("src/images/trap.png")).toURI().toString());
+        TrapCardImage = new Image((new File("src/images/trap_card.png")).toURI().toString());
+        CampfireImage = new Image((new File("src/images/campfire.png")).toURI().toString());
+        CampfireCardImage = new Image((new File("src/images/campfire_card.png")).toURI().toString());
+        HeroCastleImage = new Image((new File("src/images/heros_castle.png")).toURI().toString());
         swordImage = new Image((new File("src/images/basic_sword.png")).toURI().toString());
         basicBuildingImage = new Image((new File("src/images/vampire_castle_building_purple_background.png")).toURI().toString());
         currentlyDraggedImage = null;
@@ -279,10 +309,10 @@ public class LoopManiaWorldController {
     /**
      * load a vampire card from the world, and pair it with an image in the GUI
      */
-    private void loadVampireCard() {
+    private void loadCard() {
         // TODO = load more types of card
-        VampireCastleCard vampireCastleCard = world.loadVampireCard();
-        onLoad(vampireCastleCard);
+        Card card = world.loadCard();
+        onLoad(card);
     }
 
     /**
@@ -304,7 +334,7 @@ public class LoopManiaWorldController {
         // in starter code, spawning extra card/weapon...
         // TODO = provide different benefits to defeating the enemy based on the type of enemy
         loadSword();
-        loadVampireCard();
+        loadCard();
     }
 
     /**
@@ -313,14 +343,15 @@ public class LoopManiaWorldController {
      * and load the image into the cards GridPane.
      * @param vampireCastleCard
      */
-    private void onLoad(VampireCastleCard vampireCastleCard) {
-        ImageView view = new ImageView(vampireCastleCardImage);
+    private void onLoad(Card card) {
+
+        ImageView view = new ImageView(ImageName(card.toString()));
 
         // FROM https://stackoverflow.com/questions/41088095/javafx-drag-and-drop-to-gridpane
         // note target setOnDragOver and setOnDragEntered defined in initialize method
         addDragEventHandlers(view, DRAGGABLE_TYPE.CARD, cards, squares);
 
-        addEntity(vampireCastleCard, view);
+        addEntity(card, view);
         cards.getChildren().add(view);
     }
 
@@ -351,12 +382,46 @@ public class LoopManiaWorldController {
      * load a building into the GUI
      * @param building
      */
-    private void onLoad(VampireCastleBuilding building){
-        ImageView view = new ImageView(basicBuildingImage);
+    private void onLoad(Building building){
+        ImageView view = new ImageView(ImageName(building.toString()));
         addEntity(building, view);
         squares.getChildren().add(view);
     }
-
+    private Image ImageName(String name) {
+        switch (name) {
+            case "VampireCastleCard":
+                return vampireCastleCardImage;
+            case "ZombiePitCard":
+                return zombiePitCardImage;
+            case "VampireCastleBuilding":
+                return vampireCastleImage;
+            case "ZombiePitBuilding":
+                return zombiePitImage;
+            case "TowerBuilding":
+                return TowerImage;
+            case "TowerCard":
+                return TowerCardImage;
+            case "VillageBuilding":
+                return VillageImage;
+            case "VillageCard":
+                return VillageCardImage;
+            case "BarracksBuilding":
+                return BarracksImage;
+            case "BarracksCard":
+                return BarracksImage;
+            case "TrapBuilding":
+                return TrapImage;
+            case "TrapCard":
+                return TrapCardImage;
+            case "CampfireBuilding":
+                return CampfireImage;
+            case "CampfireCard":
+                return CampfireCardImage;
+            case "HerosCastleBuilding":
+                return HeroCastleImage;
+        }
+        return null;
+    }
     /**
      * add drag event handlers for dropping into gridpanes, dragging over the background, dropping over the background.
      * These are not attached to invidual items such as swords/cards.
@@ -399,7 +464,7 @@ public class LoopManiaWorldController {
                             case CARD:
                                 removeDraggableDragEventHandlers(draggableType, targetGridPane);
                                 // TODO = spawn a building here of different types
-                                VampireCastleBuilding newBuilding = convertCardToBuildingByCoordinates(nodeX, nodeY, x, y);
+                                Building newBuilding = convertCardToBuildingByCoordinates(nodeX, nodeY, x, y);
                                 onLoad(newBuilding);
                                 break;
                             case ITEM:
@@ -480,7 +545,7 @@ public class LoopManiaWorldController {
      * @param buildingNodeY the y coordinate of the drop location for the card, where the building will spawn, from 0 to height-1
      * @return building entity returned from the world
      */
-    private VampireCastleBuilding convertCardToBuildingByCoordinates(int cardNodeX, int cardNodeY, int buildingNodeX, int buildingNodeY) {
+    private Building convertCardToBuildingByCoordinates(int cardNodeX, int cardNodeY, int buildingNodeX, int buildingNodeY) {
         return world.convertCardToBuildingByCoordinates(cardNodeX, cardNodeY, buildingNodeX, buildingNodeY);
     }
 

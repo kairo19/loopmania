@@ -12,5 +12,9 @@ public class VillageCard extends Card {
         super(x, y);
         this.placable = new PlacableOnPath();
     }   
+    @Override
+    public String toString() {
+        return "VillageCard";
+    }
 
 }

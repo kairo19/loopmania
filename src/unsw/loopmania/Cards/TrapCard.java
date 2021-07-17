@@ -11,4 +11,9 @@ public class TrapCard extends Card {
         super(x, y);
         this.placable = new PlacableOnPath();
     }
+
+    @Override
+    public String toString() {
+        return "TrapCard";
+    }
 }

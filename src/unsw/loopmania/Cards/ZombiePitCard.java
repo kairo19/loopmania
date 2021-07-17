@@ -11,4 +11,10 @@ public class ZombiePitCard extends Card {
         super(x, y);
         this.placable = new PlaceableOnAdjacentPath();
     }       
+
+    @Override
+    public String toString() {
+        // TODO Auto-generated method stub
+        return "ZombiePitCard";
+    }
 }

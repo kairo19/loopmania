@@ -12,5 +12,8 @@ public class TowerCard extends Card {
         super(x, y);
         this.placable = new PlaceableOnAdjacentPath();
     }   
-
+    @Override
+    public String toString() {
+        return "TowerCard";
+    }
 }

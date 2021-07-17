@@ -14,4 +14,8 @@ public class ZombiePitBuilding extends Building{
     public void SpawnZombie(int round) {
 
     }
+    @Override
+    public String toString() {
+        return "ZombiePitBuilding";
+    }
 }
