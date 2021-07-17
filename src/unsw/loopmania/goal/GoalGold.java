@@ -1,0 +1,33 @@
+package unsw.loopmania.goal;
+
+import unsw.loopmania.LoopManiaWorld;
+
+public class GoalGold implements GoalNode {
+    private LoopManiaWorld loopManiaWorld;
+    private int goldGoal;
+    public GoalGold(LoopManiaWorld loopManiaWorld, int quantity) {
+        this.loopManiaWorld = loopManiaWorld;
+        this.goldGoal = quantity;
+    }
+
+    @Override
+    public boolean hasMetGoal(LoopManiaWorld loopManiaWorld) {
+        return loopManiaWorld.getGold() >= goldGoal;
+    }
+
+    @Override
+    public boolean isLeafNode() {
+        return true;
+    }
+
+    @Override
+    public void addSubGoal(GoalNode subGoal) {
+        // do nothing
+    }
+
+    @Override
+    public String toString() {
+        String s = "gold : " + goldGoal;
+        return s;
+    }
+}
