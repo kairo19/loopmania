@@ -30,6 +30,15 @@ public class AndGoal implements GoalNode {
     @Override
     public void addSubGoal(GoalNode subGoal) {
         subGoals.add(subGoal);
+    }
 
+    @Override
+    public String toString() {
+        String s = "(AND";
+        for (int i = 0; i < subGoals.size(); i++) {
+            s += " " + subGoals.get(i).toString();
+        }
+        s += ")";
+        return s;
     }
 }

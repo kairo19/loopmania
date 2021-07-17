@@ -174,6 +174,15 @@ public abstract class LoopManiaWorldLoader {
                 break;
         }
 
+        // if composite goal
+        if (!goal.isLeafNode()) {
+            JSONArray subGoalJson = goalJson.getJSONArray("subgoals");
+            for (int i = 0; i < subGoalJson.length(); i++) {
+                // call recurively
+                GoalNode subGoal = loadGoal(subGoalJson.getJSONObject(i), world);
+                goal.addSubGoal(subGoal);
+            }
+        }
         return goal;
     }
     public abstract void onLoad(Character character);

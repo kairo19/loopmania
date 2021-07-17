@@ -24,4 +24,10 @@ public class GoalRound implements GoalNode {
     public void addSubGoal(GoalNode subGoal) {
         // do nothing        
     }
+
+    @Override
+    public String toString() {
+        String s = "round : " + roundGoal;
+        return s;
+    }
 }

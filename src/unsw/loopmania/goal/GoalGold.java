@@ -24,4 +24,10 @@ public class GoalGold implements GoalNode {
     public void addSubGoal(GoalNode subGoal) {
         // do nothing
     }
+
+    @Override
+    public String toString() {
+        String s = "gold : " + goldGoal;
+        return s;
+    }
 }

@@ -32,4 +32,14 @@ public class OrGoal implements GoalNode {
         subGoals.add(subGoal);
         
     }
+
+    @Override
+    public String toString() {
+        String s = "(OR";
+        for (int i = 0; i < subGoals.size(); i++) {
+            s += " " + subGoals.get(i).toString();
+        }
+        s += ")";
+        return s;
+    }
 }

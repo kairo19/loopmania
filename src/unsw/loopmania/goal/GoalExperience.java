@@ -24,4 +24,10 @@ public class GoalExperience implements GoalNode {
     public void addSubGoal(GoalNode subGoal) {
         // do nothing
     }
+
+    @Override
+    public String toString() {
+        String s = "experience : " + experienceGoal;
+        return s;
+    }
 }
