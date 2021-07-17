@@ -169,8 +169,6 @@ public class LoopManiaWorldController {
      */
     private MenuSwitcher mainMenuSwitcher;
 
-    @FXML
-    private HBox base;
 
     /**
      * @param world world object loaded from file
@@ -731,29 +729,11 @@ public class LoopManiaWorldController {
     }
 
     public void gameOver(String status) {
+        System.out.println("Game is Over!");
         timeline.stop();
-
-        StackPane backGround = new StackPane();
-        Text gameStatus = new Text(status);
-        gameStatus.setTextAlignment(TextAlignment.CENTER);
-
-        Button returnMainMenu = new Button("Return to Main Menu");
-        returnMainMenu.setPadding(new Insets(5, 5, 5, 5));
-        // returnMainMenu.setOnAction((ActionEvent event) -> {
-        // go to main menu
-        //});
-
-        Button quit = new Button("Quit");
-        quit.setPadding(new Insets(5, 5, 5, 5));
-        quit.setOnAction((ActionEvent event) -> {
-            Platform.exit();
-        });
-
-        VBox vBox = new VBox();
-        vBox.getChildren().addAll(gameStatus, returnMainMenu, quit);
-
-        backGround.getChildren().add(vBox);
-
-        base.getScene().setRoot(backGround);
+        mainMenuSwitcher.switchMenu(); 
+        // currently exits to main menu when game is over - need to figure out
+        // how to load new scene 
+        
     }
 }

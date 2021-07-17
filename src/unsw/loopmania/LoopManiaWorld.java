@@ -230,7 +230,7 @@ public class LoopManiaWorld {
      */
     public void runTickMoves(){
         if (hasMetGoal()) {
-            gameOver();
+            endGame();
         }
         character.moveDownPath();
         moveBasicEnemies();
@@ -401,7 +401,7 @@ public class LoopManiaWorld {
         return goal.hasMetGoal(this);
     }
 
-    public void gameOver() {
+    public void endGame() {
         gameOver = true;
         if (hasMetGoal()) {
             controller.gameOver("YOU WON!");
