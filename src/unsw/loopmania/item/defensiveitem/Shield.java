@@ -3,7 +3,7 @@ package unsw.loopmania.item.defensiveitem;
 import unsw.loopmania.StaticEntity;
 
 import javafx.beans.property.SimpleIntegerProperty;
-import unsw.loopmania.BasicEnemy;
+import unsw.loopmania.Enemies.BasicEnemy;
 
 public class Shield extends DefensiveItem {
     private static final double DAMAGE_REDUCTION = 20.0;  
@@ -12,4 +12,10 @@ public class Shield extends DefensiveItem {
     }
     
     // lowerCriticalDamage method here
+
+    @Override
+    public String toString() {
+        // TODO Auto-generated method stub
+        return "Shield";
+    }
 }

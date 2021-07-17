@@ -11,6 +11,11 @@ public class CampfireCard extends Card {
 
     public CampfireCard(SimpleIntegerProperty x, SimpleIntegerProperty y) {
         super(x, y);
-        this.placable = new PlacableOnNonPath();
-    }   
+        this.placableBehaviour = new PlacableOnNonPath();
+    }
+    
+    @Override
+    public String toString() {
+        return "CampfireCard";
+    }
 }

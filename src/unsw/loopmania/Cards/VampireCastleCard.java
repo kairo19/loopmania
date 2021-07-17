@@ -13,7 +13,12 @@ public class VampireCastleCard extends Card {
     // TODO = add more types of card
     public VampireCastleCard(SimpleIntegerProperty x, SimpleIntegerProperty y) {
         super(x, y);
-        this.placable = new PlaceableOnAdjacentPath();
+        this.placableBehaviour = new PlaceableOnAdjacentPath();
     }    
+
+    @Override
+    public String toString() {
+        return "VampireCastleCard";
+    }
 
 }

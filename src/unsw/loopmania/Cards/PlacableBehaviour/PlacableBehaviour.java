@@ -1,5 +1,11 @@
-package unsw.loopmania.Cards;
+package unsw.loopmania.Cards.PlacableBehaviour;
+
+import java.util.List;
+
+import org.javatuples.Pair;
+
+
 
 public interface PlacableBehaviour {
-    public void placable();
+    public boolean placable(int x, int y, List<Pair<Integer, Integer>> orderedPath);
 }

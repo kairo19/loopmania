@@ -9,6 +9,12 @@ import unsw.loopmania.Cards.PlacableBehaviour.PlaceableOnAdjacentPath;
 public class ZombiePitCard extends Card {
     public ZombiePitCard(SimpleIntegerProperty x, SimpleIntegerProperty y) {
         super(x, y);
-        this.placable = new PlaceableOnAdjacentPath();
+        this.placableBehaviour = new PlaceableOnAdjacentPath();
     }       
+
+    @Override
+    public String toString() {
+        // TODO Auto-generated method stub
+        return "ZombiePitCard";
+    }
 }

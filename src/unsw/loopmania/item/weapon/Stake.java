@@ -3,7 +3,7 @@ package unsw.loopmania.item.weapon;
 import java.lang.ProcessBuilder.Redirect.Type;
 
 import javafx.beans.property.SimpleIntegerProperty;
-import unsw.loopmania.BasicEnemy;
+import unsw.loopmania.Enemies.BasicEnemy;
 import unsw.loopmania.Character;
 import unsw.loopmania.StaticEntity;
 
@@ -26,5 +26,10 @@ public class Stake extends StaticEntity implements Weapon {
         if (basicEnemy.getType().equals("Vampire")) {
             character.setDamage((int) (character.getDamage() * 1.5));
         }     
+    }
+    @Override
+    public String toString() {
+        // TODO Auto-generated method stub
+        return "Stake";
     }
 }
