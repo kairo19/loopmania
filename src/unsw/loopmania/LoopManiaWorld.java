@@ -189,13 +189,11 @@ public class LoopManiaWorld {
         // Only need one enemy from the list to lessen its complications
         for (BasicEnemy e: enemies) {
 
-            System.out.println("starting to add enemy");
-
             if (Math.pow((character.getX()-e.getX()), 2) +  Math.pow((character.getY()-e.getY()), 2) < Math.pow(e.getBattleRadius(), 2)) {
                 // queue battle enemies
                 queuedEnemies.add(e);
                 firstEnemy = e;
-                System.out.println("added enemy");
+                
                 //break;
             }
         }
@@ -239,42 +237,33 @@ public class LoopManiaWorld {
         // time for the battle
         for (BasicEnemy e: queuedEnemies) {
 
-            System.out.println("dealing damage");
 
-            if (e != null) {
-                System.out.println("GILBERT SPECIAL");
-            }
-
-            System.out.println(e.getHealth());
-            
-            
-            System.out.println("char healf: " + character.getHealth());
             while (e.getHealth() > 0 && character.getHealth() > 0) {
                 // character attacks enemy first
-                System.out.println("1");
+                
                 
                 character.dealDamage(e);
                 //character.dealDamage(e, bonusDamage);
-                System.out.println("2");
+                
 
                 // check if enemy is alive, if not skip and remove from queue + kill
                 if (e.getHealth() <= 0) {
-                    System.out.println("3");
+                    
                     //gold += e.getGold();
                     //xp += e.getXP();
-                    System.out.println("killing enemy");
+                    
                     killEnemy(e);
                     
                 } else {
                     // if enemy alive, then it deals damage to character
-                    System.out.println("4");
+                    
                     e.dealDamage(character, extraDamage);
-                    System.out.println("char healf: " + character.getHealth());
+                    
                     
 
                 }
             }
-            System.out.println("5");
+            
         }
         
 
