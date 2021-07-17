@@ -10,6 +10,8 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import javafx.beans.property.SimpleIntegerProperty;
+import unsw.loopmania.Buildings.Building;
+import unsw.loopmania.Buildings.HerosCastleBuilding;
 import unsw.loopmania.goal.AndGoal;
 import unsw.loopmania.goal.GoalExperience;
 import unsw.loopmania.goal.GoalGold;

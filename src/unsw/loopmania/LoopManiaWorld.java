@@ -28,6 +28,7 @@ import unsw.loopmania.Enemies.BasicEnemy;
 import unsw.loopmania.Enemies.Slug;
 import unsw.loopmania.Enemies.Vampire;
 import unsw.loopmania.Enemies.Zombie;
+import unsw.loopmania.goal.GoalNode;
 import unsw.loopmania.item.weapon.Sword;
 import unsw.loopmania.item.weapon.Weapon;
 
@@ -724,12 +725,6 @@ public class LoopManiaWorld {
         this.round = round;
     }
 
-    public void setRound(int round) {
-        this.round = round;
-    }
-    public int getRound() {
-        return round;
-    }
     public void setGold(int gold) {
         this.gold = gold;
     }
