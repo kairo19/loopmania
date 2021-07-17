@@ -78,23 +78,33 @@ public class BasicEnemy extends MovingEntity {
         return this.supportRadius;
     }
 
-    public void dealDamage(Character character, int extraDamage) {
+    public void dealDamage(Character character) {
+
+        /*
+        int damageDealt = this.damage;
         
-        //int damageDealt = this.damage + extraDamage;
-        /*
-        damageDealt *= character.getArmourReduction();
-        damageDealt -= character.getShieldReduction();
-        damageDealt -= character.getHelmetReduction();
-        */
-
-        /*
-        if (this.type.equals("Vampire")) {
-            character.lowerCritChance();
+        if (character.getArmour() != null) {
+            damageDealt *= character.getArmourReduction();
         }
-        */
 
-        //character.setHealth(character.getHealth() - this.damage);
-        //System.out.println("char healf is:" + character.getHealth());
+        if (character.getShield() != null) {
+            damageDealt -= character.getShieldReduction();
+            if (this.type.equals("Vampire")) {
+                character.lowerCritChance();
+            }
+        }
+
+        if (character.getHelmet() != null) {
+            damageDealt -= character.getHelmetReduction();
+        }
+
+        System.out.println("Character health:" + character.getHealth() + " - " + damageDealt);
+        
+        character.setHealth(character.getHealth() - damageDealt);
+        */
+        int damageDealt = this.damage;
+        System.out.println("Character health:" + character.getHealth() + " - " + damageDealt);
+        
         character.setHealth(character.getHealth() - 5);
     }
 }

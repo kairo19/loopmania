@@ -130,17 +130,31 @@ public class Character extends MovingEntity {
         return equippedHelmet.debuff();
     }
 
+    public int lowerCritChance() {
+        return 10;
+    }
+
     public void dealDamage(BasicEnemy enemy) {
         /*
-        equippedWeapon.damageBoost(this);
-        //equippedWeapon.doSpecial(enemy, this);
-        int damagedealt = damage;
-        damagedealt -= getHelmetDebuff();
-        enemy.setHealth(enemy.getHealth() - this.getDamage());
-        */
-        System.out.println("enemy healf is:" + enemy.getHealth());
+        if (equippedWeapon != null) {
+            equippedWeapon.damageBoost(this);
+        }
+        int damageDealt = damage;
+        if (equippedHelmet != null) {
+            damageDealt -= getHelmetDebuff();
+        }
         
-        enemy.setHealth(enemy.getHealth() - 3);
+        //equippedWeapon.doSpecial(enemy, this);
+        
+        System.out.println("Enemy health:" + enemy.getHealth() + " - " + damageDealt);
+        
+        enemy.setHealth(enemy.getHealth() - damageDealt);
+        */
+        int damageDealt = damage;
+        System.out.println("Enemy health:" + enemy.getHealth() + " - " + damageDealt);
+        
+        
+        enemy.setHealth(enemy.getHealth() - damageDealt);
     }
 
     

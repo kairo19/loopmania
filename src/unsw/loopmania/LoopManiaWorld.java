@@ -174,7 +174,7 @@ public class LoopManiaWorld {
         // TODO = modify this - currently the character automatically wins all battles without any damage!
         BasicEnemy firstEnemy = null;
         int extraDamage = 0;
-        boolean campfirePresent = false;
+        //boolean campfirePresent = false;
 
         // Stores all the defeated enemies
         List<BasicEnemy> defeatedEnemies = new ArrayList<BasicEnemy>();
@@ -188,32 +188,33 @@ public class LoopManiaWorld {
         // Loop through the enemy list for battle radius, then get the battling enemy
         // Only need one enemy from the list to lessen its complications
         for (BasicEnemy e: enemies) {
-
+            System.out.println("looking for enemy");
             if (Math.pow((character.getX()-e.getX()), 2) +  Math.pow((character.getY()-e.getY()), 2) < Math.pow(e.getBattleRadius(), 2)) {
                 // queue battle enemies
                 queuedEnemies.add(e);
                 firstEnemy = e;
-                
+                System.out.println("Found enemy");
                 //break;
-            }
-        }
-        /*
-        // Only vampires have support radius
-        // Find all the enemies for which character is within support radius
-        for (BasicEnemy e: enemies) {
+                // Only vampires have support radius
+                // Find all the enemies for which character is within support radiu
+                for (BasicEnemy s: enemies) {
 
-            System.out.println("checked support enemy");
-            
-            // TODO: Also did not work, need to fix
-            if (Math.pow((character.getX()-e.getX()), 2) +  Math.pow((character.getY()-e.getY()), 2) < Math.pow(e.getSupportRadius(), 2)
-                && e != firstEnemy) {
-                // queue battle enemies
-                System.out.println("found support enemy");
-                queuedEnemies.add(e);
+                    System.out.println("looking for support");
+                    // TODO: Also did not work, need to fix
+                    if (Math.pow((character.getX()-s.getX()), 2) +  Math.pow((character.getY()-s.getY()), 2) < Math.pow(s.getSupportRadius(), 2)
+                        && s != firstEnemy) {
+                        // queue battle enemies
+                        System.out.println("found support enemy");
+                        queuedEnemies.add(s);
+                            
+                    }
+                
+                }
                 break;
             }
         }
-        */
+        
+        
 
         
 
@@ -257,7 +258,7 @@ public class LoopManiaWorld {
                 } else {
                     // if enemy alive, then it deals damage to character
                     
-                    e.dealDamage(character, extraDamage);
+                    e.dealDamage(character);
                     
                     
 

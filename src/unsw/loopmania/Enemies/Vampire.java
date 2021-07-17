@@ -13,8 +13,8 @@ public class Vampire extends BasicEnemy implements CriticalStriker {
     }
 
     @Override
-    public void dealDamage(Character character, int extraDamage) {
-        super.dealDamage(character, extraDamage);
+    public void dealDamage(Character character) {
+        super.dealDamage(character);
         doCrit(character);
     }
 
