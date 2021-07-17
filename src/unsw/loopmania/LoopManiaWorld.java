@@ -132,7 +132,7 @@ public class LoopManiaWorld {
             int num = r.nextInt(2);
 
             // TODO: SUSS OUT ON THE SPAWNING LOCATION!!!!!!
-            
+
             switch(num) {
                 // Slugs spawning
                 case 0:
@@ -219,7 +219,6 @@ public class LoopManiaWorld {
         }
 
 
-
         // time for the battle
         for (BasicEnemy e: queuedEnemies) {
 
@@ -248,12 +247,6 @@ public class LoopManiaWorld {
         
 
         // drop items/weapons here if you want
-
-
-        
-
-
-
 
         /*
             Adjustments Request:
