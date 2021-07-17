@@ -157,15 +157,20 @@ public abstract class LoopManiaWorldLoader {
     // currently does not take into consideration AND or OR goals
     private GoalNode loadGoal(JSONObject goalJson, LoopManiaWorld world) {
         String goalType = goalJson.getString("goal");
-        int quantity = goalJson.getInt("quantity");
+        int quantity = 420;
         GoalNode goal = new GoalExperience(world, quantity);      // default
         switch (goalType) {
             case "gold":
+                quantity = goalJson.getInt("quantity");
                 goal = new GoalGold(world, quantity);
                 break;
             case "cycles":
+                quantity = goalJson.getInt("quantity");
                 goal = new GoalRound(world, quantity);
                 break;
+            case "experience":
+                quantity = goalJson.getInt("quantity");
+                goal = new GoalExperience(world, quantity);
             case "AND":
                 goal = new AndGoal(world);
                 break;
