@@ -2,7 +2,7 @@ package unsw.loopmania.item.defensiveitem;
 
 import javafx.beans.property.SimpleIntegerProperty;
 
-import unsw.loopmania.BasicEnemy;
+import unsw.loopmania.Enemies.BasicEnemy;
 import unsw.loopmania.StaticEntity;
 
 public class Helmet extends DefensiveItem implements Blinder {
@@ -15,6 +15,12 @@ public class Helmet extends DefensiveItem implements Blinder {
     @Override
     public int debuff() {
         return DEBUFF_VALUE;
+    }
+
+    @Override
+    public String toString() {
+        // TODO Auto-generated method stub
+        return "Helmet";
     }
 
 }

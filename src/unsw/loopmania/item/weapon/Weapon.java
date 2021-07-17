@@ -1,6 +1,6 @@
 package unsw.loopmania.item.weapon;
 
-import unsw.loopmania.BasicEnemy;
+import unsw.loopmania.Enemies.BasicEnemy;
 import unsw.loopmania.Character;
 
 public interface Weapon {

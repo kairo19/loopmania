@@ -30,6 +30,13 @@ import unsw.loopmania.Enemies.Zombie;
 import unsw.loopmania.item.weapon.Sword;
 import unsw.loopmania.item.weapon.Weapon;
 
+import unsw.loopmania.item.defensiveitem.Armour;
+import unsw.loopmania.item.defensiveitem.Helmet;
+import unsw.loopmania.item.defensiveitem.Shield;
+import unsw.loopmania.item.weapon.Staff;
+import unsw.loopmania.item.weapon.Stake;
+import unsw.loopmania.item.weapon.Sword;
+import unsw.loopmania.item.weapon.Weapon;
 
 /**
  * A backend world.
@@ -185,16 +192,16 @@ public class LoopManiaWorld {
      */
     public List<BasicEnemy> runBattles() {
         // TODO = modify this - currently the character automatically wins all battles without any damage!
-        BasicEnemy firstEnemy;
-        int extraDamage = 0;
-        boolean campfirePresent = false;
+        // BasicEnemy firstEnemy;
+        // int extraDamage = 0;
+        // boolean campfirePresent = false;
 
         // Stores all the defeated enemies
         List<BasicEnemy> defeatedEnemies = new ArrayList<BasicEnemy>();
 
         
         // Stores all the enemies within battle and support radius (no duplicates)
-        List<BasicEnemy> queuedEnemies = new ArrayList<BasicEnemy>();
+        //List<BasicEnemy> queuedEnemies = new ArrayList<BasicEnemy>();
 
 
         /*
@@ -296,9 +303,41 @@ public class LoopManiaWorld {
         }
         return defeatedEnemies;
         
-        
+    }
+    
+
+/*
+    // x & y are character positions
+    public isCharacterInBattleRange(int x, int y) {
+        int d;
+
+        d = (x - super.battleRadius)^2 + (y - super.battleRadius)^2
+
+        // if inside the circle
+        if (d <= battleRadius^2) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
+    public isCharacterInSupportRange(int x, int y) {
+        d = (x - super.getX())^2 + (y - super.getY())^2
+
+        // if inside the circle
+        if (d <= supportRadius^2) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // William Request:
+    - Add in these functions
+    - Change naming scheme as they're not good
+    - Change from protected to private variables
+
+*/
 
     /**
      * spawn a card in the world and return the card entity
@@ -362,11 +401,56 @@ public class LoopManiaWorld {
      * spawn a sword in the world and return the sword entity
      * @return a sword to be spawned in the controller as a JavaFX node
      */
+    
+    public StaticEntity addUnequippedItem(){
+        // TODO = expand this - we would like to be able to add multiple types of items, apart from swords
+        Pair<Integer, Integer> firstAvailableSlot = getFirstAvailableSlotForItem();
+        if (firstAvailableSlot == null){
+            // eject the oldest unequipped item and replace it... oldest item is that at beginning of items
+            // TODO = give some cash/experience rewards for the discarding of the oldest sword
+            removeItemByPositionInUnequippedInventoryItems(0);
+            firstAvailableSlot = getFirstAvailableSlotForItem();
+        }
+
+        Random r = new Random();
+        int num = r.nextInt(6);
+
+        switch(num) {
+            case 0: 
+                Sword sword = new Sword(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
+                unequippedInventoryItems.add(sword);
+                return sword;
+            case 1: 
+                Staff staff = new Staff(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
+                unequippedInventoryItems.add(staff);
+                return staff;
+            case 2:
+                Stake stake = new Stake(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
+                unequippedInventoryItems.add(stake);
+                return stake;
+            case 3:
+                Armour armour = new Armour(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
+                unequippedInventoryItems.add(armour);
+                return armour;
+            case 4:
+                Helmet helmet = new Helmet(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
+                unequippedInventoryItems.add(helmet);
+                return helmet;
+            case 5:
+                Shield shield = new Shield(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
+                unequippedInventoryItems.add(shield);
+                return shield;
+                
+        }
+        return null;
+    }
+
+
 
     
-    // Implement strategy pattern????
 
-    
+
+    /*
     public Sword addUnequippedSword(){
         // TODO = expand this - we would like to be able to add multiple types of items, apart from swords
         Pair<Integer, Integer> firstAvailableSlot = getFirstAvailableSlotForItem();
@@ -383,6 +467,7 @@ public class LoopManiaWorld {
 
         return sword;
     }
+    */
 
     /**
      * remove an item by x,y coordinates
