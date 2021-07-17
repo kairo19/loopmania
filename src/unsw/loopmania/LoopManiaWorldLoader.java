@@ -49,6 +49,10 @@ public abstract class LoopManiaWorldLoader {
             loadEntity(world, jsonEntities.getJSONObject(i), orderedPath);
         }
 
+        // load goals?
+        JSONObject goalCondition = json.getJSONObject("goal-condition");
+        world.setGoal(goal);
+
         return world;
     }
 
