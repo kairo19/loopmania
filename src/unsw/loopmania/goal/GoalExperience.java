@@ -14,4 +14,14 @@ public class GoalExperience implements GoalNode {
     public boolean hasMetGoal(LoopManiaWorld loopManiaWorld) {
         return loopManiaWorld.getExperience() >= experienceGoal;
     }
+
+    @Override
+    public boolean isLeafNode() {
+        return true;
+    }
+
+    @Override
+    public void addSubGoal(GoalNode subGoal) {
+        // do nothing
+    }
 }

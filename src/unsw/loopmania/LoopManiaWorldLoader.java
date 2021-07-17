@@ -15,6 +15,7 @@ import unsw.loopmania.goal.GoalExperience;
 import unsw.loopmania.goal.GoalGold;
 import unsw.loopmania.goal.GoalNode;
 import unsw.loopmania.goal.GoalRound;
+import unsw.loopmania.goal.OrGoal;
 
 import java.util.List;
 
@@ -164,6 +165,12 @@ public abstract class LoopManiaWorldLoader {
                 break;
             case "cycles":
                 goal = new GoalRound(world, quantity);
+                break;
+            case "AND":
+                goal = new AndGoal(world);
+                break;
+            case "OR":
+                goal = new OrGoal(world);
                 break;
         }
 

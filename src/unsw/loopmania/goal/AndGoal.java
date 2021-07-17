@@ -1,20 +1,35 @@
 package unsw.loopmania.goal;
 
+import java.util.ArrayList;
+
 import unsw.loopmania.LoopManiaWorld;
 
 public class AndGoal implements GoalNode {
     private LoopManiaWorld loopManiaWorld;
-    private GoalNode goalChildOne;
-    private GoalNode goalChildTwo;
+    private ArrayList<GoalNode> subGoals = new ArrayList<GoalNode>();
 
-    public AndGoal(LoopManiaWorld loopManiaWorld, GoalNode goalChildOne, GoalNode goalChildTwo) {
+    public AndGoal(LoopManiaWorld loopManiaWorld) {
         this.loopManiaWorld = loopManiaWorld;
-        this.goalChildOne = goalChildOne;
-        this.goalChildTwo = goalChildTwo;
     }
 
     @Override
     public boolean hasMetGoal(LoopManiaWorld loopManiaWorld) {
-        return goalChildOne.hasMetGoal(loopManiaWorld) && goalChildTwo.hasMetGoal(loopManiaWorld);
+        for (int i = 0; i < subGoals.size(); i++) {
+            if (!subGoals.get(i).hasMetGoal(loopManiaWorld)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public boolean isLeafNode() {
+        return false;
+    }
+
+    @Override
+    public void addSubGoal(GoalNode subGoal) {
+        subGoals.add(subGoal);
+
     }
 }

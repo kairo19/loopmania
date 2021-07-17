@@ -14,4 +14,14 @@ public class GoalGold implements GoalNode {
     public boolean hasMetGoal(LoopManiaWorld loopManiaWorld) {
         return loopManiaWorld.getGold() >= goldGoal;
     }
+
+    @Override
+    public boolean isLeafNode() {
+        return true;
+    }
+
+    @Override
+    public void addSubGoal(GoalNode subGoal) {
+        // do nothing
+    }
 }
