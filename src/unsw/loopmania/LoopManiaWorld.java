@@ -60,6 +60,10 @@ public class LoopManiaWorld {
      */
     private List<Pair<Integer, Integer>> orderedPath;
 
+    private int round;
+    private int gold; 
+    private int experience;
+
     /**
      * create the world (constructor)
      * 
@@ -77,6 +81,9 @@ public class LoopManiaWorld {
         unequippedInventoryItems = new ArrayList<>();
         this.orderedPath = orderedPath;
         buildingEntities = new ArrayList<>();
+        this.round = 1;
+        this.gold = 0;
+        this.experience = 0;
     }
 
     public int getWidth() {
@@ -351,5 +358,17 @@ public class LoopManiaWorld {
         shiftCardsDownFromXCoordinate(cardNodeX);
 
         return newBuilding;
+    }
+
+    public int getRound() {
+        return round;
+    }
+
+    public int getGold() {
+        return gold;
+    }
+
+    public int getExperience() {
+        return experience;
     }
 }
