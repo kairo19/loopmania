@@ -732,7 +732,7 @@ public class LoopManiaWorldController {
     }
 
     public void gameOver(String status) {
-        System.out.println("Game is Over!");
+        System.out.println(status);
         timeline.stop();
         mainMenuSwitcher.switchMenu();
         // // Platform.exit();

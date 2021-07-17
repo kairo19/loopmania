@@ -402,7 +402,7 @@ public class LoopManiaWorld {
         return gameOver;
     }
 
-    public void gameOver() {
+    public void endGame() {
         gameOver = true;
         if (hasMetGoal()) {
             controller.gameOver("YOU WON!");
