@@ -4,13 +4,14 @@ import unsw.loopmania.LoopManiaWorld;
 
 public class GoalRound implements GoalNode {
     private LoopManiaWorld loopManiaWorld;
-    private static final int ROUND_GOAL = 50;
-    public GoalRound(LoopManiaWorld loopManiaWorld) {
+    private int roundGoal;
+    public GoalRound(LoopManiaWorld loopManiaWorld, int quantity) {
         this.loopManiaWorld = loopManiaWorld;
+        this.roundGoal = quantity;
     }
 
     @Override
     public boolean hasMetGoal(LoopManiaWorld loopManiaWorld) {
-        return loopManiaWorld.getRound() >= ROUND_GOAL;
+        return loopManiaWorld.getRound() >= roundGoal;
     }
 }

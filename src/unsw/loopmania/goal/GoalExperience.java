@@ -4,13 +4,14 @@ import unsw.loopmania.LoopManiaWorld;
 
 public class GoalExperience implements GoalNode {
     private LoopManiaWorld loopManiaWorld;
-    private static final int EXPERIENCE_GOAL = 100000;
-    public GoalExperience(LoopManiaWorld loopManiaWorld) {
+    private int experienceGoal;
+    public GoalExperience(LoopManiaWorld loopManiaWorld, int quantity) {
         this.loopManiaWorld = loopManiaWorld;
+        this.experienceGoal = quantity;
     }
 
     @Override
     public boolean hasMetGoal(LoopManiaWorld loopManiaWorld) {
-        return loopManiaWorld.getExperience() >= EXPERIENCE_GOAL;
+        return loopManiaWorld.getExperience() >= experienceGoal;
     }
 }
