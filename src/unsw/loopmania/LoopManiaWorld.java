@@ -10,6 +10,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import unsw.loopmania.Buildings.VampireCastleBuilding;
 import unsw.loopmania.Cards.Card;
 import unsw.loopmania.Cards.VampireCastleCard;
+import unsw.loopmania.goal.GoalNode;
 import unsw.loopmania.item.weapon.Sword;
 
 /**
@@ -63,6 +64,9 @@ public class LoopManiaWorld {
     private int round;
     private int gold; 
     private int experience;
+    private GoalNode goal;
+    private boolean gameOver;
+    private LoopManiaWorldController controller;
 
     /**
      * create the world (constructor)
@@ -84,6 +88,8 @@ public class LoopManiaWorld {
         this.round = 1;
         this.gold = 0;
         this.experience = 0;
+        this.goal = null;
+        this.gameOver = false;
     }
 
     public int getWidth() {
@@ -223,9 +229,14 @@ public class LoopManiaWorld {
      * run moves which occur with every tick without needing to spawn anything immediately
      */
     public void runTickMoves(){
+        if (hasMetGoal()) {
+            gameOver();
+        }
         character.moveDownPath();
         moveBasicEnemies();
     }
+
+        
 
     /**
      * remove an item from the unequipped inventory
@@ -360,15 +371,42 @@ public class LoopManiaWorld {
         return newBuilding;
     }
 
+    public void setRound(int round) {
+        this.round = round;
+    }
     public int getRound() {
         return round;
     }
-
+    public void setGold(int gold) {
+        this.gold = gold;
+    }
     public int getGold() {
         return gold;
     }
-
+    public void setExperience(int experience) {
+        this.experience = experience;
+    }
     public int getExperience() {
         return experience;
+    }
+
+    public void setGoal(GoalNode goal) {
+        this.goal = goal;
+    }
+    public GoalNode getGoal() {
+        return goal;
+    }
+
+    public boolean hasMetGoal() {
+        return goal.hasMetGoal(this);
+    }
+
+    public void gameOver() {
+        gameOver = true;
+        if (hasMetGoal()) {
+            controller.gameOver("YOU WON!");
+        } else {
+            controller.gameOver("YOU LOST!");
+        }
     }
 }

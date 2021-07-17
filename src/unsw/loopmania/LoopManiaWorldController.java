@@ -718,4 +718,13 @@ public class LoopManiaWorldController {
         System.out.println("In application thread? = "+Platform.isFxApplicationThread());
         System.out.println("Current system time = "+java.time.LocalDateTime.now().toString().replace('T', ' '));
     }
+
+    public void gameOver(String status) {
+        timeline.stop();
+
+        StackPane backGround = new StackPane();
+        Text gameStatus = new Text(status);
+
+
+    }
 }
