@@ -311,10 +311,6 @@ public class LoopManiaWorld {
      * spawn a sword in the world and return the sword entity
      * @return a sword to be spawned in the controller as a JavaFX node
      */
-
-    
-    // Implement strategy pattern????
-
     
     public Sword addUnequippedSword(){
         // TODO = expand this - we would like to be able to add multiple types of items, apart from swords
