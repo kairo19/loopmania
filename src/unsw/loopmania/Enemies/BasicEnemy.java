@@ -79,10 +79,13 @@ public class BasicEnemy extends MovingEntity {
     }
 
     public void dealDamage(Character character, int extraDamage) {
-        int damageDealt = this.damage + extraDamage;
+        
+        //int damageDealt = this.damage + extraDamage;
+        /*
         damageDealt *= character.getArmourReduction();
         damageDealt -= character.getShieldReduction();
         damageDealt -= character.getHelmetReduction();
+        */
 
         /*
         if (this.type.equals("Vampire")) {
@@ -90,6 +93,8 @@ public class BasicEnemy extends MovingEntity {
         }
         */
 
-        character.setHealth(character.getHealth() - this.damage);
+        //character.setHealth(character.getHealth() - this.damage);
+        //System.out.println("char healf is:" + character.getHealth());
+        character.setHealth(character.getHealth() - 5);
     }
 }

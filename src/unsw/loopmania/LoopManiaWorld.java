@@ -172,7 +172,7 @@ public class LoopManiaWorld {
      */
     public List<BasicEnemy> runBattles() {
         // TODO = modify this - currently the character automatically wins all battles without any damage!
-        BasicEnemy firstEnemy;
+        BasicEnemy firstEnemy = null;
         int extraDamage = 0;
         boolean campfirePresent = false;
 
@@ -183,29 +183,45 @@ public class LoopManiaWorld {
         // Stores all the enemies within battle and support radius (no duplicates)
         List<BasicEnemy> queuedEnemies = new ArrayList<BasicEnemy>();
 
-
-        /*
+        
+        
         // Loop through the enemy list for battle radius, then get the battling enemy
         // Only need one enemy from the list to lessen its complications
         for (BasicEnemy e: enemies) {
+
+            System.out.println("starting to add enemy");
+
             if (Math.pow((character.getX()-e.getX()), 2) +  Math.pow((character.getY()-e.getY()), 2) < Math.pow(e.getBattleRadius(), 2)) {
                 // queue battle enemies
                 queuedEnemies.add(e);
                 firstEnemy = e;
-                break;
+                System.out.println("added enemy");
+                //break;
             }
         }
-        
+        /*
         // Only vampires have support radius
         // Find all the enemies for which character is within support radius
         for (BasicEnemy e: enemies) {
+
+            System.out.println("checked support enemy");
+            
+            // TODO: Also did not work, need to fix
             if (Math.pow((character.getX()-e.getX()), 2) +  Math.pow((character.getY()-e.getY()), 2) < Math.pow(e.getSupportRadius(), 2)
                 && e != firstEnemy) {
                 // queue battle enemies
+                System.out.println("found support enemy");
                 queuedEnemies.add(e);
                 break;
             }
         }
+        */
+
+        
+
+        /*
+        DO NOT TOUCH YET AS IT IS NOT COMPLETED
+
 
         // Finding character buffs available in the characters radius for battle
         for (Building b: buildingEntities) {
@@ -217,48 +233,58 @@ public class LoopManiaWorld {
                 extraDamage += character.getDamage();
             }
         }
+        */
 
-
+        
         // time for the battle
         for (BasicEnemy e: queuedEnemies) {
 
+            System.out.println("dealing damage");
+
+            if (e != null) {
+                System.out.println("GILBERT SPECIAL");
+            }
+
+            System.out.println(e.getHealth());
+            
+            
+            System.out.println("char healf: " + character.getHealth());
             while (e.getHealth() > 0 && character.getHealth() > 0) {
                 // character attacks enemy first
+                System.out.println("1");
                 
                 character.dealDamage(e);
                 //character.dealDamage(e, bonusDamage);
+                System.out.println("2");
 
                 // check if enemy is alive, if not skip and remove from queue + kill
                 if (e.getHealth() <= 0) {
-                    gold += e.getGold();
-                    xp += e.getXP();
+                    System.out.println("3");
+                    //gold += e.getGold();
+                    //xp += e.getXP();
+                    System.out.println("killing enemy");
                     killEnemy(e);
+                    
                 } else {
                     // if enemy alive, then it deals damage to character
-                    e.dealDamage(character);
+                    System.out.println("4");
+                    e.dealDamage(character, extraDamage);
+                    System.out.println("char healf: " + character.getHealth());
+                    
 
                 }
             }
+            System.out.println("5");
         }
         
 
-        return queuedEnemies;
-        */
+        return queuedEnemies; 
         
 
         // drop items/weapons here if you want
 
+
         /*
-            Adjustments Request:
-            dealDamage(character, extraDamage);
-
-            extraDamage -> buffs received from the extra damage
-
-
-
-        */
-
-        
         for (BasicEnemy e: enemies){
             // Pythagoras: a^2+b^2 < radius^2 to see if within radius
             // TODO = you should implement different RHS on this inequality, based on influence radii and battle radii
@@ -275,6 +301,19 @@ public class LoopManiaWorld {
             killEnemy(e);
         }
         return defeatedEnemies;
+        */
+
+
+        /*
+            Notes for Giobert the hostage:
+            - Fully implement the doDamage within characters
+            - Fully implement the doDamage within BasicEnemies
+
+            Wait till me to come back to do:
+            - Run Battles + Support 
+
+        */
+        
         
         
     }

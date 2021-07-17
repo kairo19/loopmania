@@ -131,11 +131,16 @@ public class Character extends MovingEntity {
     }
 
     public void dealDamage(BasicEnemy enemy) {
+        /*
         equippedWeapon.damageBoost(this);
-        equippedWeapon.doSpecial(enemy, this);
+        //equippedWeapon.doSpecial(enemy, this);
         int damagedealt = damage;
         damagedealt -= getHelmetDebuff();
         enemy.setHealth(enemy.getHealth() - this.getDamage());
+        */
+        System.out.println("enemy healf is:" + enemy.getHealth());
+        
+        enemy.setHealth(enemy.getHealth() - 3);
     }
 
     

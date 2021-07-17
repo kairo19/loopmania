@@ -6,6 +6,6 @@ public class Slug extends BasicEnemy {
     public Slug(PathPosition pathPosition) {
         // Gives 1 gold and 1 xp
         // 1 battle radius, 1 support radius (nullifies since == to battle radius)
-        super(pathPosition, 25, 5, "Slug", 1, 1, 1, 1); // damage and health current placeholders
+        super(pathPosition, 10, 5, "Slug", 3, 3, 2, 2); // damage and health current placeholders
     }
 }
