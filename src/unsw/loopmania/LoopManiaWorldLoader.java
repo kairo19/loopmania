@@ -10,6 +10,10 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import javafx.beans.property.SimpleIntegerProperty;
+import unsw.loopmania.goal.AndGoal;
+import unsw.loopmania.goal.GoalExperience;
+import unsw.loopmania.goal.GoalGold;
+import unsw.loopmania.goal.GoalRound;
 
 import java.util.List;
 
@@ -49,9 +53,9 @@ public abstract class LoopManiaWorldLoader {
             loadEntity(world, jsonEntities.getJSONObject(i), orderedPath);
         }
 
-        // load goals?
+        // load goals
         JSONObject goalCondition = json.getJSONObject("goal-condition");
-        world.setGoal(goal);
+        world.setGoal(loadGoal(goalCondition, world));
 
         return world;
     }
@@ -148,6 +152,21 @@ public abstract class LoopManiaWorldLoader {
         return orderedPath;
     }
 
+    // currently does take quantity in json object AND does not take into consideration AND or OR goals
+    private Goal loadGoal(JSONObject goalJson, LoopManiaWorld world) {
+        String goalType = json.getString("goal");
+        Goal goal = new GoalExperience(world);      // current placeholder 
+        switch (goalType) {
+            case "gold":
+                goal = new GoalGold(world);
+                break;
+            case "cycles":
+                goal = new GoalRound(world);
+                break;
+        }
+
+        return goal;
+    }
     public abstract void onLoad(Character character);
     public abstract void onLoad(PathTile pathTile, PathTile.Direction into, PathTile.Direction out);
 
