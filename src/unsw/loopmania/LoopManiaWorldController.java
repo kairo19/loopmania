@@ -32,6 +32,7 @@ import unsw.loopmania.Buildings.Building;
 import unsw.loopmania.Buildings.VampireCastleBuilding;
 import unsw.loopmania.Cards.Card;
 import unsw.loopmania.Cards.VampireCastleCard;
+import unsw.loopmania.Enemies.BasicEnemy;
 import unsw.loopmania.item.weapon.Sword;
 
 import java.util.EnumMap;
@@ -124,6 +125,13 @@ public class LoopManiaWorldController {
     private Image zombiePitImage;
     private Image zombiePitCardImage;
     private Image basicEnemyImage;
+    //private Image basicEnemyImage;
+
+    private Image slugImage;
+    private Image zombieImage;
+    //private Image vampireImage;
+    
+
     private Image swordImage;
     private Image basicBuildingImage;
     private Image vampireCastleImage;
@@ -200,6 +208,14 @@ public class LoopManiaWorldController {
         CampfireImage = new Image((new File("src/images/campfire.png")).toURI().toString());
         CampfireCardImage = new Image((new File("src/images/campfire_card.png")).toURI().toString());
         HeroCastleImage = new Image((new File("src/images/heros_castle.png")).toURI().toString());
+        //basicEnemyImage = new Image((new File("src/images/slug.png")).toURI().toString());
+
+        slugImage = new Image((new File("src/images/slug.png")).toURI().toString());
+        zombieImage = new Image((new File("src/images/zombie.png")).toURI().toString());
+
+        
+
+
         swordImage = new Image((new File("src/images/basic_sword.png")).toURI().toString());
         basicBuildingImage = new Image((new File("src/images/vampire_castle_building_purple_background.png")).toURI().toString());
         currentlyDraggedImage = null;
@@ -373,9 +389,21 @@ public class LoopManiaWorldController {
      * @param enemy
      */
     private void onLoad(BasicEnemy enemy) {
-        ImageView view = new ImageView(basicEnemyImage);
+        ImageView view = new ImageView(getEnemyImage(enemy));
         addEntity(enemy, view);
         squares.getChildren().add(view);
+    }
+
+    private Image getEnemyImage(BasicEnemy enemy) {
+        String name = enemy.getType();
+
+        switch(name){
+            case "Slug":
+                return slugImage;
+            case "Zombie":
+                return zombieImage;
+        }
+        return null;
     }
 
     /**

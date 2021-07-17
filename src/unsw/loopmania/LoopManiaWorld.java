@@ -12,6 +12,7 @@ import unsw.loopmania.Buildings.Building;
 import unsw.loopmania.Buildings.CampfireBuilding;
 import unsw.loopmania.Buildings.TowerBuilding;
 import unsw.loopmania.Buildings.TrapBuilding;
+import unsw.loopmania.Buildings.Building;
 import unsw.loopmania.Buildings.VampireCastleBuilding;
 import unsw.loopmania.Buildings.VillageBuilding;
 import unsw.loopmania.Buildings.ZombiePitBuilding;
@@ -23,7 +24,12 @@ import unsw.loopmania.Cards.TrapCard;
 import unsw.loopmania.Cards.VampireCastleCard;
 import unsw.loopmania.Cards.VillageCard;
 import unsw.loopmania.Cards.ZombiePitCard;
+import unsw.loopmania.Enemies.BasicEnemy;
+import unsw.loopmania.Enemies.Slug;
+import unsw.loopmania.Enemies.Zombie;
 import unsw.loopmania.item.weapon.Sword;
+import unsw.loopmania.item.weapon.Weapon;
+
 
 /**
  * A backend world.
@@ -72,6 +78,10 @@ public class LoopManiaWorld {
      * list of x,y coordinate pairs in the order by which moving entities traverse them
      */
     private List<Pair<Integer, Integer>> orderedPath;
+
+
+    private int gold;
+    private int xp;
 
     /**
      * create the world (constructor)
@@ -128,11 +138,36 @@ public class LoopManiaWorld {
         List<BasicEnemy> spawningEnemies = new ArrayList<>();
         if (pos != null){
             int indexInPath = orderedPath.indexOf(pos);
-            BasicEnemy enemy = new BasicEnemy(new PathPosition(indexInPath, orderedPath));
-            enemies.add(enemy);
-            spawningEnemies.add(enemy);
+            //BasicEnemy enemy = new BasicEnemy(new PathPosition(indexInPath, orderedPath));
+
+            
+            Random r = new Random();
+            int num = r.nextInt(2);
+
+            // TODO: SUSS OUT ON THE SPAWNING LOCATION!!!!!!
+            
+            switch(num) {
+                // Slugs spawning
+                case 0:
+                    Slug slug = new Slug(new PathPosition(indexInPath, orderedPath));
+                    enemies.add(slug);
+                    spawningEnemies.add(slug);
+                    return spawningEnemies;
+
+                // Zombies spawning
+                case 1:
+                    Zombie zombie = new Zombie(new PathPosition(indexInPath, orderedPath));
+                    enemies.add(zombie);
+                    spawningEnemies.add(zombie);
+                    return spawningEnemies;
+
+            }
+
+            //enemies.add(enemy);
+            //spawningEnemies.add(enemy);
         }
         return spawningEnemies;
+        
     }
 
     /**
@@ -150,7 +185,100 @@ public class LoopManiaWorld {
      */
     public List<BasicEnemy> runBattles() {
         // TODO = modify this - currently the character automatically wins all battles without any damage!
+        BasicEnemy firstEnemy;
+        int extraDamage = 0;
+        boolean campfirePresent = false;
+
+        // Stores all the defeated enemies
         List<BasicEnemy> defeatedEnemies = new ArrayList<BasicEnemy>();
+
+        
+        // Stores all the enemies within battle and support radius (no duplicates)
+        List<BasicEnemy> queuedEnemies = new ArrayList<BasicEnemy>();
+
+
+        /*
+        // Loop through the enemy list for battle radius, then get the battling enemy
+        // Only need one enemy from the list to lessen its complications
+        for (BasicEnemy e: enemies) {
+            if (Math.pow((character.getX()-e.getX()), 2) +  Math.pow((character.getY()-e.getY()), 2) < Math.pow(e.getBattleRadius(), 2)) {
+                // queue battle enemies
+                queuedEnemies.add(e);
+                firstEnemy = e;
+                break;
+            }
+        }
+        
+        // Only vampires have support radius
+        // Find all the enemies for which character is within support radius
+        for (BasicEnemy e: enemies) {
+            if (Math.pow((character.getX()-e.getX()), 2) +  Math.pow((character.getY()-e.getY()), 2) < Math.pow(e.getSupportRadius(), 2)
+                && e != firstEnemy) {
+                // queue battle enemies
+                queuedEnemies.add(e);
+                break;
+            }
+        }
+
+        // Finding character buffs available in the characters radius for battle
+        for (Building b: buildingEntities) {
+            if (b.toString() == "Tower") {
+                extraDamage += b.getDamage();
+            } else if (b.toString() == "Campfire") {
+                // current implementation is to double the base damage
+                // can do total damage otherwise.
+                extraDamage += character.getDamage();
+            }
+        }
+
+
+
+        // time for the battle
+        for (BasicEnemy e: queuedEnemies) {
+
+            while (e.getHealth() > 0 && character.getHealth() > 0) {
+                // character attacks enemy first
+                
+                character.dealDamage(e);
+                //character.dealDamage(e, bonusDamage);
+
+                // check if enemy is alive, if not skip and remove from queue + kill
+                if (e.getHealth() <= 0) {
+                    gold += e.getGold();
+                    xp += e.getXP();
+                    killEnemy(e);
+                } else {
+                    // if enemy alive, then it deals damage to character
+                    e.dealDamage(character);
+
+                }
+            }
+        }
+        
+
+        return queuedEnemies;
+        */
+        
+
+        // drop items/weapons here if you want
+
+
+        
+
+
+
+
+        /*
+            Adjustments Request:
+            dealDamage(character, extraDamage);
+
+            extraDamage -> buffs received from the extra damage
+
+
+
+        */
+
+        
         for (BasicEnemy e: enemies){
             // Pythagoras: a^2+b^2 < radius^2 to see if within radius
             // TODO = you should implement different RHS on this inequality, based on influence radii and battle radii
@@ -159,6 +287,7 @@ public class LoopManiaWorld {
                 defeatedEnemies.add(e);
             }
         }
+
         for (BasicEnemy e: defeatedEnemies){
             // IMPORTANT = we kill enemies here, because killEnemy removes the enemy from the enemies list
             // if we killEnemy in prior loop, we get java.util.ConcurrentModificationException
@@ -166,7 +295,10 @@ public class LoopManiaWorld {
             killEnemy(e);
         }
         return defeatedEnemies;
+        
+        
     }
+
 
     /**
      * spawn a card in the world and return the card entity
@@ -230,6 +362,11 @@ public class LoopManiaWorld {
      * spawn a sword in the world and return the sword entity
      * @return a sword to be spawned in the controller as a JavaFX node
      */
+
+    
+    // Implement strategy pattern????
+
+    
     public Sword addUnequippedSword(){
         // TODO = expand this - we would like to be able to add multiple types of items, apart from swords
         Pair<Integer, Integer> firstAvailableSlot = getFirstAvailableSlotForItem();
@@ -243,6 +380,7 @@ public class LoopManiaWorld {
         // now we insert the new sword, as we know we have at least made a slot available...
         Sword sword = new Sword(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
         unequippedInventoryItems.add(sword);
+
         return sword;
     }
 

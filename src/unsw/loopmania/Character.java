@@ -2,6 +2,7 @@ package unsw.loopmania;
 
 import java.util.ArrayList;
 
+import unsw.loopmania.Enemies.BasicEnemy;
 import unsw.loopmania.item.defensiveitem.Armour;
 import unsw.loopmania.item.defensiveitem.DefensiveItem;
 import unsw.loopmania.item.defensiveitem.Helmet;
@@ -137,6 +138,7 @@ public class Character extends MovingEntity {
         enemy.setHealth(enemy.getHealth() - this.getDamage());
     }
 
+    
 
     /*
      //checkAttackDamage (check nearby boost, check equipped inventory)
