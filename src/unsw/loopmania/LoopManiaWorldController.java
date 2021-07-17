@@ -12,11 +12,14 @@ import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
@@ -27,6 +30,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
 import unsw.loopmania.Buildings.VampireCastleBuilding;
 import unsw.loopmania.Cards.VampireCastleCard;
@@ -160,6 +168,9 @@ public class LoopManiaWorldController {
      * object handling switching to the main menu
      */
     private MenuSwitcher mainMenuSwitcher;
+
+    @FXML
+    private HBox base;
 
     /**
      * @param world world object loaded from file
@@ -724,7 +735,25 @@ public class LoopManiaWorldController {
 
         StackPane backGround = new StackPane();
         Text gameStatus = new Text(status);
+        gameStatus.setTextAlignment(TextAlignment.CENTER);
 
+        Button returnMainMenu = new Button("Return to Main Menu");
+        returnMainMenu.setPadding(new Insets(5, 5, 5, 5));
+        // returnMainMenu.setOnAction((ActionEvent event) -> {
+        // go to main menu
+        //});
 
+        Button quit = new Button("Quit");
+        quit.setPadding(new Insets(5, 5, 5, 5));
+        quit.setOnAction((ActionEvent event) -> {
+            Platform.exit();
+        });
+
+        VBox vBox = new VBox();
+        vBox.getChildren().addAll(gameStatus, returnMainMenu, quit);
+
+        backGround.getChildren().add(vBox);
+
+        base.getScene().setRoot(backGround);
     }
 }
