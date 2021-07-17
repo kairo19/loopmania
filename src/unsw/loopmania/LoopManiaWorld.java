@@ -173,7 +173,7 @@ public class LoopManiaWorld {
     public List<BasicEnemy> runBattles() {
         // TODO = modify this - currently the character automatically wins all battles without any damage!
         BasicEnemy firstEnemy = null;
-        int extraDamage = 0;
+        int bonusDamage = 0;
         //boolean campfirePresent = false;
 
         // Stores all the defeated enemies
@@ -220,7 +220,7 @@ public class LoopManiaWorld {
 
         /*
         DO NOT TOUCH YET AS IT IS NOT COMPLETED
-
+    
 
         // Finding character buffs available in the characters radius for battle
         for (Building b: buildingEntities) {
@@ -243,7 +243,7 @@ public class LoopManiaWorld {
                 // character attacks enemy first
                 
                 
-                character.dealDamage(e);
+                character.dealDamage(e, bonusDamage);
                 //character.dealDamage(e, bonusDamage);
                 
 
@@ -301,6 +301,19 @@ public class LoopManiaWorld {
 
             Wait till me to come back to do:
             - Run Battles + Support 
+
+        */
+
+        /*
+            finish: 
+            zombie.docrit()
+            vampire docrit()
+            implement staff dospecial
+            make backend for equipping items
+            
+            later:
+            building damage
+            connect front end with equipping items
 
         */
         

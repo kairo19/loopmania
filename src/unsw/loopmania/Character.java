@@ -134,28 +134,31 @@ public class Character extends MovingEntity {
         return 10;
     }
 
-    public void dealDamage(BasicEnemy enemy) {
-        /*
+    public void dealDamage(BasicEnemy enemy, int bonusDamage) {
+        
         if (equippedWeapon != null) {
             equippedWeapon.damageBoost(this);
+            equippedWeapon.doSpecial(enemy, this);
         }
-        int damageDealt = damage;
+        int damageDealt = damage + bonusDamage;
         if (equippedHelmet != null) {
             damageDealt -= getHelmetDebuff();
         }
         
-        //equippedWeapon.doSpecial(enemy, this);
-        
         System.out.println("Enemy health:" + enemy.getHealth() + " - " + damageDealt);
         
         enemy.setHealth(enemy.getHealth() - damageDealt);
-        */
+        
+        /*
         int damageDealt = damage;
         System.out.println("Enemy health:" + enemy.getHealth() + " - " + damageDealt);
         
         
         enemy.setHealth(enemy.getHealth() - damageDealt);
+        */
     }
+
+    
 
     
 

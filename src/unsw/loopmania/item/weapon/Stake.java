@@ -3,7 +3,7 @@ package unsw.loopmania.item.weapon;
 import java.lang.ProcessBuilder.Redirect.Type;
 
 import javafx.beans.property.SimpleIntegerProperty;
-import unsw.loopmania.BasicEnemy;
+import unsw.loopmania.Enemies.BasicEnemy;
 import unsw.loopmania.Character;
 import unsw.loopmania.StaticEntity;
 
