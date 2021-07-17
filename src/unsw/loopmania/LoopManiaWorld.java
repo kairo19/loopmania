@@ -26,6 +26,7 @@ import unsw.loopmania.Cards.VillageCard;
 import unsw.loopmania.Cards.ZombiePitCard;
 import unsw.loopmania.Enemies.BasicEnemy;
 import unsw.loopmania.Enemies.Slug;
+import unsw.loopmania.Enemies.Vampire;
 import unsw.loopmania.Enemies.Zombie;
 import unsw.loopmania.item.weapon.Sword;
 import unsw.loopmania.item.weapon.Weapon;
@@ -148,12 +149,11 @@ public class LoopManiaWorld {
             int indexInPath = orderedPath.indexOf(pos);
             //BasicEnemy enemy = new BasicEnemy(new PathPosition(indexInPath, orderedPath));
 
-            
             Random r = new Random();
-            int num = r.nextInt(2);
+            int num = r.nextInt(3);
 
             // TODO: SUSS OUT ON THE SPAWNING LOCATION!!!!!!
-            
+
             switch(num) {
                 // Slugs spawning
                 case 0:
@@ -168,6 +168,12 @@ public class LoopManiaWorld {
                     enemies.add(zombie);
                     spawningEnemies.add(zombie);
                     return spawningEnemies;
+                
+                case 2:
+                    Vampire vampire = new Vampire(new PathPosition(indexInPath, orderedPath));
+                    enemies.add(vampire);
+                    spawningEnemies.add(vampire);
+                    return spawningEnemies;
 
             }
 
@@ -175,6 +181,10 @@ public class LoopManiaWorld {
             //spawningEnemies.add(enemy);
         }
         return spawningEnemies;
+    }
+
+    // function to spawn a zombie if ally was bit by zombie
+    private void spawnZombieCrit(Zombie zombie) {
         
     }
 
@@ -193,100 +203,113 @@ public class LoopManiaWorld {
      */
     public List<BasicEnemy> runBattles() {
         // TODO = modify this - currently the character automatically wins all battles without any damage!
-        // BasicEnemy firstEnemy;
-        // int extraDamage = 0;
-        // boolean campfirePresent = false;
+        BasicEnemy firstEnemy = null;
+        int bonusDamage = 0;
+        //boolean campfirePresent = false;
 
         // Stores all the defeated enemies
         List<BasicEnemy> defeatedEnemies = new ArrayList<BasicEnemy>();
 
         
         // Stores all the enemies within battle and support radius (no duplicates)
-        //List<BasicEnemy> queuedEnemies = new ArrayList<BasicEnemy>();
+        List<BasicEnemy> queuedEnemies = new ArrayList<BasicEnemy>();
 
-
-        /*
+        
+        
         // Loop through the enemy list for battle radius, then get the battling enemy
         // Only need one enemy from the list to lessen its complications
         for (BasicEnemy e: enemies) {
+            System.out.println("looking for enemy");
             if (Math.pow((character.getX()-e.getX()), 2) +  Math.pow((character.getY()-e.getY()), 2) < Math.pow(e.getBattleRadius(), 2)) {
                 // queue battle enemies
                 queuedEnemies.add(e);
                 firstEnemy = e;
+                System.out.println("Found enemy");
+                //break;
+                // Only vampires have support radius
+                // Find all the enemies for which character is within support radiu
+                for (BasicEnemy s: enemies) {
+
+                    System.out.println("looking for support");
+                    // TODO: Also did not work, need to fix
+                    if (Math.pow((character.getX()-s.getX()), 2) +  Math.pow((character.getY()-s.getY()), 2) < Math.pow(s.getSupportRadius(), 2)
+                        && s != firstEnemy) {
+                        // queue battle enemies
+                        System.out.println("found support enemy");
+                        queuedEnemies.add(s);
+                            
+                    }
+                
+                }
                 break;
             }
         }
         
-        // Only vampires have support radius
-        // Find all the enemies for which character is within support radius
-        for (BasicEnemy e: enemies) {
-            if (Math.pow((character.getX()-e.getX()), 2) +  Math.pow((character.getY()-e.getY()), 2) < Math.pow(e.getSupportRadius(), 2)
-                && e != firstEnemy) {
-                // queue battle enemies
-                queuedEnemies.add(e);
-                break;
-            }
-        }
+        
+
+        
+
+        /*
+        DO NOT TOUCH YET AS IT IS NOT COMPLETED
+    
 
         // Finding character buffs available in the characters radius for battle
         for (Building b: buildingEntities) {
             if (b.toString() == "Tower") {
+                // also implement to check if in radius
                 extraDamage += b.getDamage();
             } else if (b.toString() == "Campfire") {
                 // current implementation is to double the base damage
                 // can do total damage otherwise.
+                // also implement to check if in radius
                 extraDamage += character.getDamage();
             }
         }
+        */
 
-
-
+        character.gainAlly();
+        
         // time for the battle
         for (BasicEnemy e: queuedEnemies) {
+
 
             while (e.getHealth() > 0 && character.getHealth() > 0) {
                 // character attacks enemy first
                 
-                character.dealDamage(e);
+                
+                character.dealDamage(e, bonusDamage);
                 //character.dealDamage(e, bonusDamage);
+                
 
                 // check if enemy is alive, if not skip and remove from queue + kill
                 if (e.getHealth() <= 0) {
-                    gold += e.getGold();
-                    xp += e.getXP();
-                    killEnemy(e);
+                    //gold += e.getGold();
+                    //xp += e.getXP();
+
+                    try {
+                        killEnemy(e);
+                    } catch (Exception p) {
+
+                    }
+                    
                 } else {
                     // if enemy alive, then it deals damage to character
                     e.dealDamage(character);
-
+                    // somewhere here that we will spawn the enemy out of ally soldiers
+                    
                 }
             }
+            
         }
         
 
-        return queuedEnemies;
-        */
+        return queuedEnemies; 
         
 
         // drop items/weapons here if you want
 
 
-        
-
-
-
-
         /*
-            Adjustments Request:
-            dealDamage(character, extraDamage);
-
-            extraDamage -> buffs received from the extra damage
-
-
-
-        */
-
-        
         for (BasicEnemy e: enemies){
             // Pythagoras: a^2+b^2 < radius^2 to see if within radius
             // TODO = you should implement different RHS on this inequality, based on influence radii and battle radii
@@ -303,7 +326,20 @@ public class LoopManiaWorld {
             killEnemy(e);
         }
         return defeatedEnemies;
-        
+        */
+
+        /*
+            finish: 
+            zombie.docrit() --> do later, it is way too complicated
+            vampire docrit() -> do later, too complicated
+            implement staff dospecial
+            make backend for equipping items
+            
+            later:
+            building damage
+            connect front end with equipping items
+
+        */ 
     }
     
 

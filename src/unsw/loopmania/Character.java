@@ -130,12 +130,32 @@ public class Character extends MovingEntity {
         return equippedHelmet.debuff();
     }
 
-    public void dealDamage(BasicEnemy enemy) {
-        equippedWeapon.damageBoost(this);
-        equippedWeapon.doSpecial(enemy, this);
-        int damagedealt = damage;
-        damagedealt -= getHelmetDebuff();
-        enemy.setHealth(enemy.getHealth() - this.getDamage());
+    public int lowerCritChance() {
+        return 10;
+    }
+
+    public void dealDamage(BasicEnemy enemy, int bonusDamage) {
+        
+        if (equippedWeapon != null) {
+            equippedWeapon.damageBoost(this);
+            equippedWeapon.doSpecial(enemy, this);
+        }
+        int damageDealt = damage + bonusDamage;
+        if (equippedHelmet != null) {
+            damageDealt -= getHelmetDebuff();
+        }
+        
+        System.out.println("Enemy health:" + enemy.getHealth() + " - " + damageDealt);
+        
+        enemy.setHealth(enemy.getHealth() - damageDealt);
+        
+        /*
+        int damageDealt = damage;
+        System.out.println("Enemy health:" + enemy.getHealth() + " - " + damageDealt);
+        
+        
+        enemy.setHealth(enemy.getHealth() - damageDealt);
+        */
     }
     public int getAllies() {
         return allies;
@@ -143,6 +163,8 @@ public class Character extends MovingEntity {
     public void setAllies(int allies) {
         this.allies = allies;
     }
+
+    
 
     /*
      //checkAttackDamage (check nearby boost, check equipped inventory)

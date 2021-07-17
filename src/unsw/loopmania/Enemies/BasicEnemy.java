@@ -4,6 +4,7 @@ import java.util.Random;
 
 import unsw.loopmania.MovingEntity;
 import unsw.loopmania.PathPosition;
+import unsw.loopmania.Character;
 
 /**
  * a basic form of enemy in the world
@@ -13,15 +14,25 @@ public class BasicEnemy extends MovingEntity {
     private int health;
     private int damage;
     private String type;
+    private int goldReward;
+    private int xpReward;
+    private int battleRadius;
+    private int supportRadius;
+
     public BasicEnemy(PathPosition position) {
         super(position);
     }
 
-    public BasicEnemy(PathPosition position, int health, int damage, String type) {
+    public BasicEnemy(PathPosition position, int health, int damage, String type,
+                        int goldReward, int xpReward, int battleRadius, int supportRadius) {
         this(position);
         this.health = health; 
         this.damage = damage;
         this.type = type;
+        this.goldReward = goldReward;
+        this.xpReward = xpReward;
+        this.battleRadius = battleRadius;
+        this.supportRadius = supportRadius;
     }
 
     /**
@@ -59,16 +70,41 @@ public class BasicEnemy extends MovingEntity {
         return type;
     }
 
-    // public void dealDamage(Character character) {
-    //     int damageDealt = this.damage;
-    //     damageDealt *= character.getArmourReduction();
-    //     damageDealt -= character.getShieldReduction();
-    //     damageDealt -= character.getHelmetReduction();
+    public int getBattleRadius() {
+        return this.battleRadius;
+    }
 
-    //     if (this.type.equals("Vampire")) {
-    //         character.lowerCritChance();
-    //     }
+    public int getSupportRadius() {
+        return this.supportRadius;
+    }
 
-    //     character.setHealth(character.getHealth() - this.damage);
-    // }
+    public void dealDamage(Character character) {
+
+        /*
+        int damageDealt = this.damage;
+        
+        if (character.getArmour() != null) {
+            damageDealt *= character.getArmourReduction();
+        }
+
+        if (character.getShield() != null) {
+            damageDealt -= character.getShieldReduction();
+            if (this.type.equals("Vampire")) {
+                character.lowerCritChance();
+            }
+        }
+
+        if (character.getHelmet() != null) {
+            damageDealt -= character.getHelmetReduction();
+        }
+
+        System.out.println("Character health:" + character.getHealth() + " - " + damageDealt);
+        
+        character.setHealth(character.getHealth() - damageDealt);
+        */
+        int damageDealt = this.damage;
+        System.out.println("Character health:" + character.getHealth() + " - " + damageDealt);
+        
+        character.setHealth(character.getHealth() - 5);
+    }
 }
