@@ -229,9 +229,6 @@ public class LoopManiaWorld {
      * run moves which occur with every tick without needing to spawn anything immediately
      */
     public void runTickMoves(){
-        if (hasMetGoal()) {
-            gameOver();
-        }
         character.moveDownPath();
         moveBasicEnemies();
     }
@@ -399,6 +396,10 @@ public class LoopManiaWorld {
 
     public boolean hasMetGoal() {
         return goal.hasMetGoal(this);
+    }
+
+    public boolean isGameover() {
+        return gameOver;
     }
 
     public void gameOver() {

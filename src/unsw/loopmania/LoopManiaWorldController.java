@@ -247,6 +247,9 @@ public class LoopManiaWorldController {
         isPaused = false;
         // trigger adding code to process main game logic to queue. JavaFX will target framerate of 0.3 seconds
         timeline = new Timeline(new KeyFrame(Duration.seconds(0.3), event -> {
+            if (world.isGameover()) {
+                gameOver("asd");
+            }
             world.runTickMoves();
             List<BasicEnemy> defeatedEnemies = world.runBattles();
             for (BasicEnemy e: defeatedEnemies){
@@ -731,29 +734,9 @@ public class LoopManiaWorldController {
     }
 
     public void gameOver(String status) {
+        System.out.println("Game is Over!");
         timeline.stop();
-
-        StackPane backGround = new StackPane();
-        Text gameStatus = new Text(status);
-        gameStatus.setTextAlignment(TextAlignment.CENTER);
-
-        Button returnMainMenu = new Button("Return to Main Menu");
-        returnMainMenu.setPadding(new Insets(5, 5, 5, 5));
-        // returnMainMenu.setOnAction((ActionEvent event) -> {
-        // go to main menu
-        //});
-
-        Button quit = new Button("Quit");
-        quit.setPadding(new Insets(5, 5, 5, 5));
-        quit.setOnAction((ActionEvent event) -> {
-            Platform.exit();
-        });
-
-        VBox vBox = new VBox();
-        vBox.getChildren().addAll(gameStatus, returnMainMenu, quit);
-
-        backGround.getChildren().add(vBox);
-
-        base.getScene().setRoot(backGround);
+        mainMenuSwitcher.switchMenu();
+        // // Platform.exit();
     }
 }
