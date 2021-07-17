@@ -2,7 +2,7 @@ package unsw.loopmania.item.defensiveitem;
 
 import javafx.beans.property.SimpleIntegerProperty;
 
-import unsw.loopmania.BasicEnemy;
+import unsw.loopmania.Enemies.BasicEnemy;
 import unsw.loopmania.StaticEntity;
 
 public class Armour extends DefensiveItem {
