@@ -171,6 +171,7 @@ public abstract class LoopManiaWorldLoader {
             case "experience":
                 quantity = goalJson.getInt("quantity");
                 goal = new GoalExperience(world, quantity);
+                break;
             case "AND":
                 goal = new AndGoal(world);
                 break;
