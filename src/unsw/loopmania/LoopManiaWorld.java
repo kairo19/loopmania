@@ -86,10 +86,12 @@ public class LoopManiaWorld {
      */
     private List<Pair<Integer, Integer>> orderedPath;
 
-
-    private int gold;
-    private int xp;
     private int round;
+    private int gold; 
+    private int experience;
+    private GoalNode goal;
+    private boolean gameOver;
+    private LoopManiaWorldController controller;
 
     /**
      * create the world (constructor)
@@ -108,8 +110,13 @@ public class LoopManiaWorld {
         unequippedInventoryItems = new ArrayList<>();
         this.orderedPath = orderedPath;
         buildingEntities = new ArrayList<>();
+        this.round = 1;
+        this.gold = 0;
+        this.experience = 0;
+        this.goal = null;
+        this.gameOver = false;
     }
-
+    
     public int getWidth() {
         return width;
     }
@@ -483,10 +490,15 @@ public class LoopManiaWorld {
     /**
      * run moves which occur with every tick without needing to spawn anything immediately
      */
-    public void runTickMoves(){
+    public void runTickMoves() {
+        if (hasMetGoal()) {
+            endGame();
+        }
         character.moveDownPath();
         moveBasicEnemies();
     }
+
+        
 
     /**
      * remove an item from the unequipped inventory
@@ -674,5 +686,48 @@ public class LoopManiaWorld {
     }
     public void setRound(int round) {
         this.round = round;
+    }
+
+    public void setRound(int round) {
+        this.round = round;
+    }
+    public int getRound() {
+        return round;
+    }
+    public void setGold(int gold) {
+        this.gold = gold;
+    }
+    public int getGold() {
+        return gold;
+    }
+    public void setExperience(int experience) {
+        this.experience = experience;
+    }
+    public int getExperience() {
+        return experience;
+    }
+
+    public void setGoal(GoalNode goal) {
+        this.goal = goal;
+    }
+    public GoalNode getGoal() {
+        return goal;
+    }
+
+    public boolean hasMetGoal() {
+        return goal.hasMetGoal(this);
+    }
+
+    public boolean isGameover() {
+        return gameOver;
+    }
+
+    public void endGame() {
+        gameOver = true;
+        if (hasMetGoal()) {
+            controller.gameOver("YOU WON!");
+        } else {
+            controller.gameOver("YOU LOST!");
+        }
     }
 }
