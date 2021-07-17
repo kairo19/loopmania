@@ -1,7 +1,12 @@
 package unsw.loopmania;
 
+import java.util.List;
+
+import org.javatuples.Pair;
+
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import unsw.loopmania.Cards.PlacableBehaviour.PlacableBehaviour;
 
 
 /**
@@ -13,6 +18,7 @@ public abstract class StaticEntity extends Entity {
      * x and y coordinates represented by IntegerProperty, so ChangeListeners can be added
      */
     private IntegerProperty x, y;
+    protected PlacableBehaviour placableBehaviour;
 
     public StaticEntity(SimpleIntegerProperty x, SimpleIntegerProperty y) {
         super();
@@ -35,4 +41,9 @@ public abstract class StaticEntity extends Entity {
     public int getY() {
         return y().get();
     }
+
+    public boolean checkPlacable(int x, int y, List<Pair<Integer, Integer>> orderedPath){
+        return placableBehaviour.placable(x, y, orderedPath);
+    }  
+
 }

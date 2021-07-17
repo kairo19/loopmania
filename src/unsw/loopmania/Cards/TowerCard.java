@@ -10,7 +10,7 @@ import unsw.loopmania.Cards.PlacableBehaviour.PlaceableOnAdjacentPath;
 public class TowerCard extends Card {
     public TowerCard(SimpleIntegerProperty x, SimpleIntegerProperty y) {
         super(x, y);
-        this.placable = new PlaceableOnAdjacentPath();
+        this.placableBehaviour = new PlaceableOnAdjacentPath();
     }   
     @Override
     public String toString() {

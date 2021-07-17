@@ -137,8 +137,12 @@ public class Character extends MovingEntity {
         damagedealt -= getHelmetDebuff();
         enemy.setHealth(enemy.getHealth() - this.getDamage());
     }
-
-    
+    public int getAllies() {
+        return allies;
+    }
+    public void setAllies(int allies) {
+        this.allies = allies;
+    }
 
     /*
      //checkAttackDamage (check nearby boost, check equipped inventory)

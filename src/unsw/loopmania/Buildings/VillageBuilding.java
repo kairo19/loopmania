@@ -5,16 +5,16 @@ import java.util.List;
 import org.javatuples.Pair;
 
 import javafx.beans.property.SimpleIntegerProperty;
-
+import unsw.loopmania.Character;
 public class VillageBuilding extends Building {
     public VillageBuilding(SimpleIntegerProperty x, SimpleIntegerProperty y) {
         super(x, y);
     }
 
-    // public void RegainHealth(Character character) {
-    //     int new_health = character.gethealth() + 20;
-    //     character.sethealth(new_health);
-    // }
+    public void RegainHealth(Character character) {
+        int new_health = character.getHealth() + 20;
+        character.setHealth(new_health);
+    }
 
     @Override
     public String toString() {

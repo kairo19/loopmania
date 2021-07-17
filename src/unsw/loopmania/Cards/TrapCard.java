@@ -9,7 +9,7 @@ import unsw.loopmania.Cards.PlacableBehaviour.PlacableOnPath;
 public class TrapCard extends Card {
     public TrapCard(SimpleIntegerProperty x, SimpleIntegerProperty y) {
         super(x, y);
-        this.placable = new PlacableOnPath();
+        this.placableBehaviour = new PlacableOnPath();
     }
 
     @Override

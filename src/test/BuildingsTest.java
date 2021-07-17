@@ -8,9 +8,13 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.util.Pair;
-import unsw.loopmania.BasicEnemy;
+
+import unsw.loopmania.Enemies.BasicEnemy;
+import unsw.loopmania.Enemies.Vampire;
+
+import org.javatuples.Pair;
 import unsw.loopmania.LoopManiaWorld;
+import unsw.loopmania.PathPosition;
 import unsw.loopmania.Buildings.Building;
 import unsw.loopmania.Buildings.TowerBuilding;
 import unsw.loopmania.Buildings.VampireCastleBuilding;
@@ -33,7 +37,7 @@ public class BuildingsTest {
     public void VampireBuildingTest(){
         List<Pair<Integer, Integer>> orderedpath = new ArrayList<>();
         List<Building> buildingEntities = new ArrayList<>();
-
+        List<BasicEnemy> enemies = new ArrayList<>();
 
         orderedpath.add(new Pair<Integer, Integer>(1, 1));
         orderedpath.add(new Pair<Integer, Integer>(1, 2));
@@ -44,7 +48,7 @@ public class BuildingsTest {
         VampireCastleBuilding newBuilding = new VampireCastleBuilding(new SimpleIntegerProperty(1), new SimpleIntegerProperty(3));
         buildingEntities.add(newBuilding);
         
-        assertEquals(newBuilding.SpawnVampire(5), new Vampire());
+        assertEquals(newBuilding.SpawnVampire(5), new Vampire(new PathPosition(1, orderedpath)));
     }
 
     @Test

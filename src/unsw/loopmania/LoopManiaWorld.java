@@ -89,6 +89,7 @@ public class LoopManiaWorld {
 
     private int gold;
     private int xp;
+    private int round;
 
     /**
      * create the world (constructor)
@@ -607,6 +608,10 @@ public class LoopManiaWorld {
                 break;
             }
         }
+        // if (!card.checkPlacable(buildingNodeX, buildingNodeY, orderedPath)) {
+        //     return null;
+        // }
+
         switch (card.toString()) {
             case "VampireCastleCard":
                 VampireCastleBuilding vampireCastle = new VampireCastleBuilding(new SimpleIntegerProperty(buildingNodeX), new SimpleIntegerProperty(buildingNodeY));
@@ -659,5 +664,15 @@ public class LoopManiaWorld {
         card.destroy();
         cardEntities.remove(card);
         shiftCardsDownFromXCoordinate(cardNodeX);
+    }
+
+    public List<Pair<Integer, Integer>> getOrderedPath() {
+        return orderedPath;
+    }
+    public int getRound() {
+        return round;
+    }
+    public void setRound(int round) {
+        this.round = round;
     }
 }

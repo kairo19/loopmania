@@ -1,5 +1,7 @@
 package unsw.loopmania.Buildings;
 import javafx.beans.property.SimpleIntegerProperty;
+import unsw.loopmania.LoopManiaWorld;
+
 import java.util.List;
 
 public class HerosCastleBuilding extends Building {
@@ -7,28 +9,33 @@ public class HerosCastleBuilding extends Building {
         super(x, y);
     }  
 
-    public int AddCycle(int Cycle) {
-        return Cycle + 1;
+    /**
+     * Adds a cycle to the round variable after character loops the world
+     */
+    public void AddCycle(LoopManiaWorld world) {
+        world.setRound(world.getRound() + 1);
     }
-
-    public boolean PurchaseCycle(int Cycle) {
-        if (Cycle % 3 == 0) {
+    /**
+     * Returns true if the current round should provide the character with a shop
+     * @param Cycle
+     * @return
+     */
+    public boolean PurchaseCycle(LoopManiaWorld world) {
+        if (world.getRound() % 3 == 0) {
             return true;
-        } else if (Cycle == 1) {
+        } else if (world.getRound() == 1) {
             return true;
         }
         return false;
     }
     
-    // public void ShowStore(List<Item> Shop) {
-
-    // }
     public boolean ScaleStats(int Cycle) {
         if (Cycle % 10 == 0) {
             return true;
         }
         return false;
     }
+
     @Override
     public String toString() {
         return "HerosCastleBuilding";
