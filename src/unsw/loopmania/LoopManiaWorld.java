@@ -163,33 +163,12 @@ public class LoopManiaWorld {
             int indexInPath = orderedPath.indexOf(pos);
             //BasicEnemy enemy = new BasicEnemy(new PathPosition(indexInPath, orderedPath));
 
-            Random r = new Random();
-            int num = r.nextInt(3);
-
-            // TODO: SUSS OUT ON THE SPAWNING LOCATION!!!!!!
-
-            switch(num) {
-                // Slugs spawning
-                case 0:
-                    Slug slug = new Slug(new PathPosition(indexInPath, orderedPath));
-                    enemies.add(slug);
-                    spawningEnemies.add(slug);
-                    return spawningEnemies;
-
-                // Zombies spawning
-                case 1:
-                    Zombie zombie = new Zombie(new PathPosition(indexInPath, orderedPath));
-                    enemies.add(zombie);
-                    spawningEnemies.add(zombie);
-                    return spawningEnemies;
-                
-                case 2:
-                    Vampire vampire = new Vampire(new PathPosition(indexInPath, orderedPath));
-                    enemies.add(vampire);
-                    spawningEnemies.add(vampire);
-                    return spawningEnemies;
-
-            }
+        
+            Slug slug = new Slug(new PathPosition(indexInPath, orderedPath));
+            enemies.add(slug);
+            spawningEnemies.add(slug);
+            System.out.println("size of spawning enemies:" + spawningEnemies.size());
+            return spawningEnemies;
 
             //enemies.add(enemy);
             //spawningEnemies.add(enemy);
@@ -725,6 +704,7 @@ public class LoopManiaWorld {
         int choice = rand.nextInt(2); // TODO = change based on spec... currently low value for dev purposes...
         // TODO = change based on spec
         if ((choice == 0) && (enemies.size() < 2)){
+            
             List<Pair<Integer, Integer>> orderedPathSpawnCandidates = new ArrayList<>();
             int indexPosition = orderedPath.indexOf(new Pair<Integer, Integer>(character.getX(), character.getY()));
             // inclusive start and exclusive end of range of positions not allowed
