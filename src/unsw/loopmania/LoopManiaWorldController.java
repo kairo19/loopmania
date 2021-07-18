@@ -410,7 +410,7 @@ public class LoopManiaWorldController {
         // in starter code, spawning extra card/weapon...
         // TODO = provide different benefits to defeating the enemy based on the type of enemy
         loadItem();
-        //loadRareItem();
+        loadRareItem();
         loadCard();
     }
 
@@ -810,6 +810,9 @@ public class LoopManiaWorldController {
                 pause();
             }
             break;
+
+        case P:
+            
         default:
             break;
         }

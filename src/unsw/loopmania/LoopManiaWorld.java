@@ -307,7 +307,7 @@ public class LoopManiaWorld {
                 } else {
                     // if enemy alive, then it deals damage to character
                     e.dealDamage(character);
-                    character.setHealth(100);
+                    
                     // somewhere here that we will spawn the enemy out of ally soldiers
                     
                 }
@@ -556,8 +556,11 @@ public class LoopManiaWorld {
         } else if (store.equals("Shield")) {
             Shield shieldClass = (Shield) items;
             character.equipShield(shieldClass);
-        }
-
+        } else if (store.equals("HealthPotion")) {
+            HealthPotion healthpotion = (HealthPotion) items;
+            healthpotion.consume(character);
+            System.out.println("HEALING CHARACTER");
+        }   
     }
 
 

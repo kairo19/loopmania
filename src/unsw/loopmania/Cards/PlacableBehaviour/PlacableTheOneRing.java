@@ -3,7 +3,7 @@ package unsw.loopmania.Cards.PlacableBehaviour;
 import java.util.List;
 import org.javatuples.Pair;
 
-public class PlacableConsumable implements PlacableBehaviour{
+public class PlacableTheOneRing implements PlacableBehaviour{
 
     @Override
     public boolean placable(int x, int y, List<Pair<Integer, Integer>> orderedPath) {
