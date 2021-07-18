@@ -909,4 +909,8 @@ public class LoopManiaWorld {
     public void setHerosCastleBuilding(HerosCastleBuilding herosCastleBuilding) {
         this.herosCastleBuilding = herosCastleBuilding;
     }
+
+    public HerosCastleBuilding getHerosCastleBuilding() {
+        return herosCastleBuilding;
+    }
 }

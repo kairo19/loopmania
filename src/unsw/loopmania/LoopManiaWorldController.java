@@ -42,6 +42,7 @@ import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
 import javafx.util.converter.NumberStringConverter;
 import unsw.loopmania.Buildings.Building;
+import unsw.loopmania.Buildings.HerosCastleBuilding;
 import unsw.loopmania.Buildings.VampireCastleBuilding;
 import unsw.loopmania.Cards.Card;
 import unsw.loopmania.Cards.VampireCastleCard;
@@ -335,7 +336,7 @@ public class LoopManiaWorldController {
             if (world.isGameover() || world.getCharacterHealthProperty().get() <= 0) {
                 gameOver(world.hasMetGoal());
             }
-            if (true /*charcter is at heroscastle */) {
+            if (world.getHerosCastleBuilding().PurchaseCycle(world.getRound())) {
                 openStore();
             }
             world.runTickMoves();
