@@ -472,11 +472,11 @@ public class LoopManiaWorld {
         Random r = new Random();
         int num = r.nextInt(100);
 
-        if (num < 5) {
+        if (num < 3) {
             TheOneRing theonering = new TheOneRing(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
             unequippedInventoryItems.add(theonering);
             return theonering;
-        } else if (num < 15 && num > 5) {
+        } else if (num < 13 && num > 3) {
             HealthPotion healthpotion = new HealthPotion(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
             unequippedInventoryItems.add(healthpotion);
             return healthpotion;
@@ -526,6 +526,7 @@ public class LoopManiaWorld {
             HealthPotion healthpotion = (HealthPotion) items;
             healthpotion.consume(character);
             System.out.println("HEALING CHARACTER");
+            healthpotion.destroy();
         }   
     }
 
