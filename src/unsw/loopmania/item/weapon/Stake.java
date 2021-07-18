@@ -20,13 +20,15 @@ public class Stake extends StaticEntity implements Weapon {
 
     @Override
     public void damageBoost(Character character) {
-        character.setDamage(character.getDamage() + DAMAGE_BOOST);
+        //character.setDamage(character.getDamage() + DAMAGE_BOOST);
+        character.setBuffedDamage(DAMAGE_BOOST);
     }
 
     @Override
     public void doSpecial(BasicEnemy basicEnemy, Character character) {
         if (basicEnemy.getType().equals("Vampire")) {
-            character.setDamage((int) (character.getDamage() * 1.5));
+            //character.setDamage((int) (character.getDamage() * 1.5));
+            character.setBuffedDamage((int) (character.getDamage() * 1.5));
         }     
     }
 

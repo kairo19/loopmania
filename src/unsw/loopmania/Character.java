@@ -25,6 +25,7 @@ public class Character extends MovingEntity {
     // TODO = potentially implement relationships between this class and other classes
     private IntegerProperty health;
     private int damage;
+    private int buffedDamage;
     private int allies;                     // current placeholder
     private Weapon equippedWeapon;
     private Armour equippedArmour;
@@ -42,6 +43,7 @@ public class Character extends MovingEntity {
         this.allies = 0;
         this.health = new SimpleIntegerProperty(100);
         this.damage = 5;
+        this.buffedDamage = 0;
         this.equippedWeapon = null;
         this.equippedArmour = null;
         this.equippedHelmet = null;
@@ -143,13 +145,21 @@ public class Character extends MovingEntity {
         return 10;
     }
 
+    public void setBuffedDamage(int buffedDamage) {
+        this.buffedDamage += buffedDamage;
+    }
+
     public void dealDamage(BasicEnemy enemy, int bonusDamage) {
         
         if (equippedWeapon != null) {
-            //equippedWeapon.damageBoost(this);
+            // added the buffed damage to buffedDamage
+            equippedWeapon.damageBoost(this);
+            // doing special attack to enemy
             equippedWeapon.doSpecial(enemy, this);
         }
-        int damageDealt = damage + bonusDamage;
+                        // base     buildings    weapons
+        int damageDealt = damage + bonusDamage + buffedDamage;
+
         if (equippedHelmet != null) {
             damageDealt -= getHelmetDebuff();
         }
@@ -165,6 +175,9 @@ public class Character extends MovingEntity {
         
         enemy.setHealth(enemy.getHealth() - damageDealt);
         */
+
+        // resetting it
+        this.buffedDamage = 0;
     }
     public int getAllies() {
         return allies;
