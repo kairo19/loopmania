@@ -92,11 +92,11 @@ public class LoopManiaWorldTest {
         Character character = new Character(new PathPosition(0, orderedpath));
          
         d.setCharacter(character);
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 10; i++) {
             d.loadCard();
         }
     
-        assertEquals(d.getGold(), 10);
+        assertEquals(d.getGold(), 60);
         
     }
 
