@@ -12,15 +12,12 @@ public class CampfireBuilding extends Building {
 
     public CampfireBuilding(SimpleIntegerProperty x, SimpleIntegerProperty y) {
         super(x, y);
-        setRadius(5);
+        setRadius(3);
     }
-    /**
-     * Doubles the attack damage of a character if they are in range
-     * @param character 
-     */
-    public void DoubleAttack(Character character) {
-        int damage = character.getDamage() * 2;
-        character.setDamage(damage);
+
+    @Override
+    public int CharacterBattleBuffAbility(Character character) {
+        return character.getDamage();
     }
 
     @Override

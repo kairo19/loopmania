@@ -4,6 +4,7 @@ import java.util.List;
 import org.javatuples.Pair;
 
 import javafx.beans.property.SimpleIntegerProperty;
+import unsw.loopmania.Character;
 import unsw.loopmania.Enemies.BasicEnemy;
 
 public class TowerBuilding extends Building {
@@ -14,7 +15,8 @@ public class TowerBuilding extends Building {
         this.damage = 20;
     }
 
-    public int getDamage() {
+    @Override
+    public int CharacterBattleBuffAbility(Character character) {
         return damage;
     }
 

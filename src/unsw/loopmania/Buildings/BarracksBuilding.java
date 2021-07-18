@@ -16,10 +16,10 @@ public class BarracksBuilding extends Building {
      * Adds an extra ally to the character object
      * @param character
      */
-    public void AddAllies(Character character) {
+    @Override
+    public void CharacterBuffAbility(Character character) {
         character.setAllies(character.getAllies() + 1);
     }
-
     @Override
     public String toString() {
         

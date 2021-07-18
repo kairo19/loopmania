@@ -219,7 +219,13 @@ public class LoopManiaWorld {
         BasicEnemy firstEnemy = null;
         int bonusDamage = 0;
         //boolean campfirePresent = false;
-
+        System.out.println("CHARACTER DAMAGE: " + character.getDamage());
+        for (Building b: buildingEntities) {
+            if (b.checkInRange(character.getX(), character.getY())) {
+                bonusDamage += b.CharacterBattleBuffAbility(character);
+                System.out.println("BONUS DAMAGE: " + bonusDamage);
+            }
+        }
         // Stores all the defeated enemies
         List<BasicEnemy> defeatedEnemies = new ArrayList<BasicEnemy>();
 
@@ -291,6 +297,8 @@ public class LoopManiaWorld {
                 
                 
                 character.dealDamage(e, bonusDamage);
+                System.out.println("CHARACTER DAMAGE: " + character.getDamage());
+
                 //character.dealDamage(e, bonusDamage);
                 
 
@@ -495,26 +503,6 @@ public class LoopManiaWorld {
         }
         return null;
     }
-    public StaticEntity addUnequippedRareItem(){
-        // TODO = expand this - we would like to be able to add multiple types of items, apart from swords
-        Pair<Integer, Integer> firstAvailableSlot = getFirstAvailableSlotForItem();
-        if (firstAvailableSlot == null){
-            // eject the oldest unequipped item and replace it... oldest item is that at beginning of items
-            // TODO = give some cash/experience rewards for the discarding of the oldest sword
-            removeItemByPositionInUnequippedInventoryItems(0);
-            firstAvailableSlot = getFirstAvailableSlotForItem();
-        }
-
-        Random r = new Random();
-        int num = r.nextInt(100);
-        if (r < 10) {
-            new item;
-        } else if (r < 30 && r > 10) {
-            new item;
-            return;
-        }
-        return null;
-    }
 
 
 
@@ -557,9 +545,27 @@ public class LoopManiaWorld {
         if (hasMetGoal()) {
             endGame();
         }
+
         character.moveDownPath();
         moveBasicEnemies();
     }
+
+    /**
+     * Loops through current buildings and applies affects if applicable
+     */
+    public void ApplyBuildingEffects() {
+        for (Building b : buildingEntities) {
+            if (b.getX() == character.getX() && b.getY() == character.getY()) {
+                b.CharacterBuffAbility(character);
+                if (b.toString().equals("TrapBuilding")) {
+                    for (BasicEnemy e: enemies) {
+                        if (e.getX() == b.getX() && e.getY() == b.getY()) b.DealDamageEnemies(e);                                
+                    }
+                }
+            } 
+        }
+    }
+
     /**
      * Creates a list of all the enemies created from vampire and zombie buildings.  
      * This occurs once character reaches the herocastle.

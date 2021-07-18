@@ -12,10 +12,12 @@ public class TrapBuilding extends Building {
      * Deals 50 damage to an enemy  that walks on this object
      * @param Enemy
      */
-    public void TrapEnemy(BasicEnemy Enemy) {
-        int new_health = Enemy.getHealth() - 50;
-        Enemy.setHealth(new_health);
+    @Override
+    public void DealDamageEnemies(BasicEnemy enemy) {
+        int new_health = enemy.getHealth() - 50;
+        enemy.setHealth(new_health);
     }
+
 
     @Override
     public String toString() {

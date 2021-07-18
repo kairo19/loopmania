@@ -386,12 +386,7 @@ public class LoopManiaWorldController {
         StaticEntity item = world.addUnequippedItem();
         onLoad(item);
     }
-    private void loadRareItem(){
-        // TODO = load more types of weapon
-        // start by getting first available coordinates
-        StaticEntity item = world.addUnequippedRareItem();
-        onLoad(item);
-    }
+
     /**
      * run GUI events after an enemy is defeated, such as spawning items/experience/gold
      * @param enemy defeated enemy for which we should react to the death of
@@ -401,7 +396,6 @@ public class LoopManiaWorldController {
         // in starter code, spawning extra card/weapon...
         // TODO = provide different benefits to defeating the enemy based on the type of enemy
         loadItem();
-        loadRareItem();
         loadCard();
     }
 

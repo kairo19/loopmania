@@ -4,12 +4,13 @@ import org.javatuples.Pair;
 
 
 import javafx.beans.property.SimpleIntegerProperty;
+import unsw.loopmania.Character;
 import unsw.loopmania.OccupiedBuildings;
 import unsw.loopmania.PathPosition;
 import unsw.loopmania.StaticEntity;
 import unsw.loopmania.Enemies.BasicEnemy;
 
-public abstract class Building extends StaticEntity implements SpecialBehaviour{
+public abstract class Building extends StaticEntity {
     private int radius;
     private int BuildingAliveRounds;
     //private PathPosition position;
@@ -19,9 +20,14 @@ public abstract class Building extends StaticEntity implements SpecialBehaviour{
         this.BuildingAliveRounds = 0;
     }   
     
-    public boolean checkInRange(int x, int y) {
-        int distance = this.radius;
-        return true;
+    public boolean checkInRange(int characterPosX, int characterPosY) {
+
+        int pythagoras = (characterPosX - getX())^2 + (characterPosY - getY())^2;
+        int radius_squared = radius * radius;
+        if (pythagoras < radius_squared) {
+            return true;
+        }            
+        return false;
     }
     public int getRadius() {
         return radius;
@@ -35,5 +41,16 @@ public abstract class Building extends StaticEntity implements SpecialBehaviour{
 
     public BasicEnemy SpawnAbility(List<Pair<Integer, Integer>> orderedPath) {
         return null;
+    }
+
+    /**
+     * Buffs the character depending on building
+     */
+    public void CharacterBuffAbility(Character character) {};
+
+    public void DealDamageEnemies(BasicEnemy enemy){};
+
+    public int CharacterBattleBuffAbility(Character character) {
+        return 0;
     }
 }
