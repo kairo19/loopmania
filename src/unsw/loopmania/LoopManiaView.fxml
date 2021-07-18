@@ -112,6 +112,7 @@
             <Text fx:id="healthField" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="100" />
             <Text fx:id="goldField" fill="#cdcd19" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
             <Text fx:id="expField" fill="#1d00da" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+            <Text fx:id="cycleField" strokeType="OUTSIDE" strokeWidth="0.0" text="1" />
          </children>
       </VBox>
    </HBox>

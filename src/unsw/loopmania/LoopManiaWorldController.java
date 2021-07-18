@@ -114,7 +114,7 @@ public class LoopManiaWorldController {
     @FXML
     private GridPane unequippedInventory;
 
-    // textfields containing health, gold and experience
+    // textfields containing health, gold and experience and round/cycle
     @FXML
     private Text healthField;
 
@@ -123,6 +123,9 @@ public class LoopManiaWorldController {
 
     @FXML
     private Text expField;
+
+    @FXML
+    private Text cycleField;
 
     // all image views including tiles, character, enemies, cards... even though cards in separate gridpane...
     private List<ImageView> entityImages;
@@ -303,11 +306,11 @@ public class LoopManiaWorldController {
         draggedEntity.setOpacity(0.7);
         anchorPaneRoot.getChildren().add(draggedEntity);
 
-        // bind health, experience and gold
+        // bind health, experience, gold and round
         healthField.textProperty().bindBidirectional(world.getCharacterHealthProperty(), new NumberStringConverter());
         goldField.textProperty().bindBidirectional(world.getgoldProperty(), new NumberStringConverter());
         expField.textProperty().bindBidirectional(world.getExperienceProperty(), new NumberStringConverter());
-        // round field as well?
+        cycleField.textProperty().bindBidirectional(world.getRoundProperty(), new NumberStringConverter());
     }
 
     /**
