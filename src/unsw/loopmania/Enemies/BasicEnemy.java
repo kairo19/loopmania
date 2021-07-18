@@ -78,9 +78,17 @@ public class BasicEnemy extends MovingEntity {
         return this.supportRadius;
     }
 
+    public int getGold() {
+        return this.goldReward;
+    }
+
+    public int getXP() {
+        return this.xpReward;
+    }
+
     public void dealDamage(Character character) {
 
-        /*
+        
         int damageDealt = this.damage;
         
         if (character.getArmour() != null) {
@@ -101,10 +109,12 @@ public class BasicEnemy extends MovingEntity {
         System.out.println("Character health:" + character.getHealth() + " - " + damageDealt);
         
         character.setHealth(character.getHealth() - damageDealt);
-        */
+        
+        /*
         int damageDealt = this.damage;
         System.out.println("Character health:" + character.getHealth() + " - " + damageDealt);
         
         character.setHealth(character.getHealth() - 5);
+        */
     }
 }

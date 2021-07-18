@@ -127,6 +127,9 @@ public class LoopManiaWorldController {
     @FXML
     private Text cycleField;
 
+    @FXML
+    private Text allyField;
+
     // all image views including tiles, character, enemies, cards... even though cards in separate gridpane...
     private List<ImageView> entityImages;
 
@@ -311,6 +314,7 @@ public class LoopManiaWorldController {
         goldField.textProperty().bindBidirectional(world.getgoldProperty(), new NumberStringConverter());
         expField.textProperty().bindBidirectional(world.getExperienceProperty(), new NumberStringConverter());
         cycleField.textProperty().bindBidirectional(world.getRoundProperty(), new NumberStringConverter());
+        allyField.textProperty().bindBidirectional(world.getNumberAlliesProperty(), new NumberStringConverter());
     }
 
     /**
@@ -562,21 +566,28 @@ public class LoopManiaWorldController {
                         int nodeY = GridPane.getRowIndex(currentlyDraggedImage);
                         switch (draggableType){
                             case CARD:
-                                    if (staticEntity.checkPlacable(x, y, world.getOrderedPath())) {
-                                        removeDraggableDragEventHandlers(draggableType, targetGridPane);
-                                        Building newBuilding = convertCardToBuildingByCoordinates(nodeX, nodeY, x, y);
-                                        onLoad(newBuilding);
-                                    } else {
-                                        node.setOpacity(1);
-                                        return;
-                                    }
-                                    break;
+                                if (staticEntity.checkPlacable(x, y, world.getOrderedPath())) {
+                                    removeDraggableDragEventHandlers(draggableType, targetGridPane);
+                                    Building newBuilding = convertCardToBuildingByCoordinates(nodeX, nodeY, x, y);
+                                    onLoad(newBuilding);
+                                } else {
+                                    node.setOpacity(1);
+                                    return;
+                                }
+                                break;
 
                             case ITEM:
-                                removeDraggableDragEventHandlers(draggableType, targetGridPane);
+                                if (staticEntity.checkItemPlacable(x,y)){
+                                    removeDraggableDragEventHandlers(draggableType, targetGridPane);
                                 // TODO = spawn an item in the new location. The above code for spawning a building will help, it is very similar
-                                removeItemByCoordinates(nodeX, nodeY);
-                                targetGridPane.add(image, x, y, 1, 1);
+                                    removeItemByCoordinates(nodeX, nodeY);
+                                    targetGridPane.add(image, x, y, 1, 1);
+                                    world.addCharacterDraggedEntity(staticEntity);
+                                } else {
+                                    node.setOpacity(1);
+                                    return;
+                                }
+                                
                                 break;
                             default:
                                 break;

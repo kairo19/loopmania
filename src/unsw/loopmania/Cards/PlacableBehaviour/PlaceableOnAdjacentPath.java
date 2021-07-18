@@ -24,4 +24,10 @@ public class PlaceableOnAdjacentPath implements PlacableBehaviour {
         }
         return false;
     }
+
+    @Override
+    public boolean itemPlacable(int x, int y) {
+        // TODO Auto-generated method stub
+        return false;
+    }
 }
