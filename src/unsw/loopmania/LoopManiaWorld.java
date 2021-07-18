@@ -141,6 +141,14 @@ public class LoopManiaWorld {
         this.character = character;
     }
 
+    public void setCardEntities(List<Card> listCardEntities) {
+        this.cardEntities = listCardEntities;
+    }
+
+    public List<Building> getBuildingEntities() {
+        return this.buildingEntities;
+    }
+
     /**
      * add a generic entity (without it's own dedicated method for adding to the world)
      * @param entity
