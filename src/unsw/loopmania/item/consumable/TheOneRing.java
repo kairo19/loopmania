@@ -1,5 +1,6 @@
 package unsw.loopmania.item.consumable;
 
+import javafx.beans.property.SimpleIntegerProperty;
 import unsw.loopmania.Character;
 
 public class TheOneRing extends Consumable {

@@ -11,7 +11,9 @@ public class VillageBuilding extends Building {
         super(x, y);
     }
 
-    public void RegainHealth(Character character) {
+
+    @Override
+    public void CharacterBuffAbility(Character character) {
         int new_health = character.getHealth() + 20;
         character.setHealth(new_health);
     }

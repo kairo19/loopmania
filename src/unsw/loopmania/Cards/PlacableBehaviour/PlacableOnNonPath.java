@@ -15,5 +15,11 @@ public class PlacableOnNonPath implements PlacableBehaviour{
         }
         return true;
     }
+
+    @Override
+    public boolean itemPlacable(int x, int y) {
+        // TODO Auto-generated method stub
+        return false;
+    }
     
 }

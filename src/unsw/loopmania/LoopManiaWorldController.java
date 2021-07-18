@@ -35,7 +35,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
@@ -131,6 +130,9 @@ public class LoopManiaWorldController {
     @FXML
     private Text cycleField;
 
+    @FXML
+    private Text allyField;
+
     // all image views including tiles, character, enemies, cards... even though cards in separate gridpane...
     private List<ImageView> entityImages;
 
@@ -177,6 +179,7 @@ public class LoopManiaWorldController {
     private Image armourImage;
     private Image shieldImage;
     private Image helmetImage;
+    private Image potionImage;
 
     /**
      * the image currently being dragged, if there is one, otherwise null.
@@ -250,6 +253,7 @@ public class LoopManiaWorldController {
         slugImage = new Image((new File("src/images/slug.png")).toURI().toString());
         zombieImage = new Image((new File("src/images/zombie.png")).toURI().toString());
         vampireImage = new Image((new File("src/images/vampire.png")).toURI().toString());
+        potionImage = new Image((new File("src/images/brilliant_blue_new.png")).toURI().toString());
 
         
 
@@ -315,6 +319,7 @@ public class LoopManiaWorldController {
         goldField.textProperty().bindBidirectional(world.getgoldProperty(), new NumberStringConverter());
         expField.textProperty().bindBidirectional(world.getExperienceProperty(), new NumberStringConverter());
         cycleField.textProperty().bindBidirectional(world.getRoundProperty(), new NumberStringConverter());
+        allyField.textProperty().bindBidirectional(world.getNumberAlliesProperty(), new NumberStringConverter());
     }
 
     /**
@@ -326,8 +331,8 @@ public class LoopManiaWorldController {
         isPaused = false;
         // trigger adding code to process main game logic to queue. JavaFX will target framerate of 0.3 seconds
         timeline = new Timeline(new KeyFrame(Duration.seconds(0.3), event -> {
-            if (world.isGameover() || world.getCharacterHealthProperty().get() <= 0) {
-                gameOver(world.hasMetGoal());
+            if (true /*charcter is at heroscastle */) {
+                openStore();
             }
             world.runTickMoves();
             
@@ -342,8 +347,21 @@ public class LoopManiaWorldController {
             List<BasicEnemy> newBuildingEnemies = world.HeroCastleEnemies();
             for (BasicEnemy newEnemy: newBuildingEnemies) {
                 onLoad(newEnemy);
+
             }
+            allyField.textProperty().bindBidirectional(world.getNumberAlliesProperty(), new NumberStringConverter());
             printThreadingNotes("HANDLED TIMER");
+
+            // Testing //
+            allyField.textProperty().bindBidirectional(world.getNumberAlliesProperty(), new NumberStringConverter());
+
+            // store spawn after each cycle
+            // call cycle from loop mania world
+            // then launch store
+            // when clicked, check money,
+            // if sufficient then call the boughtItem function in world
+
+
         }));
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
@@ -568,21 +586,28 @@ public class LoopManiaWorldController {
                         int nodeY = GridPane.getRowIndex(currentlyDraggedImage);
                         switch (draggableType){
                             case CARD:
-                                    if (staticEntity.checkPlacable(x, y, world.getOrderedPath())) {
-                                        removeDraggableDragEventHandlers(draggableType, targetGridPane);
-                                        Building newBuilding = convertCardToBuildingByCoordinates(nodeX, nodeY, x, y);
-                                        onLoad(newBuilding);
-                                    } else {
-                                        node.setOpacity(1);
-                                        return;
-                                    }
-                                    break;
+                                if (staticEntity.checkPlacable(x, y, world.getOrderedPath())) {
+                                    removeDraggableDragEventHandlers(draggableType, targetGridPane);
+                                    Building newBuilding = convertCardToBuildingByCoordinates(nodeX, nodeY, x, y);
+                                    onLoad(newBuilding);
+                                } else {
+                                    node.setOpacity(1);
+                                    return;
+                                }
+                                break;
 
                             case ITEM:
-                                removeDraggableDragEventHandlers(draggableType, targetGridPane);
+                                if (staticEntity.checkItemPlacable(x,y)){
+                                    removeDraggableDragEventHandlers(draggableType, targetGridPane);
                                 // TODO = spawn an item in the new location. The above code for spawning a building will help, it is very similar
-                                removeItemByCoordinates(nodeX, nodeY);
-                                targetGridPane.add(image, x, y, 1, 1);
+                                    removeItemByCoordinates(nodeX, nodeY);
+                                    targetGridPane.add(image, x, y, 1, 1);
+                                    world.addCharacterDraggedEntity(staticEntity);
+                                } else {
+                                    node.setOpacity(1);
+                                    return;
+                                }
+                                
                                 break;
                             default:
                                 break;
@@ -940,5 +965,57 @@ public class LoopManiaWorldController {
 
     private void restartGame() {
         // this.world = new LoopManiaWorld(width, height, orderedPath)
+    }
+
+    private void openStore() {
+        pause();
+        
+        // offer header
+        VBox vBox = new VBox();
+        Text shopText = new Text("Offer");
+        shopText.setFont(new Font(50));
+        vBox.getChildren().addAll(shopText);
+        vBox.setAlignment(Pos.CENTER);
+
+
+        HBox shop = new HBox(10);
+        ArrayList<Image> images = new ArrayList<Image>() {
+            {
+                add(swordImage);
+                add(stakeImage);
+                add(staffImage);
+                add(armourImage);
+                add(shieldImage);
+                add(helmetImage);
+                add(potionImage);
+            }
+        };
+
+        for (int i = 0; i < 7; i++) {
+            int counter = i; // to make compiler happy :(
+            ImageView view = new ImageView(images.get(i));
+            Button item = new Button();
+            item.setPadding(new Insets(5, 5, 5, 5));
+            item.setGraphic(view);
+            item.setOnAction((ActionEvent event) -> {
+                world.boughtItem(world.generateRandomStore().get(counter));
+            });
+            shop.getChildren().add(item);
+        }
+        shop.setAlignment(Pos.CENTER);
+
+        Button returnMainMenu = new Button("Return to maine menu");
+        returnMainMenu.setPadding(new Insets(5, 5, 5, 5));
+        returnMainMenu.setOnAction((ActionEvent event) -> {
+            mainMenuSwitcher.switchMenu();
+        });
+
+        BorderPane newScene = new BorderPane();
+        newScene.setStyle("-fx-background-color: #d3dba0");
+        newScene.setTop(vBox);
+        newScene.setCenter(shop);
+        newScene.setBottom(returnMainMenu);
+
+        anchorPaneRoot.getScene().setRoot(newScene);
     }
 }

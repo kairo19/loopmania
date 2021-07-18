@@ -33,7 +33,7 @@ import unsw.loopmania.Enemies.Zombie;
 import unsw.loopmania.goal.GoalNode;
 import unsw.loopmania.item.weapon.Sword;
 import unsw.loopmania.item.weapon.Weapon;
-
+import unsw.loopmania.item.consumable.HealthPotion;
 import unsw.loopmania.item.defensiveitem.Armour;
 import unsw.loopmania.item.defensiveitem.Helmet;
 import unsw.loopmania.item.defensiveitem.Shield;
@@ -95,6 +95,7 @@ public class LoopManiaWorld {
     private IntegerProperty round;
     private IntegerProperty gold; 
     private IntegerProperty experience;
+    private IntegerProperty allyNumbers;
     private GoalNode goal;
     private boolean gameOver;
     private LoopManiaWorldController controller;
@@ -118,6 +119,7 @@ public class LoopManiaWorld {
         buildingEntities = new ArrayList<>();
         this.round = new SimpleIntegerProperty(1);
         this.gold = new SimpleIntegerProperty(0);
+        this.allyNumbers = new SimpleIntegerProperty(0);
         this.experience = new SimpleIntegerProperty(0);
         this.goal = null;
         this.gameOver = false;
@@ -155,43 +157,16 @@ public class LoopManiaWorld {
      * @return list of the enemies to be displayed on screen
      */
     public List<BasicEnemy> possiblySpawnEnemies(){
-        // TODO = expand this very basic version
+
         Pair<Integer, Integer> pos = possiblyGetBasicEnemySpawnPosition();
         List<BasicEnemy> spawningEnemies = new ArrayList<>();
         if (pos != null){
             int indexInPath = orderedPath.indexOf(pos);
-            //BasicEnemy enemy = new BasicEnemy(new PathPosition(indexInPath, orderedPath));
 
-            Random r = new Random();
-            int num = r.nextInt(3);
-
-            // TODO: SUSS OUT ON THE SPAWNING LOCATION!!!!!!
-
-            switch(num) {
-                // Slugs spawning
-                case 0:
-                    Slug slug = new Slug(new PathPosition(indexInPath, orderedPath));
-                    enemies.add(slug);
-                    spawningEnemies.add(slug);
-                    return spawningEnemies;
-
-                // Zombies spawning
-                case 1:
-                    Zombie zombie = new Zombie(new PathPosition(indexInPath, orderedPath));
-                    enemies.add(zombie);
-                    spawningEnemies.add(zombie);
-                    return spawningEnemies;
-                
-                case 2:
-                    Vampire vampire = new Vampire(new PathPosition(indexInPath, orderedPath));
-                    enemies.add(vampire);
-                    spawningEnemies.add(vampire);
-                    return spawningEnemies;
-
-            }
-
-            //enemies.add(enemy);
-            //spawningEnemies.add(enemy);
+            Slug slug = new Slug(new PathPosition(indexInPath, orderedPath));
+            enemies.add(slug);
+            spawningEnemies.add(slug);
+            return spawningEnemies;
         }
         return spawningEnemies;
     }
@@ -219,7 +194,13 @@ public class LoopManiaWorld {
         BasicEnemy firstEnemy = null;
         int bonusDamage = 0;
         //boolean campfirePresent = false;
-
+        System.out.println("CHARACTER DAMAGE: " + character.getDamage());
+        for (Building b: buildingEntities) {
+            if (b.checkInRange(character.getX(), character.getY())) {
+                bonusDamage += b.CharacterBattleBuffAbility(character);
+                System.out.println("BONUS DAMAGE: " + bonusDamage);
+            }
+        }
         // Stores all the defeated enemies
         List<BasicEnemy> defeatedEnemies = new ArrayList<BasicEnemy>();
 
@@ -259,29 +240,6 @@ public class LoopManiaWorld {
         }
         
         
-
-        
-
-        /*
-        DO NOT TOUCH YET AS IT IS NOT COMPLETED
-    
-
-        // Finding character buffs available in the characters radius for battle
-        for (Building b: buildingEntities) {
-            if (b.toString() == "Tower") {
-                // also implement to check if in radius
-                extraDamage += b.getDamage();
-            } else if (b.toString() == "Campfire") {
-                // current implementation is to double the base damage
-                // can do total damage otherwise.
-                // also implement to check if in radius
-                extraDamage += character.getDamage();
-            }
-        }
-        */
-
-        character.gainAlly();
-        
         // time for the battle
         for (BasicEnemy e: queuedEnemies) {
 
@@ -291,24 +249,23 @@ public class LoopManiaWorld {
                 
                 
                 character.dealDamage(e, bonusDamage);
+                System.out.println("CHARACTER DAMAGE: " + character.getDamage());
+
                 //character.dealDamage(e, bonusDamage);
                 
 
                 // check if enemy is alive, if not skip and remove from queue + kill
                 if (e.getHealth() <= 0) {
-                    //gold += e.getGold();
-                    //xp += e.getXP();
+                    setGold(getGold() + e.getGold());
+                    setExperience(getExperience() + e.getXP());
 
-                    try {
-                        killEnemy(e);
-                    } catch (Exception p) {
+                    killEnemy(e);
 
-                    }
                     
                 } else {
                     // if enemy alive, then it deals damage to character
                     e.dealDamage(character);
-                    // character.setHealth(100);
+                    //character.setHealth(100);
                     // somewhere here that we will spawn the enemy out of ally soldiers
                     
                 }
@@ -496,10 +453,52 @@ public class LoopManiaWorld {
         return null;
     }
 
-
-
     
 
+
+
+    public void addCharacterDraggedEntity(StaticEntity items) {
+        String store = items.toString();
+
+        /*
+        switch(store) {
+            case "Staff":
+                System.out.println("try staff");
+                Weapon staffClass = (Weapon) items;
+                character.setWeapon(staffClass); 
+            case "Stake":
+                System.out.println("try stake");
+                Weapon stakeClass = (Weapon) items;
+                character.setWeapon(stakeClass);   
+            case "Sword":
+                System.out.println("try sword");
+                Weapon swordClass = (Weapon) items;
+                character.setWeapon(swordClass); 
+            case "Armour":
+                System.out.println("try armour");
+                Armour armourClass = (Armour) items;
+                character.equipArmour(armourClass);     
+            case "Shield":
+                System.out.println("try shield");
+                Shield shieldClass = (Shield) items;
+                character.equipShield(shieldClass);
+        }
+        */
+
+        if (store.equals("Staff") || store.equals("Stake") || store.equals("Sword")) {
+            Weapon weaponClass = (Weapon) items;
+            character.setWeapon(weaponClass); 
+        } else if (store.equals("Armour")) {
+            Armour armourClass = (Armour) items;
+            character.equipArmour(armourClass);
+        } else if (store.equals("Shield")) {
+            Shield shieldClass = (Shield) items;
+            character.equipShield(shieldClass);
+        }
+
+    }
+
+    
 
     /*
     public Sword addUnequippedSword(){
@@ -534,9 +533,39 @@ public class LoopManiaWorld {
      * run moves which occur with every tick without needing to spawn anything immediately
      */
     public void runTickMoves() {
+        if (hasMetGoal()) {
+            endGame();
+        }
+        ApplyBuildingEffects();
         character.moveDownPath();
         moveBasicEnemies();
     }
+
+    /**
+     * Loops through current buildings and applies affects if applicable
+     */
+    public void ApplyBuildingEffects() {
+        for (Building b : buildingEntities) {
+            if (b.getX() == character.getX() && b.getY() == character.getY()) {
+                System.out.println();
+                System.out.println("Character on building");
+                System.out.println();
+                b.CharacterBuffAbility(character);
+            }
+            if (b.toString().equals("TrapBuilding")) {
+                for (BasicEnemy e: enemies) {
+                    if (e.getX() == b.getX() && e.getY() == b.getY()) {
+                        b.DealDamageEnemies(e); 
+                        if(e.getHealth() <= 0) killEnemy(e);
+                        b.destroy();
+                        break;
+                    }                               
+                }
+            }
+            
+        }
+    }
+
     /**
      * Creates a list of all the enemies created from vampire and zombie buildings.  
      * This occurs once character reaches the herocastle.
@@ -548,7 +577,7 @@ public class LoopManiaWorld {
         if (herosCastleBuilding.getX() == character.getX() && herosCastleBuilding.getY() == character.getY()) {
             setRound(herosCastleBuilding.AddCycle(getRound()));
             for (Building b: buildingEntities) {
-                if (b.toString().equals("VampireCastleBuilding") && b.getBuildingAliveRounds() % 5 == 0) {
+                if (b.toString().equals("VampireCastleBuilding") && b.getBuildingAliveRounds() % 5 == 0 && b.getBuildingAliveRounds() != 0) {
                     BasicEnemy vampireEnemy = b.SpawnAbility(orderedPath);
                     enemies.add(vampireEnemy);
                     spawningEnemies.add(vampireEnemy);
@@ -562,6 +591,73 @@ public class LoopManiaWorld {
         }
         return spawningEnemies;
     }
+
+
+
+    public List<StaticEntity> generateRandomStore() {
+        // Add 7 items into the list
+        List<StaticEntity> shop = new ArrayList<>();
+
+        StaticEntity armour = new Armour(null, null);
+        shop.add(armour);
+        StaticEntity helmet = new Helmet(null, null);
+        shop.add(helmet);
+        StaticEntity shield = new Shield(null, null);
+        shop.add(shield);
+        StaticEntity staff = new Staff(null, null);
+        shop.add(staff);
+        StaticEntity stake = new Stake(null, null);
+        shop.add(stake);
+        StaticEntity sword = new Sword(null, null);
+        shop.add(sword);
+        StaticEntity healthPotion = new HealthPotion(null, null);
+        shop.add(healthPotion);
+        
+        return shop;
+    }
+
+
+    public void boughtItem(StaticEntity itemBought) {
+        Pair<Integer, Integer> firstAvailableSlot = getFirstAvailableSlotForItem();
+        if (firstAvailableSlot == null){
+            // eject the oldest unequipped item and replace it... oldest item is that at beginning of items
+            // TODO = give some cash/experience rewards for the discarding of the oldest sword
+            removeItemByPositionInUnequippedInventoryItems(0);
+            firstAvailableSlot = getFirstAvailableSlotForItem();
+        }
+
+        String name = itemBought.toString();
+
+        switch(name) {
+            case "Sword": 
+                Sword sword = new Sword(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
+                unequippedInventoryItems.add(sword);
+            case "Staff": 
+                Staff staff = new Staff(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
+                unequippedInventoryItems.add(staff);
+            case "Stake":
+                Stake stake = new Stake(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
+                unequippedInventoryItems.add(stake);
+            case "Armour":
+                Armour armour = new Armour(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
+                unequippedInventoryItems.add(armour);
+            case "Helmet":
+                Helmet helmet = new Helmet(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
+                unequippedInventoryItems.add(helmet);
+            case "Shield":
+                Shield shield = new Shield(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
+                unequippedInventoryItems.add(shield); 
+            case "HealthPotion":
+                Shield healthPotion = new Shield(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
+                unequippedInventoryItems.add(healthPotion);  
+                
+        }
+
+    }
+
+
+
+
         
 
     /**
@@ -776,6 +872,15 @@ public class LoopManiaWorld {
     public IntegerProperty getExperienceProperty() {
         return experience;
     }
+
+
+    public IntegerProperty getNumberAlliesProperty() {
+        allyNumbers.set(character.getAllies());
+        System.out.println("Ally numbers are: " + allyNumbers);
+        return allyNumbers;
+    }
+
+
 
     public void setGoal(GoalNode goal) {
         this.goal = goal;

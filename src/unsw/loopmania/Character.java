@@ -25,6 +25,7 @@ public class Character extends MovingEntity {
     // TODO = potentially implement relationships between this class and other classes
     private IntegerProperty health;
     private int damage;
+    private int buffedDamage;
     private int allies;                     // current placeholder
     private Weapon equippedWeapon;
     private Armour equippedArmour;
@@ -39,9 +40,13 @@ public class Character extends MovingEntity {
 
     public Character(PathPosition position) {
         super(position);
+        /*
+            TESTING FOR ALLIES. PLEASE CHANGE IT BACK LATER
+        */
         this.allies = 0;
         this.health = new SimpleIntegerProperty(100);
         this.damage = 5;
+        this.buffedDamage = 0;
         this.equippedWeapon = null;
         this.equippedArmour = null;
         this.equippedHelmet = null;
@@ -74,6 +79,7 @@ public class Character extends MovingEntity {
     }
 
     public void equipArmour(Armour armour) {
+        //System.out.println("attach armour");
         this.equippedArmour = armour;
     }
 
@@ -87,6 +93,7 @@ public class Character extends MovingEntity {
     // Helmet
 
     public void equipHelmet(Helmet helmet) {
+        //System.out.println("attach helmet");
         this.equippedHelmet = helmet;
     }
 
@@ -101,6 +108,7 @@ public class Character extends MovingEntity {
     // Shield
 
     public void equipShield(Shield shield) {
+        //System.out.println("attach shield");
         this.equippedShield = shield;
     }
 
@@ -113,6 +121,7 @@ public class Character extends MovingEntity {
     }
 
     public void setWeapon(Weapon weapon){
+        //System.out.println("attach weapon");
         this.equippedWeapon = weapon;
     }
     public void removeWeapon() {
@@ -139,28 +148,47 @@ public class Character extends MovingEntity {
         return 10;
     }
 
+    public void setBuffedDamage(int buffedDamage) {
+        this.buffedDamage += buffedDamage;
+    }
+
     public void dealDamage(BasicEnemy enemy, int bonusDamage) {
         
         if (equippedWeapon != null) {
+            // added the buffed damage to buffedDamage
             equippedWeapon.damageBoost(this);
+            // doing special attack to enemy
             equippedWeapon.doSpecial(enemy, this);
         }
-        int damageDealt = damage + bonusDamage;
+
+        int alliesDamage = 2 * this.getAllies();
+
+        System.out.println("current allies: " + this.getAllies());
+        System.out.println("damage/character base: " + damage);
+        System.out.println("bonus damage/buildings: " + bonusDamage);
+        System.out.println("buffedDamage/Weapons: " + buffedDamage);
+        System.out.println("alliesDamage: " + alliesDamage);
+
+
+                        // base     buildings    weapons
+        int damageDealt = damage + bonusDamage + buffedDamage + alliesDamage;
+
+        /*
+        // for helmet
         if (equippedHelmet != null) {
+            System.out.println("helmet debuff" + getHelmetDebuff());
             damageDealt -= getHelmetDebuff();
         }
-        
-        System.out.println("Enemy health:" + enemy.getHealth() + " - " + damageDealt);
-        
-        enemy.setHealth(enemy.getHealth() - damageDealt);
-        
-        /*
-        int damageDealt = damage;
-        System.out.println("Enemy health:" + enemy.getHealth() + " - " + damageDealt);
-        
-        
-        enemy.setHealth(enemy.getHealth() - damageDealt);
         */
+
+
+        
+        System.out.println("Enemy health:" + enemy.getHealth() + " - " + damageDealt);
+        
+        enemy.setHealth(enemy.getHealth() - damageDealt);
+        
+        // resetting it
+        this.buffedDamage = 0;
     }
     public int getAllies() {
         return allies;
