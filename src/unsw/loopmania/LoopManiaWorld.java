@@ -534,9 +534,6 @@ public class LoopManiaWorld {
      * run moves which occur with every tick without needing to spawn anything immediately
      */
     public void runTickMoves() {
-        if (hasMetGoal()) {
-            endGame();
-        }
         character.moveDownPath();
         moveBasicEnemies();
     }
@@ -798,9 +795,9 @@ public class LoopManiaWorld {
     public void endGame() {
         gameOver = true;
         if (hasMetGoal()) {
-            controller.gameOver("YOU WON!");
+            controller.gameOver(true);
         } else {
-            controller.gameOver("YOU LOST!");
+            controller.gameOver(false);
         }
     }
 

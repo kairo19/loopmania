@@ -17,6 +17,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Point2D;
+import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -29,10 +30,13 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
@@ -322,6 +326,9 @@ public class LoopManiaWorldController {
         isPaused = false;
         // trigger adding code to process main game logic to queue. JavaFX will target framerate of 0.3 seconds
         timeline = new Timeline(new KeyFrame(Duration.seconds(0.3), event -> {
+            if (world.isGameover()) {
+                gameOver(world.hasMetGoal());
+            }
             world.runTickMoves();
             
             List<BasicEnemy> defeatedEnemies = world.runBattles();
@@ -888,10 +895,46 @@ public class LoopManiaWorldController {
         System.out.println("Current system time = "+java.time.LocalDateTime.now().toString().replace('T', ' '));
     }
 
-    public void gameOver(String status) {
+    public void gameOver(Boolean hasWon) {
+        String status = "YOU LOSE";
+        if (hasWon) {
+            status = "YOU WIN";
+        } 
+
         System.out.println(status);
-        timeline.stop();
-        mainMenuSwitcher.switchMenu();
-        // // Platform.exit();
+        pause();
+        
+        VBox vBox = new VBox();
+        Text gameStatus = new Text(status);
+        gameStatus.setFont(new Font(50));
+        vBox.getChildren().addAll(gameStatus);
+        vBox.setAlignment(Pos.CENTER);
+        
+        HBox buttons = new HBox();
+        Button returnMainMenu = new Button("Return to Main Menu");
+        returnMainMenu.setPadding(new Insets(5, 5, 5, 5));
+        returnMainMenu.setOnAction((ActionEvent event) -> {
+            mainMenuSwitcher.switchMenu();
+        });
+        returnMainMenu.setStyle("-fx-background-color: #768399");
+        Button quit = new Button("Quit");
+        quit.setPadding(new Insets(5, 5, 5, 5));
+        quit.setOnAction((ActionEvent event) -> {
+            Platform.exit();
+        });
+        quit.setStyle("-fx-background-color: #d4826c");
+        HBox rButton = new HBox(quit);
+        rButton.setAlignment(Pos.CENTER_RIGHT);
+        HBox.setHgrow(rButton, Priority.ALWAYS);
+        buttons.getChildren().addAll(returnMainMenu, rButton);
+        buttons.setPadding(new Insets(2));
+
+        // create new popup scene
+        BorderPane newScene = new BorderPane();
+        newScene.setStyle("-fx-background-color: #d3dba0");
+        newScene.setCenter(vBox);
+        newScene.setBottom(buttons);
+
+        anchorPaneRoot.getScene().setRoot(newScene);
     }
 }
