@@ -818,7 +818,7 @@ public class LoopManiaWorldController {
         }
     }
 
-    public void setMainMenuSwitcher(MenuSwitcher mainMenuSwitcher){
+    public void setMainMenuSwitcher(MenuSwitcher mainMenuSwitcher) {
         // TODO = possibly set other menu switchers
         this.mainMenuSwitcher = mainMenuSwitcher;
     }
@@ -920,11 +920,51 @@ public class LoopManiaWorldController {
         System.out.println("Current system time = "+java.time.LocalDateTime.now().toString().replace('T', ' '));
     }
 
-    public void gameOver(String status) {
+    public void gameOver(Boolean hasWon) {
+        String status = "YOU LOSE";
+        if (hasWon) {
+            status = "YOU WIN";
+        } 
+
         System.out.println(status);
-        timeline.stop();
-        mainMenuSwitcher.switchMenu();
-        // // Platform.exit();
+        pause();
+        
+        VBox vBox = new VBox();
+        Text gameStatus = new Text(status);
+        gameStatus.setFont(new Font(50));
+        vBox.getChildren().addAll(gameStatus);
+        vBox.setAlignment(Pos.CENTER);
+        
+        HBox buttons = new HBox();
+        Button returnMainMenu = new Button("Return to Main Menu");
+        returnMainMenu.setPadding(new Insets(5, 5, 5, 5));
+        returnMainMenu.setOnAction((ActionEvent event) -> {
+            mainMenuSwitcher.switchMenu();
+        });
+        returnMainMenu.setStyle("-fx-background-color: #768399");
+        Button quit = new Button("Quit");
+        quit.setPadding(new Insets(5, 5, 5, 5));
+        quit.setOnAction((ActionEvent event) -> {
+            Platform.exit();
+        });
+        quit.setStyle("-fx-background-color: #d4826c");
+        HBox rButton = new HBox(quit);
+        rButton.setAlignment(Pos.CENTER_RIGHT);
+        HBox.setHgrow(rButton, Priority.ALWAYS);
+        buttons.getChildren().addAll(returnMainMenu, rButton);
+        buttons.setPadding(new Insets(2));
+
+        // create new popup scene
+        BorderPane newScene = new BorderPane();
+        newScene.setStyle("-fx-background-color: #d3dba0");
+        newScene.setCenter(vBox);
+        newScene.setBottom(buttons);
+
+        anchorPaneRoot.getScene().setRoot(newScene);
+    }
+
+    private void restartGame() {
+        // this.world = new LoopManiaWorld(width, height, orderedPath)
     }
 
     private void openStore() {

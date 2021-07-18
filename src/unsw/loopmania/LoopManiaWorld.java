@@ -900,9 +900,9 @@ public class LoopManiaWorld {
     public void endGame() {
         gameOver = true;
         if (hasMetGoal()) {
-            controller.gameOver("YOU WON!");
+            controller.gameOver(true);
         } else {
-            controller.gameOver("YOU LOST!");
+            controller.gameOver(false);
         }
     }
 
