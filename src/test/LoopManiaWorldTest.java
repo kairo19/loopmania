@@ -207,5 +207,8 @@ public class LoopManiaWorldTest {
         assertEquals(newBuilding, buildingEntities.get(0));
     }
 
+    
+
+
 
 }
