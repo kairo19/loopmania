@@ -74,6 +74,7 @@ public class Character extends MovingEntity {
     }
 
     public void equipArmour(Armour armour) {
+        System.out.println("attach armour");
         this.equippedArmour = armour;
     }
 
@@ -87,6 +88,7 @@ public class Character extends MovingEntity {
     // Helmet
 
     public void equipHelmet(Helmet helmet) {
+        System.out.println("attach helmet");
         this.equippedHelmet = helmet;
     }
 
@@ -101,6 +103,7 @@ public class Character extends MovingEntity {
     // Shield
 
     public void equipShield(Shield shield) {
+        System.out.println("attach shield");
         this.equippedShield = shield;
     }
 
@@ -113,6 +116,7 @@ public class Character extends MovingEntity {
     }
 
     public void setWeapon(Weapon weapon){
+        System.out.println("attach weapon");
         this.equippedWeapon = weapon;
     }
     public void removeWeapon() {
@@ -142,7 +146,7 @@ public class Character extends MovingEntity {
     public void dealDamage(BasicEnemy enemy, int bonusDamage) {
         
         if (equippedWeapon != null) {
-            equippedWeapon.damageBoost(this);
+            //equippedWeapon.damageBoost(this);
             equippedWeapon.doSpecial(enemy, this);
         }
         int damageDealt = damage + bonusDamage;

@@ -574,6 +574,7 @@ public class LoopManiaWorldController {
                                 // TODO = spawn an item in the new location. The above code for spawning a building will help, it is very similar
                                     removeItemByCoordinates(nodeX, nodeY);
                                     targetGridPane.add(image, x, y, 1, 1);
+                                    world.addCharacterDraggedEntity(staticEntity);
                                 } else {
                                     node.setOpacity(1);
                                     return;

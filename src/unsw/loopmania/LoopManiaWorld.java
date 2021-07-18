@@ -280,6 +280,7 @@ public class LoopManiaWorld {
         }
         */
 
+
         character.gainAlly();
         
         // time for the battle
@@ -296,14 +297,11 @@ public class LoopManiaWorld {
 
                 // check if enemy is alive, if not skip and remove from queue + kill
                 if (e.getHealth() <= 0) {
-                    //gold += e.getGold();
-                    //xp += e.getXP();
+                    setGold(getGold() + e.getGold());
+                    setExperience(getExperience() + e.getXP());
 
-                    try {
-                        killEnemy(e);
-                    } catch (Exception p) {
+                    killEnemy(e);
 
-                    }
                     
                 } else {
                     // if enemy alive, then it deals damage to character
@@ -496,9 +494,47 @@ public class LoopManiaWorld {
         return null;
     }
 
+    public void addCharacterDraggedEntity(StaticEntity items) {
+        String store = items.toString();
 
+        /*
+        switch(store) {
+            case "Staff":
+                System.out.println("try staff");
+                Weapon staffClass = (Weapon) items;
+                character.setWeapon(staffClass); 
+            case "Stake":
+                System.out.println("try stake");
+                Weapon stakeClass = (Weapon) items;
+                character.setWeapon(stakeClass);   
+            case "Sword":
+                System.out.println("try sword");
+                Weapon swordClass = (Weapon) items;
+                character.setWeapon(swordClass); 
+            case "Armour":
+                System.out.println("try armour");
+                Armour armourClass = (Armour) items;
+                character.equipArmour(armourClass);     
+            case "Shield":
+                System.out.println("try shield");
+                Shield shieldClass = (Shield) items;
+                character.equipShield(shieldClass);
+        }
+        */
 
-    
+        if (store.equals("Staff") || store.equals("Stake") || store.equals("Sword")) {
+            Weapon weaponClass = (Weapon) items;
+            character.setWeapon(weaponClass); 
+        } else if (store.equals("Armour")) {
+            Armour armourClass = (Armour) items;
+            character.equipArmour(armourClass);
+        } else if (store.equals("Shield")) {
+            Shield shieldClass = (Shield) items;
+            character.equipShield(shieldClass);
+        }
+
+    }
+
 
 
     /*

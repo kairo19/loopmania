@@ -78,6 +78,14 @@ public class BasicEnemy extends MovingEntity {
         return this.supportRadius;
     }
 
+    public int getGold() {
+        return this.goldReward;
+    }
+
+    public int getXP() {
+        return this.xpReward;
+    }
+
     public void dealDamage(Character character) {
 
         /*
