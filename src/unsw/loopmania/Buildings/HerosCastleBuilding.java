@@ -8,7 +8,7 @@ public class HerosCastleBuilding extends Building {
     private int counter;
     public HerosCastleBuilding(SimpleIntegerProperty x, SimpleIntegerProperty y) {
         super(x, y);
-        this.counter = 0;
+        this.counter = 1;
     }  
 
     /**
@@ -30,12 +30,6 @@ public class HerosCastleBuilding extends Building {
         return false;
     }
     
-    public boolean ScaleStats(int Cycle) {
-        if (Cycle % 10 == 0) {
-            return true;
-        }
-        return false;
-    }
 
     @Override
     public String toString() {
