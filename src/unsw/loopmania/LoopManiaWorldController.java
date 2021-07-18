@@ -341,7 +341,9 @@ public class LoopManiaWorldController {
                 onLoad(newEnemy);
 
             }
+            allyField.textProperty().bindBidirectional(world.getNumberAlliesProperty(), new NumberStringConverter());
             printThreadingNotes("HANDLED TIMER");
+
         }));
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();

@@ -11,7 +11,7 @@ public class TowerBuilding extends Building {
     private int damage;
     public TowerBuilding(SimpleIntegerProperty x, SimpleIntegerProperty y) {
         super(x, y);
-        setRadius(2);
+        setRadius(3);
         this.damage = 20;
     }
 

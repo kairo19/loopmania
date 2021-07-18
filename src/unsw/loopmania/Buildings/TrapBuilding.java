@@ -14,7 +14,7 @@ public class TrapBuilding extends Building {
      */
     @Override
     public void DealDamageEnemies(BasicEnemy enemy) {
-        int new_health = enemy.getHealth() - 50;
+        int new_health = enemy.getHealth() - 10;
         enemy.setHealth(new_health);
     }
 

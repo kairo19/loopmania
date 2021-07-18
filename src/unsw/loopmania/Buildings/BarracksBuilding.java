@@ -18,7 +18,7 @@ public class BarracksBuilding extends Building {
      */
     @Override
     public void CharacterBuffAbility(Character character) {
-        character.setAllies(character.getAllies() + 1);
+        character.gainAlly();
     }
     @Override
     public String toString() {

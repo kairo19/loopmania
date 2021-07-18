@@ -168,29 +168,10 @@ public class LoopManiaWorld {
             int num = r.nextInt(3);
 
             // TODO: SUSS OUT ON THE SPAWNING LOCATION!!!!!!
-
-            switch(num) {
-                // Slugs spawning
-                case 0:
-                    Slug slug = new Slug(new PathPosition(indexInPath, orderedPath));
-                    enemies.add(slug);
-                    spawningEnemies.add(slug);
-                    return spawningEnemies;
-
-                // Zombies spawning
-                case 1:
-                    Zombie zombie = new Zombie(new PathPosition(indexInPath, orderedPath));
-                    enemies.add(zombie);
-                    spawningEnemies.add(zombie);
-                    return spawningEnemies;
-                
-                case 2:
-                    Vampire vampire = new Vampire(new PathPosition(indexInPath, orderedPath));
-                    enemies.add(vampire);
-                    spawningEnemies.add(vampire);
-                    return spawningEnemies;
-
-            }
+            Slug slug = new Slug(new PathPosition(indexInPath, orderedPath));
+            enemies.add(slug);
+            spawningEnemies.add(slug);
+            return spawningEnemies;
 
             //enemies.add(enemy);
             //spawningEnemies.add(enemy);
@@ -313,7 +294,7 @@ public class LoopManiaWorld {
                 } else {
                     // if enemy alive, then it deals damage to character
                     e.dealDamage(character);
-                    character.setHealth(100);
+                    //character.setHealth(100);
                     // somewhere here that we will spawn the enemy out of ally soldiers
                     
                 }
@@ -580,7 +561,7 @@ public class LoopManiaWorld {
         if (hasMetGoal()) {
             endGame();
         }
-
+        ApplyBuildingEffects();
         character.moveDownPath();
         moveBasicEnemies();
     }
@@ -591,13 +572,22 @@ public class LoopManiaWorld {
     public void ApplyBuildingEffects() {
         for (Building b : buildingEntities) {
             if (b.getX() == character.getX() && b.getY() == character.getY()) {
+                System.out.println();
+                System.out.println("Character on building");
+                System.out.println();
                 b.CharacterBuffAbility(character);
-                if (b.toString().equals("TrapBuilding")) {
-                    for (BasicEnemy e: enemies) {
-                        if (e.getX() == b.getX() && e.getY() == b.getY()) b.DealDamageEnemies(e);                                
-                    }
+            }
+            if (b.toString().equals("TrapBuilding")) {
+                for (BasicEnemy e: enemies) {
+                    if (e.getX() == b.getX() && e.getY() == b.getY()) {
+                        b.DealDamageEnemies(e); 
+                        if(e.getHealth() <= 0) killEnemy(e);
+                        b.destroy();
+                        break;
+                    }                               
                 }
-            } 
+            }
+            
         }
     }
 
@@ -612,7 +602,7 @@ public class LoopManiaWorld {
         if (herosCastleBuilding.getX() == character.getX() && herosCastleBuilding.getY() == character.getY()) {
             setRound(herosCastleBuilding.AddCycle(getRound()));
             for (Building b: buildingEntities) {
-                if (b.toString().equals("VampireCastleBuilding") && b.getBuildingAliveRounds() % 5 == 0) {
+                if (b.toString().equals("VampireCastleBuilding") && b.getBuildingAliveRounds() % 5 == 0 && b.getBuildingAliveRounds() != 0) {
                     BasicEnemy vampireEnemy = b.SpawnAbility(orderedPath);
                     enemies.add(vampireEnemy);
                     spawningEnemies.add(vampireEnemy);
