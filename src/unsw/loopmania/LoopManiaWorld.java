@@ -447,6 +447,9 @@ public class LoopManiaWorld {
             // TODO = give some cash/experience rewards for the discarding of the oldest sword
             removeItemByPositionInUnequippedInventoryItems(0);
             firstAvailableSlot = getFirstAvailableSlotForItem();
+
+            setGold(getGold() + 10);
+            setExperience(getExperience() + 10);
         }
 
         Random r = new Random();
@@ -489,6 +492,9 @@ public class LoopManiaWorld {
             // TODO = give some cash/experience rewards for the discarding of the oldest sword
             removeItemByPositionInUnequippedInventoryItems(0);
             firstAvailableSlot = getFirstAvailableSlotForItem();
+
+            setGold(getGold() + 10);
+            setExperience(getExperience() + 10);
         }
 
         Random r = new Random();
@@ -543,7 +549,10 @@ public class LoopManiaWorld {
         } else if (store.equals("Shield")) {
             Shield shieldClass = (Shield) items;
             character.equipShield(shieldClass);
-        } else if (store.equals("HealthPotion")) {
+        } else if (store.equals("Helmet")) {
+            Helmet helmetClass = (Helmet) items;
+            character.equipHelmet(helmetClass);
+        }else if (store.equals("HealthPotion")) {
             HealthPotion healthpotion = (HealthPotion) items;
             healthpotion.consume(character);
             System.out.println("HEALING CHARACTER");
