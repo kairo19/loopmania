@@ -11,8 +11,11 @@ import org.javatuples.Pair;
 
 import unsw.loopmania.LoopManiaWorld;
 import unsw.loopmania.PathPosition;
+import unsw.loopmania.Cards.VampireCastleCard;
 import unsw.loopmania.Enemies.BasicEnemy;
 import unsw.loopmania.Enemies.Vampire;
+import unsw.loopmania.Enemies.Zombie;
+import unsw.loopmania.goal.GoalGold;
 import unsw.loopmania.item.defensiveitem.Armour;
 import unsw.loopmania.item.defensiveitem.Helmet;
 import unsw.loopmania.item.defensiveitem.Shield;
@@ -63,7 +66,12 @@ public class LoopManiaWorldTest {
         Character character = new Character(new PathPosition(0, orderedpath));
         d.setCharacter(character);
         d.possiblySpawnEnemies();
+        d.setGoal(new GoalGold(d, 50));
+        Vampire vampire = new Vampire(new PathPosition(2, orderedpath));
+        Zombie zombie = new Zombie(new PathPosition(1, orderedpath));
         
+        d.runTickMoves();
+
         List<BasicEnemy> basicEnemies = d.runBattles();
 
         assertEquals(basicEnemies.size(), 0);
@@ -82,6 +90,7 @@ public class LoopManiaWorldTest {
         orderedpath.add(new Pair<Integer, Integer>(1, 2));
         LoopManiaWorld d = new LoopManiaWorld(4, 4, orderedpath);
         Character character = new Character(new PathPosition(0, orderedpath));
+         
         d.setCharacter(character);
         for (int i = 0; i < 5; i++) {
             d.loadCard();
@@ -145,9 +154,25 @@ public class LoopManiaWorldTest {
 
         assertEquals(character.getWeapon(), sword);
 
-        
+    }
 
+    @Test
+    public void TestheroCastleEnemies(){
 
+        List<Pair<Integer, Integer>> orderedpath  = new ArrayList<>();
+        orderedpath.add(new Pair<Integer, Integer>(1, 1));
+        orderedpath.add(new Pair<Integer, Integer>(2, 1));
+        orderedpath.add(new Pair<Integer, Integer>(3, 1));
+        orderedpath.add(new Pair<Integer, Integer>(3, 2));
+        orderedpath.add(new Pair<Integer, Integer>(3, 3));
+        orderedpath.add(new Pair<Integer, Integer>(2, 3));
+        orderedpath.add(new Pair<Integer, Integer>(1, 3));
+        orderedpath.add(new Pair<Integer, Integer>(1, 2));
+        LoopManiaWorld d = new LoopManiaWorld(4, 4, orderedpath);
+        Character character = new Character(new PathPosition(0, orderedpath));
+        d.setCharacter(character);
+
+        //VampireCastleCard vampireCastleCard = new VampireCastleCard(new SimpleIntegerProperty(cardEntities.size()), new SimpleIntegerProperty(0));
     }
 
 
