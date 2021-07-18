@@ -121,6 +121,11 @@ public class Character extends MovingEntity {
         System.out.println("attach weapon");
         this.equippedWeapon = weapon;
     }
+
+    public Weapon getWeapon(){
+        return this.equippedWeapon;
+    }
+
     public void removeWeapon() {
         this.equippedWeapon = null;
     }
@@ -139,10 +144,6 @@ public class Character extends MovingEntity {
 
     public int getHelmetDebuff() {
         return equippedHelmet.debuff();
-    }
-
-    public int lowerCritChance() {
-        return 10;
     }
 
     public void setBuffedDamage(int buffedDamage) {
