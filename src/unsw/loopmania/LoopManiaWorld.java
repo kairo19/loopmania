@@ -157,24 +157,16 @@ public class LoopManiaWorld {
      * @return list of the enemies to be displayed on screen
      */
     public List<BasicEnemy> possiblySpawnEnemies(){
-        // TODO = expand this very basic version
+
         Pair<Integer, Integer> pos = possiblyGetBasicEnemySpawnPosition();
         List<BasicEnemy> spawningEnemies = new ArrayList<>();
         if (pos != null){
             int indexInPath = orderedPath.indexOf(pos);
-            //BasicEnemy enemy = new BasicEnemy(new PathPosition(indexInPath, orderedPath));
 
-            Random r = new Random();
-            int num = r.nextInt(3);
-
-            // TODO: SUSS OUT ON THE SPAWNING LOCATION!!!!!!
             Slug slug = new Slug(new PathPosition(indexInPath, orderedPath));
             enemies.add(slug);
             spawningEnemies.add(slug);
             return spawningEnemies;
-
-            //enemies.add(enemy);
-            //spawningEnemies.add(enemy);
         }
         return spawningEnemies;
     }
@@ -247,27 +239,6 @@ public class LoopManiaWorld {
             }
         }
         
-        
-
-        
-
-        /*
-        DO NOT TOUCH YET AS IT IS NOT COMPLETED
-    
-
-        // Finding character buffs available in the characters radius for battle
-        for (Building b: buildingEntities) {
-            if (b.toString() == "Tower") {
-                // also implement to check if in radius
-                extraDamage += b.getDamage();
-            } else if (b.toString() == "Campfire") {
-                // current implementation is to double the base damage
-                // can do total damage otherwise.
-                // also implement to check if in radius
-                extraDamage += character.getDamage();
-            }
-        }
-        */
         
         // time for the battle
         for (BasicEnemy e: queuedEnemies) {

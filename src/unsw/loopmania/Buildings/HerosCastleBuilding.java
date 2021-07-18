@@ -5,8 +5,10 @@ import unsw.loopmania.LoopManiaWorld;
 import java.util.List;
 
 public class HerosCastleBuilding extends Building {
+    private int counter;
     public HerosCastleBuilding(SimpleIntegerProperty x, SimpleIntegerProperty y) {
         super(x, y);
+        this.counter = 0;
     }  
 
     /**
@@ -20,11 +22,10 @@ public class HerosCastleBuilding extends Building {
      * @param Cycle
      * @return
      */
-    public boolean PurchaseCycle(LoopManiaWorld world) {
-        if (world.getRound() % 3 == 0) {
-            return true;
-        } else if (world.getRound() == 1) {
-            return true;
+    public boolean PurchaseCycle(int round) {
+        if (counter == round) {
+            counter = counter + round;
+            return true; 
         }
         return false;
     }
