@@ -198,6 +198,9 @@ public class Character extends MovingEntity {
         this.allies = allies;
     }
 
+    public void lowerCritChance() {
+        // do something here hehe xd
+    }
     
 
     /*
