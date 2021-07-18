@@ -17,6 +17,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Point2D;
+import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -29,10 +30,12 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
@@ -176,6 +179,7 @@ public class LoopManiaWorldController {
     private Image armourImage;
     private Image shieldImage;
     private Image helmetImage;
+    private Image potionImage;
 
     /**
      * the image currently being dragged, if there is one, otherwise null.
@@ -249,6 +253,7 @@ public class LoopManiaWorldController {
         slugImage = new Image((new File("src/images/slug.png")).toURI().toString());
         zombieImage = new Image((new File("src/images/zombie.png")).toURI().toString());
         vampireImage = new Image((new File("src/images/vampire.png")).toURI().toString());
+        potionImage = new Image((new File("src/images/brilliant_blue_new.png")).toURI().toString());
 
         
 
@@ -326,6 +331,9 @@ public class LoopManiaWorldController {
         isPaused = false;
         // trigger adding code to process main game logic to queue. JavaFX will target framerate of 0.3 seconds
         timeline = new Timeline(new KeyFrame(Duration.seconds(0.3), event -> {
+            if (true /*charcter is at heroscastle */) {
+                openStore();
+            }
             world.runTickMoves();
             
             List<BasicEnemy> defeatedEnemies = world.runBattles();
@@ -917,5 +925,57 @@ public class LoopManiaWorldController {
         timeline.stop();
         mainMenuSwitcher.switchMenu();
         // // Platform.exit();
+    }
+
+    private void openStore() {
+        pause();
+        
+        // offer header
+        VBox vBox = new VBox();
+        Text shopText = new Text("Offer");
+        shopText.setFont(new Font(50));
+        vBox.getChildren().addAll(shopText);
+        vBox.setAlignment(Pos.CENTER);
+
+
+        HBox shop = new HBox(10);
+        ArrayList<Image> images = new ArrayList<Image>() {
+            {
+                add(swordImage);
+                add(stakeImage);
+                add(staffImage);
+                add(armourImage);
+                add(shieldImage);
+                add(helmetImage);
+                add(potionImage);
+            }
+        };
+
+        for (int i = 0; i < 7; i++) {
+            int counter = i; // to make compiler happy :(
+            ImageView view = new ImageView(images.get(i));
+            Button item = new Button();
+            item.setPadding(new Insets(5, 5, 5, 5));
+            item.setGraphic(view);
+            item.setOnAction((ActionEvent event) -> {
+                world.boughtItem(world.generateRandomStore().get(counter));
+            });
+            shop.getChildren().add(item);
+        }
+        shop.setAlignment(Pos.CENTER);
+
+        Button returnMainMenu = new Button("Return to maine menu");
+        returnMainMenu.setPadding(new Insets(5, 5, 5, 5));
+        returnMainMenu.setOnAction((ActionEvent event) -> {
+            mainMenuSwitcher.switchMenu();
+        });
+
+        BorderPane newScene = new BorderPane();
+        newScene.setStyle("-fx-background-color: #d3dba0");
+        newScene.setTop(vBox);
+        newScene.setCenter(shop);
+        newScene.setBottom(returnMainMenu);
+
+        anchorPaneRoot.getScene().setRoot(newScene);
     }
 }
