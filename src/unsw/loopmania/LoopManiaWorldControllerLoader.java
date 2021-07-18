@@ -11,6 +11,7 @@ import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import unsw.loopmania.Buildings.Building;
 import javafx.geometry.Rectangle2D;
 
 import java.io.File;
@@ -29,12 +30,14 @@ public class LoopManiaWorldControllerLoader extends LoopManiaWorldLoader {
     //Images
     private Image characterImage;
     private Image pathTilesImage;
+    private Image herosCastleImage;
 
     public LoopManiaWorldControllerLoader(String filename)
             throws FileNotFoundException {
         super(filename);
         entities = new ArrayList<>();
         characterImage = new Image((new File("src/images/human_new.png")).toURI().toString());
+        herosCastleImage = new Image((new File("src/images/heros_castle.png")).toURI().toString());
         pathTilesImage = new Image((new File("src/images/32x32GrassAndDirtPath.png")).toURI().toString());
         
     }
@@ -44,6 +47,13 @@ public class LoopManiaWorldControllerLoader extends LoopManiaWorldLoader {
     public void onLoad(Character character) {
         ImageView view = new ImageView(characterImage);
         addEntity(character, view);
+    }
+
+    @Override
+    public void onLoad(Building herosCastle) {
+        
+        ImageView view = new ImageView(herosCastleImage);
+        addEntity(herosCastle, view);
     }
 
     /**

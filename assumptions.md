@@ -9,7 +9,7 @@ Game is won when:
 ### CharacterAssumptions:
 - Character starts with **100** health points.
 - Character start with **0** gold and experience points.
-- Character starts with a default attack value of **X**.
+- Character starts with a default attack value of **5**.
 - Character can hold at most **1 weapon, 1 armour, 1 shield and 1 helmet.**
 - Character can hold at most **16** items in inventory.
 - Character can have at most **10** allies at a time.
@@ -95,8 +95,8 @@ When killing an enemy, the hero received a specified amount of experience.
 
 -----------------------------------------------------------------------------------------------------------------------------------
 ### Item Assumptions:
-***All pieces of equipment sold at the hero's castle will be sold for half the gold it is purchased for.***
-#### WeaponAssumptions:
+***All pieces of equipment destroyed will reward the character with half the gold it is purchased for.***
+#### WeaponAssumptitions:
 ##### SwordAssumptions:
 - A sword can be purchased for **20** gold from the hero's castle.
 - A sword adds **15** additional damage to the character's attack.
@@ -110,7 +110,7 @@ When killing an enemy, the hero received a specified amount of experience.
 - A staff can be purchased for **40** gold from the hero's castle.
 - A staff adds **2** additional damage to the character's attack.
 - A staff has a 10% chance of temporarily converting an enemy into an allied soldier, during combat.
-- Increases the character's attack damage significantly by 50% when combating vampires.
+
 
 #### DefensiveItemAssumptions:
 ##### ArmourAssumptions:
@@ -121,11 +121,13 @@ When killing an enemy, the hero received a specified amount of experience.
 
 ##### HelmetAssumptions:
 - A helmet can be purchased for **20** gold from the hero's castle.
+- A helmet reduces enemy attack by **10**.
 - A helmet reduced the character's attack by **10**.
 
 #### ConsumableItemAssumptions:
 - Health potions can be purchased for **20** gold from the hero's castle.
 - Health potions heal the character for **40** health points.
+- Health potions are consumed immediately when stepped over or purchased from the hero's castle.
 
 #### RareItemAssumptions:
 - The One Ring has a **1%** chance of dropping from a defeated enemy.

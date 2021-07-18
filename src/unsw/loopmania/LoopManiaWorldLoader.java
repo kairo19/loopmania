@@ -10,6 +10,14 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import javafx.beans.property.SimpleIntegerProperty;
+import unsw.loopmania.Buildings.Building;
+import unsw.loopmania.Buildings.HerosCastleBuilding;
+import unsw.loopmania.goal.AndGoal;
+import unsw.loopmania.goal.GoalExperience;
+import unsw.loopmania.goal.GoalGold;
+import unsw.loopmania.goal.GoalNode;
+import unsw.loopmania.goal.GoalRound;
+import unsw.loopmania.goal.OrGoal;
 
 import java.util.List;
 
@@ -49,6 +57,10 @@ public abstract class LoopManiaWorldLoader {
             loadEntity(world, jsonEntities.getJSONObject(i), orderedPath);
         }
 
+        // load goals
+        JSONObject goalCondition = json.getJSONObject("goal-condition");
+        world.setGoal(loadGoal(goalCondition, world));
+
         return world;
     }
 
@@ -72,6 +84,10 @@ public abstract class LoopManiaWorldLoader {
             Character character = new Character(new PathPosition(indexInPath, orderedPath));
             world.setCharacter(character);
             onLoad(character);
+            HerosCastleBuilding heroscastle = new HerosCastleBuilding(new SimpleIntegerProperty(x), new SimpleIntegerProperty(y));
+            world.setHerosCastleBuilding(heroscastle);
+            onLoad(heroscastle);
+            
             entity = character;
             break;
         case "path_tile":
@@ -144,7 +160,45 @@ public abstract class LoopManiaWorldLoader {
         return orderedPath;
     }
 
+    // currently does not take into consideration AND or OR goals
+    private GoalNode loadGoal(JSONObject goalJson, LoopManiaWorld world) {
+        String goalType = goalJson.getString("goal");
+        int quantity = 420;
+        GoalNode goal = new GoalExperience(world, quantity);      // default
+        switch (goalType) {
+            case "gold":
+                quantity = goalJson.getInt("quantity");
+                goal = new GoalGold(world, quantity);
+                break;
+            case "cycles":
+                quantity = goalJson.getInt("quantity");
+                goal = new GoalRound(world, quantity);
+                break;
+            case "experience":
+                quantity = goalJson.getInt("quantity");
+                goal = new GoalExperience(world, quantity);
+                break;
+            case "AND":
+                goal = new AndGoal(world);
+                break;
+            case "OR":
+                goal = new OrGoal(world);
+                break;
+        }
+
+        // if composite goal
+        if (!goal.isLeafNode()) {
+            JSONArray subGoalJson = goalJson.getJSONArray("subgoals");
+            for (int i = 0; i < subGoalJson.length(); i++) {
+                // call recurively
+                GoalNode subGoal = loadGoal(subGoalJson.getJSONObject(i), world);
+                goal.addSubGoal(subGoal);
+            }
+        }
+        return goal;
+    }
     public abstract void onLoad(Character character);
+    public abstract void onLoad(Building heroscastle);
     public abstract void onLoad(PathTile pathTile, PathTile.Direction into, PathTile.Direction out);
 
     // TODO Create additional abstract methods for the other entities
