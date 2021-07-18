@@ -95,6 +95,7 @@ public class LoopManiaWorld {
     private IntegerProperty round;
     private IntegerProperty gold; 
     private IntegerProperty experience;
+    private IntegerProperty allyNumbers;
     private GoalNode goal;
     private boolean gameOver;
     private LoopManiaWorldController controller;
@@ -118,6 +119,7 @@ public class LoopManiaWorld {
         buildingEntities = new ArrayList<>();
         this.round = new SimpleIntegerProperty(1);
         this.gold = new SimpleIntegerProperty(0);
+        this.allyNumbers = new SimpleIntegerProperty(0);
         this.experience = new SimpleIntegerProperty(0);
         this.goal = null;
         this.gameOver = false;
@@ -279,9 +281,6 @@ public class LoopManiaWorld {
             }
         }
         */
-
-
-        character.gainAlly();
         
         // time for the battle
         for (BasicEnemy e: queuedEnemies) {
@@ -815,6 +814,14 @@ public class LoopManiaWorld {
     public IntegerProperty getExperienceProperty() {
         return experience;
     }
+
+
+    public IntegerProperty getNumberAlliesProperty() {
+        allyNumbers.set(character.getAllies());
+        return allyNumbers;
+    }
+
+
 
     public void setGoal(GoalNode goal) {
         this.goal = goal;

@@ -127,6 +127,9 @@ public class LoopManiaWorldController {
     @FXML
     private Text cycleField;
 
+    @FXML
+    private Text allyField;
+
     // all image views including tiles, character, enemies, cards... even though cards in separate gridpane...
     private List<ImageView> entityImages;
 
@@ -311,6 +314,7 @@ public class LoopManiaWorldController {
         goldField.textProperty().bindBidirectional(world.getgoldProperty(), new NumberStringConverter());
         expField.textProperty().bindBidirectional(world.getExperienceProperty(), new NumberStringConverter());
         cycleField.textProperty().bindBidirectional(world.getRoundProperty(), new NumberStringConverter());
+        allyField.textProperty().bindBidirectional(world.getNumberAlliesProperty(), new NumberStringConverter());
     }
 
     /**
