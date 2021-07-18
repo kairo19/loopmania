@@ -6,6 +6,7 @@ import java.util.Random;
 
 import org.javatuples.Pair;
 
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import unsw.loopmania.Buildings.BarracksBuilding;
 import unsw.loopmania.Buildings.Building;
@@ -91,9 +92,9 @@ public class LoopManiaWorld {
      */
     private List<Pair<Integer, Integer>> orderedPath;
 
-    private int round;
-    private int gold; 
-    private int experience;
+    private IntegerProperty round;
+    private IntegerProperty gold; 
+    private IntegerProperty experience;
     private GoalNode goal;
     private boolean gameOver;
     private LoopManiaWorldController controller;
@@ -115,9 +116,9 @@ public class LoopManiaWorld {
         unequippedInventoryItems = new ArrayList<>();
         this.orderedPath = orderedPath;
         buildingEntities = new ArrayList<>();
-        this.round = 1;
-        this.gold = 0;
-        this.experience = 0;
+        this.round = new SimpleIntegerProperty(1);
+        this.gold = new SimpleIntegerProperty(0);
+        this.experience = new SimpleIntegerProperty(0);
         this.goal = null;
         this.gameOver = false;
         this.herosCastleBuilding = null;
@@ -747,23 +748,35 @@ public class LoopManiaWorld {
     public List<Pair<Integer, Integer>> getOrderedPath() {
         return orderedPath;
     }
+
+    public IntegerProperty getCharacterHealthProperty() {
+        return character.getHealthProperty();
+    }
     public int getRound() {
-        return round;
+        return round.get();
     }
     public void setRound(int round) {
-        this.round = round;
+        this.round.set(round);
     }
-
+    public IntegerProperty getRoundProperty() {
+        return round;
+    }
     public void setGold(int gold) {
-        this.gold = gold;
+        this.gold.set(gold);
     }
     public int getGold() {
+        return gold.get();
+    }
+    public IntegerProperty getgoldProperty() {
         return gold;
     }
     public void setExperience(int experience) {
-        this.experience = experience;
+        this.experience.set(experience);
     }
     public int getExperience() {
+        return experience.get();
+    }
+    public IntegerProperty getExperienceProperty() {
         return experience;
     }
 

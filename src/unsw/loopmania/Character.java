@@ -2,6 +2,8 @@ package unsw.loopmania;
 
 import java.util.ArrayList;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import unsw.loopmania.Enemies.BasicEnemy;
 import unsw.loopmania.item.defensiveitem.Armour;
 import unsw.loopmania.item.defensiveitem.DefensiveItem;
@@ -21,7 +23,7 @@ import unsw.loopmania.item.weapon.Weapon;
  
 public class Character extends MovingEntity {
     // TODO = potentially implement relationships between this class and other classes
-    private int health;
+    private IntegerProperty health;
     private int damage;
     private int allies;                     // current placeholder
     private Weapon equippedWeapon;
@@ -38,7 +40,7 @@ public class Character extends MovingEntity {
     public Character(PathPosition position) {
         super(position);
         this.allies = 0;
-        this.health = 100;
+        this.health = new SimpleIntegerProperty(100);
         this.damage = 5;
         this.equippedWeapon = null;
         this.equippedArmour = null;
@@ -46,11 +48,14 @@ public class Character extends MovingEntity {
         this.equippedShield = null;
     }
 
+    public IntegerProperty getHealthProperty() {
+        return health;
+    }
     public int getHealth() {
-        return this.health;
+        return health.get();
     }
     public void setHealth(int health) {
-        this.health = health;   
+        this.health.set(health);  
     }
     public int getDamage() {
         return damage;
