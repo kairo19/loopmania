@@ -307,6 +307,9 @@ public class LoopManiaWorld {
                 } else {
                     // if enemy alive, then it deals damage to character
                     e.dealDamage(character);
+
+                    // TESTING NEED TO REMOVE
+                    character.setHealth(100);
                     
                     // somewhere here that we will spawn the enemy out of ally soldiers
                     
