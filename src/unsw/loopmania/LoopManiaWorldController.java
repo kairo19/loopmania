@@ -338,6 +338,17 @@ public class LoopManiaWorldController {
             }
             List<BasicEnemy> newBuildingEnemies = world.HeroCastleEnemies();
             printThreadingNotes("HANDLED TIMER");
+
+            // Testing //
+            allyField.textProperty().bindBidirectional(world.getNumberAlliesProperty(), new NumberStringConverter());
+
+            // store spawn after each cycle
+            // call cycle from loop mania world
+            // then launch store
+            // when clicked, check money,
+            // if sufficient then call the boughtItem function in world
+
+
         }));
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();

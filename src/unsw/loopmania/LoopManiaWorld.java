@@ -33,7 +33,7 @@ import unsw.loopmania.Enemies.Zombie;
 import unsw.loopmania.goal.GoalNode;
 import unsw.loopmania.item.weapon.Sword;
 import unsw.loopmania.item.weapon.Weapon;
-
+import unsw.loopmania.item.consumable.HealthPotion;
 import unsw.loopmania.item.defensiveitem.Armour;
 import unsw.loopmania.item.defensiveitem.Helmet;
 import unsw.loopmania.item.defensiveitem.Shield;
@@ -493,6 +493,10 @@ public class LoopManiaWorld {
         return null;
     }
 
+    
+
+
+
     public void addCharacterDraggedEntity(StaticEntity items) {
         String store = items.toString();
 
@@ -534,7 +538,7 @@ public class LoopManiaWorld {
 
     }
 
-
+    
 
     /*
     public Sword addUnequippedSword(){
@@ -600,6 +604,73 @@ public class LoopManiaWorld {
         }
         return spawningEnemies;
     }
+
+
+
+    public List<StaticEntity> generateRandomStore() {
+        // Add 7 items into the list
+        List<StaticEntity> shop = new ArrayList<>();
+
+        StaticEntity armour = new Armour(null, null);
+        shop.add(armour);
+        StaticEntity helmet = new Helmet(null, null);
+        shop.add(helmet);
+        StaticEntity shield = new Shield(null, null);
+        shop.add(shield);
+        StaticEntity staff = new Staff(null, null);
+        shop.add(staff);
+        StaticEntity stake = new Stake(null, null);
+        shop.add(stake);
+        StaticEntity sword = new Sword(null, null);
+        shop.add(sword);
+        StaticEntity healthPotion = new HealthPotion(null, null);
+        shop.add(healthPotion);
+        
+        return shop;
+    }
+
+
+    public void boughtItem(StaticEntity itemBought) {
+        Pair<Integer, Integer> firstAvailableSlot = getFirstAvailableSlotForItem();
+        if (firstAvailableSlot == null){
+            // eject the oldest unequipped item and replace it... oldest item is that at beginning of items
+            // TODO = give some cash/experience rewards for the discarding of the oldest sword
+            removeItemByPositionInUnequippedInventoryItems(0);
+            firstAvailableSlot = getFirstAvailableSlotForItem();
+        }
+
+        String name = itemBought.toString();
+
+        switch(name) {
+            case "Sword": 
+                Sword sword = new Sword(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
+                unequippedInventoryItems.add(sword);
+            case "Staff": 
+                Staff staff = new Staff(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
+                unequippedInventoryItems.add(staff);
+            case "Stake":
+                Stake stake = new Stake(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
+                unequippedInventoryItems.add(stake);
+            case "Armour":
+                Armour armour = new Armour(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
+                unequippedInventoryItems.add(armour);
+            case "Helmet":
+                Helmet helmet = new Helmet(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
+                unequippedInventoryItems.add(helmet);
+            case "Shield":
+                Shield shield = new Shield(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
+                unequippedInventoryItems.add(shield); 
+            case "HealthPotion":
+                Shield healthPotion = new Shield(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
+                unequippedInventoryItems.add(healthPotion);  
+                
+        }
+
+    }
+
+
+
+
         
 
     /**
@@ -818,6 +889,7 @@ public class LoopManiaWorld {
 
     public IntegerProperty getNumberAlliesProperty() {
         allyNumbers.set(character.getAllies());
+        System.out.println("Ally numbers are: " + allyNumbers);
         return allyNumbers;
     }
 

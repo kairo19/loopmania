@@ -43,7 +43,7 @@ public class Character extends MovingEntity {
         /*
             TESTING FOR ALLIES. PLEASE CHANGE IT BACK LATER
         */
-        this.allies = 2;
+        this.allies = 0;
         this.health = new SimpleIntegerProperty(100);
         this.damage = 5;
         this.buffedDamage = 0;
