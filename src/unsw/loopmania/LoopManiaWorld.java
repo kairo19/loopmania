@@ -549,7 +549,7 @@ public class LoopManiaWorld {
     public List<BasicEnemy> HeroCastleEnemies() {
         List<BasicEnemy> spawningEnemies = new ArrayList<>();
         if (herosCastleBuilding.getX() == character.getX() && herosCastleBuilding.getY() == character.getY()) {
-            setRound(herosCastleBuilding.AddCycle(round));
+            setRound(herosCastleBuilding.AddCycle(getRound()));
             for (Building b: buildingEntities) {
                 if (b.toString().equals("VampireCastleBuilding") && b.getBuildingAliveRounds() % 5 == 0) {
                     BasicEnemy vampireEnemy = b.SpawnAbility(orderedPath);

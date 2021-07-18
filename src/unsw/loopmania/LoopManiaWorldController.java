@@ -114,6 +114,20 @@ public class LoopManiaWorldController {
     @FXML
     private GridPane unequippedInventory;
 
+
+    // Gridpane containing health, gold and experience and round/cycle
+    @FXML
+    private GridPane weaponField;
+
+    @FXML
+    private GridPane helmetField;
+
+    @FXML
+    private GridPane armourField;
+
+    @FXML
+    private GridPane shieldField;
+
     // textfields containing health, gold and experience and round/cycle
     @FXML
     private Text healthField;
