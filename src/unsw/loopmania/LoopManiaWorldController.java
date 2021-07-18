@@ -326,7 +326,7 @@ public class LoopManiaWorldController {
         isPaused = false;
         // trigger adding code to process main game logic to queue. JavaFX will target framerate of 0.3 seconds
         timeline = new Timeline(new KeyFrame(Duration.seconds(0.3), event -> {
-            if (world.isGameover()) {
+            if (world.isGameover() || world.getCharacterHealthProperty().get() <= 0) {
                 gameOver(world.hasMetGoal());
             }
             world.runTickMoves();
@@ -793,7 +793,7 @@ public class LoopManiaWorldController {
         }
     }
 
-    public void setMainMenuSwitcher(MenuSwitcher mainMenuSwitcher){
+    public void setMainMenuSwitcher(MenuSwitcher mainMenuSwitcher) {
         // TODO = possibly set other menu switchers
         this.mainMenuSwitcher = mainMenuSwitcher;
     }
@@ -936,5 +936,9 @@ public class LoopManiaWorldController {
         newScene.setBottom(buttons);
 
         anchorPaneRoot.getScene().setRoot(newScene);
+    }
+
+    private void restartGame() {
+        // this.world = new LoopManiaWorld(width, height, orderedPath)
     }
 }
