@@ -17,6 +17,12 @@ public class PlacableOnPath implements PlacableBehaviour{
         System.out.println("PlaceOn PATH FAILED");
         return false;
         
+    }
+
+    @Override
+    public boolean itemPlacable(int x, int y) {
+        // TODO Auto-generated method stub
+        return false;
     }   
                 
 }

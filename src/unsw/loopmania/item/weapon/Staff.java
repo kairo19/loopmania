@@ -6,6 +6,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import unsw.loopmania.Enemies.BasicEnemy;
 import unsw.loopmania.Character;
 import unsw.loopmania.StaticEntity;
+import unsw.loopmania.Cards.PlacableBehaviour.PlacableWeapon;
 
 /**
  * represents an equipped or unequipped staff in the backend world
@@ -14,6 +15,7 @@ public class Staff extends StaticEntity implements Weapon {
     private static final int DAMAGE_BOOST = 2;
     public Staff(SimpleIntegerProperty x, SimpleIntegerProperty y) {
         super(x, y);
+        this.placableBehaviour = new PlacableWeapon();
     }    
 
     @Override
@@ -32,6 +34,11 @@ public class Staff extends StaticEntity implements Weapon {
         }
     };
 
+    public boolean checkItemplacable(int x, int y){
+        
+        return placableBehaviour.itemPlacable(x, y);
+    }
+    
     @Override
     public String toString() {
         // TODO Auto-generated method stub

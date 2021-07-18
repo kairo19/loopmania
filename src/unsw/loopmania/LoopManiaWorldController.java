@@ -558,21 +558,27 @@ public class LoopManiaWorldController {
                         int nodeY = GridPane.getRowIndex(currentlyDraggedImage);
                         switch (draggableType){
                             case CARD:
-                                    if (staticEntity.checkPlacable(x, y, world.getOrderedPath())) {
-                                        removeDraggableDragEventHandlers(draggableType, targetGridPane);
-                                        Building newBuilding = convertCardToBuildingByCoordinates(nodeX, nodeY, x, y);
-                                        onLoad(newBuilding);
-                                    } else {
-                                        node.setOpacity(1);
-                                        return;
-                                    }
-                                    break;
+                                if (staticEntity.checkPlacable(x, y, world.getOrderedPath())) {
+                                    removeDraggableDragEventHandlers(draggableType, targetGridPane);
+                                    Building newBuilding = convertCardToBuildingByCoordinates(nodeX, nodeY, x, y);
+                                    onLoad(newBuilding);
+                                } else {
+                                    node.setOpacity(1);
+                                    return;
+                                }
+                                break;
 
                             case ITEM:
-                                removeDraggableDragEventHandlers(draggableType, targetGridPane);
+                                if (staticEntity.checkItemPlacable(x,y)){
+                                    removeDraggableDragEventHandlers(draggableType, targetGridPane);
                                 // TODO = spawn an item in the new location. The above code for spawning a building will help, it is very similar
-                                removeItemByCoordinates(nodeX, nodeY);
-                                targetGridPane.add(image, x, y, 1, 1);
+                                    removeItemByCoordinates(nodeX, nodeY);
+                                    targetGridPane.add(image, x, y, 1, 1);
+                                } else {
+                                    node.setOpacity(1);
+                                    return;
+                                }
+                                
                                 break;
                             default:
                                 break;

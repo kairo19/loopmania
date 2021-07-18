@@ -6,6 +6,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import unsw.loopmania.Enemies.BasicEnemy;
 import unsw.loopmania.Character;
 import unsw.loopmania.StaticEntity;
+import unsw.loopmania.Cards.PlacableBehaviour.PlacableWeapon;
 
 /**
  * represents an equipped or unequipped stake in the backend world
@@ -14,6 +15,7 @@ public class Stake extends StaticEntity implements Weapon {
     private static final int DAMAGE_BOOST = 5;
     public Stake(SimpleIntegerProperty x, SimpleIntegerProperty y) {
         super(x, y);
+        this.placableBehaviour = new PlacableWeapon();
     }
 
     @Override
@@ -27,6 +29,13 @@ public class Stake extends StaticEntity implements Weapon {
             character.setDamage((int) (character.getDamage() * 1.5));
         }     
     }
+
+    
+    public boolean checkItemplacable(int x, int y){
+        
+        return placableBehaviour.itemPlacable(x, y);
+    }
+
     @Override
     public String toString() {
         // TODO Auto-generated method stub

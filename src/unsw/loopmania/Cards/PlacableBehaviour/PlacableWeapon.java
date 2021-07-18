@@ -3,22 +3,24 @@ package unsw.loopmania.Cards.PlacableBehaviour;
 import java.util.List;
 import org.javatuples.Pair;
 
-public class PlaceableOnAdjacentPath implements PlacableBehaviour {
+public class PlacableWeapon implements PlacableBehaviour{
 
     @Override
     public boolean placable(int x, int y, List<Pair<Integer, Integer>> orderedPath) {
-        for (Pair<Integer,Integer> p: orderedPath) {
-            if (p.getValue0() == x && p.getValue1() == y) {
-                return false;
-
-            }
-        }
-        return true;
+        // TODO Auto-generated method stub
+        return false;
     }
 
     @Override
     public boolean itemPlacable(int x, int y) {
         // TODO Auto-generated method stub
-        return false;
+        if (x == 0 && y == 1) {
+            return true;
+        } else {
+            return false;
+        }
     }
+
+    
+    
 }

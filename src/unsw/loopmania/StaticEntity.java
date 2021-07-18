@@ -46,4 +46,8 @@ public abstract class StaticEntity extends Entity {
         return placableBehaviour.placable(x, y, orderedPath);
     }  
 
+    public boolean checkItemPlacable(int x, int y) {
+        return placableBehaviour.itemPlacable(x, y);
+    }
+
 }
