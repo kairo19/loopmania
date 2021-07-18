@@ -458,6 +458,16 @@ public class LoopManiaWorld {
         }
         return null;
     }
+    
+    public StaticEntity addUnequippedRareItem(){
+        // TODO = expand this - we would like to be able to add multiple types of items, apart from swords
+        Pair<Integer, Integer> firstAvailableSlot = getFirstAvailableSlotForItem();
+        if (firstAvailableSlot == null){
+            // eject the oldest unequipped item and replace it... oldest item is that at beginning of items
+            // TODO = give some cash/experience rewards for the discarding of the oldest sword
+            removeItemByPositionInUnequippedInventoryItems(0);
+            firstAvailableSlot = getFirstAvailableSlotForItem();
+        }
 
         Random r = new Random();
         int num = r.nextInt(100);
@@ -473,6 +483,7 @@ public class LoopManiaWorld {
         }
         return null;
     }
+
 
     public void addCharacterDraggedEntity(StaticEntity items) {
         String store = items.toString();

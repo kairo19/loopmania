@@ -259,7 +259,6 @@ public class LoopManiaWorldController {
         slugImage = new Image((new File("src/images/slug.png")).toURI().toString());
         zombieImage = new Image((new File("src/images/zombie.png")).toURI().toString());
         vampireImage = new Image((new File("src/images/vampire.png")).toURI().toString());
-        potionImage = new Image((new File("src/images/brilliant_blue_new.png")).toURI().toString());
 
         
 
@@ -1014,7 +1013,7 @@ public class LoopManiaWorldController {
                 add(armourImage);
                 add(shieldImage);
                 add(helmetImage);
-                add(potionImage);
+                add(healthpotionImage);
             }
         };
 
