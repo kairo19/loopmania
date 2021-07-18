@@ -27,6 +27,7 @@ import unsw.loopmania.Buildings.ZombiePitBuilding;
  * you should setup additional test classes in a similar fashion, aiming to achieve high coverage.
  * A clickable "Run Test" link should appear if you have installed the Java Extension Pack properly.
  */
+/*
 public class BuildingsTest {
     @Test
     public void blahTest(){
@@ -111,3 +112,4 @@ public class BuildingsTest {
         assertEquals(new_health, character.gethealth());
     }
 }
+*/

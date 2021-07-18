@@ -181,7 +181,8 @@ public class LoopManiaWorldController {
     private Image armourImage;
     private Image shieldImage;
     private Image helmetImage;
-    private Image potionImage;
+    private Image theoneringImage;
+    private Image healthpotionImage;
 
     /**
      * the image currently being dragged, if there is one, otherwise null.
@@ -250,6 +251,9 @@ public class LoopManiaWorldController {
         armourImage = new Image((new File("src/images/armour.png")).toURI().toString());
         shieldImage = new Image((new File("src/images/shield.png")).toURI().toString());
         helmetImage = new Image((new File("src/images/helmet.png")).toURI().toString());
+        theoneringImage = new Image((new File("src/images/the_one_ring.png")).toURI().toString());
+        healthpotionImage = new Image((new File("src/images/brilliant_blue_new.png")).toURI().toString());
+
         //basicEnemyImage = new Image((new File("src/images/slug.png")).toURI().toString());
 
         slugImage = new Image((new File("src/images/slug.png")).toURI().toString());
@@ -415,7 +419,16 @@ public class LoopManiaWorldController {
         StaticEntity item = world.addUnequippedItem();
         onLoad(item);
     }
+    private void loadRareItem(){
+        // TODO = load more types of weapon
+        // start by getting first available coordinates
 
+        StaticEntity item = world.addUnequippedRareItem();
+        if (item != null) {
+            onLoad(item);
+        }
+        
+    }
     /**
      * run GUI events after an enemy is defeated, such as spawning items/experience/gold
      * @param enemy defeated enemy for which we should react to the death of
@@ -502,6 +515,12 @@ public class LoopManiaWorldController {
 
             case "Helmet":
                 return helmetImage;
+            
+            case "TheOneRing":
+                return theoneringImage;
+            
+            case "HealthPotion":
+                return healthpotionImage;
 
         }
         return null;
@@ -818,6 +837,9 @@ public class LoopManiaWorldController {
                 pause();
             }
             break;
+
+        case P:
+            
         default:
             break;
         }

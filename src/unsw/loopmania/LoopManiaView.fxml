@@ -93,6 +93,16 @@
                         <Image url="@../../images/helmet_slot.png" />
                      </image>
                   </ImageView>
+                  <ImageView id="potionCell" GridPane.columnIndex="2">
+                     <image>
+                        <Image url="@../../images/potion.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView id="potionCell" GridPane.columnIndex="0">
+                     <image>
+                        <Image url="@../../images/white.png" />
+                     </image>
+                  </ImageView>
                </children>
             </GridPane>
 

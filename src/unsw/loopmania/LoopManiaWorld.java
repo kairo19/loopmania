@@ -34,6 +34,7 @@ import unsw.loopmania.goal.GoalNode;
 import unsw.loopmania.item.weapon.Sword;
 import unsw.loopmania.item.weapon.Weapon;
 import unsw.loopmania.item.consumable.HealthPotion;
+import unsw.loopmania.item.consumable.TheOneRing;
 import unsw.loopmania.item.defensiveitem.Armour;
 import unsw.loopmania.item.defensiveitem.Helmet;
 import unsw.loopmania.item.defensiveitem.Shield;
@@ -356,6 +357,11 @@ public class LoopManiaWorld {
         if (cardEntities.size() >= getWidth()){
             // TODO = give some cash/experience/item rewards for the discarding of the oldest card
             removeCard(0);
+
+            setGold(getGold() + 10);
+            setExperience(getExperience() + 10);
+            
+            //addUnequippedItem();
         }
         Random r = new Random();
         int random = r.nextInt(7);
@@ -453,9 +459,20 @@ public class LoopManiaWorld {
         return null;
     }
 
-    
+        Random r = new Random();
+        int num = r.nextInt(100);
 
-
+        if (num < 5) {
+            TheOneRing theonering = new TheOneRing(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
+            unequippedInventoryItems.add(theonering);
+            return theonering;
+        } else if (num < 15 && num > 5) {
+            HealthPotion healthpotion = new HealthPotion(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
+            unequippedInventoryItems.add(healthpotion);
+            return healthpotion;
+        }
+        return null;
+    }
 
     public void addCharacterDraggedEntity(StaticEntity items) {
         String store = items.toString();
@@ -494,8 +511,11 @@ public class LoopManiaWorld {
         } else if (store.equals("Shield")) {
             Shield shieldClass = (Shield) items;
             character.equipShield(shieldClass);
-        }
-
+        } else if (store.equals("HealthPotion")) {
+            HealthPotion healthpotion = (HealthPotion) items;
+            healthpotion.consume(character);
+            System.out.println("HEALING CHARACTER");
+        }   
     }
 
     
