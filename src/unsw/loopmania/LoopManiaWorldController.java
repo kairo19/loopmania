@@ -36,6 +36,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
+import javafx.util.converter.NumberStringConverter;
 import unsw.loopmania.Buildings.Building;
 import unsw.loopmania.Buildings.VampireCastleBuilding;
 import unsw.loopmania.Cards.Card;
@@ -112,6 +113,19 @@ public class LoopManiaWorldController {
 
     @FXML
     private GridPane unequippedInventory;
+
+    // textfields containing health, gold and experience and round/cycle
+    @FXML
+    private Text healthField;
+
+    @FXML
+    private Text goldField;
+
+    @FXML
+    private Text expField;
+
+    @FXML
+    private Text cycleField;
 
     // all image views including tiles, character, enemies, cards... even though cards in separate gridpane...
     private List<ImageView> entityImages;
@@ -291,6 +305,12 @@ public class LoopManiaWorldController {
         draggedEntity.setVisible(false);
         draggedEntity.setOpacity(0.7);
         anchorPaneRoot.getChildren().add(draggedEntity);
+
+        // bind health, experience, gold and round
+        healthField.textProperty().bindBidirectional(world.getCharacterHealthProperty(), new NumberStringConverter());
+        goldField.textProperty().bindBidirectional(world.getgoldProperty(), new NumberStringConverter());
+        expField.textProperty().bindBidirectional(world.getExperienceProperty(), new NumberStringConverter());
+        cycleField.textProperty().bindBidirectional(world.getRoundProperty(), new NumberStringConverter());
     }
 
     /**
