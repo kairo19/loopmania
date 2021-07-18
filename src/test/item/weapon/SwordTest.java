@@ -7,7 +7,7 @@ import unsw.loopmania.PathPosition;
 import unsw.loopmania.item.weapon.Sword;
 import unsw.loopmania.Character;
 
-
+/*
 public class SwordTest {
     @Test
     public void testSwordDamageBoost() {
@@ -23,3 +23,4 @@ public class SwordTest {
         // should do nothing?
     }
 }
+*/

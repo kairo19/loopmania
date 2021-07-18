@@ -7,6 +7,6 @@ public class Shop {
     private List<StaticEntity> items;
     public Shop(){
         this.items = new ArrayList<>();
-        items.add()
+        //items.add()
     }   
 }
