@@ -17,6 +17,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Point2D;
+import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -29,15 +30,19 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
 import javafx.util.converter.NumberStringConverter;
 import unsw.loopmania.Buildings.Building;
+import unsw.loopmania.Buildings.HerosCastleBuilding;
 import unsw.loopmania.Buildings.VampireCastleBuilding;
 import unsw.loopmania.Cards.Card;
 import unsw.loopmania.Cards.VampireCastleCard;
@@ -126,6 +131,9 @@ public class LoopManiaWorldController {
 
     @FXML
     private Text cycleField;
+
+    @FXML
+    private Text allyField;
 
     // all image views including tiles, character, enemies, cards... even though cards in separate gridpane...
     private List<ImageView> entityImages;
@@ -316,6 +324,7 @@ public class LoopManiaWorldController {
         goldField.textProperty().bindBidirectional(world.getgoldProperty(), new NumberStringConverter());
         expField.textProperty().bindBidirectional(world.getExperienceProperty(), new NumberStringConverter());
         cycleField.textProperty().bindBidirectional(world.getRoundProperty(), new NumberStringConverter());
+        allyField.textProperty().bindBidirectional(world.getNumberAlliesProperty(), new NumberStringConverter());
     }
 
     /**
@@ -327,6 +336,12 @@ public class LoopManiaWorldController {
         isPaused = false;
         // trigger adding code to process main game logic to queue. JavaFX will target framerate of 0.3 seconds
         timeline = new Timeline(new KeyFrame(Duration.seconds(0.3), event -> {
+            if (world.isGameover() || world.getCharacterHealthProperty().get() <= 0) {
+                gameOver(world.hasMetGoal());
+            }
+            if (world.getHerosCastleBuilding().PurchaseCycle(world.getRound())) {
+                openStore();
+            }
             world.runTickMoves();
             
             List<BasicEnemy> defeatedEnemies = world.runBattles();
@@ -342,7 +357,19 @@ public class LoopManiaWorldController {
                 onLoad(newEnemy);
 
             }
+            allyField.textProperty().bindBidirectional(world.getNumberAlliesProperty(), new NumberStringConverter());
             printThreadingNotes("HANDLED TIMER");
+
+            // Testing //
+            allyField.textProperty().bindBidirectional(world.getNumberAlliesProperty(), new NumberStringConverter());
+
+            // store spawn after each cycle
+            // call cycle from loop mania world
+            // then launch store
+            // when clicked, check money,
+            // if sufficient then call the boughtItem function in world
+
+
         }));
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
@@ -818,7 +845,7 @@ public class LoopManiaWorldController {
         }
     }
 
-    public void setMainMenuSwitcher(MenuSwitcher mainMenuSwitcher){
+    public void setMainMenuSwitcher(MenuSwitcher mainMenuSwitcher) {
         // TODO = possibly set other menu switchers
         this.mainMenuSwitcher = mainMenuSwitcher;
     }
@@ -920,10 +947,104 @@ public class LoopManiaWorldController {
         System.out.println("Current system time = "+java.time.LocalDateTime.now().toString().replace('T', ' '));
     }
 
-    public void gameOver(String status) {
+    public void gameOver(Boolean hasWon) {
+        String status = "YOU LOSE";
+        if (hasWon) {
+            status = "YOU WIN";
+        } 
+
         System.out.println(status);
-        timeline.stop();
-        mainMenuSwitcher.switchMenu();
-        // // Platform.exit();
+        pause();
+        
+        VBox vBox = new VBox();
+        Text gameStatus = new Text(status);
+        gameStatus.setFont(new Font(50));
+        vBox.getChildren().addAll(gameStatus);
+        vBox.setAlignment(Pos.CENTER);
+        
+        HBox buttons = new HBox();
+        Button returnMainMenu = new Button("Return to Main Menu");
+        returnMainMenu.setPadding(new Insets(5, 5, 5, 5));
+        returnMainMenu.setOnAction((ActionEvent event) -> {
+            mainMenuSwitcher.switchMenu();
+        });
+        returnMainMenu.setStyle("-fx-background-color: #768399");
+        Button quit = new Button("Quit");
+        quit.setPadding(new Insets(5, 5, 5, 5));
+        quit.setOnAction((ActionEvent event) -> {
+            Platform.exit();
+        });
+        quit.setStyle("-fx-background-color: #d4826c");
+        HBox rButton = new HBox(quit);
+        rButton.setAlignment(Pos.CENTER_RIGHT);
+        HBox.setHgrow(rButton, Priority.ALWAYS);
+        buttons.getChildren().addAll(returnMainMenu, rButton);
+        buttons.setPadding(new Insets(2));
+
+        // create new popup scene
+        BorderPane newScene = new BorderPane();
+        newScene.setStyle("-fx-background-color: #d3dba0");
+        newScene.setCenter(vBox);
+        newScene.setBottom(buttons);
+
+        anchorPaneRoot.getScene().setRoot(newScene);
+    }
+
+    private void restartGame() {
+        // this.world = new LoopManiaWorld(width, height, orderedPath)
+    }
+
+    private void openStore() {
+        pause();
+        
+        // offer header
+        VBox vBox = new VBox();
+        Text shopText = new Text("Offer");
+        shopText.setFont(new Font(50));
+        vBox.getChildren().addAll(shopText);
+        vBox.setAlignment(Pos.CENTER);
+
+
+        HBox shop = new HBox(10);
+        ArrayList<Image> images = new ArrayList<Image>() {
+            {
+                add(swordImage);
+                add(stakeImage);
+                add(staffImage);
+                add(armourImage);
+                add(shieldImage);
+                add(helmetImage);
+                add(healthpotionImage);
+            }
+        };
+
+        for (int i = 0; i < 7; i++) {
+            int counter = i; // to make compiler happy :(
+            ImageView view = new ImageView(images.get(i));
+            Button item = new Button();
+            item.setPadding(new Insets(5, 5, 5, 5));
+            item.setGraphic(view);
+            item.setOnAction((ActionEvent event) -> {
+                StaticEntity boughtItem = world.boughtItem(world.generateRandomStore().get(counter));
+                world.setGold(world.getGold() - 5);     // current placeholder
+                onLoad(boughtItem);
+            });
+            shop.getChildren().add(item);
+        }
+        shop.setAlignment(Pos.CENTER);
+
+        Button returnMainMenu = new Button("Return to maine menu");
+        returnMainMenu.setPadding(new Insets(5, 5, 5, 5));
+        returnMainMenu.setOnAction((ActionEvent event) -> {
+            mainMenuSwitcher.switchMenu();
+        });
+
+        BorderPane newScene = new BorderPane();
+        newScene.setStyle("-fx-background-color: #d3dba0");
+        newScene.setTop(vBox);
+        newScene.setCenter(shop);
+        newScene.setBottom(returnMainMenu);
+
+        anchorPaneRoot.getScene().setRoot(newScene);
     }
 }
