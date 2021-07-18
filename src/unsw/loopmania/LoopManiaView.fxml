@@ -109,10 +109,30 @@
 
                   <!-- clicking this button returns the human player to the main menu -->
             <Button onAction="#switchToMainMenu" text="Exit to Main Menu" />
-            <Text fx:id="healthField" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="100" />
-            <Text fx:id="goldField" fill="#cdcd19" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
-            <Text fx:id="expField" fill="#1d00da" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
-            <Text fx:id="cycleField" strokeType="OUTSIDE" strokeWidth="0.0" text="1" />
+            <HBox prefHeight="19.0" prefWidth="96.0">
+               <children>
+                  <Text fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Health: " />
+                  <Text fx:id="healthField" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="100" />
+               </children>
+            </HBox>
+            <HBox prefHeight="19.0" prefWidth="96.0">
+               <children>
+                  <Text fill="#cdcd19" strokeType="OUTSIDE" strokeWidth="0.0" text="Gold: " />
+                  <Text fx:id="goldField" fill="#cdcd19" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+               </children>
+            </HBox>
+            <HBox prefHeight="19.0" prefWidth="96.0">
+               <children>
+                  <Text fill="#1d00da" strokeType="OUTSIDE" strokeWidth="0.0" text="XP: " />
+                  <Text fx:id="expField" fill="#1d00da" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+               </children>
+            </HBox>
+            <HBox prefHeight="19.0" prefWidth="96.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Round: " />
+                  <Text fx:id="cycleField" strokeType="OUTSIDE" strokeWidth="0.0" text="1" />
+               </children>
+            </HBox>
          </children>
       </VBox>
    </HBox>
