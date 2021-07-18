@@ -8,7 +8,7 @@ public class HerosCastleBuilding extends Building {
     private int counter;
     public HerosCastleBuilding(SimpleIntegerProperty x, SimpleIntegerProperty y) {
         super(x, y);
-        this.counter = 1;
+        this.counter = 2;
     }  
 
     /**
@@ -23,7 +23,7 @@ public class HerosCastleBuilding extends Building {
      * @return
      */
     public boolean PurchaseCycle(int round) {
-        if (counter == round) {
+        if (counter == round && round != 1) {
             counter = counter + round;
             return true; 
         }

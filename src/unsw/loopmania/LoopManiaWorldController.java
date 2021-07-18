@@ -1003,7 +1003,9 @@ public class LoopManiaWorldController {
             item.setPadding(new Insets(5, 5, 5, 5));
             item.setGraphic(view);
             item.setOnAction((ActionEvent event) -> {
-                world.boughtItem(world.generateRandomStore().get(counter));
+                StaticEntity boughtItem = world.boughtItem(world.generateRandomStore().get(counter));
+                world.setGold(world.getGold() - 5);     // current placeholder
+                onLoad(boughtItem);
             });
             shop.getChildren().add(item);
         }

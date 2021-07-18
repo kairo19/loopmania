@@ -598,18 +598,18 @@ public class LoopManiaWorld {
         // Add 7 items into the list
         List<StaticEntity> shop = new ArrayList<>();
 
-        StaticEntity armour = new Armour(null, null);
-        shop.add(armour);
-        StaticEntity helmet = new Helmet(null, null);
-        shop.add(helmet);
-        StaticEntity shield = new Shield(null, null);
-        shop.add(shield);
-        StaticEntity staff = new Staff(null, null);
-        shop.add(staff);
-        StaticEntity stake = new Stake(null, null);
-        shop.add(stake);
         StaticEntity sword = new Sword(null, null);
         shop.add(sword);
+        StaticEntity stake = new Stake(null, null);
+        shop.add(stake);
+        StaticEntity staff = new Staff(null, null);
+        shop.add(staff);
+        StaticEntity armour = new Armour(null, null);
+        shop.add(armour);
+        StaticEntity shield = new Shield(null, null);
+        shop.add(shield);
+        StaticEntity helmet = new Helmet(null, null);
+        shop.add(helmet);
         StaticEntity healthPotion = new HealthPotion(null, null);
         shop.add(healthPotion);
         
@@ -617,7 +617,7 @@ public class LoopManiaWorld {
     }
 
 
-    public void boughtItem(StaticEntity itemBought) {
+    public StaticEntity boughtItem(StaticEntity itemBought) {
         Pair<Integer, Integer> firstAvailableSlot = getFirstAvailableSlotForItem();
         if (firstAvailableSlot == null){
             // eject the oldest unequipped item and replace it... oldest item is that at beginning of items
@@ -632,27 +632,38 @@ public class LoopManiaWorld {
             case "Sword": 
                 Sword sword = new Sword(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
                 unequippedInventoryItems.add(sword);
+                return sword;
             case "Staff": 
                 Staff staff = new Staff(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
                 unequippedInventoryItems.add(staff);
+                return staff;
             case "Stake":
                 Stake stake = new Stake(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
                 unequippedInventoryItems.add(stake);
+                return stake;
+
             case "Armour":
                 Armour armour = new Armour(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
                 unequippedInventoryItems.add(armour);
+                return armour;
+
             case "Helmet":
                 Helmet helmet = new Helmet(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
                 unequippedInventoryItems.add(helmet);
+                return helmet;
+
             case "Shield":
                 Shield shield = new Shield(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
                 unequippedInventoryItems.add(shield); 
+                return shield;
+
             case "HealthPotion":
                 Shield healthPotion = new Shield(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
                 unequippedInventoryItems.add(healthPotion);  
+                return healthPotion;
                 
         }
-
+        return null;
     }
 
 
