@@ -10,6 +10,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import unsw.loopmania.Buildings.BarracksBuilding;
 import unsw.loopmania.Buildings.Building;
 import unsw.loopmania.Buildings.CampfireBuilding;
+import unsw.loopmania.Buildings.HerosCastleBuilding;
 import unsw.loopmania.Buildings.TowerBuilding;
 import unsw.loopmania.Buildings.TrapBuilding;
 import unsw.loopmania.Buildings.Building;
@@ -83,6 +84,8 @@ public class LoopManiaWorld {
     // TODO = expand the range of buildings
     private List<Building> buildingEntities;
 
+    private HerosCastleBuilding herosCastleBuilding;
+
     /**
      * list of x,y coordinate pairs in the order by which moving entities traverse them
      */
@@ -117,6 +120,7 @@ public class LoopManiaWorld {
         this.experience = 0;
         this.goal = null;
         this.gameOver = false;
+        this.herosCastleBuilding = null;
     }
     
     public int getWidth() {
@@ -303,6 +307,7 @@ public class LoopManiaWorld {
                 } else {
                     // if enemy alive, then it deals damage to character
                     e.dealDamage(character);
+                    character.setHealth(100);
                     // somewhere here that we will spawn the enemy out of ally soldiers
                     
                 }
@@ -534,7 +539,31 @@ public class LoopManiaWorld {
         character.moveDownPath();
         moveBasicEnemies();
     }
-
+    /**
+     * Creates a list of all the enemies created from vampire and zombie buildings.  
+     * This occurs once character reaches the herocastle.
+     * It then checks if the vampire buildings and zombie buildings should spawn an enemy depending on rounds building was alive.
+     * @return
+     */
+    public List<BasicEnemy> HeroCastleEnemies() {
+        List<BasicEnemy> spawningEnemies = new ArrayList<>();
+        if (herosCastleBuilding.getX() == character.getX() && herosCastleBuilding.getY() == character.getY()) {
+            setRound(herosCastleBuilding.AddCycle(round));
+            for (Building b: buildingEntities) {
+                if (b.toString().equals("VampireCastleBuilding") && b.getBuildingAliveRounds() % 5 == 0) {
+                    BasicEnemy vampireEnemy = b.SpawnAbility(orderedPath);
+                    enemies.add(vampireEnemy);
+                    spawningEnemies.add(vampireEnemy);
+                    
+                } else if (b.toString().equals("ZombiePitBuilding")) {
+                   BasicEnemy zombieEnemy = b.SpawnAbility(orderedPath);
+                   enemies.add(zombieEnemy);
+                   spawningEnemies.add(zombieEnemy);
+                }
+            }     
+        }
+        return spawningEnemies;
+    }
         
 
     /**
@@ -760,5 +789,9 @@ public class LoopManiaWorld {
         } else {
             controller.gameOver("YOU LOST!");
         }
+    }
+
+    public void setHerosCastleBuilding(HerosCastleBuilding herosCastleBuilding) {
+        this.herosCastleBuilding = herosCastleBuilding;
     }
 }

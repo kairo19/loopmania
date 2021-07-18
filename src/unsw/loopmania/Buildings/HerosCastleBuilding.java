@@ -12,8 +12,8 @@ public class HerosCastleBuilding extends Building {
     /**
      * Adds a cycle to the round variable after character loops the world
      */
-    public void AddCycle(LoopManiaWorld world) {
-        world.setRound(world.getRound() + 1);
+    public int AddCycle(int round) {
+        return round + 1;
     }
     /**
      * Returns true if the current round should provide the character with a shop

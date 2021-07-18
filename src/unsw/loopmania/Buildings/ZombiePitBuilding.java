@@ -7,6 +7,7 @@ import org.javatuples.Pair;
 import javafx.beans.property.SimpleIntegerProperty;
 import unsw.loopmania.LoopManiaWorld;
 import unsw.loopmania.PathPosition;
+import unsw.loopmania.Enemies.BasicEnemy;
 import unsw.loopmania.Enemies.Zombie;
 
 public class ZombiePitBuilding extends Building{
@@ -14,11 +15,13 @@ public class ZombiePitBuilding extends Building{
         super(x, y);
     }
 
-    public Zombie SpawnZombie(LoopManiaWorld world) {
+    @Override
+    public BasicEnemy SpawnAbility(List<Pair<Integer, Integer>> orderedPath) {
         Pair<Integer, Integer> pos = new Pair<Integer,Integer>(super.getX(),super.getY());
-        int indexInPath = world.getOrderedPath().indexOf(pos);
-        return new Zombie(new PathPosition(indexInPath, world.getOrderedPath()));
+        int indexInPath = orderedPath.indexOf(pos);
+        return new Zombie(new PathPosition(indexInPath, orderedPath));
     }
+
 
     @Override
     public String toString() {
