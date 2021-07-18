@@ -333,6 +333,9 @@ public class LoopManiaWorldController {
                 onLoad(newEnemy);
             }
             List<BasicEnemy> newBuildingEnemies = world.HeroCastleEnemies();
+            for (BasicEnemy newEnemy: newBuildingEnemies) {
+                onLoad(newEnemy);
+            }
             printThreadingNotes("HANDLED TIMER");
         }));
         timeline.setCycleCount(Animation.INDEFINITE);

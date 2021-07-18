@@ -19,7 +19,7 @@ public abstract class Card extends StaticEntity {
     public Card(SimpleIntegerProperty x, SimpleIntegerProperty y) {
         super(x, y);
     }
-
+    // Checks if a staticentity is placable or not
     public boolean checkPlacable(int x, int y, List<Pair<Integer, Integer>> orderedPath){
         return placableBehaviour.placable(x, y, orderedPath);
     }  
