@@ -335,6 +335,7 @@ public class LoopManiaWorldController {
             List<BasicEnemy> newBuildingEnemies = world.HeroCastleEnemies();
             for (BasicEnemy newEnemy: newBuildingEnemies) {
                 onLoad(newEnemy);
+
             }
             printThreadingNotes("HANDLED TIMER");
         }));
@@ -385,7 +386,12 @@ public class LoopManiaWorldController {
         StaticEntity item = world.addUnequippedItem();
         onLoad(item);
     }
-
+    private void loadRareItem(){
+        // TODO = load more types of weapon
+        // start by getting first available coordinates
+        StaticEntity item = world.addUnequippedRareItem();
+        onLoad(item);
+    }
     /**
      * run GUI events after an enemy is defeated, such as spawning items/experience/gold
      * @param enemy defeated enemy for which we should react to the death of
