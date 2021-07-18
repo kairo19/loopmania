@@ -16,7 +16,5 @@ public abstract class DefensiveItem extends StaticEntity {
         return damageReduction;
     }
     
-    public boolean checkItemPlacable(int x, int y) {
-        return placableBehaviour.itemPlacable(x, y);
-    }
+     
 }

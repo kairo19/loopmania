@@ -463,7 +463,7 @@ public class LoopManiaWorld {
         }
 
         Random r = new Random();
-        int num = r.nextInt(8);
+        int num = r.nextInt(6);
 
         switch(num) {
             case 0: 
@@ -490,14 +490,7 @@ public class LoopManiaWorld {
                 Shield shield = new Shield(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
                 unequippedInventoryItems.add(shield);
                 return shield;
-            case 6:
-                TheOneRing theonering = new TheOneRing(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
-                unequippedInventoryItems.add(theonering);
-                return theonering;
-            case 7:
-                HealthPotion healthpotion = new HealthPotion(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
-                unequippedInventoryItems.add(healthpotion);
-                return healthpotion;
+                
         }
         return null;
     }
@@ -513,11 +506,15 @@ public class LoopManiaWorld {
 
         Random r = new Random();
         int num = r.nextInt(100);
-        if (r < 10) {
-            new item;
-        } else if (r < 30 && r > 10) {
-            new item;
-            return;
+
+        if (num < 5) {
+            TheOneRing theonering = new TheOneRing(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
+            unequippedInventoryItems.add(theonering);
+            return theonering;
+        } else if (num < 15 && num > 5) {
+            HealthPotion healthpotion = new HealthPotion(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
+            unequippedInventoryItems.add(healthpotion);
+            return healthpotion;
         }
         return null;
     }
