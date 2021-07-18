@@ -143,6 +143,14 @@ public class LoopManiaWorld {
         this.character = character;
     }
 
+    public void setCardEntities(List<Card> listCardEntities) {
+        this.cardEntities = listCardEntities;
+    }
+
+    public List<Building> getBuildingEntities() {
+        return this.buildingEntities;
+    }
+
     /**
      * add a generic entity (without it's own dedicated method for adding to the world)
      * @param entity
@@ -424,6 +432,9 @@ public class LoopManiaWorld {
             // TODO = give some cash/experience rewards for the discarding of the oldest sword
             removeItemByPositionInUnequippedInventoryItems(0);
             firstAvailableSlot = getFirstAvailableSlotForItem();
+
+            setGold(getGold() + 10);
+            setExperience(getExperience() + 10);
         }
 
         Random r = new Random();
@@ -467,6 +478,9 @@ public class LoopManiaWorld {
             // TODO = give some cash/experience rewards for the discarding of the oldest sword
             removeItemByPositionInUnequippedInventoryItems(0);
             firstAvailableSlot = getFirstAvailableSlotForItem();
+
+            setGold(getGold() + 10);
+            setExperience(getExperience() + 10);
         }
 
         Random r = new Random();
@@ -522,7 +536,10 @@ public class LoopManiaWorld {
         } else if (store.equals("Shield")) {
             Shield shieldClass = (Shield) items;
             character.equipShield(shieldClass);
-        } else if (store.equals("HealthPotion")) {
+        } else if (store.equals("Helmet")) {
+            Helmet helmetClass = (Helmet) items;
+            character.equipHelmet(helmetClass);
+        }else if (store.equals("HealthPotion")) {
             HealthPotion healthpotion = (HealthPotion) items;
             healthpotion.consume(character);
             System.out.println("HEALING CHARACTER");
@@ -789,6 +806,7 @@ public class LoopManiaWorld {
         int choice = rand.nextInt(2); // TODO = change based on spec... currently low value for dev purposes...
         // TODO = change based on spec
         if ((choice == 0) && (enemies.size() < 2)){
+            
             List<Pair<Integer, Integer>> orderedPathSpawnCandidates = new ArrayList<>();
             int indexPosition = orderedPath.indexOf(new Pair<Integer, Integer>(character.getX(), character.getY()));
             // inclusive start and exclusive end of range of positions not allowed
