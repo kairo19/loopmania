@@ -173,6 +173,8 @@ public class LoopManiaWorldController {
     private Image armourImage;
     private Image shieldImage;
     private Image helmetImage;
+    private Image theoneringImage;
+    private Image healthpotionImage;
 
     /**
      * the image currently being dragged, if there is one, otherwise null.
@@ -241,6 +243,9 @@ public class LoopManiaWorldController {
         armourImage = new Image((new File("src/images/armour.png")).toURI().toString());
         shieldImage = new Image((new File("src/images/shield.png")).toURI().toString());
         helmetImage = new Image((new File("src/images/helmet.png")).toURI().toString());
+        theoneringImage = new Image((new File("src/images/the_one_ring.png")).toURI().toString());
+        healthpotionImage = new Image((new File("src/images/brilliant_blue_new.png")).toURI().toString());
+
         //basicEnemyImage = new Image((new File("src/images/slug.png")).toURI().toString());
 
         slugImage = new Image((new File("src/images/slug.png")).toURI().toString());
@@ -469,6 +474,12 @@ public class LoopManiaWorldController {
 
             case "Helmet":
                 return helmetImage;
+            
+            case "TheOneRing":
+                return theoneringImage;
+            
+            case "HealthPotion":
+                return healthpotionImage;
 
         }
         return null;

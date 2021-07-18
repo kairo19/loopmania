@@ -1,5 +1,6 @@
 package unsw.loopmania.item.consumable;
 
+import javafx.beans.property.SimpleIntegerProperty;
 import unsw.loopmania.Character;
 
 public class TheOneRing extends Consumable {
@@ -11,5 +12,11 @@ public class TheOneRing extends Consumable {
     @Override
     public void consume(Character character) {
         character.setHealth(FULL_HEALTH);        
+    }
+
+    @Override
+    public String toString() {
+        // TODO Auto-generated method stub
+        return "TheOneRing";
     }
 }

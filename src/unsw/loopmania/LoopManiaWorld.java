@@ -33,7 +33,8 @@ import unsw.loopmania.Enemies.Zombie;
 import unsw.loopmania.goal.GoalNode;
 import unsw.loopmania.item.weapon.Sword;
 import unsw.loopmania.item.weapon.Weapon;
-
+import unsw.loopmania.item.consumable.HealthPotion;
+import unsw.loopmania.item.consumable.TheOneRing;
 import unsw.loopmania.item.defensiveitem.Armour;
 import unsw.loopmania.item.defensiveitem.Helmet;
 import unsw.loopmania.item.defensiveitem.Shield;
@@ -462,7 +463,7 @@ public class LoopManiaWorld {
         }
 
         Random r = new Random();
-        int num = r.nextInt(6);
+        int num = r.nextInt(8);
 
         switch(num) {
             case 0: 
@@ -489,7 +490,14 @@ public class LoopManiaWorld {
                 Shield shield = new Shield(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
                 unequippedInventoryItems.add(shield);
                 return shield;
-                
+            case 6:
+                TheOneRing theonering = new TheOneRing(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
+                unequippedInventoryItems.add(theonering);
+                return theonering;
+            case 7:
+                HealthPotion healthpotion = new HealthPotion(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
+                unequippedInventoryItems.add(healthpotion);
+                return healthpotion;
         }
         return null;
     }
