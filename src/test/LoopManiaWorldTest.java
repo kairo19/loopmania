@@ -17,6 +17,12 @@ import unsw.loopmania.PathPosition;
 import unsw.loopmania.Buildings.Building;
 import unsw.loopmania.Cards.Card;
 import unsw.loopmania.Cards.VampireCastleCard;
+import unsw.loopmania.Cards.ZombiePitCard;
+import unsw.loopmania.Cards.TowerCard;
+import unsw.loopmania.Cards.VillageCard;
+import unsw.loopmania.Cards.BarracksCard;
+import unsw.loopmania.Cards.TrapCard;
+import unsw.loopmania.Cards.CampfireCard;
 import unsw.loopmania.Enemies.BasicEnemy;
 import unsw.loopmania.Enemies.Vampire;
 import unsw.loopmania.Enemies.Zombie;
@@ -199,6 +205,168 @@ public class LoopManiaWorldTest {
         SimpleIntegerProperty oneProperty = new SimpleIntegerProperty(1);
 
         Card card = new VampireCastleCard(zeroProperty, oneProperty);
+        ArrayList<Card> cardList = new ArrayList<>();
+        cardList.add(card);
+        d.setCardEntities(cardList);
+        Building newBuilding = d.convertCardToBuildingByCoordinates(0, 1, 1, 1);
+        List<Building> buildingEntities = d.getBuildingEntities();
+        assertEquals(newBuilding, buildingEntities.get(0));
+    }
+
+    @Test
+    public void TestconvertCardToBuildingByCoordinate2() {
+        List<Pair<Integer, Integer>> orderedpath  = new ArrayList<>();
+        orderedpath.add(new Pair<Integer, Integer>(1, 1));
+        orderedpath.add(new Pair<Integer, Integer>(2, 1));
+        orderedpath.add(new Pair<Integer, Integer>(3, 1));
+        orderedpath.add(new Pair<Integer, Integer>(3, 2));
+        orderedpath.add(new Pair<Integer, Integer>(3, 3));
+        orderedpath.add(new Pair<Integer, Integer>(2, 3));
+        orderedpath.add(new Pair<Integer, Integer>(1, 3));
+        orderedpath.add(new Pair<Integer, Integer>(1, 2));
+        LoopManiaWorld d = new LoopManiaWorld(4, 4, orderedpath);
+        Character character = new Character(new PathPosition(0, orderedpath));
+        d.setCharacter(character);
+
+        SimpleIntegerProperty zeroProperty = new SimpleIntegerProperty(0);
+        SimpleIntegerProperty oneProperty = new SimpleIntegerProperty(1);
+
+        Card card = new ZombiePitCard(zeroProperty, oneProperty);
+        ArrayList<Card> cardList = new ArrayList<>();
+        cardList.add(card);
+        d.setCardEntities(cardList);
+        Building newBuilding = d.convertCardToBuildingByCoordinates(0, 1, 1, 1);
+        List<Building> buildingEntities = d.getBuildingEntities();
+        assertEquals(newBuilding, buildingEntities.get(0));
+    }
+
+    @Test
+    public void TestconvertCardToBuildingByCoordinate3() {
+        List<Pair<Integer, Integer>> orderedpath  = new ArrayList<>();
+        orderedpath.add(new Pair<Integer, Integer>(1, 1));
+        orderedpath.add(new Pair<Integer, Integer>(2, 1));
+        orderedpath.add(new Pair<Integer, Integer>(3, 1));
+        orderedpath.add(new Pair<Integer, Integer>(3, 2));
+        orderedpath.add(new Pair<Integer, Integer>(3, 3));
+        orderedpath.add(new Pair<Integer, Integer>(2, 3));
+        orderedpath.add(new Pair<Integer, Integer>(1, 3));
+        orderedpath.add(new Pair<Integer, Integer>(1, 2));
+        LoopManiaWorld d = new LoopManiaWorld(4, 4, orderedpath);
+        Character character = new Character(new PathPosition(0, orderedpath));
+        d.setCharacter(character);
+
+        SimpleIntegerProperty zeroProperty = new SimpleIntegerProperty(0);
+        SimpleIntegerProperty oneProperty = new SimpleIntegerProperty(1);
+
+        Card card = new TowerCard(zeroProperty, oneProperty);
+        ArrayList<Card> cardList = new ArrayList<>();
+        cardList.add(card);
+        d.setCardEntities(cardList);
+        Building newBuilding = d.convertCardToBuildingByCoordinates(0, 1, 1, 1);
+        List<Building> buildingEntities = d.getBuildingEntities();
+        assertEquals(newBuilding, buildingEntities.get(0));
+    }
+
+    @Test
+    public void TestconvertCardToBuildingByCoordinate4() {
+        List<Pair<Integer, Integer>> orderedpath  = new ArrayList<>();
+        orderedpath.add(new Pair<Integer, Integer>(1, 1));
+        orderedpath.add(new Pair<Integer, Integer>(2, 1));
+        orderedpath.add(new Pair<Integer, Integer>(3, 1));
+        orderedpath.add(new Pair<Integer, Integer>(3, 2));
+        orderedpath.add(new Pair<Integer, Integer>(3, 3));
+        orderedpath.add(new Pair<Integer, Integer>(2, 3));
+        orderedpath.add(new Pair<Integer, Integer>(1, 3));
+        orderedpath.add(new Pair<Integer, Integer>(1, 2));
+        LoopManiaWorld d = new LoopManiaWorld(4, 4, orderedpath);
+        Character character = new Character(new PathPosition(0, orderedpath));
+        d.setCharacter(character);
+
+        SimpleIntegerProperty zeroProperty = new SimpleIntegerProperty(0);
+        SimpleIntegerProperty oneProperty = new SimpleIntegerProperty(1);
+
+        Card card = new CampfireCard(zeroProperty, oneProperty);
+        ArrayList<Card> cardList = new ArrayList<>();
+        cardList.add(card);
+        d.setCardEntities(cardList);
+        Building newBuilding = d.convertCardToBuildingByCoordinates(0, 1, 1, 1);
+        List<Building> buildingEntities = d.getBuildingEntities();
+        assertEquals(newBuilding, buildingEntities.get(0));
+    }
+
+    @Test
+    public void TestconvertCardToBuildingByCoordinate5() {
+        List<Pair<Integer, Integer>> orderedpath  = new ArrayList<>();
+        orderedpath.add(new Pair<Integer, Integer>(1, 1));
+        orderedpath.add(new Pair<Integer, Integer>(2, 1));
+        orderedpath.add(new Pair<Integer, Integer>(3, 1));
+        orderedpath.add(new Pair<Integer, Integer>(3, 2));
+        orderedpath.add(new Pair<Integer, Integer>(3, 3));
+        orderedpath.add(new Pair<Integer, Integer>(2, 3));
+        orderedpath.add(new Pair<Integer, Integer>(1, 3));
+        orderedpath.add(new Pair<Integer, Integer>(1, 2));
+        LoopManiaWorld d = new LoopManiaWorld(4, 4, orderedpath);
+        Character character = new Character(new PathPosition(0, orderedpath));
+        d.setCharacter(character);
+
+        SimpleIntegerProperty zeroProperty = new SimpleIntegerProperty(0);
+        SimpleIntegerProperty oneProperty = new SimpleIntegerProperty(1);
+
+        Card card = new VillageCard(zeroProperty, oneProperty);
+        ArrayList<Card> cardList = new ArrayList<>();
+        cardList.add(card);
+        d.setCardEntities(cardList);
+        Building newBuilding = d.convertCardToBuildingByCoordinates(0, 1, 1, 1);
+        List<Building> buildingEntities = d.getBuildingEntities();
+        assertEquals(newBuilding, buildingEntities.get(0));
+    }
+
+    @Test
+    public void TestconvertCardToBuildingByCoordinate6() {
+        List<Pair<Integer, Integer>> orderedpath  = new ArrayList<>();
+        orderedpath.add(new Pair<Integer, Integer>(1, 1));
+        orderedpath.add(new Pair<Integer, Integer>(2, 1));
+        orderedpath.add(new Pair<Integer, Integer>(3, 1));
+        orderedpath.add(new Pair<Integer, Integer>(3, 2));
+        orderedpath.add(new Pair<Integer, Integer>(3, 3));
+        orderedpath.add(new Pair<Integer, Integer>(2, 3));
+        orderedpath.add(new Pair<Integer, Integer>(1, 3));
+        orderedpath.add(new Pair<Integer, Integer>(1, 2));
+        LoopManiaWorld d = new LoopManiaWorld(4, 4, orderedpath);
+        Character character = new Character(new PathPosition(0, orderedpath));
+        d.setCharacter(character);
+
+        SimpleIntegerProperty zeroProperty = new SimpleIntegerProperty(0);
+        SimpleIntegerProperty oneProperty = new SimpleIntegerProperty(1);
+
+        Card card = new BarracksCard(zeroProperty, oneProperty);
+        ArrayList<Card> cardList = new ArrayList<>();
+        cardList.add(card);
+        d.setCardEntities(cardList);
+        Building newBuilding = d.convertCardToBuildingByCoordinates(0, 1, 1, 1);
+        List<Building> buildingEntities = d.getBuildingEntities();
+        assertEquals(newBuilding, buildingEntities.get(0));
+    }
+
+    @Test
+    public void TestconvertCardToBuildingByCoordinate7() {
+        List<Pair<Integer, Integer>> orderedpath  = new ArrayList<>();
+        orderedpath.add(new Pair<Integer, Integer>(1, 1));
+        orderedpath.add(new Pair<Integer, Integer>(2, 1));
+        orderedpath.add(new Pair<Integer, Integer>(3, 1));
+        orderedpath.add(new Pair<Integer, Integer>(3, 2));
+        orderedpath.add(new Pair<Integer, Integer>(3, 3));
+        orderedpath.add(new Pair<Integer, Integer>(2, 3));
+        orderedpath.add(new Pair<Integer, Integer>(1, 3));
+        orderedpath.add(new Pair<Integer, Integer>(1, 2));
+        LoopManiaWorld d = new LoopManiaWorld(4, 4, orderedpath);
+        Character character = new Character(new PathPosition(0, orderedpath));
+        d.setCharacter(character);
+
+        SimpleIntegerProperty zeroProperty = new SimpleIntegerProperty(0);
+        SimpleIntegerProperty oneProperty = new SimpleIntegerProperty(1);
+
+        Card card = new TrapCard(zeroProperty, oneProperty);
         ArrayList<Card> cardList = new ArrayList<>();
         cardList.add(card);
         d.setCardEntities(cardList);
