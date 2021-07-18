@@ -17,8 +17,21 @@ public class ZombiePitBuilding extends Building{
 
     @Override
     public BasicEnemy SpawnAbility(List<Pair<Integer, Integer>> orderedPath) {
-        Pair<Integer, Integer> pos = new Pair<Integer,Integer>(super.getX(),super.getY());
-        int indexInPath = orderedPath.indexOf(pos);
+        Pair<Integer, Integer> position = null;
+        for (Pair<Integer, Integer> p: orderedPath) {
+                if (p.getValue0() == super.getX()) {
+                    if ((p.getValue1() == super.getY() + 1) || (p.getValue1() == super.getY() - 1)) {
+                        position = p;
+                        break;
+                    }
+                } else if (p.getValue1() == super.getY()) {
+                    if ((p.getValue0() == super.getX() + 1) || (p.getValue0() == super.getX() - 1)) {
+                        position = p;
+                        break;
+                    }
+                }
+        }
+        int indexInPath = orderedPath.indexOf(position);
         return new Zombie(new PathPosition(indexInPath, orderedPath));
     }
 
