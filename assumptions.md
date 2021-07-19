@@ -1,11 +1,6 @@
 ## Assumptions
  ***Note: current values are only placeholder values and are subject to change.***
-### GoalAssumptions:
-Game is won when:
-- **50** loops are made 
-- and/or **100 000** experience points is earned
-- and/or the player currently has **50 000** gold or more
------------------------------------------------------------------------------------------------------------------------------------
+
 ### CharacterAssumptions:
 - Character starts with **100** health points.
 - Character start with **0** gold and experience points.
@@ -90,8 +85,7 @@ When killing an enemy, the hero received a specified amount of experience.
 #### CampfireBuildingAssumptions:
 - The campfire has an effect radius of **5** tiles.
 #### HeroCastleBuildingAssumptions:
-- The hero will be able to purchase and sell equipment after every **3rd loop**.
-- There will only be **3** pieces of equipment available for purchase (these 3 pieces of equipment will be ***generated at random***).
+- The hero will be able to purchase all types of items in the hero's castle building.
 
 -----------------------------------------------------------------------------------------------------------------------------------
 ### Item Assumptions:
