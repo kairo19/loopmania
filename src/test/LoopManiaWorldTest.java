@@ -375,6 +375,108 @@ public class LoopManiaWorldTest {
         assertEquals(newBuilding, buildingEntities.get(0));
     }
 
+    @Test
+    public void TestHeroCastleEnemiesZombie() {
+        List<Pair<Integer, Integer>> orderedpath  = new ArrayList<>();
+        orderedpath.add(new Pair<Integer, Integer>(1, 1));
+        orderedpath.add(new Pair<Integer, Integer>(2, 1));
+        orderedpath.add(new Pair<Integer, Integer>(3, 1));
+        orderedpath.add(new Pair<Integer, Integer>(3, 2));
+        orderedpath.add(new Pair<Integer, Integer>(3, 3));
+        orderedpath.add(new Pair<Integer, Integer>(2, 3));
+        orderedpath.add(new Pair<Integer, Integer>(1, 3));
+        orderedpath.add(new Pair<Integer, Integer>(1, 2));
+        LoopManiaWorld d = new LoopManiaWorld(4, 4, orderedpath);
+        Character character = new Character(new PathPosition(0, orderedpath));
+        //System.out.println("position: " + character.getX() + "  "  + character.getY());
+        d.setCharacter(character);
+
+        SimpleIntegerProperty zeroProperty = new SimpleIntegerProperty(0);
+        SimpleIntegerProperty oneProperty = new SimpleIntegerProperty(1);
+
+        HerosCastleBuilding herosCastleBuilding = new HerosCastleBuilding(oneProperty, oneProperty);
+        d.setHerosCastleBuilding(herosCastleBuilding);
+
+        ZombiePitBuilding zombieBuilding = new ZombiePitBuilding(zeroProperty, oneProperty);
+
+        List<Building> buildingEntities = d.getBuildingEntities();
+        buildingEntities.add(zombieBuilding);
+
+        d.setBuildingEntities(buildingEntities);
+
+        // increase cycles count
+        //System.out.println("step 1");
+        d.setRound(2);
+        //System.out.println("step 2");
+
+        // this is meant to add enemies
+        d.HeroCastleEnemies();
+
+        //System.out.println("step 3");
+
+        List<BasicEnemy> enemyList = d.getEnemiesEntity();
+
+        //System.out.println("step 4");
+
+        assertEquals(enemyList.get(0).getType(), "Zombie");
+
+        //System.out.println("step 5");
+
+
+    }
+
+    @Test
+    public void TestHeroCastleEnemiesVampire() {
+        List<Pair<Integer, Integer>> orderedpath  = new ArrayList<>();
+        orderedpath.add(new Pair<Integer, Integer>(1, 1));
+        orderedpath.add(new Pair<Integer, Integer>(2, 1));
+        orderedpath.add(new Pair<Integer, Integer>(3, 1));
+        orderedpath.add(new Pair<Integer, Integer>(3, 2));
+        orderedpath.add(new Pair<Integer, Integer>(3, 3));
+        orderedpath.add(new Pair<Integer, Integer>(2, 3));
+        orderedpath.add(new Pair<Integer, Integer>(1, 3));
+        orderedpath.add(new Pair<Integer, Integer>(1, 2));
+        LoopManiaWorld d = new LoopManiaWorld(4, 4, orderedpath);
+        Character character = new Character(new PathPosition(0, orderedpath));
+        //System.out.println("position: " + character.getX() + "  "  + character.getY());
+        d.setCharacter(character);
+
+        SimpleIntegerProperty zeroProperty = new SimpleIntegerProperty(0);
+        SimpleIntegerProperty oneProperty = new SimpleIntegerProperty(1);
+
+        HerosCastleBuilding herosCastleBuilding = new HerosCastleBuilding(oneProperty, oneProperty);
+        d.setHerosCastleBuilding(herosCastleBuilding);
+
+        VampireCastleBuilding vampireBuilding = new VampireCastleBuilding(zeroProperty, oneProperty);
+
+        List<Building> buildingEntities = d.getBuildingEntities();
+        buildingEntities.add(vampireBuilding);
+
+        d.setBuildingEntities(buildingEntities);
+
+        // increase cycles count
+        //System.out.println("step 1");
+        d.setRound(5);
+        //System.out.println("step 2");
+
+        // this is meant to add enemies
+        d.HeroCastleEnemies();
+
+        //System.out.println("step 3");
+
+        List<BasicEnemy> enemyList = d.getEnemiesEntity();
+
+        //System.out.println("step 4");
+
+        assertEquals(enemyList.get(0).getType(), "Vampire");
+
+        //System.out.println("step 5");
+
+
+    }
+
+    
+
     
 
 
