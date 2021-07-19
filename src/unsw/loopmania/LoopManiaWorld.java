@@ -502,6 +502,9 @@ public class LoopManiaWorld {
         return this.enemies;
     }
 
+    public void setBuildingEntities(List<Building> buildingEntities) {
+        this.buildingEntities = buildingEntities;
+    }
 
     public void addCharacterDraggedEntity(StaticEntity items) {
         String store = items.toString();
