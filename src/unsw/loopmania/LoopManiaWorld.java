@@ -285,76 +285,7 @@ public class LoopManiaWorld {
 
         return queuedEnemies; 
         
-
-        // drop items/weapons here if you want
-
-
-        /*
-        for (BasicEnemy e: enemies){
-            // Pythagoras: a^2+b^2 < radius^2 to see if within radius
-            // TODO = you should implement different RHS on this inequality, based on influence radii and battle radii
-            if (Math.pow((character.getX()-e.getX()), 2) +  Math.pow((character.getY()-e.getY()), 2) < 4){
-                // fight...
-                defeatedEnemies.add(e);
-            }
-        }
-
-        for (BasicEnemy e: defeatedEnemies){
-            // IMPORTANT = we kill enemies here, because killEnemy removes the enemy from the enemies list
-            // if we killEnemy in prior loop, we get java.util.ConcurrentModificationException
-            // due to mutating list we're iterating over
-            killEnemy(e);
-        }
-        return defeatedEnemies;
-        */
-
-        /*
-            finish: 
-            zombie.docrit() --> do later, it is way too complicated
-            vampire docrit() -> do later, too complicated
-            implement staff dospecial
-            make backend for equipping items
-            
-            later:
-            building damage
-            connect front end with equipping items
-
-        */ 
     }
-    
-
-/*
-    // x & y are character positions
-    public isCharacterInBattleRange(int x, int y) {
-        int d;
-
-        d = (x - super.battleRadius)^2 + (y - super.battleRadius)^2
-
-        // if inside the circle
-        if (d <= battleRadius^2) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public isCharacterInSupportRange(int x, int y) {
-        d = (x - super.getX())^2 + (y - super.getY())^2
-
-        // if inside the circle
-        if (d <= supportRadius^2) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    // William Request:
-    - Add in these functions
-    - Change naming scheme as they're not good
-    - Change from protected to private variables
-
-*/
 
     /**
      * spawn a card in the world and return the card entity
@@ -509,30 +440,6 @@ public class LoopManiaWorld {
     public void addCharacterDraggedEntity(StaticEntity items) {
         String store = items.toString();
 
-        /*
-        switch(store) {
-            case "Staff":
-                System.out.println("try staff");
-                Weapon staffClass = (Weapon) items;
-                character.setWeapon(staffClass); 
-            case "Stake":
-                System.out.println("try stake");
-                Weapon stakeClass = (Weapon) items;
-                character.setWeapon(stakeClass);   
-            case "Sword":
-                System.out.println("try sword");
-                Weapon swordClass = (Weapon) items;
-                character.setWeapon(swordClass); 
-            case "Armour":
-                System.out.println("try armour");
-                Armour armourClass = (Armour) items;
-                character.equipArmour(armourClass);     
-            case "Shield":
-                System.out.println("try shield");
-                Shield shieldClass = (Shield) items;
-                character.equipShield(shieldClass);
-        }
-        */
 
         if (store.equals("Staff") || store.equals("Stake") || store.equals("Sword")) {
             Weapon weaponClass = (Weapon) items;
@@ -554,26 +461,6 @@ public class LoopManiaWorld {
         }   
     }
 
-    
-
-    /*
-    public Sword addUnequippedSword(){
-        // TODO = expand this - we would like to be able to add multiple types of items, apart from swords
-        Pair<Integer, Integer> firstAvailableSlot = getFirstAvailableSlotForItem();
-        if (firstAvailableSlot == null){
-            // eject the oldest unequipped item and replace it... oldest item is that at beginning of items
-            // TODO = give some cash/experience rewards for the discarding of the oldest sword
-            removeItemByPositionInUnequippedInventoryItems(0);
-            firstAvailableSlot = getFirstAvailableSlotForItem();
-        }
-        
-        // now we insert the new sword, as we know we have at least made a slot available...
-        Sword sword = new Sword(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
-        unequippedInventoryItems.add(sword);
-
-        return sword;
-    }
-    */
 
     /**
      * remove an item by x,y coordinates
