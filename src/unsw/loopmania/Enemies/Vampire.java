@@ -5,7 +5,7 @@ import java.util.Random;
 import unsw.loopmania.PathPosition;
 import unsw.loopmania.Character;
 
-public class Vampire extends BasicEnemy implements CriticalStriker {
+public class Vampire extends BasicEnemy implements SpecialAbility {
     public Vampire(PathPosition pathPosition) {
         // Gives 4 gold and 4 xp
         // 3 battle radius, 5 support radius
@@ -15,11 +15,11 @@ public class Vampire extends BasicEnemy implements CriticalStriker {
     @Override
     public void dealDamage(Character character) {
         super.dealDamage(character);
-        doCrit(character);
+        doSpecial(character);
     }
 
     @Override
-    public void doCrit(Character character) {
+    public void doSpecial(Character character) {
         Random r = new Random();
         int chance = r.nextInt(100);
         int randomHits = r.nextInt(5);
