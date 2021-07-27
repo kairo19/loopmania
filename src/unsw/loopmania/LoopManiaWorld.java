@@ -102,6 +102,8 @@ public class LoopManiaWorld {
     private GoalNode goal;
     private boolean gameOver;
     private LoopManiaWorldController controller;
+    boolean doggieSpawned = false;
+    boolean elanMuskeSpawned = false;
 
     /**
      * create the world (constructor)
@@ -127,6 +129,7 @@ public class LoopManiaWorld {
         this.goal = null;
         this.gameOver = false;
         this.herosCastleBuilding = null;
+        
     }
     
     public int getWidth() {
@@ -174,15 +177,17 @@ public class LoopManiaWorld {
         if (pos != null){
             int indexInPath = orderedPath.indexOf(pos);
 
-            if (getRound() == 2) {
+            if (!doggieSpawned && getRound() == 20) {
                 Doggie doggie = new Doggie(new PathPosition(indexInPath, orderedPath));
                 enemies.add(doggie);
                 spawningEnemies.add(doggie);
+                doggieSpawned = true;
                 return spawningEnemies;
-            } else if (getRound() == 3) {
+            } else if (!elanMuskeSpawned && getRound() == 40) {
                 ElanMuske elanmuske = new ElanMuske(new PathPosition(indexInPath, orderedPath));
                 enemies.add(elanmuske);
                 spawningEnemies.add(elanmuske);
+                elanMuskeSpawned = true;
                 return spawningEnemies;
             } else {
                 Slug slug = new Slug(new PathPosition(indexInPath, orderedPath));
