@@ -919,13 +919,16 @@ public class LoopManiaWorld {
         return round.get();
     }
     public void setRound(int round) {
-        this.round.set(round);
+        this.round.set(round);    
+        checkGoals();
     }
+
     public IntegerProperty getRoundProperty() {
         return round;
     }
     public void setGold(int gold) {
         this.gold.set(gold);
+        checkGoals();
     }
     public int getGold() {
         return gold.get();
@@ -935,6 +938,7 @@ public class LoopManiaWorld {
     }
     public void setExperience(int experience) {
         this.experience.set(experience);
+        checkGoals();
     }
     public int getExperience() {
         return experience.get();
@@ -943,6 +947,17 @@ public class LoopManiaWorld {
         return experience;
     }
 
+    public void checkGoals() {
+        if (hasMetGoal()) {
+            endGame();
+        }
+    }
+
+    public void checkHealth() {
+        if (character.getHealth() <= 0) {
+            endGame();
+        }
+    }
 
     public IntegerProperty getNumberAlliesProperty() {
         allyNumbers.set(character.getAllies());
@@ -960,9 +975,8 @@ public class LoopManiaWorld {
 
     public void addDefeatedBoss() {
         defeatedBosses.set(defeatedBosses.get() + 1);
+        checkGoals();
     }
-
-
 
     public void setGoal(GoalNode goal) {
         this.goal = goal;
