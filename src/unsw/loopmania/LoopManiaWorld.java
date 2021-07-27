@@ -27,6 +27,8 @@ import unsw.loopmania.Cards.VampireCastleCard;
 import unsw.loopmania.Cards.VillageCard;
 import unsw.loopmania.Cards.ZombiePitCard;
 import unsw.loopmania.Enemies.BasicEnemy;
+import unsw.loopmania.Enemies.Doggie;
+import unsw.loopmania.Enemies.ElanMuske;
 import unsw.loopmania.Enemies.Slug;
 import unsw.loopmania.Enemies.Vampire;
 import unsw.loopmania.Enemies.Zombie;
@@ -172,10 +174,23 @@ public class LoopManiaWorld {
         if (pos != null){
             int indexInPath = orderedPath.indexOf(pos);
 
-            Slug slug = new Slug(new PathPosition(indexInPath, orderedPath));
-            enemies.add(slug);
-            spawningEnemies.add(slug);
-            return spawningEnemies;
+            if (getRound() == 2) {
+                Doggie doggie = new Doggie(new PathPosition(indexInPath, orderedPath));
+                enemies.add(doggie);
+                spawningEnemies.add(doggie);
+                return spawningEnemies;
+            } else if (getRound() == 3) {
+                ElanMuske elanmuske = new ElanMuske(new PathPosition(indexInPath, orderedPath));
+                enemies.add(elanmuske);
+                spawningEnemies.add(elanmuske);
+                return spawningEnemies;
+            } else {
+                Slug slug = new Slug(new PathPosition(indexInPath, orderedPath));
+                enemies.add(slug);
+                spawningEnemies.add(slug);
+                return spawningEnemies;
+            }
+                
         }
         return spawningEnemies;
     }

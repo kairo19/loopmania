@@ -160,6 +160,8 @@ public class LoopManiaWorldController {
     private Image slugImage;
     private Image zombieImage;
     private Image vampireImage;
+    private Image doggieImage;
+    private Image elanMuskeImage;
     
 
     private Image swordImage;
@@ -259,7 +261,8 @@ public class LoopManiaWorldController {
         slugImage = new Image((new File("src/images/slug.png")).toURI().toString());
         zombieImage = new Image((new File("src/images/zombie.png")).toURI().toString());
         vampireImage = new Image((new File("src/images/vampire.png")).toURI().toString());
-
+        doggieImage = new Image((new File("src/images/doggie.png")).toURI().toString());
+        elanMuskeImage = new Image((new File("src/images/ElanMuske.png")).toURI().toString());
         
 
 
@@ -479,6 +482,10 @@ public class LoopManiaWorldController {
                 return zombieImage;
             case "Vampire":
                 return vampireImage;
+            case "Doggie":
+                return doggieImage;
+            case "ElanMuske":
+                return elanMuskeImage;
             
         }
         return null;
