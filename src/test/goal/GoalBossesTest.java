@@ -15,11 +15,9 @@ public class GoalBossesTest {
         LoopManiaWorld world = new LoopManiaWorld(1, 2, new ArrayList<>());
         BossGoal goal = new BossGoal(world);
         world.setGoal(goal);
-        assertEquals(false, world.isGameover());
-        assertEquals(false, world.hasMetGoal());
+        assertEquals(false, goal.hasMetGoal(world));
         world.addDefeatedBoss();
         world.addDefeatedBoss();
-        assertEquals(true, world.isGameover());
-        assertEquals(true, world.hasMetGoal());
+        assertEquals(true, goal.hasMetGoal(world));
     }
 }

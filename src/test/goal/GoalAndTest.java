@@ -20,14 +20,11 @@ public class GoalAndTest {
         goal.addSubGoal(new GoalGold(world, 100));
         goal.addSubGoal(new GoalExperience(world, 100));
         world.setGoal(goal);
-        assertEquals(false, world.isGameover());
-        assertEquals(false, world.hasMetGoal());
+        assertEquals(false, goal.hasMetGoal(world));
         world.setGold(101);
-        assertEquals(false, world.isGameover());
-        assertEquals(false, world.hasMetGoal());
+        assertEquals(false, goal.hasMetGoal(world));
         world.setExperience(101);
-        assertEquals(true, world.isGameover());
-        assertEquals(true, world.hasMetGoal());
+        assertEquals(true, goal.hasMetGoal(world));
     }
 
     @Test
@@ -41,16 +38,12 @@ public class GoalAndTest {
         andGoal1.addSubGoal(new GoalRound(world, 100));
 
         world.setGoal(andGoal1);
-        assertEquals(false, world.isGameover());
-        assertEquals(false, world.hasMetGoal());
+        assertEquals(false, andGoal1.hasMetGoal(world));
         world.setGold(101);
-        assertEquals(false, world.isGameover());
-        assertEquals(false, world.hasMetGoal());
+        assertEquals(false, andGoal1.hasMetGoal(world));
         world.setExperience(101);
-        assertEquals(false, world.isGameover());
-        assertEquals(false, world.hasMetGoal());
+        assertEquals(false, andGoal1.hasMetGoal(world));
         world.setRound(101);
-        assertEquals(true, world.isGameover());
-        assertEquals(true, world.hasMetGoal());
+        assertEquals(true, andGoal1.hasMetGoal(world));
     }
 }

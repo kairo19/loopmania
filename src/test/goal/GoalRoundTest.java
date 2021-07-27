@@ -15,10 +15,8 @@ public class GoalRoundTest {
         LoopManiaWorld world = new LoopManiaWorld(1, 2, new ArrayList<>());
         GoalRound goal = new GoalRound(world, 100);
         world.setGoal(goal);
-        assertEquals(false, world.isGameover());
-        assertEquals(false, world.hasMetGoal());
+        assertEquals(false, goal.hasMetGoal(world));
         world.setRound(101);
-        assertEquals(true, world.isGameover());
-        assertEquals(true, world.hasMetGoal());
+        assertEquals(true, goal.hasMetGoal(world));
     }
 }

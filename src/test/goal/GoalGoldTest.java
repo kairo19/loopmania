@@ -15,10 +15,8 @@ public class GoalGoldTest {
         LoopManiaWorld world = new LoopManiaWorld(1, 2, new ArrayList<>());
         GoalGold goal = new GoalGold(world, 100);
         world.setGoal(goal);
-        assertEquals(false, world.isGameover());
-        assertEquals(false, world.hasMetGoal());
+        assertEquals(false, goal.hasMetGoal(world));
         world.setGold(101);
-        assertEquals(true, world.isGameover());
-        assertEquals(true, world.hasMetGoal());
+        assertEquals(true, goal.hasMetGoal(world));
     }
 }

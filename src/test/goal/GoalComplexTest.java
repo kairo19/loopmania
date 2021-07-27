@@ -24,14 +24,11 @@ public class GoalComplexTest {
         orGoal.addSubGoal(andGoal);
         orGoal.addSubGoal(new BossGoal(world));
         world.setGoal(orGoal);
-        assertEquals(false, world.isGameover());
-        assertEquals(false, world.hasMetGoal());
+        assertEquals(false, orGoal.hasMetGoal(world));
         world.setGold(101);
-        assertEquals(false, world.isGameover());
-        assertEquals(false, world.hasMetGoal());
+        assertEquals(false, orGoal.hasMetGoal(world));
         world.addDefeatedBoss();
         world.addDefeatedBoss();
-        assertEquals(true, world.isGameover());
-        assertEquals(true, world.hasMetGoal());
+        assertEquals(true, orGoal.hasMetGoal(world));
     }
 }
