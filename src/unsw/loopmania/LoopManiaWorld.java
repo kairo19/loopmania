@@ -97,6 +97,7 @@ public class LoopManiaWorld {
 
     private IntegerProperty round;
     private IntegerProperty gold; 
+    private IntegerProperty doggieCoin; // Milestone 3 Resource
     private IntegerProperty experience;
     private IntegerProperty allyNumbers;
     private GoalNode goal;
@@ -287,7 +288,13 @@ public class LoopManiaWorld {
                 if (e.getHealth() <= 0) {
                     setGold(getGold() + e.getGold());
                     setExperience(getExperience() + e.getXP());
-
+                    
+                    // Case for Doggie Killed.
+                    String tempType = e.getType();
+                    if (tempType.equals("Doggie") == true) { 
+                        setDoggieCoin(getDoggieCoin() + 1);
+                    }
+                    
                     killEnemy(e);
 
                     
@@ -846,6 +853,17 @@ public class LoopManiaWorld {
     }
     public IntegerProperty getExperienceProperty() {
         return experience;
+    }
+    
+    // New DoggieCoin resource.
+    public void setDoggieCoin(int doggieCoin) {
+        this.doggieCoin.set(doggieCoin);
+    }
+    public int getDoggieCoin() {
+        return doggieCoin.get();
+    }
+    public IntegerProperty getDoggieProperty() {
+        return doggieCoin;
     }
 
 
