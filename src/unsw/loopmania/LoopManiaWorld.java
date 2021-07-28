@@ -103,8 +103,7 @@ public class LoopManiaWorld {
     private GoalNode goal;
     private boolean gameOver;
     private LoopManiaWorldController controller;
-    boolean doggieSpawned = false;
-    boolean elanMuskeSpawned = false;
+    private boolean bossSpawn = false;
 
     /**
      * create the world (constructor)
@@ -177,26 +176,10 @@ public class LoopManiaWorld {
         List<BasicEnemy> spawningEnemies = new ArrayList<>();
         if (pos != null){
             int indexInPath = orderedPath.indexOf(pos);
-
-            if (!doggieSpawned && getRound() == 20) {
-                Doggie doggie = new Doggie(new PathPosition(indexInPath, orderedPath));
-                enemies.add(doggie);
-                spawningEnemies.add(doggie);
-                doggieSpawned = true;
-                return spawningEnemies;
-            } else if (!elanMuskeSpawned && getRound() == 40) {
-                ElanMuske elanmuske = new ElanMuske(new PathPosition(indexInPath, orderedPath));
-                enemies.add(elanmuske);
-                spawningEnemies.add(elanmuske);
-                elanMuskeSpawned = true;
-                return spawningEnemies;
-            } else {
-                Slug slug = new Slug(new PathPosition(indexInPath, orderedPath));
-                enemies.add(slug);
-                spawningEnemies.add(slug);
-                return spawningEnemies;
-            }
-                
+            Slug slug = new Slug(new PathPosition(indexInPath, orderedPath));
+            enemies.add(slug);
+            spawningEnemies.add(slug);
+            return spawningEnemies;
         }
         return spawningEnemies;
     }
@@ -557,7 +540,23 @@ public class LoopManiaWorld {
                    enemies.add(zombieEnemy);
                    spawningEnemies.add(zombieEnemy);
                 }
-            }     
+            }
+            if (round.get() == 21) {
+                bossSpawn = true;        
+                Pair<Integer, Integer> pos = possiblyGetBasicEnemySpawnPosition();
+                BasicEnemy bossEnemy = herosCastleBuilding.SpawnDoggie(orderedPath, pos); 
+                enemies.add(bossEnemy);
+                spawningEnemies.add(bossEnemy);
+                bossSpawn = false;
+            } else if (round.get() == 41) {
+                bossSpawn = true;        
+                Pair<Integer, Integer> pos = possiblyGetBasicEnemySpawnPosition();
+                BasicEnemy bossEnemy = herosCastleBuilding.SpawnElanMuske(orderedPath, pos); 
+                enemies.add(bossEnemy);
+                spawningEnemies.add(bossEnemy);
+                bossSpawn = false;    
+            }
+
         }
         return spawningEnemies;
     }
@@ -726,7 +725,7 @@ public class LoopManiaWorld {
         Random rand = new Random();
         int choice = rand.nextInt(2); // TODO = change based on spec... currently low value for dev purposes...
         // TODO = change based on spec
-        if ((choice == 0) && (enemies.size() < 2)){
+        if (((choice == 0) && (enemies.size() < 2)) || bossSpawn){
             
             List<Pair<Integer, Integer>> orderedPathSpawnCandidates = new ArrayList<>();
             int indexPosition = orderedPath.indexOf(new Pair<Integer, Integer>(character.getX(), character.getY()));
