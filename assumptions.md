@@ -131,6 +131,13 @@ When killing an enemy, the hero received a specified amount of experience.
 
 #### RareItemAssumptions:
 - The One Ring has a **1%** chance of dropping from a defeated enemy.
+- The tree stump reduces the attack of basic enemies by 20 attack and the attack of bosses by 60 attack.
+- Anduril, Flame of the West deals an additional 15 damage to basic enemies and 45 additional damage to bosses. 
+
+#### DoggieCoinAssumptions:
+- The player will only receive ***one*** DoggieCoin per game.
+- When Elan Muske is spawned, the value of DoggieCoin will increase by a multiplier value until Elan Muske is defeated.
+- When Elan Muske is defeated, the value of DoggieCoin will decrease by a multiplier value until the next round.
 -----------------------------------------------------------------------------------------------------------------------------------
 ### Interaction Assumptions:
 #### AllyAssumptions:
