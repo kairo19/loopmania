@@ -14,7 +14,7 @@ import unsw.loopmania.goal.GoalRound;
 
 public class GoalAndTest {
     @Test
-    public void testAndGoalSimple() {
+    public void hasMetGoalSimple() {
         LoopManiaWorld world = new LoopManiaWorld(1, 2, new ArrayList<>());
         AndGoal goal = new AndGoal(world);
         goal.addSubGoal(new GoalGold(world, 100));
@@ -28,7 +28,7 @@ public class GoalAndTest {
     }
 
     @Test
-    public void testAndGoalsNested() {
+    public void hasMetGoalNested() {
         LoopManiaWorld world = new LoopManiaWorld(1, 2, new ArrayList<>());
         AndGoal andGoal1 = new AndGoal(world);
         AndGoal andGoal2 = new AndGoal(world);
@@ -45,5 +45,14 @@ public class GoalAndTest {
         assertEquals(false, andGoal1.hasMetGoal(world));
         world.setRound(101);
         assertEquals(true, andGoal1.hasMetGoal(world));
+    }
+
+    @Test 
+    public void testToString() {
+        LoopManiaWorld world = new LoopManiaWorld(1, 2, new ArrayList<>());
+        AndGoal goal = new AndGoal(world);
+        goal.addSubGoal(new GoalGold(world, 100));
+        goal.addSubGoal(new GoalExperience(world, 100));
+        assertEquals("(AND gold : 100 experience : 100)", goal.toString());
     }
 }

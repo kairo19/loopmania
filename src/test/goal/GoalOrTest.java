@@ -14,7 +14,7 @@ import unsw.loopmania.goal.OrGoal;
 
 public class GoalOrTest {
     @Test
-    public void testOrGoalSimple() {
+    public void testHasMetGoalSimple() {
         LoopManiaWorld world = new LoopManiaWorld(1, 2, new ArrayList<>());
         OrGoal goal = new OrGoal(world);
         goal.addSubGoal(new GoalGold(world, 100));
@@ -26,7 +26,7 @@ public class GoalOrTest {
     }
 
     @Test
-    public void testOrGoalNested() {
+    public void testHasMetGoalNested() {
         LoopManiaWorld world = new LoopManiaWorld(1, 2, new ArrayList<>());
         OrGoal orGoal1 = new OrGoal(world);
         OrGoal orGoal2 = new OrGoal(world);
@@ -40,4 +40,15 @@ public class GoalOrTest {
         world.setGold(101);
         assertEquals(true, orGoal1.hasMetGoal(world));
     }
+
+    @Test
+    public void testToString() {
+        LoopManiaWorld world = new LoopManiaWorld(1, 2, new ArrayList<>());
+        OrGoal goal = new OrGoal(world);
+        goal.addSubGoal(new GoalGold(world, 100));
+        goal.addSubGoal(new GoalExperience(world, 100));
+        assertEquals("(OR gold : 100 experience : 100)", goal.toString());
+    }
+
+
 }
