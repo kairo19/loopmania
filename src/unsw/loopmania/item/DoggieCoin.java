@@ -2,6 +2,8 @@ package unsw.loopmania.item;
 
 import java.util.Random;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import unsw.loopmania.StaticEntity;
 
 public class DoggieCoin extends StaticEntity {
@@ -26,7 +28,7 @@ public class DoggieCoin extends StaticEntity {
             Random random = new Random();
             int fluctuation = random.nextInt(1) == 0 ? -1 : 1;
             float multiplier = random.nextFloat();
-            value.set(value.get() + value.get() * fluctuation * multiplier);
+            value.set((int) (value.get() + value.get() * fluctuation * multiplier));
 
         } else if (elanMuskeAlive) {
             // increase
