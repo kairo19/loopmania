@@ -221,6 +221,7 @@ public class LoopManiaWorldController {
      * object handling switching to the main menu
      */
     private MenuSwitcher mainMenuSwitcher;
+    private MenuSwitcher shopMenuSwitcher;
 
 
     /**
@@ -846,10 +847,12 @@ public class LoopManiaWorldController {
     }
 
     public void setMainMenuSwitcher(MenuSwitcher mainMenuSwitcher) {
-        // TODO = possibly set other menu switchers
         this.mainMenuSwitcher = mainMenuSwitcher;
     }
 
+    public void setShopMenuSwitcher(MenuSwitcher shopMenuSwitcher) {
+        this.shopMenuSwitcher = shopMenuSwitcher;
+    }
     /**
      * this method is triggered when click button to go to main menu in FXML
      * @throws IOException
@@ -995,56 +998,57 @@ public class LoopManiaWorldController {
     }
 
     private void openStore() {
-        pause();
-        
-        // offer header
-        VBox vBox = new VBox();
-        Text shopText = new Text("Offer");
-        shopText.setFont(new Font(50));
-        vBox.getChildren().addAll(shopText);
-        vBox.setAlignment(Pos.CENTER);
+
+        terminate();
+        // // offer header
+        // VBox vBox = new VBox();
+        // Text shopText = new Text("Offer");
+        // shopText.setFont(new Font(50));
+        // vBox.getChildren().addAll(shopText);
+        // vBox.setAlignment(Pos.CENTER);
 
 
-        HBox shop = new HBox(10);
-        ArrayList<Image> images = new ArrayList<Image>() {
-            {
-                add(swordImage);
-                add(stakeImage);
-                add(staffImage);
-                add(armourImage);
-                add(shieldImage);
-                add(helmetImage);
-                add(healthpotionImage);
-            }
-        };
+        // HBox shop = new HBox(10);
+        // ArrayList<Image> images = new ArrayList<Image>() {
+        //     {
+        //         add(swordImage);
+        //         add(stakeImage);
+        //         add(staffImage);
+        //         add(armourImage);
+        //         add(shieldImage);
+        //         add(helmetImage);
+        //         add(healthpotionImage);
+        //     }
+        // };
 
-        for (int i = 0; i < 7; i++) {
-            int counter = i; // to make compiler happy :(
-            ImageView view = new ImageView(images.get(i));
-            Button item = new Button();
-            item.setPadding(new Insets(5, 5, 5, 5));
-            item.setGraphic(view);
-            item.setOnAction((ActionEvent event) -> {
-                StaticEntity boughtItem = world.boughtItem(world.generateRandomStore().get(counter));
-                world.setGold(world.getGold() - 5);     // current placeholder
-                onLoad(boughtItem);
-            });
-            shop.getChildren().add(item);
-        }
-        shop.setAlignment(Pos.CENTER);
+        // for (int i = 0; i < 7; i++) {
+        //     int counter = i; // to make compiler happy :(
+        //     ImageView view = new ImageView(images.get(i));
+        //     Button item = new Button();
+        //     item.setPadding(new Insets(5, 5, 5, 5));
+        //     item.setGraphic(view);
+        //     item.setOnAction((ActionEvent event) -> {
+        //         StaticEntity boughtItem = world.boughtItem(world.generateRandomStore().get(counter));
+        //         world.setGold(world.getGold() - 5);     // current placeholder
+        //         onLoad(boughtItem);
+        //     });
+        //     shop.getChildren().add(item);
+        // }
+        // shop.setAlignment(Pos.CENTER);
 
-        Button returnMainMenu = new Button("Return to maine menu");
-        returnMainMenu.setPadding(new Insets(5, 5, 5, 5));
-        returnMainMenu.setOnAction((ActionEvent event) -> {
-            mainMenuSwitcher.switchMenu();
-        });
+        // Button returnMainMenu = new Button("Return to maine menu");
+        // returnMainMenu.setPadding(new Insets(5, 5, 5, 5));
+        // returnMainMenu.setOnAction((ActionEvent event) -> {
+        //     mainMenuSwitcher.switchMenu();
+        // });
 
-        BorderPane newScene = new BorderPane();
-        newScene.setStyle("-fx-background-color: #d3dba0");
-        newScene.setTop(vBox);
-        newScene.setCenter(shop);
-        newScene.setBottom(returnMainMenu);
+        // BorderPane newScene = new BorderPane();
+        // newScene.setStyle("-fx-background-color: #d3dba0");
+        // newScene.setTop(vBox);
+        // newScene.setCenter(shop);
+        // newScene.setBottom(returnMainMenu);
 
-        anchorPaneRoot.getScene().setRoot(newScene);
+        // anchorPaneRoot.getScene().setRoot(newScene);
+        shopMenuSwitcher.switchMenu();
     }
 }
