@@ -1040,7 +1040,7 @@ public class LoopManiaWorldController {
         }
         shop.setAlignment(Pos.CENTER);
 
-        Button returnMainMenu = new Button("Return to maine menu");
+        Button returnMainMenu = new Button("Return to main menu");
         returnMainMenu.setPadding(new Insets(5, 5, 5, 5));
         returnMainMenu.setOnAction((ActionEvent event) -> {
             mainMenuSwitcher.switchMenu();

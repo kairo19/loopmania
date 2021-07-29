@@ -21,4 +21,8 @@ public class ElanMuske extends BasicEnemy implements SpecialAbility{
         // TODO Auto-generated method stub
         
     }
+    @Override
+    public boolean isBoss() {
+        return true;
+    }
 }

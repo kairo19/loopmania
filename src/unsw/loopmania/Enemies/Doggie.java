@@ -23,4 +23,8 @@ public class Doggie extends BasicEnemy implements SpecialAbility{
     public void doSpecial(Character character) {
         // needs to be implemented
     }
+    @Override
+    public boolean isBoss() {
+        return true;
+    }
 }
