@@ -86,8 +86,7 @@ public class BasicEnemy extends MovingEntity {
         return this.xpReward;
     }
 
-    public void dealDamage(Character character) {
-
+    public boolean dealDamage(Character character) {
         
         int damageDealt = this.damage;
         
@@ -112,11 +111,7 @@ public class BasicEnemy extends MovingEntity {
         
         character.setHealth(character.getHealth() - damageDealt);
         
-        /*
-        int damageDealt = this.damage;
-        System.out.println("Character health:" + character.getHealth() + " - " + damageDealt);
+        return false;
         
-        character.setHealth(character.getHealth() - 5);
-        */
     }
 }

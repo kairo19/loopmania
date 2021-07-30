@@ -97,7 +97,6 @@ public class LoopManiaWorld {
 
     private IntegerProperty round;
     private IntegerProperty gold; 
-    private IntegerProperty doggieCoin; // Milestone 3 Resource
     private IntegerProperty experience;
     private IntegerProperty allyNumbers;
     private GoalNode goal;
@@ -291,8 +290,18 @@ public class LoopManiaWorld {
                     
                     // Case for Doggie Killed.
                     String tempType = e.getType();
-                    if (tempType.equals("Doggie") == true) { 
-                        setDoggieCoin(getDoggieCoin() + 1);
+                    if (tempType.equals("Doggie") == true) {
+
+
+
+
+                        //UNCOMMENT THIS LATER
+
+
+
+
+
+                        //DoggieCoin doggieCoin = new DoggieCoin(null,null);
                     }
                     
                     killEnemy(e);
@@ -300,8 +309,13 @@ public class LoopManiaWorld {
                     
                 } else {
                     // if enemy alive, then it deals damage to character
-                    e.dealDamage(character);
-                    //character.setHealth(100);
+                    //e.dealDamage(character);
+                    if (e.dealDamage(character) ==  true) {
+                        if (e.getType() == "Zombie" && character.getAllies() > 0) {
+                            
+                        }
+                    }
+                    character.setHealth(100);
                     // somewhere here that we will spawn the enemy out of ally soldiers
                     
                 }
@@ -327,7 +341,7 @@ public class LoopManiaWorld {
             setGold(getGold() + 10);
             setExperience(getExperience() + 10);
             
-            //addUnequippedItem();
+            addUnequippedItem();
         }
         Random r = new Random();
         int random = r.nextInt(7);
@@ -853,17 +867,6 @@ public class LoopManiaWorld {
     }
     public IntegerProperty getExperienceProperty() {
         return experience;
-    }
-    
-    // New DoggieCoin resource.
-    public void setDoggieCoin(int doggieCoin) {
-        this.doggieCoin.set(doggieCoin);
-    }
-    public int getDoggieCoin() {
-        return doggieCoin.get();
-    }
-    public IntegerProperty getDoggieProperty() {
-        return doggieCoin;
     }
 
 
