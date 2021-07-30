@@ -203,8 +203,12 @@ public class LoopManiaWorld {
     }
 
     private void DespawnGold(Gold gold) {
-
+        
+        gold.destroy();
+        goldSpawned.remove(gold);
     }
+
+
 
     /**
      * run the expected battles in the world, based on current world state
@@ -519,6 +523,7 @@ public class LoopManiaWorld {
                         b.DealDamageEnemies(e); 
                         if(e.getHealth() <= 0) killEnemy(e);
                         b.destroy();
+                        buildingEntities.remove(b);
                         break;
                     }                               
                 }
@@ -537,7 +542,8 @@ public class LoopManiaWorld {
             Random rand = new Random();
             int chance = rand.nextInt(100);
             int value = rand.nextInt(50);
-            if (chance < 100) {
+
+            if (chance < 4) {
                 Gold drop = new Gold(x, y);
                 drop.setDrop(value);
                 goldSpawned.add(drop);
@@ -593,6 +599,16 @@ public class LoopManiaWorld {
 
         }
         return spawningEnemies;
+    }
+
+    public void ConsumablesOnPath(){
+        for (Gold g: goldSpawned) {
+            if (g.getX() == character.getX() && g.getY() == character.getY()) {
+                gold.set(gold.get() + g.getDrop()); 
+                DespawnGold(g);
+            }
+        }
+       
     }
 
 
