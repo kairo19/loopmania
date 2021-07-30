@@ -19,7 +19,12 @@ public class ItemFactory {
     public StaticEntity makeItems(SimpleIntegerProperty x, SimpleIntegerProperty y) {
 
         Random r = new Random();
-        int num = r.nextInt(7);
+        int num = r.nextInt(6);
+
+        
+        // rare items insert
+
+
 
         switch(num) {
             case 0: 
@@ -34,8 +39,7 @@ public class ItemFactory {
                 return new Helmet(x, y);
             case 5:
                 return new Shield(x, y);
-            case 7:
-                return new HealthPotion(x, y);
+                //return new HealthPotion(x, y);
                 
         }
 
