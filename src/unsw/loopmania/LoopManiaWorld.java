@@ -204,22 +204,6 @@ public class LoopManiaWorld {
         enemy.destroy();
         enemies.remove(enemy);
     }
-    /**
-     * despawns gold from path
-     * @param gold gold to be despawned
-     */
-    private void despawnGold(Gold gold) {
-        
-
-    }
-
-    private void despawnPotion(HealthPotion potion) {
-        
-        potion.destroy();
-        potionSpawned.remove(potion);
-    }
-
-
 
     /**
      * run the expected battles in the world, based on current world state
