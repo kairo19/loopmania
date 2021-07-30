@@ -43,7 +43,7 @@ public class LoopManiaApplication extends Application {
         Parent mainMenuRoot = menuLoader.load();
 
         // load the shop menu
-        ShopController shopController = new ShopController();
+        ShopController shopController = new ShopController(mainController);
         FXMLLoader shopLoader = new FXMLLoader(getClass().getResource("ShopView.fxml"));
         shopLoader.setController(shopController);
         Parent shopRoot = shopLoader.load();
