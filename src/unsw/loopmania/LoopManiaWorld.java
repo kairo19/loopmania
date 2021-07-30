@@ -293,7 +293,7 @@ public class LoopManiaWorld {
                     if (tempType.equals("Doggie")) {
 
                         //DoggieCoin doggieCoin = new DoggieCoin(null,null);
-                    }
+                    } 
                     
                     killEnemy(e);
 
@@ -304,6 +304,8 @@ public class LoopManiaWorld {
                     if (e.dealDamage(character)) {
                         if (e.getType() == "Zombie" && character.getAllies() > 0) {
 
+                        }else if (e.getType() == "Vampire" && e.critDamage(character)) {
+                            character.setHealth(character.getHealth() - 5);
                         }
                     }
                     character.setHealth(100);

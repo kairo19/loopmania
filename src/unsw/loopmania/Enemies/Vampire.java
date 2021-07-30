@@ -6,10 +6,21 @@ import unsw.loopmania.PathPosition;
 import unsw.loopmania.Character;
 
 public class Vampire extends BasicEnemy implements SpecialAbility {
+
+    private boolean crit;
+    private int counter;
+    private Random r;
+    private int maxCrit;
+
+
     public Vampire(PathPosition pathPosition) {
         // Gives 4 gold and 4 xp
         // 3 battle radius, 5 support radius
         super(pathPosition, 50, 20, "Vampire", 8, 8, 3, 5);
+        crit = false;
+        r = new Random();
+        maxCrit = r.nextInt(5);
+
     }
 
     /**
@@ -21,8 +32,10 @@ public class Vampire extends BasicEnemy implements SpecialAbility {
         boolean check = false;
         super.dealDamage(character);
         check = doSpecial(character);
+        critDamage(character);
         return check;
     }
+
     /**
      * 
      * 
@@ -32,14 +45,36 @@ public class Vampire extends BasicEnemy implements SpecialAbility {
         boolean check = false;
         Random r = new Random();
         int chance = r.nextInt(100);
-        int randomHits = r.nextInt(5);
-        if (chance < 10) {
-            System.out.println("VAMPIRE CRITICAL STRIKE");
-            for (int i = 0; i < randomHits; i++) {
-                dealDamage(character);
-            } 
+        if (chance < 50) {
+            System.out.println("CHANCE HIT");
+            crit = true;
+            
         }
 
         return check;
+    }
+
+    /**
+     * 
+     * 
+     */
+    @Override
+    public boolean critDamage(Character character) {
+        
+    
+        if (crit) {
+            System.out.println("VAMPIRE CRITICAL STRIKE");
+            System.out.println("random r:" + maxCrit);
+            if (counter > maxCrit) {
+                counter = 0;
+                crit = false;
+                maxCrit = r.nextInt(5);
+                return true;
+            }
+            counter ++;
+            return true;
+        }
+
+        return false;
     }
 }

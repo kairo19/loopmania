@@ -114,4 +114,8 @@ public class BasicEnemy extends MovingEntity {
         return false;
         
     }
+
+    public boolean critDamage(Character character) {
+        return false;
+    }
 }
