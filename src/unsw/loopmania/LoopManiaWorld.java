@@ -33,6 +33,7 @@ import unsw.loopmania.Enemies.Zombie;
 import unsw.loopmania.goal.GoalNode;
 import unsw.loopmania.item.weapon.Sword;
 import unsw.loopmania.item.weapon.Weapon;
+import unsw.loopmania.item.ItemFactory;
 import unsw.loopmania.item.consumable.HealthPotion;
 import unsw.loopmania.item.consumable.TheOneRing;
 import unsw.loopmania.item.defensiveitem.Armour;
@@ -438,7 +439,7 @@ public class LoopManiaWorld {
             setGold(getGold() + 10);
             setExperience(getExperience() + 10);
         }
-
+        /*
         Random r = new Random();
         int num = r.nextInt(6);
 
@@ -469,7 +470,15 @@ public class LoopManiaWorld {
                 return shield;
                 
         }
-        return null;
+        */
+        ItemFactory itemFactory = new ItemFactory();
+
+        StaticEntity item = itemFactory.makeItems(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
+
+        unequippedInventoryItems.add(item);
+        
+
+        return item;
     }
     
     public StaticEntity addUnequippedRareItem(){
