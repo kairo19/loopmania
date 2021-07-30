@@ -47,6 +47,7 @@ import unsw.loopmania.Buildings.VampireCastleBuilding;
 import unsw.loopmania.Cards.Card;
 import unsw.loopmania.Cards.VampireCastleCard;
 import unsw.loopmania.Enemies.BasicEnemy;
+import unsw.loopmania.item.Gold;
 import unsw.loopmania.item.weapon.Sword;
 
 import java.util.EnumMap;
@@ -185,6 +186,7 @@ public class LoopManiaWorldController {
     private Image helmetImage;
     private Image theoneringImage;
     private Image healthpotionImage;
+    private Image goldImage;
 
     /**
      * the image currently being dragged, if there is one, otherwise null.
@@ -255,6 +257,7 @@ public class LoopManiaWorldController {
         helmetImage = new Image((new File("src/images/helmet.png")).toURI().toString());
         theoneringImage = new Image((new File("src/images/the_one_ring.png")).toURI().toString());
         healthpotionImage = new Image((new File("src/images/brilliant_blue_new.png")).toURI().toString());
+        goldImage = new Image((new File("src/images/gold_pile.png")).toURI().toString());
 
         //basicEnemyImage = new Image((new File("src/images/slug.png")).toURI().toString());
 
@@ -354,6 +357,10 @@ public class LoopManiaWorldController {
             List<BasicEnemy> newEnemies = world.possiblySpawnEnemies();
             for (BasicEnemy newEnemy: newEnemies){
                 onLoad(newEnemy);
+            }
+            List<Gold> spawningGold = world.possiblySpawnGold();
+            for (Gold newGold : spawningGold) {
+                onLoad(newGold);
             }
             List<BasicEnemy> newBuildingEnemies = world.HeroCastleEnemies();
             for (BasicEnemy newEnemy: newBuildingEnemies) {
@@ -501,6 +508,12 @@ public class LoopManiaWorldController {
         addDragEventHandlers(view, DRAGGABLE_TYPE.ITEM, unequippedInventory, equippedItems, Image(item), item);
         addEntity(item, view);
         unequippedInventory.getChildren().add(view);
+    }
+
+    private void onLoad(Gold gold) {
+        ImageView view = new ImageView(goldImage);
+        addEntity(gold, view);
+        squares.getChildren().add(view);
     }
 
     private Image Image(StaticEntity item) {

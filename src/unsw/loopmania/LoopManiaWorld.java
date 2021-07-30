@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import org.javatuples.Pair;
+import org.junit.jupiter.api.DisplayNameGenerator.Simple;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -35,6 +36,7 @@ import unsw.loopmania.Enemies.Zombie;
 import unsw.loopmania.goal.GoalNode;
 import unsw.loopmania.item.weapon.Sword;
 import unsw.loopmania.item.weapon.Weapon;
+import unsw.loopmania.item.Gold;
 import unsw.loopmania.item.consumable.HealthPotion;
 import unsw.loopmania.item.consumable.TheOneRing;
 import unsw.loopmania.item.defensiveitem.Armour;
@@ -104,6 +106,7 @@ public class LoopManiaWorld {
     private boolean gameOver;
     private LoopManiaWorldController controller;
     private boolean bossSpawn = false;
+    private List<Gold> goldSpawned;
 
     /**
      * create the world (constructor)
@@ -129,6 +132,7 @@ public class LoopManiaWorld {
         this.goal = null;
         this.gameOver = false;
         this.herosCastleBuilding = null;
+        this.goldSpawned = new ArrayList<>();
         
     }
     
@@ -196,6 +200,10 @@ public class LoopManiaWorld {
     private void killEnemy(BasicEnemy enemy){
         enemy.destroy();
         enemies.remove(enemy);
+    }
+
+    private void DespawnGold(Gold gold) {
+
     }
 
     /**
@@ -519,6 +527,29 @@ public class LoopManiaWorld {
         }
     }
 
+    public List<Gold> possiblySpawnGold() {
+   
+        Pair<Integer, Integer> pos = possiblyGetGoldSpawnPosition();
+        List<Gold> spawningGold = new ArrayList<>();
+        if (pos != null){
+            SimpleIntegerProperty x = new SimpleIntegerProperty(pos.getValue0());
+            SimpleIntegerProperty y = new SimpleIntegerProperty(pos.getValue1());
+            Random rand = new Random();
+            int chance = rand.nextInt(100);
+            int value = rand.nextInt(50);
+            if (chance < 100) {
+                Gold drop = new Gold(x, y);
+                drop.setDrop(value);
+                goldSpawned.add(drop);
+                spawningGold.add(drop);
+                return spawningGold;
+            }
+        }
+        return spawningGold;
+        
+
+    }
+
     /**
      * Creates a list of all the enemies created from vampire and zombie buildings.  
      * This occurs once character reaches the herocastle.
@@ -529,6 +560,9 @@ public class LoopManiaWorld {
         List<BasicEnemy> spawningEnemies = new ArrayList<>();
         if (herosCastleBuilding.getX() == character.getX() && herosCastleBuilding.getY() == character.getY()) {
             setRound(herosCastleBuilding.AddCycle(getRound()));
+            for(Building b: buildingEntities) b.addBuildingAlive();
+
+
             for (Building b: buildingEntities) {
                 if (b.toString().equals("VampireCastleBuilding") && b.getBuildingAliveRounds() % 5 == 0 && b.getBuildingAliveRounds() != 0) {
                     BasicEnemy vampireEnemy = b.SpawnAbility(orderedPath);
@@ -726,6 +760,35 @@ public class LoopManiaWorld {
         int choice = rand.nextInt(2); // TODO = change based on spec... currently low value for dev purposes...
         // TODO = change based on spec
         if (((choice == 0) && (enemies.size() < 2)) || bossSpawn){
+            
+            List<Pair<Integer, Integer>> orderedPathSpawnCandidates = new ArrayList<>();
+            int indexPosition = orderedPath.indexOf(new Pair<Integer, Integer>(character.getX(), character.getY()));
+            // inclusive start and exclusive end of range of positions not allowed
+            int startNotAllowed = (indexPosition - 2 + orderedPath.size())%orderedPath.size();
+            int endNotAllowed = (indexPosition + 3)%orderedPath.size();
+            // note terminating condition has to be != rather than < since wrap around...
+            for (int i=endNotAllowed; i!=startNotAllowed; i=(i+1)%orderedPath.size()){
+                orderedPathSpawnCandidates.add(orderedPath.get(i));
+            }
+
+            // choose random choice
+            Pair<Integer, Integer> spawnPosition = orderedPathSpawnCandidates.get(rand.nextInt(orderedPathSpawnCandidates.size()));
+
+            return spawnPosition;
+        }
+        return null;
+    }
+    /**
+     * get a randomly generated position which could be used to spawn gold on the map
+     * @return null if random choice is that wont be spawning gold or it isn't possible, or random coordinate pair if should go ahead
+     */
+    private Pair<Integer, Integer> possiblyGetGoldSpawnPosition(){
+        // TODO = modify this
+        
+        // has a chance spawning a basic enemy on a tile the character isn't on or immediately before or after (currently space required = 2)...
+        Random rand = new Random();
+        // TODO = change based on spec
+        if (goldSpawned.size() < 4){
             
             List<Pair<Integer, Integer>> orderedPathSpawnCandidates = new ArrayList<>();
             int indexPosition = orderedPath.indexOf(new Pair<Integer, Integer>(character.getX(), character.getY()));
