@@ -12,20 +12,20 @@ import unsw.loopmania.Enemies.BasicEnemy;
 
 public abstract class Building extends StaticEntity {
     private int radius;
-    private int BuildingAliveRounds;
+    private int buildingAliveRounds;
     //private PathPosition position;
     public Building(SimpleIntegerProperty x, SimpleIntegerProperty y) {
         super(x, y);
         this.radius = 0;
-        this.BuildingAliveRounds = 0;
+        this.buildingAliveRounds = 0;
     }   
     
     public boolean checkInRange(int characterPosX, int characterPosY) {
 
         int pythagoras = ((characterPosX - getX()) * (characterPosX - getX())) + ((characterPosY - getY()) * (characterPosY - getY()));
         int radius_squared = radius * radius;
-        System.out.println("Pythagoras number" + pythagoras);
-        System.out.println("Radius Squared" + radius_squared);
+        // System.out.println("Pythagoras number" + pythagoras);
+        // System.out.println("Radius Squared" + radius_squared);
         
         if (pythagoras < radius_squared) {
             return true;
@@ -39,7 +39,11 @@ public abstract class Building extends StaticEntity {
         this.radius = radius;
     }
     public int getBuildingAliveRounds() {
-        return BuildingAliveRounds;
+        return buildingAliveRounds;
+    }
+
+    public void addBuildingAlive() {
+        buildingAliveRounds = buildingAliveRounds + 1;
     }
 
     public BasicEnemy SpawnAbility(List<Pair<Integer, Integer>> orderedPath) {

@@ -36,22 +36,15 @@ public class HerosCastleBuilding extends Building {
         return false;
     }
     
-    public BasicEnemy SpawnDoggie(List<Pair<Integer, Integer>> orderedPath, int round) {
-        if (round == 21) {
-            Pair<Integer, Integer> position = new Pair<Integer,Integer>(getX(),getY());
+    public BasicEnemy SpawnDoggie(List<Pair<Integer, Integer>> orderedPath, Pair<Integer, Integer> position) {
             int indexInPath = orderedPath.indexOf(position);
             return new Doggie(new PathPosition(indexInPath, orderedPath));
-        } 
-        return null;
+
     }
 
-    public BasicEnemy SpawnElanMuske(List<Pair<Integer, Integer>> orderedPath, int round, int experience) {
-        if (round == 41 && experience == 10000) {
-            Pair<Integer, Integer> position = new Pair<Integer,Integer>(getX(),getY());
+    public BasicEnemy SpawnElanMuske(List<Pair<Integer, Integer>> orderedPath, Pair<Integer, Integer> position) {
             int indexInPath = orderedPath.indexOf(position);
             return new ElanMuske(new PathPosition(indexInPath, orderedPath));
-        } 
-        return null;
     }
 
     @Override

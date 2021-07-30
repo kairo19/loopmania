@@ -118,4 +118,8 @@ public class BasicEnemy extends MovingEntity {
     public boolean critDamage(Character character) {
         return false;
     }
+    public boolean isBoss() {
+        return false;
+    }
+    
 }
