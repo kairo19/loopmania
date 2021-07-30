@@ -163,13 +163,13 @@ public class Character extends MovingEntity {
         }
 
         int alliesDamage = 2 * this.getAllies();
-
+        /*
         System.out.println("current allies: " + this.getAllies());
         System.out.println("damage/character base: " + damage);
         System.out.println("bonus damage/buildings: " + bonusDamage);
         System.out.println("buffedDamage/Weapons: " + buffedDamage);
         System.out.println("alliesDamage: " + alliesDamage);
-
+        */
 
                         // base     buildings    weapons
         int damageDealt = damage + bonusDamage + buffedDamage + alliesDamage;

@@ -19,7 +19,7 @@ public class Vampire extends BasicEnemy implements SpecialAbility {
         super(pathPosition, 50, 20, "Vampire", 8, 8, 3, 5);
         crit = false;
         r = new Random();
-        maxCrit = r.nextInt(5);
+        maxCrit = r.nextInt(5) + 1;
 
     }
 
@@ -32,7 +32,6 @@ public class Vampire extends BasicEnemy implements SpecialAbility {
         boolean check = false;
         super.dealDamage(character);
         check = doSpecial(character);
-        critDamage(character);
         return check;
     }
 
@@ -42,16 +41,16 @@ public class Vampire extends BasicEnemy implements SpecialAbility {
      */
     @Override
     public boolean doSpecial(Character character) {
-        boolean check = false;
         Random r = new Random();
         int chance = r.nextInt(100);
-        if (chance < 50) {
-            System.out.println("CHANCE HIT");
+        if (chance < 10) {
+            
             crit = true;
+            return true;
             
         }
 
-        return check;
+        return false;
     }
 
     /**
@@ -63,13 +62,13 @@ public class Vampire extends BasicEnemy implements SpecialAbility {
         
     
         if (crit) {
-            System.out.println("VAMPIRE CRITICAL STRIKE");
             System.out.println("random r:" + maxCrit);
-            if (counter > maxCrit) {
+            if (counter >= maxCrit) {
                 counter = 0;
                 crit = false;
-                maxCrit = r.nextInt(5);
-                return true;
+                System.out.println("CHANCE CHANGED");
+                maxCrit = r.nextInt(5) + 1;
+                return false;
             }
             counter ++;
             return true;

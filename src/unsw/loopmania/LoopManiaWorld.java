@@ -269,7 +269,7 @@ public class LoopManiaWorld {
                 
                 
                 character.dealDamage(e, bonusDamage);
-                System.out.println("CHARACTER DAMAGE: " + character.getDamage());
+                //System.out.println("CHARACTER DAMAGE: " + character.getDamage());
 
                 //character.dealDamage(e, bonusDamage);
                 
@@ -292,13 +292,15 @@ public class LoopManiaWorld {
                 } else {
                     // if enemy alive, then it deals damage to character
                     //e.dealDamage(character);
-                    if (e.dealDamage(character)) {
-                        if (e.getType() == "Zombie" && character.getAllies() > 0) {
+                    e.dealDamage(character);
+                    
+                    if (e.getType() == "Zombie" && character.getAllies() > 0) {
 
-                        }else if (e.getType() == "Vampire" && e.critDamage(character)) {
-                            character.setHealth(character.getHealth() - 5);
-                        }
+                    }else if (e.getType() == "Vampire" && e.critDamage(character)) {
+                        character.setHealth(character.getHealth() - 5);
+                        System.out.println("Character health:" + character.getHealth() + " - 5 CriticalSTRIKE");
                     }
+                    
                     character.setHealth(100);
                     // somewhere here that we will spawn the enemy out of ally soldiers
                     
