@@ -12,22 +12,34 @@ public class Vampire extends BasicEnemy implements SpecialAbility {
         super(pathPosition, 50, 20, "Vampire", 8, 8, 3, 5);
     }
 
+    /**
+     * 
+     * 
+     */
     @Override
-    public void dealDamage(Character character) {
+    public boolean dealDamage(Character character) {
+        boolean check = false;
         super.dealDamage(character);
-        doSpecial(character);
+        check = doSpecial(character);
+        return check;
     }
-
+    /**
+     * 
+     * 
+     */
     @Override
-    public void doSpecial(Character character) {
+    public boolean doSpecial(Character character) {
+        boolean check = false;
         Random r = new Random();
         int chance = r.nextInt(100);
         int randomHits = r.nextInt(5);
-        if (chance< 20) {
-          for (int i = 0; i < randomHits; i++) {
-                int additionalAttack = r.nextInt(5);
-                // apply additional attack here?
+        if (chance < 10) {
+            System.out.println("VAMPIRE CRITICAL STRIKE");
+            for (int i = 0; i < randomHits; i++) {
+                dealDamage(character);
             } 
         }
+
+        return check;
     }
 }

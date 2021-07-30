@@ -182,8 +182,6 @@ public class Character extends MovingEntity {
         }
         */
 
-
-        
         System.out.println("Enemy health:" + enemy.getHealth() + " - " + damageDealt);
         
         enemy.setHealth(enemy.getHealth() - damageDealt);

@@ -290,16 +290,7 @@ public class LoopManiaWorld {
                     
                     // Case for Doggie Killed.
                     String tempType = e.getType();
-                    if (tempType.equals("Doggie") == true) {
-
-
-
-
-                        //UNCOMMENT THIS LATER
-
-
-
-
+                    if (tempType.equals("Doggie")) {
 
                         //DoggieCoin doggieCoin = new DoggieCoin(null,null);
                     }
@@ -310,9 +301,9 @@ public class LoopManiaWorld {
                 } else {
                     // if enemy alive, then it deals damage to character
                     //e.dealDamage(character);
-                    if (e.dealDamage(character) ==  true) {
+                    if (e.dealDamage(character)) {
                         if (e.getType() == "Zombie" && character.getAllies() > 0) {
-                            
+
                         }
                     }
                     character.setHealth(100);
