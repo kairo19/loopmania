@@ -48,6 +48,7 @@ import unsw.loopmania.Cards.Card;
 import unsw.loopmania.Cards.VampireCastleCard;
 import unsw.loopmania.Enemies.BasicEnemy;
 import unsw.loopmania.item.Gold;
+import unsw.loopmania.item.consumable.HealthPotion;
 import unsw.loopmania.item.weapon.Sword;
 
 import java.util.EnumMap;
@@ -363,6 +364,10 @@ public class LoopManiaWorldController {
             for (Gold newGold : spawningGold) {
                 onLoad(newGold);
             }
+            List<HealthPotion> spawningPotion = world.possiblySpawnPotion();
+            for (HealthPotion newPotion : spawningPotion) {
+                onLoad(newPotion);
+            }
             List<BasicEnemy> newBuildingEnemies = world.HeroCastleEnemies();
             for (BasicEnemy newEnemy: newBuildingEnemies) {
                 onLoad(newEnemy);
@@ -436,7 +441,7 @@ public class LoopManiaWorldController {
         StaticEntity item = world.addUnequippedRareItem();
         if (item != null) {
             onLoad(item);
-        }
+        } 
         
     }
     /**
@@ -516,6 +521,13 @@ public class LoopManiaWorldController {
         addEntity(gold, view);
         squares.getChildren().add(view);
     }
+    
+    private void onLoad(HealthPotion potion) {
+        ImageView view = new ImageView(healthpotionImage);
+        addEntity(potion, view);
+        squares.getChildren().add(view);
+    }
+    
 
     private Image Image(StaticEntity item) {
         switch(item.toString()) {

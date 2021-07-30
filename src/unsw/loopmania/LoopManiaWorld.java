@@ -1,6 +1,7 @@
 package unsw.loopmania;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -107,6 +108,7 @@ public class LoopManiaWorld {
     private LoopManiaWorldController controller;
     private boolean bossSpawn = false;
     private List<Gold> goldSpawned;
+    private List<HealthPotion> potionSpawned;
 
     /**
      * create the world (constructor)
@@ -133,6 +135,7 @@ public class LoopManiaWorld {
         this.gameOver = false;
         this.herosCastleBuilding = null;
         this.goldSpawned = new ArrayList<>();
+        this.potionSpawned = new ArrayList<>();
         
     }
     
@@ -201,11 +204,19 @@ public class LoopManiaWorld {
         enemy.destroy();
         enemies.remove(enemy);
     }
-
-    private void DespawnGold(Gold gold) {
+    /**
+     * despawns gold from path
+     * @param gold gold to be despawned
+     */
+    private void despawnGold(Gold gold) {
         
-        gold.destroy();
-        goldSpawned.remove(gold);
+
+    }
+
+    private void despawnPotion(HealthPotion potion) {
+        
+        potion.destroy();
+        potionSpawned.remove(potion);
     }
 
 
@@ -552,8 +563,26 @@ public class LoopManiaWorld {
             }
         }
         return spawningGold;
-        
+    }
 
+    public List<HealthPotion> possiblySpawnPotion() {
+   
+        Pair<Integer, Integer> pos = possiblyGetPotionSpawnPosition();
+        List<HealthPotion> spawningPotion = new ArrayList<>();
+        if (pos != null){
+            SimpleIntegerProperty x = new SimpleIntegerProperty(pos.getValue0());
+            SimpleIntegerProperty y = new SimpleIntegerProperty(pos.getValue1());
+            Random rand = new Random();
+            int chance = rand.nextInt(100);
+            if (chance < 2) {
+                HealthPotion drop = new HealthPotion(x, y);
+
+                potionSpawned.add(drop);
+                spawningPotion.add(drop);
+                return spawningPotion;
+            }
+        }
+        return spawningPotion;
     }
 
     /**
@@ -602,13 +631,30 @@ public class LoopManiaWorld {
     }
 
     public void ConsumablesOnPath(){
-        for (Gold g: goldSpawned) {
-            if (g.getX() == character.getX() && g.getY() == character.getY()) {
-                gold.set(gold.get() + g.getDrop()); 
-                DespawnGold(g);
+        
+        for (Iterator<Gold> iterator = goldSpawned.iterator(); iterator.hasNext();) {
+            Gold goldIterator = iterator.next();
+            if (goldIterator.getX() == character.getX() && goldIterator.getY() == character.getY()) {
+                gold.set(gold.get() + goldIterator.getDrop()); 
+                iterator.remove();
+                goldIterator.destroy();
             }
         }
-       
+
+        for (Iterator<HealthPotion> iterator = potionSpawned.iterator(); iterator.hasNext();) {
+            HealthPotion potionIterator = iterator.next();
+            if (potionIterator.getX() == character.getX() && potionIterator.getY() == character.getY()) {
+                //potionIterator.consume(character);
+                iterator.remove();
+                potionIterator.destroy();
+            }
+        }
+        // for (HealthPotion p: potionSpawned) {
+        //     if (p.getX() == character.getX() && p.getY() == character.getY()) {
+        //         p.consume(character);
+        //         despawnPotion(p);
+        //     }
+        // }
     }
 
 
@@ -799,11 +845,7 @@ public class LoopManiaWorld {
      * @return null if random choice is that wont be spawning gold or it isn't possible, or random coordinate pair if should go ahead
      */
     private Pair<Integer, Integer> possiblyGetGoldSpawnPosition(){
-        // TODO = modify this
-        
-        // has a chance spawning a basic enemy on a tile the character isn't on or immediately before or after (currently space required = 2)...
         Random rand = new Random();
-        // TODO = change based on spec
         if (goldSpawned.size() < 4){
             
             List<Pair<Integer, Integer>> orderedPathSpawnCandidates = new ArrayList<>();
@@ -823,6 +865,26 @@ public class LoopManiaWorld {
         }
         return null;
     }
+    private Pair<Integer, Integer> possiblyGetPotionSpawnPosition(){        
+        Random rand = new Random();
+        if (potionSpawned.size() < 2){
+            
+            List<Pair<Integer, Integer>> orderedPathSpawnCandidates = new ArrayList<>();
+            int indexPosition = orderedPath.indexOf(new Pair<Integer, Integer>(character.getX(), character.getY()));
+            // inclusive start and exclusive end of range of positions not allowed
+            int startNotAllowed = (indexPosition - 2 + orderedPath.size())%orderedPath.size();
+            int endNotAllowed = (indexPosition + 3)%orderedPath.size();
+            // note terminating condition has to be != rather than < since wrap around...
+            for (int i=endNotAllowed; i!=startNotAllowed; i=(i+1)%orderedPath.size()){
+                orderedPathSpawnCandidates.add(orderedPath.get(i));
+            }
+            Pair<Integer, Integer> spawnPosition = orderedPathSpawnCandidates.get(rand.nextInt(orderedPathSpawnCandidates.size()));
+
+            return spawnPosition;
+        }
+        return null;
+    }
+
 
     /**
      * remove a card by its x, y coordinates
