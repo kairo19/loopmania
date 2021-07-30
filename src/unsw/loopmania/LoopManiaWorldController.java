@@ -993,10 +993,6 @@ public class LoopManiaWorldController {
         anchorPaneRoot.getScene().setRoot(newScene);
     }
 
-    private void restartGame() {
-        // this.world = new LoopManiaWorld(width, height, orderedPath)
-    }
-
     private void openStore() {
         terminate();
         shopMenuSwitcher.switchMenu();

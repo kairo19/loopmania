@@ -714,7 +714,7 @@ public class LoopManiaWorld {
                 return shield;
 
             case "HealthPotion":
-                Shield healthPotion = new Shield(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
+                HealthPotion healthPotion = new HealthPotion(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
                 unequippedInventoryItems.add(healthPotion);  
                 return healthPotion;
                 
