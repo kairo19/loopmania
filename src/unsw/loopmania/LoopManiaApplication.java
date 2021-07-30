@@ -19,6 +19,7 @@ public class LoopManiaApplication extends Application {
      * the controller for the game. Stored as a field so can terminate it when click exit button
      */
     private LoopManiaWorldController mainController;
+    Parent gameRoot;
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -34,7 +35,7 @@ public class LoopManiaApplication extends Application {
         mainController = loopManiaLoader.loadController();
         FXMLLoader gameLoader = new FXMLLoader(getClass().getResource("LoopManiaView.fxml"));
         gameLoader.setController(mainController);
-        Parent gameRoot = gameLoader.load();
+        gameRoot = gameLoader.load();
 
         // load the main menu
         MainMenuController mainMenuController = new MainMenuController();
@@ -54,14 +55,16 @@ public class LoopManiaApplication extends Application {
         
         // set functions which are activated when button click to switch menu is pressed
         // e.g. from main menu to start the game, or from the game to return to main menu
-        mainController.setMainMenuSwitcher(() -> {switchToRoot(menuScene, mainMenuRoot, primaryStage);});
+        mainController.setMainMenuSwitcher(() -> {
+            switchToRoot(menuScene, mainMenuRoot, primaryStage);        
+        });
         mainController.setShopMenuSwitcher(() -> {switchToRoot(shopScene, shopRoot, primaryStage);});
         
         shopController.setGameSwitcher(() -> {
             switchToRoot(menuScene, gameRoot, primaryStage);
             mainController.startTimer();
         });
-        
+         
         mainMenuController.setGameSwitcher(() -> {
             switchToRoot(menuScene, gameRoot, primaryStage);
             mainController.startTimer();
@@ -77,6 +80,14 @@ public class LoopManiaApplication extends Application {
     public void stop(){
         // wrap up activities when exit program
         mainController.terminate();
+    }
+
+    public void newGame() throws IOException {
+        LoopManiaWorldControllerLoader loopManiaLoader = new LoopManiaWorldControllerLoader("world_with_twists_and_turns.json");
+        mainController = loopManiaLoader.loadController();
+        FXMLLoader gameLoader = new FXMLLoader(getClass().getResource("LoopManiaView.fxml"));
+        gameLoader.setController(mainController);
+        gameRoot = gameLoader.load();
     }
 
     /**
