@@ -16,11 +16,10 @@ public class Doggie extends BasicEnemy implements SpecialAbility{
      * Doggie deals damage to character  
      */
     @Override
-    public boolean dealDamage(Character character) {
-        boolean check = false;
+    public void dealDamage(Character character) {
         super.dealDamage(character);
-        check = doSpecial(character);
-        return check;
+        doSpecial(character);
+
     }
 
     /**

@@ -13,27 +13,24 @@ public class Zombie extends BasicEnemy implements SpecialAbility {
     }
 
     @Override
-    public boolean dealDamage(Character character) {
-        boolean check = false;
+    public void dealDamage(Character character) {
         super.dealDamage(character);
-        check = doSpecial(character);
-        return check;
+
     }
 
     @Override
     public boolean doSpecial(Character character) {
-        boolean check = false;
         Random r = new Random();
         int chance = r.nextInt(100);
-        if (chance < 10) {
+        if (chance < 50) {
+            System.out.println("CHANCE HIT");
             if (character.getAlly() > 0) 
                 character.loseAlly();
-                check = true;
-            // spawn new zombie
+                return true;
             
         }
 
-        return check;
+        return false;
     }
 }
 

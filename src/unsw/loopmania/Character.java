@@ -161,8 +161,8 @@ public class Character extends MovingEntity {
             // doing special attack to enemy
             equippedWeapon.doSpecial(enemy, this);
         }
-
-        int alliesDamage = 2 * this.getAllies();
+        int alliesDamage = 0;
+        //int alliesDamage = 2 * this.getAllies();
         /*
         System.out.println("current allies: " + this.getAllies());
         System.out.println("damage/character base: " + damage);

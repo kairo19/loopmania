@@ -2,6 +2,7 @@ package unsw.loopmania;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Random;
 
 import org.javatuples.Pair;
@@ -187,10 +188,6 @@ public class LoopManiaWorld {
         return spawningEnemies;
     }
 
-    // function to spawn a zombie if ally was bit by zombie
-    private void spawnZombieCrit(Zombie zombie) {
-        
-    }
 
     /**
      * kill an enemy
@@ -264,6 +261,7 @@ public class LoopManiaWorld {
         for (BasicEnemy e: queuedEnemies) {
 
 
+
             while (e.getHealth() > 0 && character.getHealth() > 0) {
                 // character attacks enemy first
                 
@@ -279,23 +277,29 @@ public class LoopManiaWorld {
                     setGold(getGold() + e.getGold());
                     setExperience(getExperience() + e.getXP());
                     
-                    // Case for Doggie Killed.
-                    String tempType = e.getType();
-                    if (tempType.equals("Doggie")) {
+        
+                    if (e.getType() == "Doggie") {
 
                         //DoggieCoin doggieCoin = new DoggieCoin(null,null);
                     } 
                     
                     killEnemy(e);
-
+ 
                     
                 } else {
                     // if enemy alive, then it deals damage to character
                     //e.dealDamage(character);
                     e.dealDamage(character);
                     
-                    if (e.getType() == "Zombie" && character.getAllies() > 0) {
-
+                    if (e.getType() == "Zombie" && character.getAllies() > 0 && e.doSpecial(character)) {
+                        //should be able to add onto list while iterating through it
+                        System.out.println("Spawning and adding zombie to list");
+                        ListIterator<BasicEnemy> queuedEnemiesItr = queuedEnemies.listIterator();
+                        
+                        BasicEnemy allyZombie = new Zombie(new PathPosition(2, orderedPath));
+                        queuedEnemiesItr.add(allyZombie);
+                        
+                        
                     }else if (e.getType() == "Vampire" && e.critDamage(character)) {
                         character.setHealth(character.getHealth() - 5);
                         System.out.println("Character health:" + character.getHealth() + " - 5 CriticalSTRIKE");
@@ -484,7 +488,9 @@ public class LoopManiaWorld {
             HealthPotion healthpotion = (HealthPotion) items;
             healthpotion.consume(character);
             System.out.println("HEALING CHARACTER");
-            healthpotion.destroy();
+            // VVVV something wrong with this destroy function
+            // ed forum could rpovide solution
+            //healthpotion.destroy();
         }   
     }
 

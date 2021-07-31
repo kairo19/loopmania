@@ -417,6 +417,7 @@ public class LoopManiaWorldController {
         // TODO = load more types of card
         Card card = world.loadCard();
         onLoad(card);
+        
     }
 
     /**
@@ -427,6 +428,9 @@ public class LoopManiaWorldController {
         // start by getting first available coordinates
         StaticEntity item = world.addUnequippedItem();
         onLoad(item);
+        // potentially iterate through it and print coords.. figure out from there
+        //
+        //System.out.println(unequippedInventory.getChildren());
     }
     private void loadRareItem(){
         // TODO = load more types of weapon
