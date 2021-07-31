@@ -9,12 +9,10 @@ public class PlacableOnPath implements PlacableBehaviour{
     public boolean placable(int x, int y, List<Pair<Integer, Integer>> orderedPath) {
         for (Pair<Integer,Integer> p: orderedPath) {
             if (p.getValue0() == x && p.getValue1() == y) {
-                System.out.println("PlaceOn PATH PASSED");
                 return true;
                 
             }
         }
-        System.out.println("PlaceOn PATH FAILED");
         return false;
         
     }
