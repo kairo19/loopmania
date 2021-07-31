@@ -211,6 +211,7 @@ public class LoopManiaWorld {
      */
     public List<BasicEnemy> runBattles() {
         // TODO = modify this - currently the character automatically wins all battles without any damage!
+        boolean elanExist = false;
         BasicEnemy firstEnemy = null;
         int bonusDamage = 0;
         //boolean campfirePresent = false;
@@ -256,6 +257,12 @@ public class LoopManiaWorld {
                 
                 }
                 break;
+            }
+        }
+
+        for (BasicEnemy b : queuedEnemies) {
+            if (b.getType() == "ElanMuske") {
+                elanExist = true;
             }
         }
         
@@ -623,6 +630,8 @@ public class LoopManiaWorld {
                 enemies.add(bossEnemy);
                 spawningEnemies.add(bossEnemy);
                 bossSpawn = false;
+                // change back to 41 pls
+                // skittles
             } else if (round.get() == 41) {
                 bossSpawn = true;        
                 Pair<Integer, Integer> pos = possiblyGetBasicEnemySpawnPosition();
