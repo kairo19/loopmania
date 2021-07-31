@@ -509,7 +509,7 @@ public class LoopManiaWorld {
         }
 
         Random r = new Random();
-        int num = r.nextInt(100);
+        int num = r.nextInt(3);
         
         switch (num) {
             case 0:
@@ -541,13 +541,13 @@ public class LoopManiaWorld {
         String store = items.toString();
 
 
-        if (store.equals("Staff") || store.equals("Stake") || store.equals("Sword")) {
+        if (store.equals("Staff") || store.equals("Stake") || store.equals("Sword") || store.equals("Anduril")) {
             Weapon weaponClass = (Weapon) items;
             character.setWeapon(weaponClass); 
         } else if (store.equals("Armour")) {
             Armour armourClass = (Armour) items;
             character.equipArmour(armourClass);
-        } else if (store.equals("Shield")) {
+        } else if (store.equals("Shield") || store.equals("TreeStump")) {
             Shield shieldClass = (Shield) items;
             character.equipShield(shieldClass);
         } else if (store.equals("Helmet")) {

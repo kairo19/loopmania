@@ -7,7 +7,7 @@ import unsw.loopmania.Cards.PlacableBehaviour.PlacableWeapon;
 import unsw.loopmania.Enemies.BasicEnemy;
 
 public class Anduril extends StaticEntity implements Weapon {
-    private static final int DAMAGE_BOOST = 15;
+    private static final int DAMAGE_BOOST = 25;
     public Anduril(SimpleIntegerProperty x, SimpleIntegerProperty y) {
         super(x, y);
         this.placableBehaviour = new PlacableWeapon();

@@ -154,6 +154,7 @@ public class Character extends MovingEntity {
 
     public void setBuffedDamage(int buffedDamage) {
         this.buffedDamage += buffedDamage;
+
     }
 
     public void dealDamage(BasicEnemy enemy, int bonusDamage) {
@@ -162,8 +163,9 @@ public class Character extends MovingEntity {
             // added the buffed damage to buffedDamage
             equippedWeapon.damageBoost(this);
             // doing special attack to enemy
+            
             equippedWeapon.doSpecial(enemy, this);
-        }
+        } 
         int alliesDamage = 0;
         //int alliesDamage = 2 * this.getAllies();
         /*
@@ -173,6 +175,8 @@ public class Character extends MovingEntity {
         System.out.println("buffedDamage/Weapons: " + buffedDamage);
         System.out.println("alliesDamage: " + alliesDamage);
         */
+
+        
 
                         // base     buildings    weapons
         int damageDealt = getDamage() + bonusDamage + buffedDamage + alliesDamage;

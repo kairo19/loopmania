@@ -451,8 +451,8 @@ public class LoopManiaWorldController {
     private void loadItem(){
         // TODO = load more types of weapon
         // start by getting first available coordinates
-        StaticEntity item = world.addUnequippedItem();
-        onLoad(item);
+        //StaticEntity item = world.addUnequippedItem();
+        //onLoad(item);
         // potentially iterate through it and print coords.. figure out from there
         //
         //System.out.println(unequippedInventory.getChildren());
