@@ -3,6 +3,7 @@ package unsw.loopmania;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Random;
 
 import org.javatuples.Pair;
@@ -100,7 +101,6 @@ public class LoopManiaWorld {
 
     private IntegerProperty round;
     private IntegerProperty gold; 
-    private IntegerProperty doggieCoin; // Milestone 3 Resource
     private IntegerProperty experience;
     private IntegerProperty allyNumbers;
     private GoalNode goal;
@@ -195,10 +195,6 @@ public class LoopManiaWorld {
         return spawningEnemies;
     }
 
-    // function to spawn a zombie if ally was bit by zombie
-    private void spawnZombieCrit(Zombie zombie) {
-        
-    }
 
     /**
      * kill an enemy
@@ -265,15 +261,17 @@ public class LoopManiaWorld {
         
         
         // time for the battle
-        for (BasicEnemy e: queuedEnemies) {
+        //for (BasicEnemy e: queuedEnemies) {
+        for (ListIterator<BasicEnemy> queuedEnemiesItr = queuedEnemies.listIterator(); queuedEnemiesItr.hasNext();) {
+            BasicEnemy e = queuedEnemiesItr.next();
 
-
+            System.out.println("BATTLING NOW!!");
             while (e.getHealth() > 0 && character.getHealth() > 0) {
                 // character attacks enemy first
                 
                 
                 character.dealDamage(e, bonusDamage);
-                System.out.println("CHARACTER DAMAGE: " + character.getDamage());
+                //System.out.println("CHARACTER DAMAGE: " + character.getDamage());
 
                 //character.dealDamage(e, bonusDamage);
                 
@@ -283,19 +281,36 @@ public class LoopManiaWorld {
                     setGold(getGold() + e.getGold());
                     setExperience(getExperience() + e.getXP());
                     
-                    // Case for Doggie Killed.
-                    String tempType = e.getType();
-                    if (tempType.equals("Doggie") == true) { 
-                        setDoggieCoin(getDoggieCoin() + 1);
-                    }
+        
+                    if (e.getType() == "Doggie") {
+
+                        //DoggieCoin doggieCoin = new DoggieCoin(null,null);
+                    } 
                     
                     killEnemy(e);
-
+ 
                     
                 } else {
                     // if enemy alive, then it deals damage to character
+                    //e.dealDamage(character);
                     e.dealDamage(character);
-                    //character.setHealth(100);
+                    
+                    if (e.getType() == "Zombie" && character.getAllies() > 0 && e.doSpecial(character)) {
+                        //should be able to add onto list while iterating through it
+                        System.out.println("Spawning and adding zombie to list");
+        
+                        BasicEnemy allyZombie = new Zombie(new PathPosition(2, orderedPath));
+                        queuedEnemiesItr.add(allyZombie);
+                        queuedEnemiesItr.previous();
+                        queuedEnemiesItr.previous();
+    
+          
+                    }else if (e.getType() == "Vampire" && e.critDamage(character)) {
+                        character.setHealth(character.getHealth() - 5);
+                        System.out.println("Character health:" + character.getHealth() + " - 5 CriticalSTRIKE");
+                    }
+                    
+                    character.setHealth(100);
                     // somewhere here that we will spawn the enemy out of ally soldiers
                     
                 }
@@ -321,7 +336,7 @@ public class LoopManiaWorld {
             setGold(getGold() + 10);
             setExperience(getExperience() + 10);
             
-            //addUnequippedItem();
+            addUnequippedItem();
         }
         Random r = new Random();
         int random = r.nextInt(7);
@@ -478,7 +493,9 @@ public class LoopManiaWorld {
             HealthPotion healthpotion = (HealthPotion) items;
             healthpotion.consume(character);
             System.out.println("HEALING CHARACTER");
-            healthpotion.destroy();
+            // VVVV something wrong with this destroy function
+            // ed forum could rpovide solution
+            //healthpotion.destroy();
         }   
     }
 

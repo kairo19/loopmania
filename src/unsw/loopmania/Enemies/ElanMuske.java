@@ -14,12 +14,13 @@ public class ElanMuske extends BasicEnemy implements SpecialAbility{
     public void dealDamage(Character character) {
         super.dealDamage(character);
         doSpecial(character);
+
     }
     
     @Override
-    public void doSpecial(Character character) {
+    public boolean doSpecial(Character character) {
         // TODO Auto-generated method stub
-        
+        return false;
     }
     @Override
     public boolean isBoss() {

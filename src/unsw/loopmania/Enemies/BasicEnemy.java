@@ -87,7 +87,6 @@ public class BasicEnemy extends MovingEntity {
     }
 
     public void dealDamage(Character character) {
-
         
         int damageDealt = this.damage;
         
@@ -112,14 +111,17 @@ public class BasicEnemy extends MovingEntity {
         
         character.setHealth(character.getHealth() - damageDealt);
         
-        /*
-        int damageDealt = this.damage;
-        System.out.println("Character health:" + character.getHealth() + " - " + damageDealt);
         
-        character.setHealth(character.getHealth() - 5);
-        */
+    }
+
+    public boolean critDamage(Character character) {
+        return false;
     }
     public boolean isBoss() {
+        return false;
+    }
+
+    public boolean doSpecial(Character character) {
         return false;
     }
     
