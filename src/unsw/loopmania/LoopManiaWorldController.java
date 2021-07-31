@@ -1074,21 +1074,6 @@ public class LoopManiaWorldController {
             }
         }
 
-        // shop.setAlignment(Pos.CENTER);
-
-        // Button returnMainMenu = new Button("Return to main menu");
-        // returnMainMenu.setPadding(new Insets(5, 5, 5, 5));
-        // returnMainMenu.setOnAction((ActionEvent event) -> {
-        //     mainMenuSwitcher.switchMenu();
-        // });
-
-        // BorderPane newScene = new BorderPane();
-        // newScene.setStyle("-fx-background-color: #d3dba0");
-        // newScene.setTop(vBox);
-        // newScene.setCenter(shop);
-        // newScene.setBottom(returnMainMenu);
-
-
         // reset visibility 
         PauseTransition visiblePause = new PauseTransition(Duration.seconds(2));
         visiblePause.setOnFinished(event -> {
@@ -1096,5 +1081,32 @@ public class LoopManiaWorldController {
             }
         );
         visiblePause.play();   
+    }
+
+    private double timelineRate = 1.0;
+    @FXML
+    void decreaseTickSpeed(ActionEvent event) {
+        timeline.setRate(timelineRate - 0.5);
+        timeline.play();
+    }
+
+    @FXML
+    void increaseTickSpeed(ActionEvent event) {
+        timeline.setRate(timelineRate + 0.5);
+        timeline.play();
+    }
+
+    @FXML
+    private Button playButton;
+
+    @FXML
+    void normaliseTickSpeed(ActionEvent event) {
+        if (playButton.getText().equals(">")) {
+            timeline.stop();
+            playButton.setText("||");
+        } else {
+            timeline.play();
+            playButton.setText(">");
+        }
     }
 }
