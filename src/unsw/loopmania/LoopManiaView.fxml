@@ -17,7 +17,7 @@
 <!-- TODO = modify and expand the GUI? -->
 <!-- anchorPaneRoot is the background of the main game -->
 
-<AnchorPane fx:id="anchorPaneRoot" onKeyPressed="#handleKeyPress" prefHeight="241.0" prefWidth="96.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="anchorPaneRoot" onKeyPressed="#handleKeyPress" prefHeight="241.0" prefWidth="96.0" xmlns="http://javafx.com/javafx/11.0.4" xmlns:fx="http://javafx.com/fxml/1">
    <!-- HBox is used to stack items horizontally left to right -->
    <HBox>
       <!-- VBox is used to stack items vertically top to bottom -->
@@ -123,16 +123,29 @@
             <Button onAction="#switchToMainMenu" text="Exit to Main Menu" />
             <HBox prefHeight="19.0" prefWidth="96.0">
                <children>
-                  <Text fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Health: " />
-                  <Text fx:id="healthField" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="100" />
+                  <ImageView fitHeight="21.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../images/heart.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets top="5.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <Text fx:id="healthField" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="100" textAlignment="RIGHT">
+                     <HBox.margin>
+                        <Insets left="15.0" top="5.0" />
+                     </HBox.margin></Text>
                </children>
             </HBox>
             <HBox prefHeight="19.0" prefWidth="96.0">
                <children>
-                  <ImageView>
+                  <ImageView fitHeight="22.0" fitWidth="24.0">
                      <image>
                         <Image url="@../../images/gold_pile.png" />
                      </image>
+                     <HBox.margin>
+                        <Insets top="5.0" />
+                     </HBox.margin>
                   </ImageView>
                   <Text fx:id="goldField" fill="#cdcd19" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
                      <HBox.margin>
@@ -148,22 +161,52 @@
             </HBox>
             <HBox prefHeight="19.0" prefWidth="96.0">
                <children>
-                  <Text fill="#1d00da" strokeType="OUTSIDE" strokeWidth="0.0" text="XP: " />
-                  <Text fx:id="expField" fill="#1d00da" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="XP">
+                     <font>
+                        <Font name="IPAGothic" size="13.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="5.0" top="5.0" />
+                     </HBox.margin>
+                  </Text>
+                  <Text fx:id="expField" fill="#1d00da" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
+                     <HBox.margin>
+                        <Insets left="22.0" top="5.0" />
+                     </HBox.margin></Text>
                </children>
             </HBox>
             <HBox prefHeight="19.0" prefWidth="96.0">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Round: " />
-                  <Text fx:id="cycleField" strokeType="OUTSIDE" strokeWidth="0.0" text="1" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Round">
+                     <font>
+                        <Font name="IPAGothic" size="13.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets top="3.0" />
+                     </HBox.margin>
+                  </Text>
+                  <Text fx:id="cycleField" strokeType="OUTSIDE" strokeWidth="0.0" text="1">
+                     <HBox.margin>
+                        <Insets left="7.0" top="1.0" />
+                     </HBox.margin></Text>
                </children>
             </HBox>
             <HBox prefHeight="19.0" prefWidth="96.0">
                <children>
                   <HBox prefHeight="19.0" prefWidth="96.0">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Allies: " />
-                        <Text fx:id="allyField" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                        <ImageView fitHeight="23.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/deep_elf_master_archer.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </ImageView>
+                        <Text fx:id="allyField" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
+                           <HBox.margin>
+                              <Insets left="23.0" />
+                           </HBox.margin></Text>
                      </children>
                   </HBox>
                </children>
