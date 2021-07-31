@@ -194,6 +194,9 @@ public class LoopManiaWorldController {
     private Image theoneringImage;
     private Image healthpotionImage;
     private Image goldImage;
+    private Image andurilImage;
+    private Image treeStumpImage;
+
 
     /**
      * the image currently being dragged, if there is one, otherwise null.
@@ -268,6 +271,8 @@ public class LoopManiaWorldController {
         theoneringImage = new Image((new File("src/images/the_one_ring.png")).toURI().toString());
         healthpotionImage = new Image((new File("src/images/brilliant_blue_new.png")).toURI().toString());
         goldImage = new Image((new File("src/images/gold_pile.png")).toURI().toString());
+        andurilImage = new Image((new File("src/images/anduril_flame_of_the_west.png")).toURI().toString());
+        treeStumpImage = new Image((new File("src/images/tree_stump.png")).toURI().toString());
 
         //basicEnemyImage = new Image((new File("src/images/slug.png")).toURI().toString());
 
@@ -572,6 +577,12 @@ public class LoopManiaWorldController {
             
             case "HealthPotion":
                 return healthpotionImage;
+            
+            case "Anduril":
+                return andurilImage;
+            
+            case "TreeStump":
+                return treeStumpImage;
 
         }
         return null;

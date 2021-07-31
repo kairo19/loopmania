@@ -91,18 +91,18 @@ public class BasicEnemy extends MovingEntity {
         int damageDealt = this.damage;
         
         if (character.getArmour() != null) {
-            damageDealt *= character.getArmourReduction();
+            damageDealt *= character.getArmourReduction(this);
         }
 
         if (character.getShield() != null) {
-            damageDealt -= character.getShieldReduction();
+            damageDealt -= character.getShieldReduction(this);
             if (this.type.equals("Vampire")) {
                 character.lowerCritChance();
             }
         }
 
         if (character.getHelmet() != null) {
-            damageDealt -= character.getHelmetReduction();
+            damageDealt -= character.getHelmetReduction(this);
         }
         if (damageDealt < 0) {
             damageDealt = 0;

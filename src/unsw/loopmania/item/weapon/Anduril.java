@@ -19,9 +19,9 @@ public class Anduril extends StaticEntity implements Weapon {
 
     @Override
     public void doSpecial(BasicEnemy basicEnemy, Character character) {
-        // if (basicEnemy.isBoss()) {
-        //     character.setBuffedDamage(DAMAGE_BOOST * 2);
-        // }
+        if (basicEnemy.isBoss()) {
+             character.setBuffedDamage(DAMAGE_BOOST * 3);
+        }
     }
     
     public boolean checkItemplacable(int x, int y){

@@ -12,7 +12,7 @@ public abstract class DefensiveItem extends StaticEntity {
         this.damageReduction = damageReduction;
     }
 
-    public double damageReduction() {
+    public double damageReduction(BasicEnemy basicEnemy) {
         return damageReduction;
     }
     

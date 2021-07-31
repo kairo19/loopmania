@@ -2,6 +2,7 @@ package unsw.loopmania.item.defensiveitem;
 
 import javafx.beans.property.SimpleIntegerProperty;
 import unsw.loopmania.Cards.PlacableBehaviour.PlacableShield;
+import unsw.loopmania.Enemies.BasicEnemy;
 
 public class TreeStump extends DefensiveItem {
     private static final double DAMAGE_REDUCTION = 20.0;
@@ -10,12 +11,14 @@ public class TreeStump extends DefensiveItem {
         this.placableBehaviour = new PlacableShield();
     }
     
-    // @Override
-    // public double damageReduction() { // may need to add basicenemy parameneter to check if boss
-    //     if (isBoss) {
-    //         return DAMAGE_REDUCTION * 3;
-    //     }
-    // }
+    @Override
+    public double damageReduction(BasicEnemy basicEnemy) { // may need to add basicenemy parameneter to check if boss
+        if (basicEnemy.isBoss()) {
+             return DAMAGE_REDUCTION * 3;
+        } else {
+            return DAMAGE_REDUCTION;
+        }
+    }
 
     @Override
     public String toString() {

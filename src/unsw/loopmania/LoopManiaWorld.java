@@ -45,6 +45,8 @@ import unsw.loopmania.item.consumable.TheOneRing;
 import unsw.loopmania.item.defensiveitem.Armour;
 import unsw.loopmania.item.defensiveitem.Helmet;
 import unsw.loopmania.item.defensiveitem.Shield;
+import unsw.loopmania.item.defensiveitem.TreeStump;
+import unsw.loopmania.item.weapon.Anduril;
 import unsw.loopmania.item.weapon.Staff;
 import unsw.loopmania.item.weapon.Stake;
 import unsw.loopmania.item.weapon.Sword;
@@ -457,7 +459,7 @@ public class LoopManiaWorld {
         }
 
         Random r = new Random();
-        int num = r.nextInt(6);
+        int num = r.nextInt(7);
 
         switch(num) {
             case 0: 
@@ -484,6 +486,10 @@ public class LoopManiaWorld {
                 Shield shield = new Shield(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
                 unequippedInventoryItems.add(shield);
                 return shield;
+            case 6:
+                HealthPotion healthpotion = new HealthPotion(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
+                unequippedInventoryItems.add(healthpotion);
+                return healthpotion;
                 
         }
         return null;
@@ -504,16 +510,22 @@ public class LoopManiaWorld {
 
         Random r = new Random();
         int num = r.nextInt(100);
-
-        if (num < 3) {
-            TheOneRing theonering = new TheOneRing(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
-            unequippedInventoryItems.add(theonering);
-            return theonering;
-        } else if (num < 13 && num > 3) {
-            HealthPotion healthpotion = new HealthPotion(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
-            unequippedInventoryItems.add(healthpotion);
-            return healthpotion;
+        
+        switch (num) {
+            case 0:
+                TheOneRing theonering = new TheOneRing(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
+                unequippedInventoryItems.add(theonering);
+                return theonering;
+            case 1:
+                Anduril anduril = new Anduril(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
+                unequippedInventoryItems.add(anduril);
+                return anduril;
+            case 2:
+                TreeStump treeStump = new TreeStump(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
+                unequippedInventoryItems.add(treeStump);
+                return treeStump;
         }
+        
         return null;
     }
 

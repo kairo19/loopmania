@@ -136,16 +136,16 @@ public class Character extends MovingEntity {
         this.equippedWeapon = null;
     }
 
-    public double getArmourReduction() {
-        return equippedArmour.damageReduction();
+    public double getArmourReduction(BasicEnemy basicEnemy) {
+        return equippedArmour.damageReduction(basicEnemy);
     }
 
-    public double getShieldReduction() {
-        return equippedShield.damageReduction();
+    public double getShieldReduction(BasicEnemy basicEnemy) {
+        return equippedShield.damageReduction(basicEnemy);
     }
 
-    public double getHelmetReduction() {
-        return equippedHelmet.damageReduction();
+    public double getHelmetReduction(BasicEnemy basicEnemy) {
+        return equippedHelmet.damageReduction(basicEnemy);
     }
 
     public int getHelmetDebuff() {
