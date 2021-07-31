@@ -218,12 +218,7 @@
                         <Font size="10.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#handlePause" text="||">
-                     <font>
-                        <Font size="10.0" />
-                     </font>
-                  </Button>
-                  <Button mnemonicParsing="false" onAction="#normaliseTickSpeed" text="&gt;">
+                  <Button fx:id="playButton" mnemonicParsing="false" onAction="#normaliseTickSpeed" text="&gt;">
                      <font>
                         <Font size="10.0" />
                      </font>
