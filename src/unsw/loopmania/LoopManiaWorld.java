@@ -995,7 +995,7 @@ public class LoopManiaWorld {
         return experience;
     }
 
-    
+    /*
     // New DoggieCoin resource.
     public void setDoggieCoin(int doggieCoin) {
         this.doggieCoin.set(doggieCoin);
@@ -1006,7 +1006,7 @@ public class LoopManiaWorld {
     public IntegerProperty getDoggieProperty() {
         return doggieCoin;
     }
-
+    */
 
     public IntegerProperty getNumberAlliesProperty() {
         allyNumbers.set(character.getAllies());
