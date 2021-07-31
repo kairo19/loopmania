@@ -24,7 +24,7 @@ import unsw.loopmania.item.weapon.Weapon;
 public class Character extends MovingEntity {
     // TODO = potentially implement relationships between this class and other classes
     private IntegerProperty health;
-    private int damage;
+    private IntegerProperty damage;
     private int buffedDamage;
     private int allies;                     // current placeholder
     private Weapon equippedWeapon;
@@ -45,7 +45,7 @@ public class Character extends MovingEntity {
         */
         this.allies = 0;
         this.health = new SimpleIntegerProperty(100);
-        this.damage = 5;
+        this.damage = new SimpleIntegerProperty(5);
         this.buffedDamage = 0;
         this.equippedWeapon = null;
         this.equippedArmour = null;
@@ -56,6 +56,9 @@ public class Character extends MovingEntity {
     public IntegerProperty getHealthProperty() {
         return health;
     }
+    public IntegerProperty getDamageProperty() {
+        return damage;
+    }
     public int getHealth() {
         return health.get();
     }
@@ -63,10 +66,10 @@ public class Character extends MovingEntity {
         this.health.set(health);  
     }
     public int getDamage() {
-        return damage;
+        return damage.get();
     }
     public void setDamage(int damage) {
-        this.damage = damage;
+        this.damage.set(damage);
     }
     public void gainAlly() {
         this.allies = this.allies + 1;
@@ -172,7 +175,7 @@ public class Character extends MovingEntity {
         */
 
                         // base     buildings    weapons
-        int damageDealt = damage + bonusDamage + buffedDamage + alliesDamage;
+        int damageDealt = getDamage() + bonusDamage + buffedDamage + alliesDamage;
 
         /*
         // for helmet
