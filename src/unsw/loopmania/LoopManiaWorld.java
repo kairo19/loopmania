@@ -264,6 +264,7 @@ public class LoopManiaWorld {
         //for (BasicEnemy e: queuedEnemies) {
         for (ListIterator<BasicEnemy> queuedEnemiesItr = queuedEnemies.listIterator(); queuedEnemiesItr.hasNext();) {
             BasicEnemy e = queuedEnemiesItr.next();
+            int enemiesTraunched = 0;
 
             System.out.println("BATTLING NOW!!");
             while (e.getHealth() > 0 && character.getHealth() > 0) {
@@ -274,6 +275,27 @@ public class LoopManiaWorld {
                 //System.out.println("CHARACTER DAMAGE: " + character.getDamage());
 
                 //character.dealDamage(e, bonusDamage);
+
+                // check traunced, kill enemy, break while loop
+                
+                if (character.getWeapon() != null) {
+                    System.out.println("weapon exist");
+                    if (character.getWeapon().toString() == "Staff" && e.getHealth() > 0) {
+                        Staff staff = (Staff) character.getWeapon();
+                        System.out.println("recognised staff equipped");
+                        if (staff.getTranchedBool()) {
+                            character.gainAlly();
+                            System.out.println("enemy tranched and gained ally");
+                            killEnemy(e);
+                            staff.resetTrancedBool();
+                            break;
+                        }
+    
+                    }
+                }
+                
+
+
                 
 
                 // check if enemy is alive, if not skip and remove from queue + kill
@@ -286,6 +308,7 @@ public class LoopManiaWorld {
 
                         //DoggieCoin doggieCoin = new DoggieCoin(null,null);
                     } 
+
                     
                     killEnemy(e);
  
@@ -316,6 +339,15 @@ public class LoopManiaWorld {
                 }
             }
             
+            
+        }
+
+        if (character.getWeapon() != null) {
+            if (character.getWeapon().toString() == "Staff") {
+                Staff staff = (Staff) character.getWeapon();
+                character.setAllies(character.getAllies() - staff.getTranched());
+                staff.resetTranced();
+            }
         }
         
 

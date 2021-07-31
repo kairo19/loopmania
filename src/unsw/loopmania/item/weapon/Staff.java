@@ -13,9 +13,13 @@ import unsw.loopmania.Cards.PlacableBehaviour.PlacableWeapon;
  */
 public class Staff extends StaticEntity implements Weapon {
     private static final int DAMAGE_BOOST = 2;
+    private int numTranced = 0;
+    private boolean isTranced = false;
+
     public Staff(SimpleIntegerProperty x, SimpleIntegerProperty y) {
         super(x, y);
         this.placableBehaviour = new PlacableWeapon();
+        
     }    
 
     @Override
@@ -28,12 +32,33 @@ public class Staff extends StaticEntity implements Weapon {
     public void doSpecial(BasicEnemy basicEnemy, Character character) {
         Random r = new Random();
         int i = r.nextInt(100);
+
+        isTranced = true;
+        numTranced++;
+        System.out.println("tranching in progress");
+        /*
         if (i < 10) { 
-            // convert enemy to ally
-            // character.gainAlly();
-            // basicEnemy.setTranced();
+            isTranced = true;
+            numTranced++;
         }
+        */
     };
+
+    public void resetTrancedBool() {
+        isTranced = false;
+    }
+
+    public boolean getTranchedBool() {
+        return isTranced;
+    }
+
+    public int getTranched() {
+        return numTranced;
+    }
+
+    public void resetTranced() {
+        numTranced = 0;
+    }
 
     public boolean checkItemplacable(int x, int y){
         
