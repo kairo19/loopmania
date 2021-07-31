@@ -5,6 +5,17 @@ import javafx.fxml.FXML;
 import javafx.scene.text.Text;
 
 public class ShopSellController {
+    MenuSwitcher shopSwitcher;
+    MenuSwitcher gameSwitcher;
+
+    public void setShopSwitcher(MenuSwitcher shopSwitcher) {
+        this.shopSwitcher = shopSwitcher;
+    }
+
+    public void setGameSwitcher(MenuSwitcher gameSwitcher) {
+        this.gameSwitcher = gameSwitcher;
+    }
+
     @FXML
     private Text nSwords;
 
@@ -28,12 +39,12 @@ public class ShopSellController {
 
     @FXML
     void returnToLMA(ActionEvent event) {
-
+        gameSwitcher.switchMenu();
     }
 
     @FXML
     void returnToShop(ActionEvent event) {
-
+        shopSwitcher.switchMenu();
     }
 
     @FXML
