@@ -1097,4 +1097,27 @@ public class LoopManiaWorldController {
         );
         visiblePause.play();   
     }
+
+    @FXML
+    void decreaseTickSpeed(ActionEvent event) {
+        timeline.setRate(0.5);
+        timeline.play();
+    }
+
+    @FXML
+    void increaseTickSpeed(ActionEvent event) {
+        timeline.setRate(2);
+        timeline.play();
+    }
+
+    @FXML
+    void normaliseTickSpeed(ActionEvent event) {
+        timeline.setRate(1);
+        timeline.play();
+    }
+
+    @FXML
+    void handlePause(ActionEvent event) {
+        timeline.pause();
+    }
 }

@@ -17,7 +17,7 @@
 <!-- TODO = modify and expand the GUI? -->
 <!-- anchorPaneRoot is the background of the main game -->
 
-<AnchorPane fx:id="anchorPaneRoot" onKeyPressed="#handleKeyPress" prefHeight="241.0" prefWidth="96.0" xmlns="http://javafx.com/javafx/11.0.4" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="anchorPaneRoot" onKeyPressed="#handleKeyPress" prefHeight="241.0" prefWidth="96.0" style="-fx-background-color: #d3dba0;" xmlns="http://javafx.com/javafx/11.0.4" xmlns:fx="http://javafx.com/fxml/1">
    <!-- HBox is used to stack items horizontally left to right -->
    <HBox>
       <!-- VBox is used to stack items vertically top to bottom -->
@@ -209,6 +209,30 @@
                            </HBox.margin></Text>
                      </children>
                   </HBox>
+               </children>
+            </HBox>
+            <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#decreaseTickSpeed" text="&lt;&lt;">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#handlePause" text="||">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#normaliseTickSpeed" text="&gt;">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#increaseTickSpeed" text="&gt;&gt;">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Button>
                </children>
             </HBox>
          </children>
