@@ -38,6 +38,7 @@ import unsw.loopmania.Enemies.Zombie;
 import unsw.loopmania.goal.GoalNode;
 import unsw.loopmania.item.weapon.Sword;
 import unsw.loopmania.item.weapon.Weapon;
+import unsw.loopmania.item.DoggieCoin;
 import unsw.loopmania.item.Gold;
 import unsw.loopmania.item.consumable.HealthPotion;
 import unsw.loopmania.item.consumable.TheOneRing;
@@ -109,6 +110,7 @@ public class LoopManiaWorld {
     private boolean bossSpawn = false;
     private List<Gold> goldSpawned;
     private List<HealthPotion> potionSpawned;
+    private DoggieCoin doggieCoin;
 
     private IntegerProperty defeatedBosses;
 
@@ -306,7 +308,7 @@ public class LoopManiaWorld {
         
                     if (e.getType() == "Doggie") {
 
-                        //DoggieCoin doggieCoin = new DoggieCoin(null,null);
+                        DoggieCoin doggieCoin = new DoggieCoin(null,null);
                     } 
 
                     
@@ -564,12 +566,16 @@ public class LoopManiaWorld {
      * run moves which occur with every tick without needing to spawn anything immediately
      */
     public void runTickMoves() {
+        
         if (hasMetGoal()) {
             endGame();
         }
         ApplyBuildingEffects();
         character.moveDownPath();
         moveBasicEnemies();
+        checkDoggieCoinFluctuate();
+        
+        
     }
 
     /**
@@ -1005,6 +1011,23 @@ public class LoopManiaWorld {
 
         
     }
+    /**
+     * Figure out whether ElanMuske is alive and fluctuate doggieCoin accordingly.
+     */
+    public void checkDoggieCoinFluctuate(){
+        boolean elanMuskeAlive = false;
+
+        for (BasicEnemy e: enemies) {
+            if (e.getType() == "ElanMuske") {
+                elanMuskeAlive = true;
+            }
+        }
+
+        if (doggieCoin != null) {
+            doggieCoin.fluctuate(elanMuskeAlive, getRound());
+        }
+        
+    }
 
     public void DestroyCard(Card card, int cardNodeX) {
         card.destroy();
@@ -1047,18 +1070,15 @@ public class LoopManiaWorld {
         return experience;
     }
 
-    /*
+    
     // New DoggieCoin resource.
-    public void setDoggieCoin(int doggieCoin) {
-        this.doggieCoin.set(doggieCoin);
-    }
     public int getDoggieCoin() {
-        return doggieCoin.get();
+        return doggieCoin.getValueProperty();
     }
     public IntegerProperty getDoggieProperty() {
-        return doggieCoin;
+        return doggieCoin.getValue();
     }
-    */
+    
 
     public IntegerProperty getNumberAlliesProperty() {
         allyNumbers.set(character.getAllies());
