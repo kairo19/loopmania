@@ -107,7 +107,7 @@ public class BasicEnemy extends MovingEntity {
         if (damageDealt < 0) {
             damageDealt = 0;
         }
-        //System.out.println("Character health:" + character.getHealth() + " - " + damageDealt);
+        System.out.println("Character health:" + character.getHealth() + " - " + damageDealt);
         
         character.setHealth(character.getHealth() - damageDealt);
         

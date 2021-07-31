@@ -258,10 +258,11 @@ public class LoopManiaWorld {
         
         
         // time for the battle
-        for (BasicEnemy e: queuedEnemies) {
+        //for (BasicEnemy e: queuedEnemies) {
+        for (ListIterator<BasicEnemy> queuedEnemiesItr = queuedEnemies.listIterator(); queuedEnemiesItr.hasNext();) {
+            BasicEnemy e = queuedEnemiesItr.next();
 
-
-
+            System.out.println("BATTLING NOW!!");
             while (e.getHealth() > 0 && character.getHealth() > 0) {
                 // character attacks enemy first
                 
@@ -294,12 +295,13 @@ public class LoopManiaWorld {
                     if (e.getType() == "Zombie" && character.getAllies() > 0 && e.doSpecial(character)) {
                         //should be able to add onto list while iterating through it
                         System.out.println("Spawning and adding zombie to list");
-                        ListIterator<BasicEnemy> queuedEnemiesItr = queuedEnemies.listIterator();
-                        
+        
                         BasicEnemy allyZombie = new Zombie(new PathPosition(2, orderedPath));
                         queuedEnemiesItr.add(allyZombie);
-                        
-                        
+                        queuedEnemiesItr.previous();
+                        queuedEnemiesItr.previous();
+    
+          
                     }else if (e.getType() == "Vampire" && e.critDamage(character)) {
                         character.setHealth(character.getHealth() - 5);
                         System.out.println("Character health:" + character.getHealth() + " - 5 CriticalSTRIKE");
