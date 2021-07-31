@@ -74,8 +74,8 @@ When killing an enemy, the hero received a specified amount of experience.
 -----------------------------------------------------------------------------------------------------------------------------------
 ### BuildingAssumptions:
 
-#### BuildingBuffAssumptions:
-- Character will gain building buffs in the order of campfire buff then tower buff
+#### BuildingDamageBuffAssumptions:
+- Character will gain building buffs in the order of **campfire buff** then **tower buff**.
 #### TowerBuildingAssumptions:
 - During a battle within a shooting radius of **5** tiles, enemies will be attacked by the tower for **20** damage.
 
