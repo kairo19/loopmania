@@ -5,7 +5,7 @@ import unsw.loopmania.Character;
 import unsw.loopmania.Cards.PlacableBehaviour.PlacableHealthPotion;
 
 public class HealthPotion extends Consumable {
-    private static final int HEAL = 40;
+    private static final int HEAL = 20;
     public HealthPotion(SimpleIntegerProperty x, SimpleIntegerProperty y) {
         super(x, y);
         this.placableBehaviour = new PlacableHealthPotion();

@@ -66,7 +66,7 @@ public class Character extends MovingEntity {
         return health.get();
     }
     public int getAlliesDamage() {
-        return alliesDamage;
+        return allies * 2;
     }
     public void setHealth(int health) {
         this.health.set(health);  

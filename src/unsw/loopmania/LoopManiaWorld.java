@@ -346,8 +346,6 @@ public class LoopManiaWorld {
 
                         }
                     }
-                    
-                    character.setHealth(100);
                     // somewhere here that we will spawn the enemy out of ally soldiers
                     
                 }
@@ -604,7 +602,8 @@ public class LoopManiaWorld {
                 ((CampfireBuilding) b).CharacterBattleDebuffAbility(character);
             }
             if (b instanceof CampfireBuilding) {
-                System.out.println("attack bonus" + ((CampfireBuilding) b).getAttackBonus());
+                System.out.println("attack bonus" + character.getAlliesDamage());
+                System.out.println("number of allies" + character.getAllies());
                 totalBuff += ((CampfireBuilding) b).getAttackBonus();
             }
             
