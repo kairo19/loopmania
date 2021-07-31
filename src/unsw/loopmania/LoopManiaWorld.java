@@ -271,6 +271,7 @@ public class LoopManiaWorld {
         //for (BasicEnemy e: queuedEnemies) {
         for (ListIterator<BasicEnemy> queuedEnemiesItr = queuedEnemies.listIterator(); queuedEnemiesItr.hasNext();) {
             BasicEnemy e = queuedEnemiesItr.next();
+            int enemiesTraunched = 0;
 
             System.out.println("BATTLING NOW!!");
             while (e.getHealth() > 0 && character.getHealth() > 0) {
@@ -278,9 +279,23 @@ public class LoopManiaWorld {
                 
                 
                 character.dealDamage(e, bonusDamage);
-                //System.out.println("CHARACTER DAMAGE: " + character.getDamage());
 
-                //character.dealDamage(e, bonusDamage);
+                
+                if (character.getWeapon() != null) {
+                    if (character.getWeapon().toString() == "Staff" && e.getHealth() > 0) {
+                        Staff staff = (Staff) character.getWeapon();
+                        if (staff.getTranchedBool()) {
+                            character.gainAlly();
+                            killEnemy(e);
+                            staff.resetTrancedBool();
+                            break;
+                        }
+    
+                    }
+                }
+                
+
+
                 
 
                 // check if enemy is alive, if not skip and remove from queue + kill
@@ -293,6 +308,7 @@ public class LoopManiaWorld {
 
                         //DoggieCoin doggieCoin = new DoggieCoin(null,null);
                     } 
+
                     
                     killEnemy(e);
  
@@ -335,6 +351,21 @@ public class LoopManiaWorld {
                 }
             }
             
+            
+        }
+
+        if (character.getWeapon() != null) {
+            if (character.getWeapon().toString() == "Staff") {
+                Staff staff = (Staff) character.getWeapon();
+                int numAllies = character.getAllies() - staff.getTranched();
+                if (numAllies < 0) {
+                    character.setAllies(0);
+                } else {
+                    character.setAllies(numAllies);
+                }
+                
+                staff.resetTranced();
+            }
         }
         
 
