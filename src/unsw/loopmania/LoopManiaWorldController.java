@@ -8,6 +8,7 @@ import org.codefx.libfx.listener.handle.ListenerHandles;
 
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
+import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -1011,25 +1012,29 @@ public class LoopManiaWorldController {
 
         if (world.getGold() - 5 < 0) {
             shopController.getWarningText().setVisible(true);
-            return;
         } else if (gameMode.equals("survival") && hasPurchasedHealthPotion) {
             shopController.getWarningText().setText("Only 1 health potion can be purchased in survival mode!");
             shopController.getWarningText().setVisible(true);
-            return;
         } else if (gameMode.equals("berserker") && hasPurchasedDefensiveItem) {
             shopController.getWarningText().setText("Only 1 defensive item can be purchased in berserker mode!");
             shopController.getWarningText().setVisible(true);
-            return;
+        } else {
+            StaticEntity boughtItem = world.boughtItem(world.generateRandomStore().get(storeIndex));
+            world.setGold(world.getGold() - 5);
+            onLoad(boughtItem);
+            if (storeIndex == 6) {
+                hasPurchasedHealthPotion = true;
+            } else if (storeIndex == 3 || storeIndex == 4 || storeIndex == 5) {
+                hasPurchasedDefensiveItem = true;
+            }
         }
-        StaticEntity boughtItem = world.boughtItem(world.generateRandomStore().get(storeIndex));
-        world.setGold(world.getGold() - 5);
-        onLoad(boughtItem);
-        if (storeIndex == 6) {
-            hasPurchasedHealthPotion = true;
-        } else if (storeIndex == 3 || storeIndex == 4 || storeIndex == 5) {
-            hasPurchasedDefensiveItem = true;
-        }
+
+        // reset visibility 
+        PauseTransition visiblePause = new PauseTransition(Duration.seconds(2));
+        visiblePause.setOnFinished(event -> {
+            shopController.getWarningText().setVisible(false);
+            }
+        );
+        visiblePause.play();   
     }
-
-
 }
