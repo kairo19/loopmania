@@ -118,7 +118,7 @@ When killing an enemy, the hero received a specified amount of experience.
 
 #### ConsumableItemAssumptions:
 - Health potions can be purchased for **20** gold from the hero's castle.
-- Health potions heal the character for **40** health points.
+- Health potions heal the character for **30** health points.
 - Health potions are consumed immediately when stepped over or purchased from the hero's castle.
 - Health potions can overheal character.
 
