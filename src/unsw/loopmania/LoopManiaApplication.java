@@ -25,10 +25,10 @@ public class LoopManiaApplication extends Application {
     Parent gameRoot;
 
 
-    // private Media media= new Media(new File("src/music/Age of War - Theme Soundtrack.mp3").toURI().toString());
-    // private MediaPlayer mediaPlayer = new MediaPlayer(media);
-    // private Media menuMedia = new Media(new File("src/music/C418 - Door - Minecraft Volume Alpha.mp3").toURI().toString());
-    // private MediaPlayer menuMediaPlayer = new MediaPlayer(menuMedia);
+    private Media media= new Media(new File("src/music/Age of War - Theme Soundtrack.mp3").toURI().toString());
+    private MediaPlayer mediaPlayer = new MediaPlayer(media);
+    private Media menuMedia = new Media(new File("src/music/C418 - Door - Minecraft Volume Alpha.mp3").toURI().toString());
+    private MediaPlayer menuMediaPlayer = new MediaPlayer(menuMedia);
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -62,15 +62,15 @@ public class LoopManiaApplication extends Application {
         Scene menuScene = new Scene(mainMenuRoot);
         Scene shopScene = new Scene(shopRoot);
 
-        // menuMediaPlayer.play();
+        menuMediaPlayer.play();
 
         // // set functions which are activated when button click to switch menu is pressed
         // // e.g. from main menu to start the game, or from the game to return to main menu
         mainController.setMainMenuSwitcher(() -> {
             switchToRoot(menuScene, mainMenuRoot, primaryStage);
-        //     mediaPlayer.stop();
-        //     menuMediaPlayer.setAutoPlay(true);  
-        //     menuMediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+            mediaPlayer.stop();
+            menuMediaPlayer.setAutoPlay(true);  
+            menuMediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
         });
         
         mainController.setShopMenuSwitcher(() -> {switchToRoot(shopScene, shopRoot, primaryStage);});
@@ -83,10 +83,10 @@ public class LoopManiaApplication extends Application {
         mainMenuController.setGameSwitcher(() -> {
             switchToRoot(menuScene, gameRoot, primaryStage);
             mainController.startTimer();
-            // menuMediaPlayer.stop();
-            // mediaPlayer.setAutoPlay(true);  
-            // mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-            // mediaPlayer.setVolume(0.1);
+            menuMediaPlayer.stop();
+            mediaPlayer.setAutoPlay(true);  
+            mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+            mediaPlayer.setVolume(0.1);
         });
         
         // deploy the main onto the stage

@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -18,11 +19,11 @@
 <!-- TODO = modify and expand the GUI? -->
 <!-- anchorPaneRoot is the background of the main game -->
 
-<AnchorPane fx:id="anchorPaneRoot" onKeyPressed="#handleKeyPress" prefHeight="241.0" prefWidth="96.0" style="-fx-background-color: #d3dba0;" xmlns="http://javafx.com/javafx/11.0.4" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="anchorPaneRoot" onKeyPressed="#handleKeyPress" prefHeight="361.0" prefWidth="161.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <!-- HBox is used to stack items horizontally left to right -->
-   <HBox>
+   <HBox prefHeight="383.0" prefWidth="161.0">
       <!-- VBox is used to stack items vertically top to bottom -->
-      <VBox>
+      <VBox prefHeight="383.0" prefWidth="81.0">
          <children>
              <!-- squares contains the path, buildings, character, and enemies -->
             <GridPane fx:id="squares" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
@@ -56,7 +57,7 @@
             </BorderPane>
          </children>
       </VBox>
-      <VBox prefHeight="241.0" prefWidth="96.0">
+      <VBox prefHeight="354.0" prefWidth="158.0">
          <children>
             <!-- equippedItems contains the equipment equipped by the character in special slots -->
             <!-- TODO = extend this to have slots for equipping armour, shields, helmets, and any other equippable items -->
@@ -105,6 +106,9 @@
                      </image>
                   </ImageView>
                </children>
+               <VBox.margin>
+                  <Insets left="20.0" />
+               </VBox.margin>
             </GridPane>
 
             <!-- unequippedInventory is for unequipped items, which can be dragged into the equipped inventory -->
@@ -119,171 +123,14 @@
                   
                </children>
             </GridPane>
-
-                  <!-- clicking this button returns the human player to the main menu -->
-            <Button onAction="#switchToMainMenu" text="Exit to Main Menu" />
-            <HBox prefHeight="18.0" prefWidth="76.0">
-               <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Round: " wrappingWidth="62.74609375">
-                     <HBox.margin>
-                        <Insets bottom="2.0" />
-                     </HBox.margin>
-                  </Text>
-                  <Text fx:id="cycleField" strokeType="OUTSIDE" strokeWidth="0.0" text="1" />
-               </children>
-               <VBox.margin>
-                  <Insets top="5.0" />
-               </VBox.margin>
-            </HBox>
-            <HBox prefHeight="16.0" prefWidth="109.0">
-               <children>
-                  <ImageView fitHeight="21.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../images/heart.png" />
-                     </image>
-                     <HBox.margin>
-                        <Insets top="5.0" />
-                     </HBox.margin>
-                  </ImageView>
-                  <Text fx:id="healthField" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="100" textAlignment="RIGHT">
-                     <HBox.margin>
-                        <Insets left="15.0" top="5.0" />
-                     </HBox.margin></Text>
-               </children>
-            </HBox>
-            <HBox prefHeight="19.0" prefWidth="96.0" />
-            <HBox prefHeight="19.0" prefWidth="96.0">
-               <children>
-                  <ImageView fitHeight="22.0" fitWidth="24.0">
-                     <image>
-                        <Image url="@../../images/gold_pile.png" />
-                     </image>
-                     <HBox.margin>
-                        <Insets top="5.0" />
-                     </HBox.margin>
-                  </ImageView>
-                  <Text fx:id="goldField" fill="#cdcd19" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="48.0859375">
-                     <HBox.margin>
-                        <Insets left="30.0" top="5.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Text>
-               </children>
-               <opaqueInsets>
-                  <Insets bottom="5.0" top="5.0" />
-               </opaqueInsets>
-               <VBox.margin>
-                  <Insets bottom="15.0" />
-               </VBox.margin>
-            </HBox>
-            <HBox prefHeight="19.0" prefWidth="96.0">
-               <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="XP">
-                     <font>
-                        <Font name="IPAGothic" size="13.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets left="5.0" top="5.0" />
-                     </HBox.margin>
-                  </Text>
-                  <Text fx:id="expField" fill="#1d00da" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
-                     <HBox.margin>
-                        <Insets left="22.0" top="5.0" />
-                     </HBox.margin></Text>
-               </children>
-            </HBox>
-            <HBox prefHeight="19.0" prefWidth="96.0">
-               <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Round">
-                     <font>
-                        <Font name="IPAGothic" size="13.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets top="3.0" />
-                     </HBox.margin>
-                  </Text>
-                  <Text fx:id="cycleField" strokeType="OUTSIDE" strokeWidth="0.0" text="1">
-                     <HBox.margin>
-                        <Insets left="7.0" top="1.0" />
-                     </HBox.margin></Text>
-               </children>
-            </HBox>
-            <HBox prefHeight="19.0" prefWidth="96.0">
-               <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Stats" textAlignment="RIGHT">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets left="38.0" />
-                     </VBox.margin>
-                  </Text>
-                  <HBox prefHeight="42.0" prefWidth="103.0">
-                     <children>
-                        <HBox prefHeight="19.0" prefWidth="96.0">
-                           <children>
-                              <Text fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Health: " wrappingWidth="64.552734375" />
-                              <Text fx:id="healthField" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="100" />
-                           </children>
-                        </HBox>
-                     </children>
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                     <padding>
-                        <Insets left="5.0" right="5.0" top="5.0" />
-                     </padding>
-                  </HBox>
-                  <HBox layoutX="10.0" layoutY="10.0" prefHeight="19.0" prefWidth="96.0">
-                     <children>
-                        <ImageView fitHeight="23.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../images/deep_elf_master_archer.png" />
-                           </image>
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                        </ImageView>
-                        <Text fx:id="allyField" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
-                           <HBox.margin>
-                              <Insets left="23.0" />
-                           </HBox.margin></Text>
-                     </children>
-                     <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" />
-                     </padding>
-                  </HBox>
-               </children>
-               <effect>
-                  <DropShadow />
-               </effect>
-            </VBox>
-            <HBox prefHeight="19.0" prefWidth="96.0">
-               <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Allies: " wrappingWidth="37.71484375">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </Text>
-                  <Text fx:id="allyField" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
-               </children>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-               <padding>
-                  <Insets top="10.0" />
-               </padding>
-            </HBox>
-            <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
+            <HBox alignment="TOP_CENTER" prefHeight="29.0" prefWidth="139.0">
                <children>
                   <Button mnemonicParsing="false" onAction="#decreaseTickSpeed" text="&lt;&lt;">
                      <font>
                         <Font size="10.0" />
                      </font>
                   </Button>
-                  <Button fx:id="playButton" mnemonicParsing="false" onAction="#normaliseTickSpeed" text="&gt;">
+                  <Button fx:id="playButton" mnemonicParsing="false" onAction="#normaliseTickSpeed" prefHeight="5.0" prefWidth="21.0" text="&gt;">
                      <font>
                         <Font size="10.0" />
                      </font>
@@ -294,10 +141,173 @@
                      </font>
                   </Button>
                </children>
+               <padding>
+                  <Insets left="10.0" right="10.0" top="5.0" />
+               </padding>
             </HBox>
+
+                  <!-- clicking this button returns the human player to the main menu -->
+            <Button onAction="#switchToMainMenu" text="Exit to Main Menu">
+               <VBox.margin>
+                  <Insets left="15.0" top="10.0" />
+               </VBox.margin></Button>
+            <HBox prefHeight="19.0" prefWidth="96.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Round:" wrappingWidth="60.58056640625">
+                     <font>
+                        <Font name="Verdana" size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets top="5.0" />
+                     </HBox.margin>
+                  </Text>
+                  <Text fx:id="cycleField" strokeType="OUTSIDE" strokeWidth="0.0" text="1" wrappingWidth="24.46875">
+                     <HBox.margin>
+                        <Insets top="4.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Text>
+               </children>
+            </HBox>
+            <HBox prefHeight="19.0" prefWidth="96.0">
+               <children>
+                  <ImageView fitHeight="22.0" fitWidth="28.0">
+                     <image>
+                        <Image url="@../../images/gold_pile.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets top="5.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <Text fx:id="goldField" fill="#cdcd19" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="94.6279296875">
+                     <HBox.margin>
+                        <Insets left="15.0" top="5.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font></Text>
+               </children>
+               <opaqueInsets>
+                  <Insets bottom="5.0" top="5.0" />
+               </opaqueInsets>
+            </HBox>
+            <HBox prefHeight="19.0" prefWidth="149.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="XP">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="5.0" top="5.0" />
+                     </HBox.margin>
+                  </Text>
+                  <Text fx:id="expField" fill="#1d00da" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="69.6279296875">
+                     <HBox.margin>
+                        <Insets left="15.0" top="5.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font></Text>
+               </children>
+            </HBox>
+            <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="106.0" prefWidth="126.0" style="-fx-background-color: #CDCDCd;">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Stats" textAlignment="CENTER" wrappingWidth="125.84716796875">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Text>
+                  <HBox prefHeight="26.0" prefWidth="95.0">
+                     <children>
+                        <ImageView fitHeight="21.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/heart.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="10.0" top="7.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <Text fx:id="healthField" fill="#b53b3b" strokeType="OUTSIDE" strokeWidth="0.0" text="100" textAlignment="RIGHT" wrappingWidth="37.060546875">
+                           <HBox.margin>
+                              <Insets left="15.0" top="5.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Text>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin>
+                     <effect>
+                        <InnerShadow />
+                     </effect>
+                  </HBox>
+                  <HBox prefHeight="19.0" prefWidth="96.0">
+                     <children>
+                        <Text fill="#2e5e31" strokeType="OUTSIDE" strokeWidth="0.0" text="Attack: ">
+                           <font>
+                              <Font name="Verdana" size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="10.0" top="2.0" />
+                           </HBox.margin>
+                        </Text>
+                        <Text fx:id="damageField" fill="#3d6b3f" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="53.546875">
+                           <HBox.margin>
+                              <Insets left="8.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="19.0" prefWidth="96.0">
+                     <children>
+                        <HBox prefHeight="19.0" prefWidth="96.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Allies:">
+                                 <font>
+                                    <Font name="Verdana" size="14.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="10.0" />
+                                 </HBox.margin>
+                              </Text>
+                              <ImageView fitHeight="23.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../images/deep_elf_master_archer.png" />
+                                 </image>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </ImageView>
+                              <Text fx:id="allyField" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="31.546875">
+                                 <HBox.margin>
+                                    <Insets left="4.0" />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+               </children>
+               <VBox.margin>
+                  <Insets left="5.0" right="5.0" top="10.0" />
+               </VBox.margin>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </VBox>
          </children>
          <padding>
-            <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+            <Insets left="10.0" right="10.0" top="10.0" />
          </padding>
       </VBox>
    </HBox>

@@ -486,7 +486,7 @@ public class LoopManiaWorldController {
             loadItem();
         }
         loadRareItem();
-        if (chance < 50) {
+        if (chance < 70) {
             loadCard();
         }
         
