@@ -1,11 +1,14 @@
 package unsw.loopmania;
 
+import java.io.File;
 import java.io.IOException;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
 /**
@@ -20,6 +23,12 @@ public class LoopManiaApplication extends Application {
      */
     private LoopManiaWorldController mainController;
     Parent gameRoot;
+
+
+    private Media media= new Media(new File("src/music/Age of War - Theme Soundtrack.mp3").toURI().toString());
+    private MediaPlayer mediaPlayer = new MediaPlayer(media);
+    private Media menuMedia = new Media(new File("src/music/C418 - Door - Minecraft Volume Alpha.mp3").toURI().toString());
+    private MediaPlayer menuMediaPlayer = new MediaPlayer(menuMedia);
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -52,11 +61,18 @@ public class LoopManiaApplication extends Application {
         // create new scene with the main menu (so we start with the main menu)
         Scene menuScene = new Scene(mainMenuRoot);
         Scene shopScene = new Scene(shopRoot);
-        
+
+        Scene scene = new Scene(mainMenuRoot);
+        menuMediaPlayer.play();
+
         // set functions which are activated when button click to switch menu is pressed
         // e.g. from main menu to start the game, or from the game to return to main menu
         mainController.setMainMenuSwitcher(() -> {
-            switchToRoot(menuScene, mainMenuRoot, primaryStage);        
+            switchToRoot(menuScene, mainMenuRoot, primaryStage);
+            mediaPlayer.stop();
+            switchToRoot(scene, mainMenuRoot, primaryStage);
+            menuMediaPlayer.setAutoPlay(true);  
+            menuMediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
         });
         mainController.setShopMenuSwitcher(() -> {switchToRoot(shopScene, shopRoot, primaryStage);});
         
@@ -68,6 +84,10 @@ public class LoopManiaApplication extends Application {
         mainMenuController.setGameSwitcher(() -> {
             switchToRoot(menuScene, gameRoot, primaryStage);
             mainController.startTimer();
+            menuMediaPlayer.stop();
+            mediaPlayer.setAutoPlay(true);  
+            mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+            mediaPlayer.setVolume(0.1);
         });
         
         // deploy the main onto the stage

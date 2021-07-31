@@ -1,8 +1,14 @@
 package unsw.loopmania.Buildings;
 import javafx.beans.property.SimpleIntegerProperty;
 import unsw.loopmania.LoopManiaWorld;
+import unsw.loopmania.PathPosition;
+import unsw.loopmania.Enemies.BasicEnemy;
+import unsw.loopmania.Enemies.Doggie;
+import unsw.loopmania.Enemies.ElanMuske;
 
 import java.util.List;
+
+import org.javatuples.Pair;
 
 public class HerosCastleBuilding extends Building {
     private int counter;
@@ -30,6 +36,16 @@ public class HerosCastleBuilding extends Building {
         return false;
     }
     
+    public BasicEnemy SpawnDoggie(List<Pair<Integer, Integer>> orderedPath, Pair<Integer, Integer> position) {
+            int indexInPath = orderedPath.indexOf(position);
+            return new Doggie(new PathPosition(indexInPath, orderedPath));
+
+    }
+
+    public BasicEnemy SpawnElanMuske(List<Pair<Integer, Integer>> orderedPath, Pair<Integer, Integer> position) {
+            int indexInPath = orderedPath.indexOf(position);
+            return new ElanMuske(new PathPosition(indexInPath, orderedPath));
+    }
 
     @Override
     public String toString() {

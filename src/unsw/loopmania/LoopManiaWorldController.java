@@ -49,8 +49,12 @@ import unsw.loopmania.Buildings.VampireCastleBuilding;
 import unsw.loopmania.Cards.Card;
 import unsw.loopmania.Cards.VampireCastleCard;
 import unsw.loopmania.Enemies.BasicEnemy;
+import unsw.loopmania.item.Gold;
+import unsw.loopmania.item.consumable.HealthPotion;
 import unsw.loopmania.item.weapon.Sword;
-
+import javafx.scene.media.Media;  
+import javafx.scene.media.MediaPlayer;  
+import javafx.scene.media.MediaView;  
 import java.util.EnumMap;
 
 import java.io.File;
@@ -137,6 +141,9 @@ public class LoopManiaWorldController {
     @FXML
     private Text allyField;
 
+    @FXML
+    private Text damageField;
+
     // all image views including tiles, character, enemies, cards... even though cards in separate gridpane...
     private List<ImageView> entityImages;
 
@@ -157,11 +164,12 @@ public class LoopManiaWorldController {
     private Image zombiePitImage;
     private Image zombiePitCardImage;
     private Image basicEnemyImage;
-    //private Image basicEnemyImage;
 
     private Image slugImage;
     private Image zombieImage;
     private Image vampireImage;
+    private Image doggieImage;
+    private Image elanMuskeImage;
     
 
     private Image swordImage;
@@ -185,6 +193,7 @@ public class LoopManiaWorldController {
     private Image helmetImage;
     private Image theoneringImage;
     private Image healthpotionImage;
+    private Image goldImage;
 
     /**
      * the image currently being dragged, if there is one, otherwise null.
@@ -226,6 +235,8 @@ public class LoopManiaWorldController {
     private MenuSwitcher shopMenuSwitcher;
 
 
+
+
     /**
      * @param world world object loaded from file
      * @param initialEntities the initial JavaFX nodes (ImageViews) which should be loaded into the GUI
@@ -256,13 +267,15 @@ public class LoopManiaWorldController {
         helmetImage = new Image((new File("src/images/helmet.png")).toURI().toString());
         theoneringImage = new Image((new File("src/images/the_one_ring.png")).toURI().toString());
         healthpotionImage = new Image((new File("src/images/brilliant_blue_new.png")).toURI().toString());
+        goldImage = new Image((new File("src/images/gold_pile.png")).toURI().toString());
 
         //basicEnemyImage = new Image((new File("src/images/slug.png")).toURI().toString());
 
         slugImage = new Image((new File("src/images/slug.png")).toURI().toString());
         zombieImage = new Image((new File("src/images/zombie.png")).toURI().toString());
         vampireImage = new Image((new File("src/images/vampire.png")).toURI().toString());
-
+        doggieImage = new Image((new File("src/images/doggie.png")).toURI().toString());
+        elanMuskeImage = new Image((new File("src/images/ElanMuske.png")).toURI().toString());
         
 
 
@@ -270,6 +283,10 @@ public class LoopManiaWorldController {
         basicBuildingImage = new Image((new File("src/images/vampire_castle_building_purple_background.png")).toURI().toString());
         currentlyDraggedImage = null;
         currentlyDraggedType = null;
+
+        //initialise media
+
+
 
         // initialize them all...
         gridPaneSetOnDragDropped = new EnumMap<DRAGGABLE_TYPE, EventHandler<DragEvent>>(DRAGGABLE_TYPE.class);
@@ -282,7 +299,6 @@ public class LoopManiaWorldController {
     @FXML
     public void initialize() {
         // TODO = load more images/entities during initialization
-        
         Image pathTilesImage = new Image((new File("src/images/32x32GrassAndDirtPath.png")).toURI().toString());
         Image inventorySlotImage = new Image((new File("src/images/empty_slot.png")).toURI().toString());
         Rectangle2D imagePart = new Rectangle2D(0, 0, 32, 32);
@@ -328,6 +344,7 @@ public class LoopManiaWorldController {
         expField.textProperty().bindBidirectional(world.getExperienceProperty(), new NumberStringConverter());
         cycleField.textProperty().bindBidirectional(world.getRoundProperty(), new NumberStringConverter());
         allyField.textProperty().bindBidirectional(world.getNumberAlliesProperty(), new NumberStringConverter());
+        //damageField.textProperty().bindBidirectional(world.getCharacterDamageProperty(), new NumberStringConverter());
     }
 
     /**
@@ -352,9 +369,18 @@ public class LoopManiaWorldController {
             for (BasicEnemy e: defeatedEnemies){
                 reactToEnemyDefeat(e);
             }
+            world.ConsumablesOnPath();
             List<BasicEnemy> newEnemies = world.possiblySpawnEnemies();
             for (BasicEnemy newEnemy: newEnemies){
                 onLoad(newEnemy);
+            }
+            List<Gold> spawningGold = world.possiblySpawnGold();
+            for (Gold newGold : spawningGold) {
+                onLoad(newGold);
+            }
+            List<HealthPotion> spawningPotion = world.possiblySpawnPotion();
+            for (HealthPotion newPotion : spawningPotion) {
+                onLoad(newPotion);
             }
             List<BasicEnemy> newBuildingEnemies = world.HeroCastleEnemies();
             for (BasicEnemy newEnemy: newBuildingEnemies) {
@@ -429,7 +455,7 @@ public class LoopManiaWorldController {
         StaticEntity item = world.addUnequippedRareItem();
         if (item != null) {
             onLoad(item);
-        }
+        } 
         
     }
     /**
@@ -483,6 +509,10 @@ public class LoopManiaWorldController {
                 return zombieImage;
             case "Vampire":
                 return vampireImage;
+            case "Doggie":
+                return doggieImage;
+            case "ElanMuske":
+                return elanMuskeImage;
             
         }
         return null;
@@ -499,6 +529,19 @@ public class LoopManiaWorldController {
         addEntity(item, view);
         unequippedInventory.getChildren().add(view);
     }
+
+    private void onLoad(Gold gold) {
+        ImageView view = new ImageView(goldImage);
+        addEntity(gold, view);
+        squares.getChildren().add(view);
+    }
+    
+    private void onLoad(HealthPotion potion) {
+        ImageView view = new ImageView(healthpotionImage);
+        addEntity(potion, view);
+        squares.getChildren().add(view);
+    }
+    
 
     private Image Image(StaticEntity item) {
         switch(item.toString()) {
@@ -1030,6 +1073,21 @@ public class LoopManiaWorldController {
                 hasPurchasedDefensiveItem = true;
             }
         }
+
+        shop.setAlignment(Pos.CENTER);
+
+        Button returnMainMenu = new Button("Return to main menu");
+        returnMainMenu.setPadding(new Insets(5, 5, 5, 5));
+        returnMainMenu.setOnAction((ActionEvent event) -> {
+            mainMenuSwitcher.switchMenu();
+        });
+
+        BorderPane newScene = new BorderPane();
+        newScene.setStyle("-fx-background-color: #d3dba0");
+        newScene.setTop(vBox);
+        newScene.setCenter(shop);
+        newScene.setBottom(returnMainMenu);
+
 
         // reset visibility 
         PauseTransition visiblePause = new PauseTransition(Duration.seconds(2));

@@ -119,4 +119,8 @@ public class BasicEnemy extends MovingEntity {
         character.setHealth(character.getHealth() - 5);
         */
     }
+    public boolean isBoss() {
+        return false;
+    }
+    
 }

@@ -1,11 +1,6 @@
 ## Assumptions
  ***Note: current values are only placeholder values and are subject to change.***
-### GoalAssumptions:
-Game is won when:
-- **50** loops are made 
-- and/or **100 000** experience points is earned
-- and/or the player currently has **50 000** gold or more
------------------------------------------------------------------------------------------------------------------------------------
+
 ### CharacterAssumptions:
 - Character starts with **100** health points.
 - Character start with **0** gold and experience points.
@@ -90,8 +85,7 @@ When killing an enemy, the hero received a specified amount of experience.
 #### CampfireBuildingAssumptions:
 - The campfire has an effect radius of **5** tiles.
 #### HeroCastleBuildingAssumptions:
-- The hero will be able to purchase and sell equipment after every **3rd loop**.
-- There will only be **3** pieces of equipment available for purchase (these 3 pieces of equipment will be ***generated at random***).
+- The hero will be able to purchase all types of items in the hero's castle building.
 
 -----------------------------------------------------------------------------------------------------------------------------------
 ### Item Assumptions:
@@ -131,6 +125,13 @@ When killing an enemy, the hero received a specified amount of experience.
 
 #### RareItemAssumptions:
 - The One Ring has a **1%** chance of dropping from a defeated enemy.
+- The tree stump reduces the attack of basic enemies by 20 attack and the attack of bosses by 60 attack.
+- Anduril, Flame of the West deals an additional 15 damage to basic enemies and 45 additional damage to bosses. 
+
+#### DoggieCoinAssumptions:
+- The player will only receive ***one*** DoggieCoin per game.
+- When Elan Muske is spawned, the value of DoggieCoin will increase by a multiplier value until Elan Muske is defeated.
+- When Elan Muske is defeated, the value of DoggieCoin will decrease by a multiplier value until the next round.
 -----------------------------------------------------------------------------------------------------------------------------------
 ### Interaction Assumptions:
 #### AllyAssumptions:
