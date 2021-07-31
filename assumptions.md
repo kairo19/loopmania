@@ -72,6 +72,7 @@ When killing an enemy, the hero received a specified amount of experience.
 
 #### VillageBuildingAssumptions:
 - When passsing through the village, the hero will regain **20** health points.
+- villagebuilding can overheal character
 
 #### TrapBuildingAssumptions:
 - When an enemy steps on a trap, **50** damage is inflicted onto the enemy.
@@ -118,6 +119,7 @@ When killing an enemy, the hero received a specified amount of experience.
 - Health potions can be purchased for **20** gold from the hero's castle.
 - Health potions heal the character for **40** health points.
 - Health potions are consumed immediately when stepped over or purchased from the hero's castle.
+- Health potions can overheal character.
 
 #### RareItemAssumptions:
 - The One Ring has a **1%** chance of dropping from a defeated enemy.
