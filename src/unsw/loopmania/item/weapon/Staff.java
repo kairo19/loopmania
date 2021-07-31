@@ -33,15 +33,13 @@ public class Staff extends StaticEntity implements Weapon {
         Random r = new Random();
         int i = r.nextInt(100);
 
-        isTranced = true;
-        numTranced++;
-        System.out.println("tranching in progress");
-        /*
+        
+        
         if (i < 10) { 
             isTranced = true;
             numTranced++;
         }
-        */
+        
     };
 
     public void resetTrancedBool() {

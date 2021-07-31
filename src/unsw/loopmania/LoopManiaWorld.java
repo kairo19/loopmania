@@ -272,20 +272,13 @@ public class LoopManiaWorld {
                 
                 
                 character.dealDamage(e, bonusDamage);
-                //System.out.println("CHARACTER DAMAGE: " + character.getDamage());
 
-                //character.dealDamage(e, bonusDamage);
-
-                // check traunced, kill enemy, break while loop
                 
                 if (character.getWeapon() != null) {
-                    System.out.println("weapon exist");
                     if (character.getWeapon().toString() == "Staff" && e.getHealth() > 0) {
                         Staff staff = (Staff) character.getWeapon();
-                        System.out.println("recognised staff equipped");
                         if (staff.getTranchedBool()) {
                             character.gainAlly();
-                            System.out.println("enemy tranched and gained ally");
                             killEnemy(e);
                             staff.resetTrancedBool();
                             break;
@@ -345,7 +338,13 @@ public class LoopManiaWorld {
         if (character.getWeapon() != null) {
             if (character.getWeapon().toString() == "Staff") {
                 Staff staff = (Staff) character.getWeapon();
-                character.setAllies(character.getAllies() - staff.getTranched());
+                int numAllies = character.getAllies() - staff.getTranched();
+                if (numAllies < 0) {
+                    character.setAllies(0);
+                } else {
+                    character.setAllies(numAllies);
+                }
+                
                 staff.resetTranced();
             }
         }
