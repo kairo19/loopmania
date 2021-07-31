@@ -211,6 +211,7 @@ public class LoopManiaWorld {
      */
     public List<BasicEnemy> runBattles() {
         // TODO = modify this - currently the character automatically wins all battles without any damage!
+        boolean elanExist = false;
         BasicEnemy firstEnemy = null;
         int bonusDamage = 0;
         //boolean campfirePresent = false;
@@ -258,6 +259,12 @@ public class LoopManiaWorld {
                 break;
             }
         }
+
+        for (BasicEnemy b : queuedEnemies) {
+            if (b.getType() == "ElanMuske") {
+                elanExist = true;
+            }
+        }
         
         
         // time for the battle
@@ -292,14 +299,27 @@ public class LoopManiaWorld {
                 } else {
                     // if enemy alive, then it deals damage to character
                     //e.dealDamage(character);
-                    if (e.dealDamage(character)) {
-                        if (e.getType() == "Zombie" && character.getAllies() > 0) {
+                    e.dealDamage(character);
 
-                        }else if (e.getType() == "Vampire" && e.critDamage(character)) {
-                            character.setHealth(character.getHealth() - 5);
+                    if (e.getType() == "Zombie" && character.getAllies() > 0) {
+
+                    } else if (e.getType() == "Vampire" && e.critDamage(character)) {
+                        character.setHealth(character.getHealth() - 5);
+                    }
+
+                    if (elanExist == true) {
+                        if (e.getType() != "ElanMuske") {
+                            // heal
+                            e.setHealth(e.getHealth() + 20);
+                            System.out.println("Healing this baboon: " + e.getType());
+                        } else {
+                            // If it is elan muske's turn, set elanExist to false and prevent healing
+                            elanExist = false;
+                            
                         }
                     }
-                    character.setHealth(100);
+                    
+                    //character.setHealth(100);
                     // somewhere here that we will spawn the enemy out of ally soldiers
                     
                 }
@@ -589,6 +609,8 @@ public class LoopManiaWorld {
                 enemies.add(bossEnemy);
                 spawningEnemies.add(bossEnemy);
                 bossSpawn = false;
+                // change back to 41 pls
+                // skittles
             } else if (round.get() == 41) {
                 bossSpawn = true;        
                 Pair<Integer, Integer> pos = possiblyGetBasicEnemySpawnPosition();
