@@ -67,6 +67,7 @@ When killing an enemy, the hero received a specified amount of experience.
 
 -----------------------------------------------------------------------------------------------------------------------------------
 ### BuildingAssumptions:
+- Allow Buildings to be placed over existing buildings. Effects will still continue
 #### TowerBuildingAssumptions:
 - During a battle within a shooting radius of **5** tiles, enemies will be attacked by the tower for **20** damage.
 
