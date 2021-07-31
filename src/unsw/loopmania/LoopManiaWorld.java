@@ -505,7 +505,8 @@ public class LoopManiaWorld {
      * Loops through current buildings and applies affects if applicable
      */
     public void ApplyBuildingEffects() {
-        for (Building b : buildingEntities) {
+        for (Iterator<Building> iterator = buildingEntities.iterator(); iterator.hasNext();) {
+            Building b = iterator.next();
             if (b.getX() == character.getX() && b.getY() == character.getY()) {
                 System.out.println();
                 System.out.println("Character on building");
@@ -978,6 +979,7 @@ public class LoopManiaWorld {
     public IntegerProperty getExperienceProperty() {
         return experience;
     }
+
     
     // New DoggieCoin resource.
     public void setDoggieCoin(int doggieCoin) {
@@ -997,6 +999,9 @@ public class LoopManiaWorld {
         return allyNumbers;
     }
 
+    public IntegerProperty getCharacterDamageProperty() {
+        return character.getDamageProperty();  
+    }
 
 
     public void setGoal(GoalNode goal) {
