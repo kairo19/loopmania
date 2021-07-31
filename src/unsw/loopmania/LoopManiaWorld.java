@@ -316,6 +316,18 @@ public class LoopManiaWorld {
                         character.setHealth(character.getHealth() - 5);
                         System.out.println("Character health:" + character.getHealth() + " - 5 CriticalSTRIKE");
                     }
+
+                    if (elanExist == true) {
+                        if (e.getType() != "ElanMuske") {
+                            // heal
+                            e.setHealth(e.getHealth() + 20);
+                            System.out.println("Healing this baboon: " + e.getType());
+                        } else {
+                            // If it is elan muske's turn, set elanExist to false and prevent healing
+                            elanExist = false;
+
+                        }
+                    }
                     
                     character.setHealth(100);
                     // somewhere here that we will spawn the enemy out of ally soldiers
