@@ -13,6 +13,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import unsw.loopmania.Buildings.Building;
 import unsw.loopmania.Buildings.HerosCastleBuilding;
 import unsw.loopmania.goal.AndGoal;
+import unsw.loopmania.goal.BossGoal;
 import unsw.loopmania.goal.GoalExperience;
 import unsw.loopmania.goal.GoalGold;
 import unsw.loopmania.goal.GoalNode;
@@ -177,6 +178,9 @@ public abstract class LoopManiaWorldLoader {
             case "experience":
                 quantity = goalJson.getInt("quantity");
                 goal = new GoalExperience(world, quantity);
+                break;
+            case "bosses":
+                goal = new BossGoal(world);
                 break;
             case "AND":
                 goal = new AndGoal(world);

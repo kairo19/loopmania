@@ -110,6 +110,9 @@ public class LoopManiaWorld {
     private List<Gold> goldSpawned;
     private List<HealthPotion> potionSpawned;
 
+    private IntegerProperty defeatedBosses;
+
+
     /**
      * create the world (constructor)
      * 
@@ -131,6 +134,7 @@ public class LoopManiaWorld {
         this.gold = new SimpleIntegerProperty(0);
         this.allyNumbers = new SimpleIntegerProperty(0);
         this.experience = new SimpleIntegerProperty(0);
+        this.defeatedBosses = new SimpleIntegerProperty(0);
         this.goal = null;
         this.gameOver = false;
         this.herosCastleBuilding = null;
@@ -999,9 +1003,24 @@ public class LoopManiaWorld {
         return allyNumbers;
     }
 
+
     public IntegerProperty getCharacterDamageProperty() {
         return character.getDamageProperty();  
     }
+
+    public IntegerProperty getDefeatedBossesProperty() {
+        return defeatedBosses;
+    }
+
+    public int getDefeatedBosses() {
+        return defeatedBosses.get();
+    }
+
+    public void addDefeatedBoss() {
+        defeatedBosses.set(defeatedBosses.get() + 1);
+    }
+
+
 
 
     public void setGoal(GoalNode goal) {
