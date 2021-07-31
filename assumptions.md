@@ -34,7 +34,7 @@ When killing an enemy, it has a chance of dropping a piece of equipment.
 
 #### EnemeyCardDropRateAssumptions:
 When killing an enemy, it has a specified chance of dropping a card.
-- 30% chance to drop one of the 7 cards.
+- 70% chance to drop one of the 7 cards.
 
 #### EnemyGoldDropAssumptions:
 When killing an enemy, it drops a specified amount of gold.
