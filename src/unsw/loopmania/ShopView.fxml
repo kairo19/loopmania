@@ -105,6 +105,6 @@
          </font>
       </Text>
       <Button fx:id="returnButton" layoutX="98.0" layoutY="276.0" mnemonicParsing="false" onAction="#handleReturnButton" text="Return to Loop Mania World" />
-      <Text fx:id="insufficientFunds" fill="RED" layoutX="145.0" layoutY="248.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Insufficient Funds!" visible="false" />
+      <Text fx:id="warningText" fill="RED" layoutX="145.0" layoutY="248.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Insufficient Funds!" visible="false" />
    </children>
 </AnchorPane>

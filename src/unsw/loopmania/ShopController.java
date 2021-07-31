@@ -21,7 +21,7 @@ public class ShopController {
     private Button returnButton;
 
     @FXML
-    private Text insufficientFunds;
+    private Text warningText;
 
     @FXML
     void handleReturnButton(ActionEvent event) {
@@ -30,40 +30,51 @@ public class ShopController {
     
     @FXML
     void purchaseSword(ActionEvent event) {
+        warningText.setVisible(false);
         loopManiaWorldController.purchaseItem(0, this);
     }
 
     @FXML
     void purchaseStake(ActionEvent event) {
+        warningText.setVisible(false);
         loopManiaWorldController.purchaseItem(1, this);
     }
 
     @FXML
     void purchaseStaff(ActionEvent event) {
+        warningText.setVisible(false);
         loopManiaWorldController.purchaseItem(2, this);
     }
 
     @FXML
     void purchaseArmour(ActionEvent event) {
+        warningText.setVisible(false);
+
         loopManiaWorldController.purchaseItem(3, this);
     }
 
     @FXML
     void purchaseShield(ActionEvent event) {
+        warningText.setVisible(false);
+
         loopManiaWorldController.purchaseItem(4, this);
     }
 
     @FXML
     void purchaseHelmet(ActionEvent event) {
+        warningText.setVisible(false);
+
         loopManiaWorldController.purchaseItem(5, this);
     }
 
     @FXML
     void purchasePotion(ActionEvent event) {
+        warningText.setVisible(false);
+
         loopManiaWorldController.purchaseItem(6, this);
     }
 
-    public Text getInsufficientFunds() {
-        return insufficientFunds;
+    public Text getWarningText() {
+        return warningText;
     }
 }

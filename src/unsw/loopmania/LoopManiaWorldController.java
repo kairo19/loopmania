@@ -345,7 +345,8 @@ public class LoopManiaWorldController {
                 openStore();
             }
             world.runTickMoves();
-            
+            hasPurchasedDefensiveItem = false;
+            hasPurchasedHealthPotion = false;
             List<BasicEnemy> defeatedEnemies = world.runBattles();
             for (BasicEnemy e: defeatedEnemies){
                 reactToEnemyDefeat(e);
@@ -998,15 +999,37 @@ public class LoopManiaWorldController {
         terminate();
         shopMenuSwitcher.switchMenu();
     }
+    
+    private String gameMode;
+    private boolean hasPurchasedHealthPotion;
+    private boolean hasPurchasedDefensiveItem;
+    public void setGameMode(String gameMode) {
+        this.gameMode = gameMode;
+    }
 
     public void purchaseItem(int storeIndex, ShopController shopController) {
+
         if (world.getGold() - 5 < 0) {
-            shopController.getInsufficientFunds().setVisible(true);
+            shopController.getWarningText().setVisible(true);
+            return;
+        } else if (gameMode.equals("survival") && hasPurchasedHealthPotion) {
+            shopController.getWarningText().setText("Only 1 health potion can be purchased in survival mode!");
+            shopController.getWarningText().setVisible(true);
+            return;
+        } else if (gameMode.equals("berserker") && hasPurchasedDefensiveItem) {
+            shopController.getWarningText().setText("Only 1 defensive item can be purchased in berserker mode!");
+            shopController.getWarningText().setVisible(true);
             return;
         }
         StaticEntity boughtItem = world.boughtItem(world.generateRandomStore().get(storeIndex));
         world.setGold(world.getGold() - 5);
         onLoad(boughtItem);
+        if (storeIndex == 6) {
+            hasPurchasedHealthPotion = true;
+        } else if (storeIndex == 3 || storeIndex == 4 || storeIndex == 5) {
+            hasPurchasedDefensiveItem = true;
+        }
     }
+
 
 }

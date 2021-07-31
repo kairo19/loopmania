@@ -38,7 +38,7 @@ public class LoopManiaApplication extends Application {
         gameRoot = gameLoader.load();
 
         // load the main menu
-        MainMenuController mainMenuController = new MainMenuController();
+        MainMenuController mainMenuController = new MainMenuController(mainController);
         FXMLLoader menuLoader = new FXMLLoader(getClass().getResource("MainMenuView.fxml"));
         menuLoader.setController(mainMenuController);
         Parent mainMenuRoot = menuLoader.load();
