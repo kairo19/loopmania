@@ -7,8 +7,8 @@ import unsw.loopmania.StaticEntity;
 import unsw.loopmania.Cards.PlacableBehaviour.PlacableHelmet;
 
 public class Helmet extends DefensiveItem implements Blinder {
-    private static final double DAMAGE_REDUCTION = 10.0;
-    private static final int DEBUFF_VALUE = 10;
+    private static final double DAMAGE_REDUCTION = 5.0;
+    private static final int DEBUFF_VALUE = 5;
     public Helmet(SimpleIntegerProperty x, SimpleIntegerProperty y) {
         super(x, y, DAMAGE_REDUCTION);
         this.placableBehaviour = new PlacableHelmet();

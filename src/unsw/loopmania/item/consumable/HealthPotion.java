@@ -13,7 +13,7 @@ public class HealthPotion extends Consumable {
 
     @Override
     public void consume(Character character) {
-        int rejuvinatedHealth = character.getHealth() >= 60 ? 100 : character.getHealth() + HEAL;
+        int rejuvinatedHealth = character.getHealth() + HEAL;
         character.setHealth(rejuvinatedHealth);
     }    
 

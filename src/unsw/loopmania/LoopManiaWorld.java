@@ -197,7 +197,7 @@ public class LoopManiaWorld {
 
     // function to spawn a zombie if ally was bit by zombie
     private void spawnZombieCrit(Zombie zombie) {
-        
+    
     }
 
     /**
@@ -254,10 +254,8 @@ public class LoopManiaWorld {
                         && s != firstEnemy) {
                         // queue battle enemies
                         System.out.println("found support enemy");
-                        queuedEnemies.add(s);
-                            
+                        queuedEnemies.add(s);       
                     }
-                
                 }
                 break;
             }
@@ -501,8 +499,37 @@ public class LoopManiaWorld {
             endGame();
         }
         ApplyBuildingEffects();
+        ApplyAttackDamage();
         character.moveDownPath();
         moveBasicEnemies();
+    }
+
+    public void ApplyAttackDamage() {
+        int totalBuff = 0;
+        System.out.println("totalBuff Beginning" + totalBuff);
+        for (Building b : buildingEntities) {
+            System.out.println("checking for buffs");
+            if (b instanceof CampfireBuilding && b.checkInRange(character.getX(), character.getY()) && !((CampfireBuilding) b).getActive()) {
+                System.out.println("buffing!");
+                ((CampfireBuilding) b).CharacterBattleBuffAbility(character);
+                ((CampfireBuilding) b).setActive(true);
+            } else if (b instanceof CampfireBuilding && ((CampfireBuilding) b).getActive() && !b.checkInRange(character.getX(), character.getY())) {
+                System.out.println("debuffing...");
+                ((CampfireBuilding) b).setActive(false);
+                ((CampfireBuilding) b).CharacterBattleDebuffAbility(character);
+            }
+            if (b instanceof CampfireBuilding) {
+                System.out.println("attack bonus" + ((CampfireBuilding) b).getAttackBonus());
+                totalBuff += ((CampfireBuilding) b).getAttackBonus();
+            }
+            
+ 
+        }
+        if (character.getWeapon() != null) {
+            character.getWeapon().damageBoost(character);
+        }
+        character.setTotalDamage(totalBuff);
+        System.out.println("Total Buff is " + totalBuff);
     }
 
     /**
@@ -527,7 +554,7 @@ public class LoopManiaWorld {
                         break;
                     }                               
                 }
-            }
+            } 
             
         }
     }
@@ -563,7 +590,7 @@ public class LoopManiaWorld {
             SimpleIntegerProperty y = new SimpleIntegerProperty(pos.getValue1());
             Random rand = new Random();
             int chance = rand.nextInt(100);
-            if (chance < 2) {
+            if (chance < 1) {
                 HealthPotion drop = new HealthPotion(x, y);
 
                 potionSpawned.add(drop);
@@ -999,7 +1026,7 @@ public class LoopManiaWorld {
 
 
     public IntegerProperty getCharacterDamageProperty() {
-        return character.getDamageProperty();  
+        return character.getTotalDamageProperty();  
     }
 
     public IntegerProperty getDefeatedBossesProperty() {

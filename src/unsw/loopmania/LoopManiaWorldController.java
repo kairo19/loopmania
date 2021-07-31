@@ -2,6 +2,7 @@ package unsw.loopmania;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import org.codefx.libfx.listener.handle.ListenerHandle;
 import org.codefx.libfx.listener.handle.ListenerHandles;
@@ -344,7 +345,7 @@ public class LoopManiaWorldController {
         expField.textProperty().bindBidirectional(world.getExperienceProperty(), new NumberStringConverter());
         cycleField.textProperty().bindBidirectional(world.getRoundProperty(), new NumberStringConverter());
         allyField.textProperty().bindBidirectional(world.getNumberAlliesProperty(), new NumberStringConverter());
-        //damageField.textProperty().bindBidirectional(world.getCharacterDamageProperty(), new NumberStringConverter());
+        damageField.textProperty().bindBidirectional(world.getCharacterDamageProperty(), new NumberStringConverter());
     }
 
     /**
@@ -391,7 +392,7 @@ public class LoopManiaWorldController {
             printThreadingNotes("HANDLED TIMER");
 
             // Testing //
-            allyField.textProperty().bindBidirectional(world.getNumberAlliesProperty(), new NumberStringConverter());
+            //allyField.textProperty().bindBidirectional(world.getNumberAlliesProperty(), new NumberStringConverter());
 
             // store spawn after each cycle
             // call cycle from loop mania world
@@ -446,7 +447,10 @@ public class LoopManiaWorldController {
         // TODO = load more types of weapon
         // start by getting first available coordinates
         StaticEntity item = world.addUnequippedItem();
-        onLoad(item);
+        if (item != null) {
+            onLoad(item);
+        }
+        
     }
     private void loadRareItem(){
         // TODO = load more types of weapon
@@ -466,9 +470,20 @@ public class LoopManiaWorldController {
         // react to character defeating an enemy
         // in starter code, spawning extra card/weapon...
         // TODO = provide different benefits to defeating the enemy based on the type of enemy
-        loadItem();
+        Random r = new Random();
+        int chance = r.nextInt(100);
+        if (enemy.toString() == "Slug" && chance < 10) {
+            loadItem();   
+        } else if (enemy.toString() == "Zombie" && chance < 20) {
+            loadItem();
+        } else if (enemy.toString() == "Vampire" && chance < 30) {
+            loadItem();
+        }
         loadRareItem();
-        loadCard();
+        if (chance < 50) {
+            loadCard();
+        }
+        
     }
 
     /**

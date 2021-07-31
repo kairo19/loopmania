@@ -30,4 +30,8 @@ public class Vampire extends BasicEnemy implements SpecialAbility {
             } 
         }
     }
+    @Override
+    public String toString() {
+        return "Vampire";
+    }
 }

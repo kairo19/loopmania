@@ -29,5 +29,10 @@ public class Zombie extends BasicEnemy implements SpecialAbility {
             
         }
     }
+
+    @Override
+    public String toString() {
+        return "Zombie";
+    }
 }
 
