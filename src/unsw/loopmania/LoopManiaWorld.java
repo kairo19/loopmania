@@ -522,8 +522,8 @@ public class LoopManiaWorld {
                     if (e.getX() == b.getX() && e.getY() == b.getY()) {
                         b.DealDamageEnemies(e); 
                         if(e.getHealth() <= 0) killEnemy(e);
+                        iterator.remove();
                         b.destroy();
-                        buildingEntities.remove(b);
                         break;
                     }                               
                 }
@@ -633,17 +633,11 @@ public class LoopManiaWorld {
         for (Iterator<HealthPotion> iterator = potionSpawned.iterator(); iterator.hasNext();) {
             HealthPotion potionIterator = iterator.next();
             if (potionIterator.getX() == character.getX() && potionIterator.getY() == character.getY()) {
-                //potionIterator.consume(character);
+                potionIterator.consume(character);
                 iterator.remove();
                 potionIterator.destroy();
             }
         }
-        // for (HealthPotion p: potionSpawned) {
-        //     if (p.getX() == character.getX() && p.getY() == character.getY()) {
-        //         p.consume(character);
-        //         despawnPotion(p);
-        //     }
-        // }
     }
 
 

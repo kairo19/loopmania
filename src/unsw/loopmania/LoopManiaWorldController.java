@@ -1074,19 +1074,19 @@ public class LoopManiaWorldController {
             }
         }
 
-        shop.setAlignment(Pos.CENTER);
+        // shop.setAlignment(Pos.CENTER);
 
-        Button returnMainMenu = new Button("Return to main menu");
-        returnMainMenu.setPadding(new Insets(5, 5, 5, 5));
-        returnMainMenu.setOnAction((ActionEvent event) -> {
-            mainMenuSwitcher.switchMenu();
-        });
+        // Button returnMainMenu = new Button("Return to main menu");
+        // returnMainMenu.setPadding(new Insets(5, 5, 5, 5));
+        // returnMainMenu.setOnAction((ActionEvent event) -> {
+        //     mainMenuSwitcher.switchMenu();
+        // });
 
-        BorderPane newScene = new BorderPane();
-        newScene.setStyle("-fx-background-color: #d3dba0");
-        newScene.setTop(vBox);
-        newScene.setCenter(shop);
-        newScene.setBottom(returnMainMenu);
+        // BorderPane newScene = new BorderPane();
+        // newScene.setStyle("-fx-background-color: #d3dba0");
+        // newScene.setTop(vBox);
+        // newScene.setCenter(shop);
+        // newScene.setBottom(returnMainMenu);
 
 
         // reset visibility 

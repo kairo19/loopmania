@@ -62,7 +62,6 @@ public class LoopManiaApplication extends Application {
         Scene menuScene = new Scene(mainMenuRoot);
         Scene shopScene = new Scene(shopRoot);
 
-        Scene scene = new Scene(mainMenuRoot);
         menuMediaPlayer.play();
 
         // set functions which are activated when button click to switch menu is pressed
@@ -70,10 +69,10 @@ public class LoopManiaApplication extends Application {
         mainController.setMainMenuSwitcher(() -> {
             switchToRoot(menuScene, mainMenuRoot, primaryStage);
             mediaPlayer.stop();
-            switchToRoot(scene, mainMenuRoot, primaryStage);
             menuMediaPlayer.setAutoPlay(true);  
             menuMediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
         });
+        
         mainController.setShopMenuSwitcher(() -> {switchToRoot(shopScene, shopRoot, primaryStage);});
         
         shopController.setGameSwitcher(() -> {
