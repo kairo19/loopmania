@@ -34,13 +34,7 @@ When killing an enemy, it has a chance of dropping a piece of equipment.
 
 #### EnemeyCardDropRateAssumptions:
 When killing an enemy, it has a specified chance of dropping a card.
-- The VampireCastleCard has a **10%** chance of dropping.
-- The ZombiePitCard has a **20%** chance of dropping.
-- The TowerCard has a **10%** chance of dropping.
-- The VillageCard has a **10%** chance of dropping.
-- The BarracksCard has a **10%** chance of dropping.
-- The TrapCard has a **10%** chance of dropping.
-- The CampfireCard has a **10%** chance of dropping.
+- 30% chance to drop one of the 7 cards.
 
 #### EnemyGoldDropAssumptions:
 When killing an enemy, it drops a specified amount of gold.
