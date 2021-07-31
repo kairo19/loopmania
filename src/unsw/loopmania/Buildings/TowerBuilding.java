@@ -12,7 +12,7 @@ public class TowerBuilding extends Building {
     public TowerBuilding(SimpleIntegerProperty x, SimpleIntegerProperty y) {
         super(x, y);
         setRadius(3);
-        this.damage = 20;
+        this.damage = 5;
     }
 
     @Override

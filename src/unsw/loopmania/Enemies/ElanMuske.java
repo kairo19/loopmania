@@ -11,10 +11,10 @@ public class ElanMuske extends BasicEnemy implements SpecialAbility{
     }
 
     @Override
-    public boolean dealDamage(Character character) {
+    public void dealDamage(Character character) {
         super.dealDamage(character);
         doSpecial(character);
-        return false;
+
     }
     
     @Override
