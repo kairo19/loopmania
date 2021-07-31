@@ -509,7 +509,7 @@ public class LoopManiaWorld {
         }
 
         Random r = new Random();
-        int num = r.nextInt(3);
+        int num = r.nextInt(100);
         
         switch (num) {
             case 0:
