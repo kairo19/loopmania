@@ -12,6 +12,7 @@ import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.beans.property.IntegerProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -998,10 +999,14 @@ public class LoopManiaWorldController {
         shopMenuSwitcher.switchMenu();
     }
 
-    public void purchaseItem(int storeIndex) {
+    public void purchaseItem(int storeIndex, ShopController shopController) {
+        if (world.getGold() - 5 < 0) {
+            shopController.getInsufficientFunds().setVisible(true);
+            return;
+        }
         StaticEntity boughtItem = world.boughtItem(world.generateRandomStore().get(storeIndex));
         world.setGold(world.getGold() - 5);
-        // need to also check if sufficient gold 
         onLoad(boughtItem);
     }
+
 }
