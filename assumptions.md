@@ -84,6 +84,8 @@ When killing an enemy, the hero received a specified amount of experience.
 
 #### CampfireBuildingAssumptions:
 - The campfire has an effect radius of **5** tiles.
+- When stacking campfires, each campfire stores the double the characters damage at that point in time and will 
+  not reset until character is out of range.
 #### HeroCastleBuildingAssumptions:
 - The hero will be able to purchase all types of items in the hero's castle building.
 
