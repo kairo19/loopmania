@@ -153,16 +153,16 @@ public class Character extends MovingEntity {
         this.equippedWeapon = null;
     }
 
-    public double getArmourReduction() {
-        return equippedArmour.damageReduction();
+    public double getArmourReduction(BasicEnemy basicEnemy) {
+        return equippedArmour.damageReduction(basicEnemy);
     }
 
-    public double getShieldReduction() {
-        return equippedShield.damageReduction();
+    public double getShieldReduction(BasicEnemy basicEnemy) {
+        return equippedShield.damageReduction(basicEnemy);
     }
 
-    public double getHelmetReduction() {
-        return equippedHelmet.damageReduction();
+    public double getHelmetReduction(BasicEnemy basicEnemy) {
+        return equippedHelmet.damageReduction(basicEnemy);
     }
 
     public int getHelmetDebuff() {
@@ -179,20 +179,22 @@ public class Character extends MovingEntity {
             // added the buffed damage to buffedDamage
             equippedWeapon.damageBoost(this);
             // doing special attack to enemy
+            
             equippedWeapon.doSpecial(enemy, this);
-        }
-
-        
-
+        } 
+        //int alliesDamage = 0;
+        /*
         System.out.println("current allies: " + this.getAllies());
         System.out.println("damage/character base: " + damage);
         System.out.println("bonus damage/buildings: " + bonusDamage);
         System.out.println("buffedDamage/Weapons: " + buffedDamage);
         System.out.println("alliesDamage: " + alliesDamage);
+        */
 
+        
 
                         // base     buildings    weapons
-        int damageDealt = getDamage() + bonusDamage + buffedDamage + alliesDamage;
+        int damageDealt = getDamage() + bonusDamage + buffedDamage + getAlliesDamage();
         
         // for front-end number
         /*
@@ -203,8 +205,6 @@ public class Character extends MovingEntity {
         }
         */
 
-
-        
         System.out.println("Enemy health:" + enemy.getHealth() + " - " + damageDealt);
         
         enemy.setHealth(enemy.getHealth() - damageDealt);

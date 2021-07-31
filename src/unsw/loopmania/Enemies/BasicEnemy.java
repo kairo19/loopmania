@@ -87,23 +87,22 @@ public class BasicEnemy extends MovingEntity {
     }
 
     public void dealDamage(Character character) {
-
         
         int damageDealt = this.damage;
         
         if (character.getArmour() != null) {
-            damageDealt *= character.getArmourReduction();
+            damageDealt *= character.getArmourReduction(this);
         }
 
         if (character.getShield() != null) {
-            damageDealt -= character.getShieldReduction();
+            damageDealt -= character.getShieldReduction(this);
             if (this.type.equals("Vampire")) {
                 character.lowerCritChance();
             }
         }
 
         if (character.getHelmet() != null) {
-            damageDealt -= character.getHelmetReduction();
+            damageDealt -= character.getHelmetReduction(this);
         }
         if (damageDealt < 0) {
             damageDealt = 0;
@@ -112,14 +111,17 @@ public class BasicEnemy extends MovingEntity {
         
         character.setHealth(character.getHealth() - damageDealt);
         
-        /*
-        int damageDealt = this.damage;
-        System.out.println("Character health:" + character.getHealth() + " - " + damageDealt);
         
-        character.setHealth(character.getHealth() - 5);
-        */
+    }
+
+    public boolean critDamage(Character character) {
+        return false;
     }
     public boolean isBoss() {
+        return false;
+    }
+
+    public boolean doSpecial(Character character) {
         return false;
     }
     

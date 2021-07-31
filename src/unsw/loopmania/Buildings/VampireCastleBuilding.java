@@ -24,9 +24,7 @@ public class VampireCastleBuilding extends Building {
      * @param round
      * @return
      */
-    public void addBuildingAlive() {
-        buildingAliveRounds = buildingAliveRounds + 1;
-    }
+
     public int getBuildingAliveRounds() {
         return buildingAliveRounds;
     }
