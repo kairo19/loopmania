@@ -98,6 +98,7 @@ public class ShopSellController {
         // decrease counter value by 1 
         getLoopManiaWorld().sellSword();
         // remove from inventory
+        getLoopManiaWorld().removeItemByTypeInUnequippedInventoryItems("Sword");
     }
 
     @FXML

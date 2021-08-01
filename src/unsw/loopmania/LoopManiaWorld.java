@@ -1083,22 +1083,22 @@ public class LoopManiaWorld {
                     nSwords.set(nSwords.get() + 1);
                     break;
                 case "Stake":
-                    nSwords.set(nSwords.get() + 1);
+                    nStakes.set(nStakes.get() + 1);
                     break;
                 case "Staff":
-                    nSwords.set(nSwords.get() + 1);
+                    nStaffs.set(nStaffs.get() + 1);
                     break;
                 case "Armour":
-                    nSwords.set(nSwords.get() + 1);
+                    nArmours.set(nArmours.get() + 1);
                     break;
                 case "Shield":
-                    nSwords.set(nSwords.get() + 1);
+                    nShields.set(nShields.get() + 1);
                     break;
                 case "Helmet":
-                    nSwords.set(nSwords.get() + 1);
+                    nHelmets.set(nHelmets.get() + 1);
                     break;
                 case "HealthPotion":
-                    nSwords.set(nSwords.get() + 1);
+                    nPotions.set(nPotions.get() + 1);
                     break;
             }
         }
@@ -1147,5 +1147,17 @@ public class LoopManiaWorld {
     public void sellPotion() {
         nPotions.set(nPotions.get() - 1);
     }
+
+    public void removeItemByTypeInUnequippedInventoryItems(String itemType) {
+        Entity deletedItem = null;
+        for (Entity item : unequippedInventoryItems) {
+            if (item.toString().equals(itemType)) {
+                deletedItem = item;
+                break;
+            }
+        }
+        deletedItem.destroy();
+        unequippedInventoryItems.remove(deletedItem);
+    } 
 
 }
