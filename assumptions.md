@@ -17,14 +17,14 @@
 -----------------------------------------------------------------------------------------------------------------------------------
 ### EnemiesAssumptions:
 #### EnemyHealthPointAssumptions:
-- A slug will have **25** health points.
+- A slug will have **10** health points.
 - A zombie will have **25** health points.
 - A vampire will have **50** health points.
 
 #### EnemyDamangeAssumptions:
-- A slug will do **5** damage each attack.
-- A zombie will do **10** damage each attack.
-- A vampire will do **20** damage each attack.
+- A slug will do **15** damage each attack.
+- A zombie will do **20** damage each attack.
+- A vampire will do **30** damage each attack.
 
 #### EnemeyEquipmentDropRateAssumptions:
 When killing an enemy, it has a chance of dropping a piece of equipment.	
@@ -40,7 +40,7 @@ When killing an enemy, it has a specified chance of dropping a card.
 When killing an enemy, it drops a specified amount of gold.
 - A slug drops **10** amount of gold.
 - A zombie drops **20** amount of gold.
-- A vampire drop **100** X amount of gold.
+- A vampire drop **30** X amount of gold.
 
 #### EnemyExperienceEarnedAssumptions:
 When killing an enemy, the hero received a specified amount of experience.	
