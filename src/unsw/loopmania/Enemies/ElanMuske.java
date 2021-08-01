@@ -5,7 +5,7 @@ import unsw.loopmania.PathPosition;
 
 /**
  * This class represents a Elan Muske enemy.
- * @param position - enemy position on path.
+ * @param pathPosition - enemy position on path.
  */
 
 public class ElanMuske extends BasicEnemy implements SpecialAbility{
