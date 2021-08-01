@@ -642,6 +642,7 @@ public class LoopManiaWorld {
    
         Pair<Integer, Integer> pos = possiblyGetGoldSpawnPosition();
         List<Gold> spawningGold = new ArrayList<>();
+        
         if (pos != null){
             SimpleIntegerProperty x = new SimpleIntegerProperty(pos.getValue0());
             SimpleIntegerProperty y = new SimpleIntegerProperty(pos.getValue1());
