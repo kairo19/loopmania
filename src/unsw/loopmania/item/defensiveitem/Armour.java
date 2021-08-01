@@ -8,11 +8,12 @@ import unsw.loopmania.Cards.PlacableBehaviour.PlacableArmour;
 import unsw.loopmania.Cards.PlacableBehaviour.PlacableBehaviour;
 
 public class Armour extends DefensiveItem {
-    private static final double DAMAGE_REDUCTION = 0.3;
+    private static final double DAMAGE_REDUCTION = 0.5;
     public Armour(SimpleIntegerProperty x, SimpleIntegerProperty y) {
         super(x, y, DAMAGE_REDUCTION);
         this.placableBehaviour = new PlacableArmour();
-    }    
+    } 
+       
 
     @Override
     public String toString() {

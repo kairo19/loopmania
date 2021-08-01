@@ -13,6 +13,7 @@ public class Helmet extends DefensiveItem implements Blinder {
         super(x, y, DAMAGE_REDUCTION);
         this.placableBehaviour = new PlacableHelmet();
     }
+    
 
     @Override
     public int debuff() {

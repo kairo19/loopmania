@@ -14,8 +14,10 @@ public class VillageBuilding extends Building {
 
     @Override
     public void CharacterBuffAbility(Character character) {
-        int new_health = character.getHealth() + 20;
-        character.setHealth(new_health);
+        int new_health = character.getHealth() + 10;
+        if (character.getHealth() <= 90) {
+            character.setHealth(new_health);
+        }
     }
 
     @Override

@@ -16,7 +16,7 @@ public class Vampire extends BasicEnemy implements SpecialAbility {
     public Vampire(PathPosition pathPosition) {
         // Gives 4 gold and 4 xp
         // 3 battle radius, 5 support radius
-        super(pathPosition, 50, 20, "Vampire", 8, 8, 3, 5);
+        super(pathPosition, 50, 20, "Vampire", 30, 20, 3, 5);
         crit = false;
         r = new Random();
         maxCrit = r.nextInt(5) + 1;
