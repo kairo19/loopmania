@@ -7,7 +7,7 @@ import unsw.loopmania.Character;
  * This class represents the village building.
  * @param x - building x coord position.
  * @param y - building y coord position.
- */
+ */ 
 
 public class VillageBuilding extends Building {
     public VillageBuilding(SimpleIntegerProperty x, SimpleIntegerProperty y) {

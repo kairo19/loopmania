@@ -1093,7 +1093,7 @@ public class LoopManiaWorldController {
         System.out.println("In application thread? = "+Platform.isFxApplicationThread());
         System.out.println("Current system time = "+java.time.LocalDateTime.now().toString().replace('T', ' '));
     }
-
+ 
     public void gameOver(Boolean hasWon) {
         String status = "YOU LOSE";
         if (hasWon) {

@@ -101,7 +101,7 @@ public class Character extends MovingEntity {
     public Armour getArmour(){
         return this.equippedArmour;
     }
-
+ 
     // Helmet
 
     public void equipHelmet(Helmet helmet) {

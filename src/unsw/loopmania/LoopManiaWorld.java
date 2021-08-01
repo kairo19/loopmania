@@ -1108,7 +1108,7 @@ public class LoopManiaWorld {
             controller.gameOver(false);
         }
     }
-
+ 
     public void setHerosCastleBuilding(HerosCastleBuilding herosCastleBuilding) {
         this.herosCastleBuilding = herosCastleBuilding;
     }

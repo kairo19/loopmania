@@ -16,7 +16,6 @@ public class TheOneRing extends Consumable {
         super(x, y);
         this.placableBehaviour = new PlacableTheOneRing();
     }
-
     /**
      * Heals character to full HP (100).
      */

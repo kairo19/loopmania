@@ -23,7 +23,7 @@ public class HerosCastleBuilding extends Building {
         this.nextShopRound = 2;
         this.counter = 2;
     }  
-
+ 
     /**
      * Adds a cycle to the round variable after character loops the world
      * @param round - count of completed character completed rounds.

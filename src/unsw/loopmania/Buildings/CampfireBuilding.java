@@ -47,7 +47,7 @@ public class CampfireBuilding extends Building {
     
     public boolean getActive() {
         return active;
-    }
+    } 
     public void setActive(boolean active) {
         this.active = active;
     }

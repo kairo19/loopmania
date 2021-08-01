@@ -91,7 +91,7 @@ public class BasicEnemy extends MovingEntity {
     public int getXP() {
         return this.xpReward;
     }
-
+ 
     /**
      * Deals damage to the character.
      * @param character - character entity.

@@ -26,7 +26,7 @@ public class Doggie extends BasicEnemy implements SpecialAbility{
         doSpecial(character);
 
     }
-
+ 
     /**
      * Doggie special attack which stuns character
      * Skips characters attack and Enemy attacks twice.

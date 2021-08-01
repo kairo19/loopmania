@@ -43,8 +43,7 @@ public class VampireCastleBuilding extends Building {
                     break;
                 }
             }
-    }
-
+        }
         int indexInPath = orderedPath.indexOf(position);
         return new Vampire(new PathPosition(indexInPath, orderedPath));
 

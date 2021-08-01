@@ -12,7 +12,7 @@ public class ElanMuske extends BasicEnemy implements SpecialAbility{
     public ElanMuske(PathPosition pathPosition) {
         super(pathPosition, 1000, 500, "ElanMuske", 1000, 500, 2, 2);
     }
-
+    
     /**
      * Elan Muske deals damage to character.
      * @param character - character entity.  
