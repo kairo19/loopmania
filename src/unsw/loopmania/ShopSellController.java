@@ -59,31 +59,37 @@ public class ShopSellController {
 
     @FXML
     public void sellArmour(ActionEvent event) {
+        getLoopManiaWorld().sellArmour();
 
     }
 
     @FXML
     public void sellHelmet(ActionEvent event) {
 
+        getLoopManiaWorld().sellHelmet();
     }
 
     @FXML
     public void sellPotion(ActionEvent event) {
+        getLoopManiaWorld().sellPotion();
 
     }
 
     @FXML
     public void sellShield(ActionEvent event) {
+        getLoopManiaWorld().sellShield();
 
     }
 
     @FXML
     public void sellStaff(ActionEvent event) {
+        getLoopManiaWorld().sellStaff();
 
     }
 
     @FXML
     public void sellStake(ActionEvent event) {
+        getLoopManiaWorld().sellStake();
 
     }
 
@@ -97,5 +103,11 @@ public class ShopSellController {
     @FXML
     public void initialize() {
         nSwords.textProperty().bindBidirectional(getLoopManiaWorld().getnSwords(), new NumberStringConverter());
+        nStakes.textProperty().bindBidirectional(getLoopManiaWorld().getnStakes(), new NumberStringConverter());
+        nStaffs.textProperty().bindBidirectional(getLoopManiaWorld().getnStaffs(), new NumberStringConverter());
+        nArmours.textProperty().bindBidirectional(getLoopManiaWorld().getnArmours(), new NumberStringConverter());
+        nShields.textProperty().bindBidirectional(getLoopManiaWorld().getnShields(), new NumberStringConverter());
+        nHelmets.textProperty().bindBidirectional(getLoopManiaWorld().getnHelmets(), new NumberStringConverter());
+        nPotions.textProperty().bindBidirectional(getLoopManiaWorld().getnPotions(), new NumberStringConverter());
     }
 }

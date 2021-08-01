@@ -114,6 +114,14 @@ public class LoopManiaWorld {
 
     // shop sell related fields
     private IntegerProperty nSwords;
+    private IntegerProperty nStakes;
+    private IntegerProperty nStaffs;
+    private IntegerProperty nArmours;
+    private IntegerProperty nShields;
+    private IntegerProperty nHelmets;
+    private IntegerProperty nPotions;
+
+
     /**
      * create the world (constructor)
      * 
@@ -142,6 +150,12 @@ public class LoopManiaWorld {
         this.goldSpawned = new ArrayList<>();
         this.potionSpawned = new ArrayList<>();
         this.nSwords = new SimpleIntegerProperty(0);    
+        this.nStakes = new SimpleIntegerProperty(0);    
+        this.nStaffs = new SimpleIntegerProperty(0);    
+        this.nArmours = new SimpleIntegerProperty(0);    
+        this.nShields = new SimpleIntegerProperty(0);    
+        this.nHelmets = new SimpleIntegerProperty(0);    
+        this.nPotions = new SimpleIntegerProperty(0);    
     }
     
     public int getWidth() {
@@ -1050,11 +1064,42 @@ public class LoopManiaWorld {
         return herosCastleBuilding;
     }
 
+    // methods relating to sell shop functionality 
+    // ===========================================
     public void updateSellingItems() {
+        // initialise to 0
         nSwords.set(0);
+        nStakes.set(0);
+        nStaffs.set(0);
+        nArmours.set(0);
+        nShields.set(0);
+        nHelmets.set(0);
+        nPotions.set(0);
+
+        // update number of swords, stakes, ...
         for (Entity item : unequippedInventoryItems) {
-            if (item.toString().equals("Sword")) {
-                nSwords.set(nSwords.get() + 1);
+            switch(item.toString()) {
+                case "Sword":
+                    nSwords.set(nSwords.get() + 1);
+                    break;
+                case "Stake":
+                    nSwords.set(nSwords.get() + 1);
+                    break;
+                case "Staff":
+                    nSwords.set(nSwords.get() + 1);
+                    break;
+                case "Armour":
+                    nSwords.set(nSwords.get() + 1);
+                    break;
+                case "Shield":
+                    nSwords.set(nSwords.get() + 1);
+                    break;
+                case "Helmet":
+                    nSwords.set(nSwords.get() + 1);
+                    break;
+                case "HealthPotion":
+                    nSwords.set(nSwords.get() + 1);
+                    break;
             }
         }
     }
@@ -1062,10 +1107,45 @@ public class LoopManiaWorld {
     public IntegerProperty getnSwords() {
         return nSwords;
     }
+    public IntegerProperty getnStakes() {
+        return nStakes;
+    }
+    public IntegerProperty getnStaffs() {
+        return nStaffs;
+    }
+    public IntegerProperty getnArmours() {
+        return nArmours;
+    }
+    public IntegerProperty getnShields() {
+        return nShields;
+    }
+    public IntegerProperty getnHelmets() {
+        return nHelmets;
+    }
+    public IntegerProperty getnPotions() {
+        return nPotions;
+    }
 
     public void sellSword() {
         nSwords.set(nSwords.get() - 1);
     }
-
+    public void sellStake() {
+        nStakes.set(nStakes.get() - 1);
+    }
+    public void sellStaff() {
+        nStaffs.set(nStaffs.get() - 1);
+    }
+    public void sellArmour() {
+        nArmours.set(nArmours.get() - 1);
+    }
+    public void sellShield() {
+        nShields.set(nShields.get() - 1);
+    }
+    public void sellHelmet() {
+        nHelmets.set(nHelmets.get() - 1);
+    }
+    public void sellPotion() {
+        nPotions.set(nPotions.get() - 1);
+    }
 
 }
