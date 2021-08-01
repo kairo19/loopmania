@@ -65,6 +65,10 @@ public class StaffTest {
         
         assertEquals(490, slug.getHealth());
         assertEquals(true, staff.getTranchedBool());
+        staff.resetTrancedBool();
+        staff.resetTranced();
+        assertEquals(false, staff.getTranchedBool());
+        assertEquals(staff.toString(), "Staff");
         
     }
 }
