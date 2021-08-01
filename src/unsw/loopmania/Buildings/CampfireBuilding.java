@@ -1,9 +1,5 @@
 package unsw.loopmania.Buildings;
 
-import java.util.List;
-
-import org.javatuples.Pair;
-
 import javafx.beans.property.SimpleIntegerProperty;
 import unsw.loopmania.Character;
 

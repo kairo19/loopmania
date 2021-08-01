@@ -13,7 +13,6 @@ import unsw.loopmania.Character;
 
 public class Doggie extends BasicEnemy implements SpecialAbility{
     public Doggie(PathPosition pathPosition) {
-        // 2 battle radius, 2 support radius (nullifies since == to battle radius)
         super(pathPosition, 100, 40, "Doggie", 1000, 250, 2, 2); 
     }
 
@@ -38,8 +37,7 @@ public class Doggie extends BasicEnemy implements SpecialAbility{
         boolean check = false;
         Random rand = new Random();
         int chance = rand.nextInt(100);
-        if (chance < 10){
-            System.out.println("CHARACTER STUNNED!!");
+        if (chance < 10) {
             check = true;
             dealDamage(character);
         }
@@ -54,5 +52,10 @@ public class Doggie extends BasicEnemy implements SpecialAbility{
     @Override
     public boolean isBoss() {
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Doggie";
     }
 }

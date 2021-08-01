@@ -3,7 +3,6 @@ package unsw.loopmania.item.consumable;
 import javafx.beans.property.SimpleIntegerProperty;
 import unsw.loopmania.Character;
 import unsw.loopmania.StaticEntity;
-import unsw.loopmania.Cards.PlacableBehaviour.PlacableTheOneRing;
 
 /**
  * This class represents a consumable item.

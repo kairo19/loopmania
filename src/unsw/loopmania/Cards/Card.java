@@ -5,9 +5,7 @@ import java.util.List;
 import org.javatuples.Pair;
 
 import javafx.beans.property.SimpleIntegerProperty;
-import unsw.loopmania.OccupiedBuildings;
 import unsw.loopmania.StaticEntity;
-import unsw.loopmania.Cards.PlacableBehaviour.PlacableBehaviour;
 
 /**
  * This abstract class represents a card, which represents a placable building entity.

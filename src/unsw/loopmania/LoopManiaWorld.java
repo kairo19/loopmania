@@ -464,7 +464,6 @@ public class LoopManiaWorld {
         if (item != null) {
 
             if (item.toString() == "TheOneRing") {
-                System.out.println("Attached TheOneRing");
                 theOneRing = true;
                 return null;
             }
@@ -542,21 +541,15 @@ public class LoopManiaWorld {
 
     public void ApplyAttackDamage() {
         int totalBuff = 0;
-        System.out.println("totalBuff Beginning" + totalBuff);
         for (Building b : buildingEntities) {
-            System.out.println("checking for buffs");
             if (b instanceof CampfireBuilding && b.checkInRange(character.getX(), character.getY()) && !((CampfireBuilding) b).getActive()) {
-                System.out.println("buffing!");
                 ((CampfireBuilding) b).CharacterBattleBuffAbility(character);
                 ((CampfireBuilding) b).setActive(true);
             } else if (b instanceof CampfireBuilding && ((CampfireBuilding) b).getActive() && !b.checkInRange(character.getX(), character.getY())) {
-                System.out.println("debuffing...");
                 ((CampfireBuilding) b).setActive(false);
                 ((CampfireBuilding) b).CharacterBattleDebuffAbility(character);
             }
             if (b instanceof CampfireBuilding) {
-                System.out.println("attack bonus" + character.getAlliesDamage());
-                System.out.println("number of allies" + character.getAllies());
                 totalBuff += ((CampfireBuilding) b).getAttackBonus();
             }
             
@@ -566,7 +559,6 @@ public class LoopManiaWorld {
             character.getWeapon().damageBoost(character);
         }
         character.setTotalDamage(totalBuff);
-        System.out.println("Total Buff is " + totalBuff);
     }
 
     /**
@@ -983,7 +975,6 @@ public class LoopManiaWorld {
                 elanMuskeAlive = true;
             }
         }
-        System.out.println("dog coin exist or nah: " + doggieCoin);
         if (doggieCoin != null) {
             doggieCoin.fluctuate(elanMuskeAlive, getRound());
         }
@@ -1003,9 +994,16 @@ public class LoopManiaWorld {
     public IntegerProperty getCharacterHealthProperty() {
         return character.getHealthProperty();
     }
-    public DoubleProperty getCharacterShieldProperty() {
-        if (character.getShield() != null) {
-            return new SimpleDoubleProperty(character.getShield().getDamageReduction());
+    public DoubleProperty getCharacterDefenseProperty() {
+        if (character.getShield() != null && character.getHelmet() != null) {
+            double defense = character.getShield().getDamageReduction() + character.getHelmet().getDamageReduction();
+            return new SimpleDoubleProperty(defense);
+        } else if (character.getShield() != null) {
+            double defense = character.getShield().getDamageReduction();
+            return new SimpleDoubleProperty(defense);
+        } else if (character.getHelmet() != null) {
+            double defense = character.getHelmet().getDamageReduction();
+            return new SimpleDoubleProperty(defense);
         }
         return new SimpleDoubleProperty(0);
         
@@ -1071,7 +1069,6 @@ public class LoopManiaWorld {
     
     public IntegerProperty getNumberAlliesProperty() {
         allyNumbers.set(character.getAllies());
-        System.out.println("Ally numbers are: " + allyNumbers);
         return allyNumbers;
     }
 

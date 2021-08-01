@@ -25,7 +25,6 @@ public class Sword extends StaticEntity implements Weapon {
      */
     @Override
     public void damageBoost(Character character) {
-        //character.setDamage(character.getDamage() + DAMAGE_BOOST);
         character.setBuffedDamage(DAMAGE_BOOST);
     }
 
