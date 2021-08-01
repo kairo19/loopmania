@@ -29,6 +29,8 @@ public class DoggieCoinTest {
             System.out.println("fluctuating");
             System.out.println(doggieCoin.getValueProperty());
         }
+        doggieCoin.fluctuate(true, 10);
+        doggieCoin.fluctuate(false, 10);
         boolean checker = false;
         if (doggieCoin.getValueProperty() > 0) {
             checker = true;
