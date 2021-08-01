@@ -272,6 +272,9 @@ public class LoopManiaWorld {
                 character.dealDamage(e, bonusDamage);
                 if (character.getWeapon() != null) {
                     if (character.getWeapon().toString() == "Staff" && e.getHealth() > 0) {
+                        if (e.getType() == "Doggie") {
+                            checkDoggieCoinFluctuate();
+                        }
                         Staff staff = (Staff) character.getWeapon();
                         if (staff.getTranchedBool()) {
                             character.gainAlly();
@@ -698,6 +701,7 @@ public class LoopManiaWorld {
                    spawningEnemies.add(zombieEnemy);
                 }
             }
+            // change skittles
             if (round.get() == 21) {
                 bossSpawn = true;        
                 Pair<Integer, Integer> pos = possiblyGetBasicEnemySpawnPosition();
@@ -1048,8 +1052,9 @@ public class LoopManiaWorld {
                 elanMuskeAlive = true;
             }
         }
-
+        System.out.println("dog coin exist or nah: " + doggieCoin);
         if (doggieCoin != null) {
+            //doggieCoin.fluctuate(elanMuskeAlive, getRound());
             doggieCoin.fluctuate(elanMuskeAlive, getRound());
         }
         
