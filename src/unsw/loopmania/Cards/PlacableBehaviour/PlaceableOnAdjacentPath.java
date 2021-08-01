@@ -3,8 +3,18 @@ package unsw.loopmania.Cards.PlacableBehaviour;
 import java.util.List;
 import org.javatuples.Pair;
 
+/**
+ * This class represents the placeable behaviour when placing on path-adjacent tiles.
+ */
+
 public class PlaceableOnAdjacentPath implements PlacableBehaviour {
 
+    /**
+     * Returns whether the item is placeable.
+     * @param x - game world x coord position.
+     * @param y - game world y coord position.
+     * @param orderedPath - all path coordinates.
+     */
     @Override
     public boolean placable(int x, int y, List<Pair<Integer, Integer>> orderedPath) {
         for (Pair<Integer, Integer> p: orderedPath) {
@@ -25,9 +35,14 @@ public class PlaceableOnAdjacentPath implements PlacableBehaviour {
         return false;
     }
 
+    /**
+     * Implements logic for placing.
+     * @param x - game world x coord position to place.
+     * @param y - game world y coord position to place.
+     */
     @Override
     public boolean itemPlacable(int x, int y) {
-        // TODO Auto-generated method stub
         return false;
     }
+    
 }
