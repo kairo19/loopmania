@@ -38,7 +38,7 @@ public class SwordTest {
 
         character.setWeapon(sword);
         character.dealDamage(zombie, 0);
-        assertEquals(5, zombie.getHealth());
+        assertEquals(10, zombie.getHealth());
         assertEquals(sword.toString(), "Sword");
     }
 

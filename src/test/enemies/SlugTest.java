@@ -31,7 +31,7 @@ public class SlugTest {
 
         slug.dealDamage(character);
 
-        assertEquals(character.getHealth(), 95);
+        assertEquals(character.getHealth(), 85);
         
     }
 
@@ -67,7 +67,7 @@ public class SlugTest {
 
         slug.dealDamage(character);
 
-        assertNotEquals(character.getHealth(), 95);
+        assertNotEquals(character.getHealth(), 85);
         
     }
 
