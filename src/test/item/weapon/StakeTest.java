@@ -61,5 +61,6 @@ public class StakeTest {
         character.setWeapon(stake);
         character.dealDamage(Vampire, 0);
         assertEquals(38, Vampire.getHealth());
+        assertEquals(stake.toString(), "Stake");
     }
 }
