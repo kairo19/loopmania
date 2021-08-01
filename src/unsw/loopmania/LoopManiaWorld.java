@@ -391,7 +391,7 @@ public class LoopManiaWorld {
             
         }
         Random r = new Random();
-        int random = r.nextInt(6);
+        int random = r.nextInt(7);
         
         switch(random) {
             case 0:
