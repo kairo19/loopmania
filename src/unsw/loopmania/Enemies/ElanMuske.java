@@ -10,7 +10,7 @@ import unsw.loopmania.PathPosition;
 
 public class ElanMuske extends BasicEnemy implements SpecialAbility{
     public ElanMuske(PathPosition pathPosition) {
-        super(pathPosition, 1000, 60, "ElanMuske", 1000, 500, 2, 2); // damage and health current placeholders
+        super(pathPosition, 1000, 500, "ElanMuske", 1000, 500, 2, 2);
     }
 
     /**

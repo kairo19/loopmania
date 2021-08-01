@@ -46,8 +46,6 @@ public class Staff extends StaticEntity implements Weapon {
         Random r = new Random();
         int i = r.nextInt(100);
 
-        
-        
         if (i < 10) { 
             isTranced = true;
             numTranced++;
