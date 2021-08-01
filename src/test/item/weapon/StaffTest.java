@@ -57,17 +57,14 @@ public class StaffTest {
         Staff staff = new Staff(new SimpleIntegerProperty(), new SimpleIntegerProperty());
         BasicEnemy slug = new Slug(new PathPosition(0, orderedpath));
         slug.setHealth(700);
+        character.setWeapon(staff);
         for (int tester = 0; tester < 30; tester++) {
-            
-            character.setWeapon(staff);
             character.dealDamage(slug, 0);
+            
         }
-        boolean tranceOccured = false;
-        if (character.getAllies() > 0) {
-            tranceOccured = true;
-        }
+        
         assertEquals(490, slug.getHealth());
-        assertEquals(true, tranceOccured);
+        assertEquals(true, staff.getTranchedBool());
         
     }
 }
