@@ -309,7 +309,7 @@ public class LoopManiaWorld {
         
                     if (e.getType() == "Doggie") {
 
-                        DoggieCoin doggieCoin = new DoggieCoin(null,null);
+                        doggieCoin = new DoggieCoin(null,null);
                     } 
 
                     
