@@ -10,6 +10,14 @@ import unsw.loopmania.PathPosition;
 import unsw.loopmania.StaticEntity;
 import unsw.loopmania.Enemies.BasicEnemy;
 
+/**
+ * This class represents buildings.
+ * @param x - building x coord position.
+ * @param y - building y coord position.
+ * @param radius - building effective tile radius.
+ * @param buildingAliveRounds - building round lifespan.
+ */
+
 public abstract class Building extends StaticEntity {
     private int radius;
     private int buildingAliveRounds;
@@ -20,6 +28,11 @@ public abstract class Building extends StaticEntity {
         this.buildingAliveRounds = 0;
     }   
     
+    /**
+     * Checks whether character is in range of building.
+     * @param characterPosX - current character x position.
+     * @param characterPosY - current character y position
+     */
     public boolean checkInRange(int characterPosX, int characterPosY) {
 
         int pythagoras = ((characterPosX - getX()) * (characterPosX - getX())) + ((characterPosY - getY()) * (characterPosY - getY()));
@@ -41,7 +54,10 @@ public abstract class Building extends StaticEntity {
     public int getBuildingAliveRounds() {
         return buildingAliveRounds;
     }
-
+    
+    /**
+     * Increase building round lifespan by 1 round.
+     */
     public void addBuildingAlive() {
         buildingAliveRounds = buildingAliveRounds + 1;
     }
