@@ -20,7 +20,6 @@ import unsw.loopmania.Buildings.CampfireBuilding;
 import unsw.loopmania.Buildings.VampireCastleBuilding;
 import unsw.loopmania.Buildings.ZombiePitBuilding;
 import unsw.loopmania.Buildings.HerosCastleBuilding;
-import unsw.loopmania.Buildings.TrapBuilding;
 import unsw.loopmania.Cards.Card;
 import unsw.loopmania.Cards.VampireCastleCard;
 import unsw.loopmania.Cards.ZombiePitCard;
@@ -30,7 +29,6 @@ import unsw.loopmania.Cards.BarracksCard;
 import unsw.loopmania.Cards.TrapCard;
 import unsw.loopmania.Cards.CampfireCard;
 import unsw.loopmania.Enemies.BasicEnemy;
-import unsw.loopmania.Enemies.Slug;
 import unsw.loopmania.Enemies.Vampire;
 import unsw.loopmania.Enemies.Zombie;
 import unsw.loopmania.goal.GoalGold;
@@ -444,8 +442,7 @@ public class LoopManiaWorldTest {
         ZombiePitBuilding zombieBuilding = new ZombiePitBuilding(zeroProperty, oneProperty);
         VampireCastleBuilding vampireBuilding = new VampireCastleBuilding(zeroProperty, oneProperty);
         CampfireBuilding campfireBuilding = new CampfireBuilding(oneProperty, twoProperty);
-        TrapBuilding trapBuilding = new TrapBuilding(twoProperty, zeroProperty);
-        Slug slug = new Slug(new PathPosition(0, orderedpath));
+
         List<Building> buildingEntities = d.getBuildingEntities();
         buildingEntities.add(zombieBuilding);
         buildingEntities.add(vampireBuilding);
@@ -461,8 +458,6 @@ public class LoopManiaWorldTest {
 
         // this is meant to add enemies
         for (int i = 0; i < 100; i++) {
-            slug.moveDownPath();
-            character.moveDownPath();
             d.HeroCastleEnemies();
             d.ApplyBuildingEffects();
         }
