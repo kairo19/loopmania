@@ -40,4 +40,9 @@ public class ElanMuske extends BasicEnemy implements SpecialAbility{
     public boolean isBoss() {
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "ElanMuske";
+    }
 }

@@ -65,4 +65,11 @@ public class VillageBuildingTest {
         world.setCharacter(character);
         return world;
     }
+    @Test
+    public void VillageBuildingStringTest(){
+        LoopManiaWorld world = initialise();
+        VillageBuilding newBuilding = new VillageBuilding(new SimpleIntegerProperty(1), new SimpleIntegerProperty(1));
+        assertEquals("VillageBuilding", newBuilding.toString());
+    }
+
 }

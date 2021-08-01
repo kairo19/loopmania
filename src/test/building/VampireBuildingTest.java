@@ -44,6 +44,22 @@ public class VampireBuildingTest {
     }
 
     @Test
+    public void VampireBuildingSpawnDifferentlyTest(){
+
+        LoopManiaWorld world = initialise();
+
+        List<Building> buildingEntities = new ArrayList<>();
+        List<BasicEnemy> enemies = new ArrayList<>();
+        VampireCastleBuilding newBuilding = new VampireCastleBuilding(new SimpleIntegerProperty(3), new SimpleIntegerProperty(2));
+        buildingEntities.add(newBuilding);
+        Pair<Integer, Integer> position = new Pair<Integer, Integer>(1, 2);
+        int indexInPath = world.getOrderedPath().indexOf(position);
+        BasicEnemy enemy = newBuilding.SpawnAbility(world.getOrderedPath());
+        enemies.add(enemy);
+        assertEquals(enemies.size(), 1);
+    }
+
+    @Test
     public void VampireBuildingAliveTest(){
 
         LoopManiaWorld world = initialise();
@@ -62,7 +78,14 @@ public class VampireBuildingTest {
 
         assertEquals(5, newBuilding.getBuildingAliveRounds());
     }
-    
+
+    @Test
+    public void VampireBuildingStringTest(){
+
+        VampireCastleBuilding newBuilding = new VampireCastleBuilding(new SimpleIntegerProperty(1), new SimpleIntegerProperty(3));
+      
+        assertEquals("VampireCastleBuilding", newBuilding.toString());
+    }
 
     public LoopManiaWorld initialise() {
         List<Pair<Integer, Integer>> orderedpath = new ArrayList<>();

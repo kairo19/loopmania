@@ -55,4 +55,9 @@ public class Doggie extends BasicEnemy implements SpecialAbility{
     public boolean isBoss() {
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "Doggie";
+    }
 }
