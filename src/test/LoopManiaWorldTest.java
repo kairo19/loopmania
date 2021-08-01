@@ -33,6 +33,7 @@ import unsw.loopmania.goal.GoalGold;
 import unsw.loopmania.item.defensiveitem.Armour;
 import unsw.loopmania.item.defensiveitem.Helmet;
 import unsw.loopmania.item.defensiveitem.Shield;
+import unsw.loopmania.item.weapon.Staff;
 import unsw.loopmania.item.weapon.Sword;
 import unsw.loopmania.item.weapon.Weapon;
 import unsw.loopmania.Character;
@@ -81,6 +82,39 @@ public class LoopManiaWorldTest {
         d.setCharacter(character);
         d.possiblySpawnEnemies();
         d.setGoal(new GoalGold(d, 10000));
+        Staff staff = new Staff(new SimpleIntegerProperty(), new SimpleIntegerProperty());
+        character.setWeapon(staff);
+        
+        for (int i = 0; i < 150; i++) {
+            d.possiblySpawnGold();
+            d.possiblySpawnPotion();
+            d.runTickMoves();
+            d.possiblySpawnEnemies();
+            d.runBattles();
+        }
+
+
+        assertEquals(0, character.getHealth());
+    }
+
+    @Test
+    public void TestrunBattles2(){
+        List<Pair<Integer, Integer>> orderedpath  = new ArrayList<>();
+        orderedpath.add(new Pair<Integer, Integer>(1, 1));
+        orderedpath.add(new Pair<Integer, Integer>(2, 1));
+        orderedpath.add(new Pair<Integer, Integer>(3, 1));
+        orderedpath.add(new Pair<Integer, Integer>(3, 2));
+        orderedpath.add(new Pair<Integer, Integer>(3, 3));
+        orderedpath.add(new Pair<Integer, Integer>(2, 3));
+        orderedpath.add(new Pair<Integer, Integer>(1, 3));
+        orderedpath.add(new Pair<Integer, Integer>(1, 2));
+        LoopManiaWorld d = new LoopManiaWorld(4, 4, orderedpath);
+        Character character = new Character(new PathPosition(0, orderedpath));
+        d.setCharacter(character);
+        d.possiblySpawnEnemies();
+        d.setGoal(new GoalGold(d, 10000));
+        Staff staff = new Staff(new SimpleIntegerProperty(), new SimpleIntegerProperty());
+        character.setWeapon(staff);
         Vampire vampire = new Vampire(new PathPosition(2, orderedpath));
         Zombie zombie = new Zombie(new PathPosition(1, orderedpath));
         
