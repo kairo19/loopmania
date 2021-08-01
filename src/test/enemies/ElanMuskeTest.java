@@ -13,54 +13,50 @@ import org.junit.Test;
 import unsw.loopmania.Character;
 import unsw.loopmania.LoopManiaWorld;
 import unsw.loopmania.PathPosition;
-import unsw.loopmania.Enemies.Zombie;
+import unsw.loopmania.Enemies.ElanMuske;
 
-public class ZombieTest {
+public class ElanMuskeTest {
 
     @Test
-    public void zombieDealDamage() {
+    public void ElanMuskeDealDamage() {
         List<Pair<Integer, Integer>> orderedpath = new ArrayList<>();
         orderedpath.add(new Pair<Integer, Integer>(1, 1));
         LoopManiaWorld d = new LoopManiaWorld(1, 2, orderedpath);
         Character character = new Character(new PathPosition(0, orderedpath));
         d.setCharacter(character);
 
-        Zombie zombie = new Zombie(new PathPosition(0, orderedpath));
+        ElanMuske elanMuske = new ElanMuske(new PathPosition(0, orderedpath));
 
-        zombie.dealDamage(character);
+        elanMuske.dealDamage(character);
 
         assertNotEquals(character.getHealth(), 100);
     }
 
     @Test
-    public void zombieDoSpecial() {
+    public void ElanMuskeDoSpecial() {
         List<Pair<Integer, Integer>> orderedpath = new ArrayList<>();
         orderedpath.add(new Pair<Integer, Integer>(1, 1));
         LoopManiaWorld d = new LoopManiaWorld(1, 2, orderedpath);
         Character character = new Character(new PathPosition(0, orderedpath));
         d.setCharacter(character);
 
-        Zombie zombie = new Zombie(new PathPosition(0, orderedpath));
+        ElanMuske elanMuske = new ElanMuske(new PathPosition(0, orderedpath));
 
-        character.setAllies(1);
-
-        while (!zombie.doSpecial(character)) {}
-
-        assertEquals(character.getAllies(), 0);
-
+        assertNotEquals(elanMuske.doSpecial(character), true);
     }
 
     @Test
-    public void zombieToString() {
+    public void ElanMuskeIsBoss() {
         List<Pair<Integer, Integer>> orderedpath = new ArrayList<>();
         orderedpath.add(new Pair<Integer, Integer>(1, 1));
         LoopManiaWorld d = new LoopManiaWorld(1, 2, orderedpath);
         Character character = new Character(new PathPosition(0, orderedpath));
         d.setCharacter(character);
 
-        Zombie zombie = new Zombie(new PathPosition(0, orderedpath));
+        ElanMuske elanMuske = new ElanMuske(new PathPosition(0, orderedpath));
 
-        //assertEquals(zombie.toString(), "Zombie");
+        assertNotEquals(elanMuske.isBoss(), false);
 
     }
+
 }
