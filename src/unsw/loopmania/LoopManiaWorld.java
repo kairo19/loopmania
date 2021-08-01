@@ -382,17 +382,16 @@ public class LoopManiaWorld {
         if (cardEntities.size() >= getWidth()){
             // TODO = give some cash/experience/item rewards for the discarding of the oldest card
             removeCard(0);
-
             setGold(getGold() + 10);
             setExperience(getExperience() + 10);
             Pair<Integer, Integer> firstAvailableSlot = getFirstAvailableSlotForItem();
-            if (firstAvailableSlot != null){
-                addUnequippedItem();
-            }
+            
+            //addUnequippedItem();
+            
             
         }
         Random r = new Random();
-        int random = r.nextInt(7);
+        int random = r.nextInt(6);
         
         switch(random) {
             case 0:
