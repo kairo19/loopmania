@@ -21,7 +21,7 @@
 <!-- TODO = modify and expand the GUI? -->
 <!-- anchorPaneRoot is the background of the main game -->
 
-<AnchorPane fx:id="anchorPaneRoot" onKeyPressed="#handleKeyPress" prefHeight="465.0" prefWidth="531.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="anchorPaneRoot" onKeyPressed="#handleKeyPress" prefHeight="465.0" prefWidth="531.0" xmlns="http://javafx.com/javafx/11.0.4" xmlns:fx="http://javafx.com/fxml/1">
    <VBox prefHeight="465.0" prefWidth="531.0">
       <children>
          <HBox prefHeight="40.0" prefWidth="533.0" style="-fx-border-radius: 10 10 10 10; -fx-background-color: #e6e6e6;">
@@ -433,7 +433,7 @@
                                     <Font name="Verdana" size="12.0" />
                                  </font>
                                  <HBox.margin>
-                                    <Insets left="10.0" right="5.0" top="2.0" />
+                                    <Insets left="10.0" top="2.0" />
                                  </HBox.margin>
                               </Text>
                               <ImageView fx:id="oneRingField" fitHeight="20.0" fitWidth="19.0" visible="false">
@@ -443,6 +443,11 @@
                                  <HBox.margin>
                                     <Insets />
                                  </HBox.margin>
+                              </ImageView>
+                              <ImageView fx:id="oneRingImage" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                                 <image>
+                                    <Image url="@../../images/the_one_ring.png" />
+                                 </image>
                               </ImageView>
                            </children>
                            <opaqueInsets>

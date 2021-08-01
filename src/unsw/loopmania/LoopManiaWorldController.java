@@ -158,6 +158,9 @@ public class LoopManiaWorldController {
     @FXML
     private Button muteField;
 
+    @FXML
+    private ImageView oneRingField;
+
 
     // all image views including tiles, character, enemies, cards... even though cards in separate gridpane...
     private List<ImageView> entityImages;
@@ -381,7 +384,6 @@ public class LoopManiaWorldController {
         allyField.textProperty().bindBidirectional(world.getNumberAlliesProperty(), new NumberStringConverter());
         damageField.textProperty().bindBidirectional(world.getCharacterDamageProperty(), new NumberStringConverter());
    
-
     }
 
     /**
@@ -403,6 +405,11 @@ public class LoopManiaWorldController {
 
             if (world.getHerosCastleBuilding().PurchaseCycle(world.getRound())) {
                 openStore();
+            }
+            if (world.getTheOneRingBool()) {
+                oneRingField.setVisible(true);
+            } else {
+                oneRingField.setVisible(false);
             }
             world.runTickMoves();
             hasPurchasedDefensiveItem = false;
