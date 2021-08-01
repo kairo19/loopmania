@@ -120,6 +120,7 @@ public class LoopManiaWorld {
     private DoggieCoin doggieCoin;
     private boolean doggieDefeated;
     private boolean dogeCoinSold;
+    private boolean theOneRing;
 
     private IntegerProperty defeatedBosses;
 
@@ -170,6 +171,7 @@ public class LoopManiaWorld {
         this.doggieCoin = new DoggieCoin(null, null);
         this.doggieDefeated = false;
         this.dogeCoinSold = false;
+        this.theOneRing = false;
     }
     
     public int getWidth() {
@@ -495,11 +497,27 @@ public class LoopManiaWorld {
         StaticEntity item = itemFactory.makeRareItems(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
 
         if (item != null) {
+
+            if (item.toString() == "TheOneRing") {
+                System.out.println("Attached TheOneRing");
+                theOneRing = true;
+                return null;
+            }
+
             unequippedInventoryItems.add(item);
             return item;
         }  
 
         return item;
+    }
+
+    public boolean getTheOneRingBool() {
+        return theOneRing;
+    }
+
+    public void useTheOneRingBool() {
+        theOneRing = false;
+        character.setHealth(100);
     }
 
     public List<BasicEnemy> getEnemiesEntity() {
@@ -685,7 +703,6 @@ public class LoopManiaWorld {
                    spawningEnemies.add(zombieEnemy);
                 }
             }
-            // change skittles
             if (round.get() == 21) {
                 bossSpawn = true;        
                 Pair<Integer, Integer> pos = possiblyGetBasicEnemySpawnPosition();
@@ -693,8 +710,6 @@ public class LoopManiaWorld {
                 enemies.add(bossEnemy);
                 spawningEnemies.add(bossEnemy);
                 bossSpawn = false;
-                // change back to 41 pls
-                // skittles
             } else if (round.get() == 41) {
                 bossSpawn = true;        
                 Pair<Integer, Integer> pos = possiblyGetBasicEnemySpawnPosition();
@@ -1138,9 +1153,6 @@ public class LoopManiaWorld {
     public void addDefeatedBoss() {
         defeatedBosses.set(defeatedBosses.get() + 1);
     }
-
-
-
 
     public void setGoal(GoalNode goal) {
         this.goal = goal;

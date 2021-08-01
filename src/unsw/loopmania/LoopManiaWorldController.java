@@ -393,9 +393,14 @@ public class LoopManiaWorldController {
         isPaused = false;
         // trigger adding code to process main game logic to queue. JavaFX will target framerate of 0.3 seconds
         timeline = new Timeline(new KeyFrame(Duration.seconds(0.3), event -> {
-            if (world.isGameover() || world.getCharacterHealthProperty().get() <= 0) {
+            if (world.isGameover() || world.getCharacterHealthProperty().get() <= 0 && world.getTheOneRingBool() == false) {
                 gameOver(world.hasMetGoal());
             }
+
+            if (world.getCharacterHealthProperty().get() <= 0 && world.getTheOneRingBool() == true) {
+                world.useTheOneRingBool();
+            }
+
             if (world.getHerosCastleBuilding().PurchaseCycle(world.getRound())) {
                 openStore();
             }
@@ -523,7 +528,6 @@ public class LoopManiaWorldController {
         // TODO = provide different benefits to defeating the enemy based on the type of enemy
         Random r = new Random();
         int chance = r.nextInt(100);
-        // 10, 20, 30 skittles
         if (enemy.toString() == "Slug" && chance < 10) {
             loadItem();   
         } else if (enemy.toString() == "Zombie" && chance < 20) {
