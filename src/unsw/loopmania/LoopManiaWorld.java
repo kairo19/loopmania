@@ -3,12 +3,16 @@ package unsw.loopmania;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.javatuples.Pair;
 import org.junit.jupiter.api.DisplayNameGenerator.Simple;
 
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import unsw.loopmania.Buildings.BarracksBuilding;
 import unsw.loopmania.Buildings.Building;
@@ -37,12 +41,16 @@ import unsw.loopmania.Enemies.Zombie;
 import unsw.loopmania.goal.GoalNode;
 import unsw.loopmania.item.weapon.Sword;
 import unsw.loopmania.item.weapon.Weapon;
+import unsw.loopmania.item.DoggieCoin;
 import unsw.loopmania.item.Gold;
 import unsw.loopmania.item.consumable.HealthPotion;
 import unsw.loopmania.item.consumable.TheOneRing;
 import unsw.loopmania.item.defensiveitem.Armour;
+import unsw.loopmania.item.defensiveitem.Block;
 import unsw.loopmania.item.defensiveitem.Helmet;
 import unsw.loopmania.item.defensiveitem.Shield;
+import unsw.loopmania.item.defensiveitem.TreeStump;
+import unsw.loopmania.item.weapon.Anduril;
 import unsw.loopmania.item.weapon.Staff;
 import unsw.loopmania.item.weapon.Stake;
 import unsw.loopmania.item.weapon.Sword;
@@ -59,7 +67,7 @@ public class LoopManiaWorld {
 
     public static final int unequippedInventoryWidth = 4;
     public static final int unequippedInventoryHeight = 4;
-
+    
     /**
      * width of the world in GridPane cells
      */
@@ -100,7 +108,6 @@ public class LoopManiaWorld {
 
     private IntegerProperty round;
     private IntegerProperty gold; 
-    private IntegerProperty doggieCoin; // Milestone 3 Resource
     private IntegerProperty experience;
     private IntegerProperty allyNumbers;
     private GoalNode goal;
@@ -109,6 +116,7 @@ public class LoopManiaWorld {
     private boolean bossSpawn = false;
     private List<Gold> goldSpawned;
     private List<HealthPotion> potionSpawned;
+    private DoggieCoin doggieCoin;
 
     private IntegerProperty defeatedBosses;
 
@@ -187,10 +195,8 @@ public class LoopManiaWorld {
      */
     public void addEntity(Entity entity) {
         // for adding non-specific entities (ones without another dedicated list)
-        // TODO = if more specialised types being added from main menu, add more methods like this with specific input types...
         nonSpecifiedEntities.add(entity);
     }
-
     /**
      * spawns enemies if the conditions warrant it, adds to world
      * @return list of the enemies to be displayed on screen
@@ -209,10 +215,6 @@ public class LoopManiaWorld {
         return spawningEnemies;
     }
 
-    // function to spawn a zombie if ally was bit by zombie
-    private void spawnZombieCrit(Zombie zombie) {
-        
-    }
 
     /**
      * kill an enemy
@@ -228,10 +230,9 @@ public class LoopManiaWorld {
      * @return list of enemies which have been killed
      */
     public List<BasicEnemy> runBattles() {
-        // TODO = modify this - currently the character automatically wins all battles without any damage!
+        boolean elanExist = false;
         BasicEnemy firstEnemy = null;
         int bonusDamage = 0;
-        //boolean campfirePresent = false;
         System.out.println("CHARACTER DAMAGE: " + character.getDamage());
         for (Building b: buildingEntities) {
             if (b.checkInRange(character.getX(), character.getY())) {
@@ -239,11 +240,7 @@ public class LoopManiaWorld {
                 System.out.println("BONUS DAMAGE: " + bonusDamage);
             }
         }
-        // Stores all the defeated enemies
-        List<BasicEnemy> defeatedEnemies = new ArrayList<BasicEnemy>();
-
-        
-        // Stores all the enemies within battle and support radius (no duplicates)
+        List<BasicEnemy> defeatedEnemies = new ArrayList<BasicEnemy>();        
         List<BasicEnemy> queuedEnemies = new ArrayList<BasicEnemy>();
 
         
@@ -253,68 +250,124 @@ public class LoopManiaWorld {
         for (BasicEnemy e: enemies) {
             System.out.println("looking for enemy");
             if (Math.pow((character.getX()-e.getX()), 2) +  Math.pow((character.getY()-e.getY()), 2) < Math.pow(e.getBattleRadius(), 2)) {
-                // queue battle enemies
                 queuedEnemies.add(e);
                 firstEnemy = e;
                 System.out.println("Found enemy");
-                //break;
-                // Only vampires have support radius
-                // Find all the enemies for which character is within support radiu
+                // Find all the enemies for which character is within support radius
                 for (BasicEnemy s: enemies) {
 
                     System.out.println("looking for support");
-                    // TODO: Also did not work, need to fix
                     if (Math.pow((character.getX()-s.getX()), 2) +  Math.pow((character.getY()-s.getY()), 2) < Math.pow(s.getSupportRadius(), 2)
                         && s != firstEnemy) {
                         // queue battle enemies
                         System.out.println("found support enemy");
-                        queuedEnemies.add(s);
-                            
+                        queuedEnemies.add(s);       
                     }
-                
                 }
                 break;
+            }
+        }
+
+        for (BasicEnemy b : queuedEnemies) {
+            if (b.getType() == "ElanMuske") {
+                elanExist = true;
             }
         }
         
         
         // time for the battle
-        for (BasicEnemy e: queuedEnemies) {
+        for (ListIterator<BasicEnemy> queuedEnemiesItr = queuedEnemies.listIterator(); queuedEnemiesItr.hasNext();) {
+            BasicEnemy e = queuedEnemiesItr.next();
+            int enemiesTraunched = 0;
 
-
+            // System.out.println("BATTLING NOW!!");
             while (e.getHealth() > 0 && character.getHealth() > 0) {
                 // character attacks enemy first
-                
-                
                 character.dealDamage(e, bonusDamage);
-                System.out.println("CHARACTER DAMAGE: " + character.getDamage());
-
-                //character.dealDamage(e, bonusDamage);
+                if (character.getWeapon() != null) {
+                    if (character.getWeapon().toString() == "Staff" && e.getHealth() > 0) {
+                        if (e.getType() == "Doggie") {
+                            checkDoggieCoinFluctuate();
+                        }
+                        Staff staff = (Staff) character.getWeapon();
+                        if (staff.getTranchedBool()) {
+                            character.gainAlly();
+                            killEnemy(e);
+                            staff.resetTrancedBool();
+                            break;
+                        }
+    
+                    }
+                }
                 
 
+
+                
                 // check if enemy is alive, if not skip and remove from queue + kill
                 if (e.getHealth() <= 0) {
                     setGold(getGold() + e.getGold());
                     setExperience(getExperience() + e.getXP());
                     
-                    // Case for Doggie Killed.
-                    String tempType = e.getType();
-                    if (tempType.equals("Doggie") == true) { 
-                        setDoggieCoin(getDoggieCoin() + 1);
-                    }
+        
+                    if (e.getType() == "Doggie") {
+
+                        doggieCoin = new DoggieCoin(null,null);
+                    } 
+
                     
                     killEnemy(e);
-
+ 
                     
                 } else {
                     // if enemy alive, then it deals damage to character
                     e.dealDamage(character);
-                    //character.setHealth(100);
+                    
+                    if (e.getType() == "Zableombie" && character.getAllies() > 0 && e.doSpecial(character)) {
+                        //should be  to add onto list while iterating through it
+                        System.out.println("Spawning and adding zombie to list");
+        
+                        BasicEnemy allyZombie = new Zombie(new PathPosition(2, orderedPath));
+                        queuedEnemiesItr.add(allyZombie);
+                        queuedEnemiesItr.previous();
+                        queuedEnemiesItr.previous();
+    
+          
+                    }else if (e.getType() == "Vampire" && e.critDamage(character)) {
+                        character.setHealth(character.getHealth() - 5);
+                        System.out.println("Character health:" + character.getHealth() + " - 5 CriticalSTRIKE");
+                    }
+
+                    if (elanExist == true) {
+                        if (e.getType() != "ElanMuske") {
+                            // heal
+                            e.setHealth(e.getHealth() + 20);
+                            System.out.println("Healing this baboon: " + e.getType());
+                        } else {
+                            // If it is elan muske's turn, set elanExist to false and prevent healing
+                            elanExist = false;
+
+                        }
+                    }
                     // somewhere here that we will spawn the enemy out of ally soldiers
                     
                 }
             }
             
+            
+        }
+
+        if (character.getWeapon() != null) {
+            if (character.getWeapon().toString() == "Staff") {
+                Staff staff = (Staff) character.getWeapon();
+                int numAllies = character.getAllies() - staff.getTranched();
+                if (numAllies < 0) {
+                    character.setAllies(0);
+                } else {
+                    character.setAllies(numAllies);
+                }
+                
+                staff.resetTranced();
+            }
         }
         
 
@@ -331,11 +384,13 @@ public class LoopManiaWorld {
         if (cardEntities.size() >= getWidth()){
             // TODO = give some cash/experience/item rewards for the discarding of the oldest card
             removeCard(0);
-
             setGold(getGold() + 10);
             setExperience(getExperience() + 10);
+            Pair<Integer, Integer> firstAvailableSlot = getFirstAvailableSlotForItem();
             
             //addUnequippedItem();
+            
+            
         }
         Random r = new Random();
         int random = r.nextInt(7);
@@ -404,7 +459,7 @@ public class LoopManiaWorld {
         }
 
         Random r = new Random();
-        int num = r.nextInt(6);
+        int num = r.nextInt(7);
 
         switch(num) {
             case 0: 
@@ -431,6 +486,10 @@ public class LoopManiaWorld {
                 Shield shield = new Shield(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
                 unequippedInventoryItems.add(shield);
                 return shield;
+            case 6:
+                HealthPotion healthpotion = new HealthPotion(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
+                unequippedInventoryItems.add(healthpotion);
+                return healthpotion;
                 
         }
         return null;
@@ -451,16 +510,23 @@ public class LoopManiaWorld {
 
         Random r = new Random();
         int num = r.nextInt(100);
-
-        if (num < 3) {
-            TheOneRing theonering = new TheOneRing(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
-            unequippedInventoryItems.add(theonering);
-            return theonering;
-        } else if (num < 13 && num > 3) {
-            HealthPotion healthpotion = new HealthPotion(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
-            unequippedInventoryItems.add(healthpotion);
-            return healthpotion;
+        
+        // Skittles
+        switch (num) {
+            case 0:
+                TheOneRing theonering = new TheOneRing(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
+                unequippedInventoryItems.add(theonering);
+                return theonering;
+            case 1:
+                Anduril anduril = new Anduril(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
+                unequippedInventoryItems.add(anduril);
+                return anduril;
+            case 2:
+                TreeStump treeStump = new TreeStump(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
+                unequippedInventoryItems.add(treeStump);
+                return treeStump;
         }
+        
         return null;
     }
 
@@ -476,14 +542,14 @@ public class LoopManiaWorld {
         String store = items.toString();
 
 
-        if (store.equals("Staff") || store.equals("Stake") || store.equals("Sword")) {
+        if (store.equals("Staff") || store.equals("Stake") || store.equals("Sword") || store.equals("Anduril")) {
             Weapon weaponClass = (Weapon) items;
             character.setWeapon(weaponClass); 
         } else if (store.equals("Armour")) {
             Armour armourClass = (Armour) items;
             character.equipArmour(armourClass);
-        } else if (store.equals("Shield")) {
-            Shield shieldClass = (Shield) items;
+        } else if (store.equals("Shield") || store.equals("TreeStump")) {
+            Block shieldClass = (Block) items;
             character.equipShield(shieldClass);
         } else if (store.equals("Helmet")) {
             Helmet helmetClass = (Helmet) items;
@@ -492,7 +558,9 @@ public class LoopManiaWorld {
             HealthPotion healthpotion = (HealthPotion) items;
             healthpotion.consume(character);
             System.out.println("HEALING CHARACTER");
-            healthpotion.destroy();
+            // VVVV something wrong with this destroy function
+            // ed forum could rpovide solution
+            //healthpotion.destroy();
         }   
     }
 
@@ -511,12 +579,46 @@ public class LoopManiaWorld {
      * run moves which occur with every tick without needing to spawn anything immediately
      */
     public void runTickMoves() {
+        
         if (hasMetGoal()) {
             endGame();
         }
         ApplyBuildingEffects();
+        ApplyAttackDamage();
         character.moveDownPath();
         moveBasicEnemies();
+        checkDoggieCoinFluctuate();
+        
+        
+    }
+
+    public void ApplyAttackDamage() {
+        int totalBuff = 0;
+        System.out.println("totalBuff Beginning" + totalBuff);
+        for (Building b : buildingEntities) {
+            System.out.println("checking for buffs");
+            if (b instanceof CampfireBuilding && b.checkInRange(character.getX(), character.getY()) && !((CampfireBuilding) b).getActive()) {
+                System.out.println("buffing!");
+                ((CampfireBuilding) b).CharacterBattleBuffAbility(character);
+                ((CampfireBuilding) b).setActive(true);
+            } else if (b instanceof CampfireBuilding && ((CampfireBuilding) b).getActive() && !b.checkInRange(character.getX(), character.getY())) {
+                System.out.println("debuffing...");
+                ((CampfireBuilding) b).setActive(false);
+                ((CampfireBuilding) b).CharacterBattleDebuffAbility(character);
+            }
+            if (b instanceof CampfireBuilding) {
+                System.out.println("attack bonus" + character.getAlliesDamage());
+                System.out.println("number of allies" + character.getAllies());
+                totalBuff += ((CampfireBuilding) b).getAttackBonus();
+            }
+            
+ 
+        }
+        if (character.getWeapon() != null) {
+            character.getWeapon().damageBoost(character);
+        }
+        character.setTotalDamage(totalBuff);
+        System.out.println("Total Buff is " + totalBuff);
     }
 
     /**
@@ -541,7 +643,7 @@ public class LoopManiaWorld {
                         break;
                     }                               
                 }
-            }
+            } 
             
         }
     }
@@ -555,7 +657,7 @@ public class LoopManiaWorld {
             SimpleIntegerProperty y = new SimpleIntegerProperty(pos.getValue1());
             Random rand = new Random();
             int chance = rand.nextInt(100);
-            int value = rand.nextInt(50);
+            int value = ThreadLocalRandom.current().nextInt(20,51);
 
             if (chance < 4) {
                 Gold drop = new Gold(x, y);
@@ -577,7 +679,7 @@ public class LoopManiaWorld {
             SimpleIntegerProperty y = new SimpleIntegerProperty(pos.getValue1());
             Random rand = new Random();
             int chance = rand.nextInt(100);
-            if (chance < 2) {
+            if (chance < 1) {
                 HealthPotion drop = new HealthPotion(x, y);
 
                 potionSpawned.add(drop);
@@ -613,6 +715,7 @@ public class LoopManiaWorld {
                    spawningEnemies.add(zombieEnemy);
                 }
             }
+            // change skittles
             if (round.get() == 21) {
                 bossSpawn = true;        
                 Pair<Integer, Integer> pos = possiblyGetBasicEnemySpawnPosition();
@@ -620,6 +723,8 @@ public class LoopManiaWorld {
                 enemies.add(bossEnemy);
                 spawningEnemies.add(bossEnemy);
                 bossSpawn = false;
+                // change back to 41 pls
+                // skittles
             } else if (round.get() == 41) {
                 bossSpawn = true;        
                 Pair<Integer, Integer> pos = possiblyGetBasicEnemySpawnPosition();
@@ -950,6 +1055,24 @@ public class LoopManiaWorld {
 
         
     }
+    /**
+     * Figure out whether ElanMuske is alive and fluctuate doggieCoin accordingly.
+     */
+    public void checkDoggieCoinFluctuate(){
+        boolean elanMuskeAlive = false;
+
+        for (BasicEnemy e: enemies) {
+            if (e.getType() == "ElanMuske") {
+                elanMuskeAlive = true;
+            }
+        }
+        System.out.println("dog coin exist or nah: " + doggieCoin);
+        if (doggieCoin != null) {
+            //doggieCoin.fluctuate(elanMuskeAlive, getRound());
+            doggieCoin.fluctuate(elanMuskeAlive, getRound());
+        }
+        
+    }
 
     public void DestroyCard(Card card, int cardNodeX) {
         card.destroy();
@@ -963,6 +1086,27 @@ public class LoopManiaWorld {
 
     public IntegerProperty getCharacterHealthProperty() {
         return character.getHealthProperty();
+    }
+    public DoubleProperty getCharacterShieldProperty() {
+        if (character.getShield() != null) {
+            System.out.println("Shield Damage" + character.getShield().getDamageReduction());
+            return new SimpleDoubleProperty(character.getShield().getDamageReduction());
+        }
+        return new SimpleDoubleProperty(0);
+        
+    }
+
+    public DoubleProperty getCharacterArmourProperty() {
+        if (character.getArmour() != null) {
+            return new SimpleDoubleProperty(character.getArmour().getDamageReduction());
+        } 
+        return new SimpleDoubleProperty(0);
+    }
+    public DoubleProperty getCharacterHelmetProperty() {
+        if (character.getHelmet() != null) {
+            return new SimpleDoubleProperty(character.getHelmet().getDamageReduction());
+        } 
+        return new SimpleDoubleProperty(0);
     }
     public int getRound() {
         return round.get();
@@ -994,16 +1138,13 @@ public class LoopManiaWorld {
 
     
     // New DoggieCoin resource.
-    public void setDoggieCoin(int doggieCoin) {
-        this.doggieCoin.set(doggieCoin);
-    }
     public int getDoggieCoin() {
-        return doggieCoin.get();
+        return doggieCoin.getValueProperty();
     }
     public IntegerProperty getDoggieProperty() {
-        return doggieCoin;
+        return doggieCoin.getValue();
     }
-
+    
 
     public IntegerProperty getNumberAlliesProperty() {
         allyNumbers.set(character.getAllies());
@@ -1013,7 +1154,7 @@ public class LoopManiaWorld {
 
 
     public IntegerProperty getCharacterDamageProperty() {
-        return character.getDamageProperty();  
+        return character.getTotalDamageProperty();  
     }
 
     public IntegerProperty getDefeatedBossesProperty() {

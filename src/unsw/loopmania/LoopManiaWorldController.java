@@ -2,6 +2,7 @@ package unsw.loopmania;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import org.codefx.libfx.listener.handle.ListenerHandle;
 import org.codefx.libfx.listener.handle.ListenerHandles;
@@ -23,6 +24,7 @@ import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Labeled;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
@@ -144,6 +146,19 @@ public class LoopManiaWorldController {
     @FXML
     private Text damageField;
 
+    @FXML
+    private Text shieldField;
+
+    @FXML
+    private Text armourField;
+
+    @FXML
+    private Text helmetField;
+
+    @FXML
+    private Button muteField;
+
+
     // all image views including tiles, character, enemies, cards... even though cards in separate gridpane...
     private List<ImageView> entityImages;
 
@@ -194,6 +209,10 @@ public class LoopManiaWorldController {
     private Image theoneringImage;
     private Image healthpotionImage;
     private Image goldImage;
+    private Image andurilImage;
+    private Image treeStumpImage;
+    private Image emptyPotionImage;
+
 
     /**
      * the image currently being dragged, if there is one, otherwise null.
@@ -233,6 +252,15 @@ public class LoopManiaWorldController {
      */
     private MenuSwitcher mainMenuSwitcher;
     private MenuSwitcher shopMenuSwitcher;
+    private Media goldSound;
+    private Media gainHealthSound;
+    private Media loseHealthSound;
+    private MediaPlayer gainHealthSoundPlayer;
+    private MediaPlayer goldSoundPlayer;
+    private MediaPlayer loseHealthSoundPlayer;
+
+    private MediaPlayer mediaPlayer;
+    private boolean muted;
 
 
 
@@ -267,7 +295,10 @@ public class LoopManiaWorldController {
         helmetImage = new Image((new File("src/images/helmet.png")).toURI().toString());
         theoneringImage = new Image((new File("src/images/the_one_ring.png")).toURI().toString());
         healthpotionImage = new Image((new File("src/images/brilliant_blue_new.png")).toURI().toString());
+        emptyPotionImage = new Image((new File("src/images/potion.png")).toURI().toString());
         goldImage = new Image((new File("src/images/gold_pile.png")).toURI().toString());
+        andurilImage = new Image((new File("src/images/anduril_flame_of_the_west.png")).toURI().toString());
+        treeStumpImage = new Image((new File("src/images/tree_stump.png")).toURI().toString());
 
         //basicEnemyImage = new Image((new File("src/images/slug.png")).toURI().toString());
 
@@ -285,9 +316,13 @@ public class LoopManiaWorldController {
         currentlyDraggedType = null;
 
         //initialise media
-
-
-
+        goldSound = new Media(new File("src/music/mixkit-coins-handling-1939.mp3").toURI().toString());
+        goldSoundPlayer = new MediaPlayer(goldSound);
+        gainHealthSound = new Media(new File("src/music/mixkit-casino-bling-achievement-2067.wav").toURI().toString());
+        gainHealthSoundPlayer = new MediaPlayer(gainHealthSound);
+        loseHealthSound = new Media(new File("src/music/Minecraft Damage (Oof) - Sound Effect (HD).mp3").toURI().toString());
+        loseHealthSoundPlayer = new MediaPlayer(loseHealthSound);
+        this.muted = false;
         // initialize them all...
         gridPaneSetOnDragDropped = new EnumMap<DRAGGABLE_TYPE, EventHandler<DragEvent>>(DRAGGABLE_TYPE.class);
         anchorPaneRootSetOnDragOver = new EnumMap<DRAGGABLE_TYPE, EventHandler<DragEvent>>(DRAGGABLE_TYPE.class);
@@ -344,8 +379,9 @@ public class LoopManiaWorldController {
         expField.textProperty().bindBidirectional(world.getExperienceProperty(), new NumberStringConverter());
         cycleField.textProperty().bindBidirectional(world.getRoundProperty(), new NumberStringConverter());
         allyField.textProperty().bindBidirectional(world.getNumberAlliesProperty(), new NumberStringConverter());
-        //damageField.textProperty().bindBidirectional(world.getCharacterDamageProperty(), new NumberStringConverter());
-            
+        damageField.textProperty().bindBidirectional(world.getCharacterDamageProperty(), new NumberStringConverter());
+   
+
     }
 
     /**
@@ -389,19 +425,33 @@ public class LoopManiaWorldController {
 
             }
             allyField.textProperty().bindBidirectional(world.getNumberAlliesProperty(), new NumberStringConverter());
+            armourField.textProperty().bindBidirectional(world.getCharacterArmourProperty(), new NumberStringConverter());
+            shieldField.textProperty().bindBidirectional(world.getCharacterShieldProperty(), new NumberStringConverter());
+            helmetField.textProperty().bindBidirectional(world.getCharacterHelmetProperty(), new NumberStringConverter());
             printThreadingNotes("HANDLED TIMER");
 
-            // Testing //
-            allyField.textProperty().bindBidirectional(world.getNumberAlliesProperty(), new NumberStringConverter());
-
-            // store spawn after each cycle
-            // call cycle from loop mania world
-            // then launch store
-            // when clicked, check money,
-            // if sufficient then call the boughtItem function in world
-
-
         }));
+        world.getgoldProperty().addListener((obs, oldValue, newValue) -> {
+            if ((newValue.intValue() - oldValue.intValue()) > 20) {
+                goldSoundPlayer.stop();
+                goldSoundPlayer.setStartTime(Duration.ZERO);
+                goldSoundPlayer.play();
+            }
+
+        });
+        world.getCharacterHealthProperty().addListener((obs, oldValue, newValue) -> {
+            if (oldValue.intValue() > newValue.intValue()) {
+                loseHealthSoundPlayer.stop();
+                loseHealthSoundPlayer.setStartTime(Duration.ZERO);
+                loseHealthSoundPlayer.play();
+            } else {
+                gainHealthSoundPlayer.stop();
+                gainHealthSoundPlayer.setStartTime(Duration.ZERO);
+                gainHealthSoundPlayer.setVolume(0.5);
+                gainHealthSoundPlayer.play();
+            }
+        });
+
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
     }
@@ -438,6 +488,7 @@ public class LoopManiaWorldController {
         // TODO = load more types of card
         Card card = world.loadCard();
         onLoad(card);
+        
     }
 
     /**
@@ -447,7 +498,10 @@ public class LoopManiaWorldController {
         // TODO = load more types of weapon
         // start by getting first available coordinates
         StaticEntity item = world.addUnequippedItem();
-        onLoad(item);
+        if (item != null) {
+            onLoad(item);
+        }
+        
     }
     private void loadRareItem(){
         // TODO = load more types of weapon
@@ -467,9 +521,20 @@ public class LoopManiaWorldController {
         // react to character defeating an enemy
         // in starter code, spawning extra card/weapon...
         // TODO = provide different benefits to defeating the enemy based on the type of enemy
-        loadItem();
+        Random r = new Random();
+        int chance = r.nextInt(100);
+        if (enemy.toString() == "Slug" && chance < 10) {
+            loadItem();   
+        } else if (enemy.toString() == "Zombie" && chance < 20) {
+            loadItem();
+        } else if (enemy.toString() == "Vampire" && chance < 30) {
+            loadItem();
+        }
         loadRareItem();
-        loadCard();
+        if (chance < 70) {
+            loadCard();
+        }
+        
     }
 
     /**
@@ -569,6 +634,12 @@ public class LoopManiaWorldController {
             
             case "HealthPotion":
                 return healthpotionImage;
+            
+            case "Anduril":
+                return andurilImage;
+            
+            case "TreeStump":
+                return treeStumpImage;
 
         }
         return null;
@@ -670,11 +741,30 @@ public class LoopManiaWorldController {
 
                             case ITEM:
                                 if (staticEntity.checkItemPlacable(x,y)){
-                                    removeDraggableDragEventHandlers(draggableType, targetGridPane);
                                 // TODO = spawn an item in the new location. The above code for spawning a building will help, it is very similar
-                                    removeItemByCoordinates(nodeX, nodeY);
-                                    targetGridPane.add(image, x, y, 1, 1);
-                                    world.addCharacterDraggedEntity(staticEntity);
+                                    
+                                    if (x == 2 && y == 0) { 
+                                        if (world.getCharacterHealthProperty().get() < 100){
+                                            
+                                            image = new ImageView(emptyPotionImage);
+                                            removeDraggableDragEventHandlers(draggableType, targetGridPane);
+                                            removeItemByCoordinates(nodeX, nodeY);
+                                            targetGridPane.add(image, x, y, 1, 1);
+                                            world.addCharacterDraggedEntity(staticEntity);
+                                            break;
+                                        }else {
+                                            node.setOpacity(1);
+                                            return;
+                                        }
+                            
+                                    } else {  
+                                        removeDraggableDragEventHandlers(draggableType, targetGridPane);
+                                        removeItemByCoordinates(nodeX, nodeY);
+                                        targetGridPane.add(image, x, y, 1, 1);
+                                        world.addCharacterDraggedEntity(staticEntity);
+
+                                    }
+                                    
                                 } else {
                                     node.setOpacity(1);
                                     return;
@@ -1051,7 +1141,9 @@ public class LoopManiaWorldController {
     public void setGameMode(String gameMode) {
         this.gameMode = gameMode;
     }
-
+    public void setMediaPlayer(MediaPlayer mediaPlayer) {
+        this.mediaPlayer = mediaPlayer;
+    }
     public void purchaseItem(int storeIndex, ShopController shopController) {
         StaticEntity boughtItem = world.boughtItem(world.generateRandomStore().get(storeIndex));
 
@@ -1083,6 +1175,7 @@ public class LoopManiaWorldController {
         visiblePause.play();   
     }
 
+    
     private double timelineRate = 1.0;
     @FXML
     public void decreaseTickSpeed(ActionEvent event) {
@@ -1110,7 +1203,14 @@ public class LoopManiaWorldController {
         }
     }
 
-    public LoopManiaWorld getLoopManiaWorld() {
-        return world;
+    @FXML
+    void muteButtonPressed(ActionEvent event) {
+        if (muted) {
+            mediaPlayer.play();
+            muted = false;
+        } else {
+            mediaPlayer.stop();
+            muted = true;
+        }
     }
 }
