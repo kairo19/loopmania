@@ -15,15 +15,21 @@ import unsw.loopmania.item.defensiveitem.Shield;
 import unsw.loopmania.item.weapon.Weapon;
 
 /**
- * represents the main character in the backend of the game world
- * @param health
- * @param damage
- * @param equippedSword
- * @param equippedShield
- * @param equippedArmour
+ * Represents the main character in the backend of the game world
+ * @param position - character coordinates in game world.
+ * health - character health points.
+ * damage - base character attack damage
+ * totalDamage - total character damage including buffs/effects and equipment.
+ * buffedDamage - buffed character attack damage.
+ * allies - number of character allies - buffs character attack.
+ * equippedWeapon - character equipped weapon.
+ * equippedArmour - character equipped armour.
+ * equippedHelmet - character equipped helmet.
+ * equippedShield - character equipped shield.
+ * alliesDamage - character attack boost from allies.
+ * armourdefense - total armour damage reduction from enemy attack.
  */
 
- 
 public class Character extends MovingEntity {
     private IntegerProperty health;
     private IntegerProperty damage;
@@ -36,11 +42,6 @@ public class Character extends MovingEntity {
     private Block equippedShield;
     private int alliesDamage;
     private DoubleProperty armourdefense;
-    /*
-    private Armour equippedArmour;
-    private Helmet equippedHelmet;
-    private Shield equippedShield;
-    */
 
     public Character(PathPosition position) {
         super(position);
@@ -106,6 +107,7 @@ public class Character extends MovingEntity {
         this.equippedArmour = armour;
         setArmourdefense(new SimpleDoubleProperty(armour.getDamageReduction()));
     }
+
     public void setArmourdefense(DoubleProperty armourdefense) {
         this.armourdefense = armourdefense;
     }
@@ -188,9 +190,11 @@ public class Character extends MovingEntity {
         enemy.setHealth(enemy.getHealth() - damageDealt);
         
     }
+
     public int getAllies() {
         return allies;
     }
+
     public void setAllies(int allies) {
         this.allies = allies;
     }
