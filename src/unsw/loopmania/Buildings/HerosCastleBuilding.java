@@ -17,9 +17,11 @@ import org.javatuples.Pair;
  */
 
 public class HerosCastleBuilding extends Building {
+    private int nextShopRound;
     private int counter;
     public HerosCastleBuilding(SimpleIntegerProperty x, SimpleIntegerProperty y) {
         super(x, y);
+        this.nextShopRound = 2;
         this.counter = 2;
     }  
 
@@ -36,8 +38,9 @@ public class HerosCastleBuilding extends Building {
      * @param round - count of completed character completed rounds.
      */
     public boolean PurchaseCycle(int round) {
-        if (counter == round && round != 1) {
-            counter = counter + round;
+        if (nextShopRound == round) {
+            nextShopRound = counter + round;
+            counter++;
             return true; 
         }
         return false;

@@ -4,9 +4,11 @@ import java.io.File;
 import java.io.IOException;
 
 import javafx.application.Application;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
@@ -51,16 +53,24 @@ public class LoopManiaApplication extends Application {
         FXMLLoader menuLoader = new FXMLLoader(getClass().getResource("MainMenuView.fxml"));
         menuLoader.setController(mainMenuController);
         Parent mainMenuRoot = menuLoader.load();
+        
+        // load the shop sell menu
+        ShopSellController shopSellController = new ShopSellController(mainController);
+        FXMLLoader shopSellLoader = new FXMLLoader(getClass().getResource("ShopSellView.fxml"));
+        shopSellLoader.setController(shopSellController);
+        Parent shopSellRoot = shopSellLoader.load();
 
         // load the shop menu
-        ShopController shopController = new ShopController(mainController);
+        ShopController shopController = new ShopController(mainController, shopSellController);
         FXMLLoader shopLoader = new FXMLLoader(getClass().getResource("ShopView.fxml"));
         shopLoader.setController(shopController);
         Parent shopRoot = shopLoader.load();
 
+
         // create new scene with the main menu (so we start with the main menu)
         Scene menuScene = new Scene(mainMenuRoot);
         Scene shopScene = new Scene(shopRoot);
+        Scene shopSellScene = new Scene(shopSellRoot);
 
         menuMediaPlayer.play();
 
@@ -73,9 +83,23 @@ public class LoopManiaApplication extends Application {
             menuMediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
         });
         
+        mainController.setMediaPlayer(mediaPlayer);
         mainController.setShopMenuSwitcher(() -> {switchToRoot(shopScene, shopRoot, primaryStage);});
         
+        // purchasing scene switches
         shopController.setGameSwitcher(() -> {
+            switchToRoot(menuScene, gameRoot, primaryStage);
+            mainController.startTimer();
+        });
+        shopController.setShopSwitcher(() -> {
+            switchToRoot(shopSellScene, shopSellRoot, primaryStage);
+        });
+
+        // selling scene switches
+        shopSellController.setShopSwitcher(() -> {
+            switchToRoot(shopScene, shopRoot, primaryStage);
+        });
+        shopSellController.setGameSwitcher(() -> {
             switchToRoot(menuScene, gameRoot, primaryStage);
             mainController.startTimer();
         });

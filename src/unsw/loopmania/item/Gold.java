@@ -8,6 +8,12 @@ import unsw.loopmania.Cards.PlacableBehaviour.PlacableBehaviour;
 import unsw.loopmania.Cards.PlacableBehaviour.PlacableOnPath;
 import unsw.loopmania.item.consumable.Consumable;
 
+/**
+ * This class represents the gold item.
+ * @param x - item x coord position.
+ * @param y - item y coord position.
+ */
+
 public class Gold extends StaticEntity{
     private int drop = 0;
     PlacableBehaviour placableBehaviour;
@@ -16,6 +22,10 @@ public class Gold extends StaticEntity{
         placableBehaviour = new PlacableOnPath();
     }
 
+    /**
+     * Adds gold to inventory.
+     * @param world - world state.
+     */
     public void transferGold(LoopManiaWorld world) {
         int currentGold = world.getGold();
         world.setGold(currentGold + getDrop());
@@ -30,14 +40,13 @@ public class Gold extends StaticEntity{
         return drop;
     }
 
-
+    /**
+     * Returns item name as string.
+     */
     @Override
     public String toString() {
         // TODO Auto-generated method stub
         return "Gold";
     }
-
-
-
 
 }

@@ -7,10 +7,18 @@ import unsw.loopmania.PathPosition;
 import unsw.loopmania.Character;
 
 /**
- * a basic form of enemy in the world
+ * This class represents a basic enemy.
+ * @param position - enemy position on path.
+ * @param health - enemy health points.
+ * @param damage - enemy attack damage points.
+ * @param type - enemy name.
+ * @param goldReward - gold rewarded for defeating enemy.
+ * @param xpReward - xp rewarded for defeating enemy.
+ * @param battleRadius - combat trigger radius measured in number of tiles.
+ * @param supportRadius - support trigger radius measured in number of tiles.
  */
+
 public class BasicEnemy extends MovingEntity {
-    // TODO = modify this, and add additional forms of enemy
     private int health;
     private int damage;
     private String type;
@@ -36,7 +44,7 @@ public class BasicEnemy extends MovingEntity {
     }
 
     /**
-     * move the enemy
+     * Move the enemy along the path.
      */
     public void move(){
         // TODO = modify this, since this implementation doesn't provide the expected enemy behaviour
@@ -86,6 +94,10 @@ public class BasicEnemy extends MovingEntity {
         return this.xpReward;
     }
 
+    /**
+     * Deals damage to the character.
+     * @param character - character entity.
+     */
     public void dealDamage(Character character) {
         
         int damageDealt = this.damage;
@@ -110,17 +122,28 @@ public class BasicEnemy extends MovingEntity {
         System.out.println("Character health:" + character.getHealth() + " - " + damageDealt);
         
         character.setHealth(character.getHealth() - damageDealt);
-        
-        
+             
     }
 
+    /**
+     * Returns whether the enemy does crit damage.
+     * @param character - character entity.
+     */
     public boolean critDamage(Character character) {
         return false;
     }
+    
+    /**
+     * Returns whether the enemy is a boss.
+     */
     public boolean isBoss() {
         return false;
     }
 
+    /**
+     * Returns whether the enemy has a special attack.
+     * @param character - character entity.
+     */
     public boolean doSpecial(Character character) {
         return false;
     }

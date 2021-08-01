@@ -11,18 +11,20 @@ import unsw.loopmania.Enemies.BasicEnemy;
 import unsw.loopmania.Enemies.Vampire;
 
 /**
- * a basic form of building in the world
+ * This class represents the vampire castle building.
+ * @param x - building x coord position.
+ * @param y - building y coord position.
  */
+
 public class VampireCastleBuilding extends Building {
     //private int buildingAliveRounds = 0;
     public VampireCastleBuilding(SimpleIntegerProperty x, SimpleIntegerProperty y) {
         super(x, y);
         
     }
+
     /**
      * Counts the amount of rounds active since building spawned
-     * @param round
-     * @return
      */
     /*
     public int getBuildingAliveRounds() {
@@ -31,8 +33,7 @@ public class VampireCastleBuilding extends Building {
     */
     /**
      * Spawns a vampire to the location of the building
-     * @param world LoopManiaWorld
-     * @return
+     * @param orderedPath - all path coords.
      */
     @Override
     public BasicEnemy SpawnAbility(List<Pair<Integer, Integer>> orderedPath) {
@@ -53,6 +54,10 @@ public class VampireCastleBuilding extends Building {
         int indexInPath = orderedPath.indexOf(position);
         return new Vampire(new PathPosition(indexInPath, orderedPath));
     }
+
+    /**
+     * Returns building name as string.
+     */
     @Override
     public String toString() {
         return "VampireCastleBuilding";

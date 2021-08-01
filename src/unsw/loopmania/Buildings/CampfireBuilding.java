@@ -7,6 +7,11 @@ import org.javatuples.Pair;
 import javafx.beans.property.SimpleIntegerProperty;
 import unsw.loopmania.Character;
 
+/**
+ * This class represents the campfire building.
+ * @param x - building x coord position.
+ * @param y - building y coord position.
+ */
 
 public class CampfireBuilding extends Building {
 
@@ -18,6 +23,11 @@ public class CampfireBuilding extends Building {
         setRadius(3);
     }
 
+    /**
+     * Activate character attack damage buff
+     * @param character - character entity.
+     * @return - total turn character attack damage.
+     */
     @Override
     public int CharacterBattleBuffAbility(Character character) {
         
@@ -28,6 +38,10 @@ public class CampfireBuilding extends Building {
         return character.getTotalDamage();
     }
 
+    /**
+     * De-activate character attack damage buff
+     * @param character - character entity.
+     */
     public void CharacterBattleDebuffAbility(Character character) {
         if (active) {
             active = false;
@@ -45,6 +59,9 @@ public class CampfireBuilding extends Building {
         return attackBonus;
     }
 
+    /**
+     * Returns building name as string.
+     */
     @Override
     public String toString() {
         return "CampfireBuilding";
