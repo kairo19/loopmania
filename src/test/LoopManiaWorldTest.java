@@ -30,10 +30,12 @@ import unsw.loopmania.Enemies.BasicEnemy;
 import unsw.loopmania.Enemies.Vampire;
 import unsw.loopmania.Enemies.Zombie;
 import unsw.loopmania.goal.GoalGold;
+import unsw.loopmania.item.consumable.HealthPotion;
 import unsw.loopmania.item.defensiveitem.Armour;
 import unsw.loopmania.item.defensiveitem.Helmet;
 import unsw.loopmania.item.defensiveitem.Shield;
 import unsw.loopmania.item.weapon.Staff;
+import unsw.loopmania.item.weapon.Stake;
 import unsw.loopmania.item.weapon.Sword;
 import unsw.loopmania.item.weapon.Weapon;
 import unsw.loopmania.Character;
@@ -98,7 +100,7 @@ public class LoopManiaWorldTest {
     }
 
     @Test
-    public void TestrunBattles2(){
+    public void boughtItemsTest(){
         List<Pair<Integer, Integer>> orderedpath  = new ArrayList<>();
         orderedpath.add(new Pair<Integer, Integer>(1, 1));
         orderedpath.add(new Pair<Integer, Integer>(2, 1));
@@ -113,19 +115,28 @@ public class LoopManiaWorldTest {
         d.setCharacter(character);
         d.possiblySpawnEnemies();
         d.setGoal(new GoalGold(d, 10000));
+        Sword sword = new Sword (new SimpleIntegerProperty(), new SimpleIntegerProperty());
         Staff staff = new Staff(new SimpleIntegerProperty(), new SimpleIntegerProperty());
-        character.setWeapon(staff);
-        Vampire vampire = new Vampire(new PathPosition(2, orderedpath));
-        Zombie zombie = new Zombie(new PathPosition(1, orderedpath));
+        Stake stake = new Stake(new SimpleIntegerProperty(), new SimpleIntegerProperty());
+        Armour armour = new Armour(new SimpleIntegerProperty(), new SimpleIntegerProperty());
+        Helmet helmet = new Helmet(new SimpleIntegerProperty(), new SimpleIntegerProperty());
+        Shield shield = new Shield(new SimpleIntegerProperty(), new SimpleIntegerProperty());
+        HealthPotion healthPotion = new HealthPotion(new SimpleIntegerProperty(), new SimpleIntegerProperty());
         
-        for (int i = 0; i < 150; i++) {
-            d.runTickMoves();
-            d.possiblySpawnEnemies();
-            d.runBattles();
-        }
+        character.setWeapon(staff);
 
+        d.generateRandomStore();
+        d.boughtItem(sword);
+        d.boughtItem(staff);
+        d.boughtItem(stake);
+        d.boughtItem(armour);
+        d.boughtItem(helmet);
+        d.boughtItem(shield);
+        d.boughtItem(healthPotion);
 
-        assertEquals(0, character.getHealth());
+        
+
+        assertEquals(staff, character.getWeapon());
     }
 
     @Test
