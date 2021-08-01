@@ -512,7 +512,7 @@ public class LoopManiaWorld {
         int num = r.nextInt(100);
         
         // Skittles
-        switch (2) {
+        switch (num) {
             case 0:
                 TheOneRing theonering = new TheOneRing(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
                 unequippedInventoryItems.add(theonering);
