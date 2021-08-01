@@ -43,7 +43,7 @@ public class DoggieCoin extends StaticEntity {
             Random random = new Random();
             int fluctuation = random.nextInt(1) == 0 ? -1 : 1;
             float multiplier = random.nextFloat();
-            value.set((int) (value.get() + value.get() * fluctuation * multiplier));
+            value.set(Math.abs((int) (value.get() + 100 * fluctuation * multiplier)));
 
         } else if (elanMuskeAlive) {
             // increase
