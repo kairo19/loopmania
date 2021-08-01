@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
+import javafx.util.converter.NumberStringConverter;
 
 public class ShopController {
     private MenuSwitcher gameSwitcher;
@@ -22,8 +23,15 @@ public class ShopController {
         this.shopSwitcher = shopSwitcher;
     }
 
+    public LoopManiaWorld getLoopManiaWorld() {
+        return loopManiaWorldController.getLoopManiaWorld();
+    }
+
     @FXML
     private Text warningText;
+
+    @FXML
+    private Text currentGold;
 
     @FXML
     void handleReturnButton(ActionEvent event) {
@@ -82,5 +90,9 @@ public class ShopController {
 
     public Text getWarningText() {
         return warningText;
+    }
+
+    public void initialize() {
+        currentGold.textProperty().bindBidirectional(getLoopManiaWorld().getgoldProperty(), new NumberStringConverter());
     }
 }
