@@ -1,6 +1,5 @@
 package unsw.loopmania.Buildings;
 import javafx.beans.property.SimpleIntegerProperty;
-import unsw.loopmania.LoopManiaWorld;
 import unsw.loopmania.PathPosition;
 import unsw.loopmania.Enemies.BasicEnemy;
 import unsw.loopmania.Enemies.Doggie;

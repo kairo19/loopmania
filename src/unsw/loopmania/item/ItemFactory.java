@@ -15,10 +15,18 @@ import unsw.loopmania.item.weapon.Staff;
 import unsw.loopmania.item.weapon.Stake;
 import unsw.loopmania.item.weapon.Sword;
 
+/**
+ * This class represents item spawning functionality.
+ */
+
 public class ItemFactory {
     //private Random random = new Random();
 
-    // create here
+    /**
+     * Spawns item at give location.
+     * @param x - building x coord position.
+     * @param y - building y coord position.
+     */
     public StaticEntity makeItems(SimpleIntegerProperty x, SimpleIntegerProperty y) {
 
         Random r = new Random();
@@ -45,6 +53,11 @@ public class ItemFactory {
         return null;
     }
 
+    /**
+     * Spawns rare item at give location.
+     * @param x - building x coord position.
+     * @param y - building y coord position.
+     */
     public StaticEntity makeRareItems(SimpleIntegerProperty x, SimpleIntegerProperty y) {
 
         Random r = new Random();

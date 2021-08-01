@@ -5,8 +5,6 @@ import org.javatuples.Pair;
 
 import javafx.beans.property.SimpleIntegerProperty;
 import unsw.loopmania.Character;
-import unsw.loopmania.OccupiedBuildings;
-import unsw.loopmania.PathPosition;
 import unsw.loopmania.StaticEntity;
 import unsw.loopmania.Enemies.BasicEnemy;
 
@@ -48,6 +46,9 @@ public abstract class Building extends StaticEntity {
     public void setRadius(int radius) {
         this.radius = radius;
     }
+    /**
+     * Counts the amount of rounds active since building spawned
+     */
     public int getBuildingAliveRounds() {
         return buildingAliveRounds;
     }

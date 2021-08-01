@@ -2,8 +2,6 @@ package unsw.loopmania.item.defensiveitem;
 
 import javafx.beans.property.SimpleIntegerProperty;
 
-import unsw.loopmania.Enemies.BasicEnemy;
-import unsw.loopmania.StaticEntity;
 import unsw.loopmania.Cards.PlacableBehaviour.PlacableHelmet;
 
 /**
@@ -34,7 +32,6 @@ public class Helmet extends DefensiveItem implements Blinder {
      */
     @Override
     public String toString() {
-        // TODO Auto-generated method stub
         return "Helmet";
     }
 

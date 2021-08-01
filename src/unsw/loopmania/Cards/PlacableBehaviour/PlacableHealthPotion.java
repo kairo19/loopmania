@@ -17,7 +17,6 @@ public class PlacableHealthPotion implements PlacableBehaviour{
      */
     @Override
     public boolean placable(int x, int y, List<Pair<Integer, Integer>> orderedPath) {
-        // TODO Auto-generated method stub
         return false;
     }
 
@@ -28,7 +27,6 @@ public class PlacableHealthPotion implements PlacableBehaviour{
      */
     @Override
     public boolean itemPlacable(int x, int y) {
-        // TODO Auto-generated method stub
         if (x == 2 && y == 0){
             return true;
         } else {
