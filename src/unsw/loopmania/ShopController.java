@@ -10,6 +10,7 @@ public class ShopController {
     private MenuSwitcher gameSwitcher;
     private MenuSwitcher shopSwitcher;
     private LoopManiaWorldController loopManiaWorldController;
+    private ShopSellController shopSellController;
     @FXML
     private Text warningText;
     @FXML
@@ -21,8 +22,9 @@ public class ShopController {
      * Creates controller of ShopView.
      * @param loopManiaWorldController Main controller of game.
      */
-    public ShopController(LoopManiaWorldController loopManiaWorldController) {
+    public ShopController(LoopManiaWorldController loopManiaWorldController, ShopSellController shopSellController) {
         this.loopManiaWorldController = loopManiaWorldController;
+        this.shopSellController = shopSellController;
     }
 
     /**
@@ -60,6 +62,11 @@ public class ShopController {
     @FXML
     public void goToSellShop(ActionEvent event) {
         loopManiaWorldController.getLoopManiaWorld().updateSellingItems();  // update quantities of nSwords, nStakes, ... in inventory
+        if (loopManiaWorldController.getLoopManiaWorld().isDogeCoinSold()) {
+            shopSellController.setDogeCoinContainerVisible(false);
+        } else if (loopManiaWorldController.getLoopManiaWorld().isDoggieDefeated()) {
+            shopSellController.setDogeCoinContainerVisible(true);
+        }
         shopSwitcher.switchMenu();
     }
     

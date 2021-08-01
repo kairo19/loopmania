@@ -53,18 +53,19 @@ public class LoopManiaApplication extends Application {
         FXMLLoader menuLoader = new FXMLLoader(getClass().getResource("MainMenuView.fxml"));
         menuLoader.setController(mainMenuController);
         Parent mainMenuRoot = menuLoader.load();
-
-        // load the shop menu
-        ShopController shopController = new ShopController(mainController);
-        FXMLLoader shopLoader = new FXMLLoader(getClass().getResource("ShopView.fxml"));
-        shopLoader.setController(shopController);
-        Parent shopRoot = shopLoader.load();
-
+        
         // load the shop sell menu
         ShopSellController shopSellController = new ShopSellController(mainController);
         FXMLLoader shopSellLoader = new FXMLLoader(getClass().getResource("ShopSellView.fxml"));
         shopSellLoader.setController(shopSellController);
         Parent shopSellRoot = shopSellLoader.load();
+
+        // load the shop menu
+        ShopController shopController = new ShopController(mainController, shopSellController);
+        FXMLLoader shopLoader = new FXMLLoader(getClass().getResource("ShopView.fxml"));
+        shopLoader.setController(shopController);
+        Parent shopRoot = shopLoader.load();
+
 
         // create new scene with the main menu (so we start with the main menu)
         Scene menuScene = new Scene(mainMenuRoot);
