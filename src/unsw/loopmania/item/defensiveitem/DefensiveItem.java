@@ -26,5 +26,5 @@ public abstract class DefensiveItem extends StaticEntity {
     public double getDamageReduction() {
         return damageReduction;
     }
-     
+      
 }
