@@ -88,6 +88,10 @@ public class LoopManiaWorldTest {
         d.setGoal(new GoalGold(d, 10000));
         Staff staff = new Staff(new SimpleIntegerProperty(), new SimpleIntegerProperty());
         character.setWeapon(staff);
+        for (int i = 0; i < 20; i ++) {
+            character.gainAlly();
+        }
+        
         
         for (int i = 0; i < 150; i++) {
             d.possiblySpawnGold();
@@ -222,24 +226,6 @@ public class LoopManiaWorldTest {
 
     }
 
-    @Test
-    public void TestheroCastleEnemies(){
-
-        List<Pair<Integer, Integer>> orderedpath  = new ArrayList<>();
-        orderedpath.add(new Pair<Integer, Integer>(1, 1));
-        orderedpath.add(new Pair<Integer, Integer>(2, 1));
-        orderedpath.add(new Pair<Integer, Integer>(3, 1));
-        orderedpath.add(new Pair<Integer, Integer>(3, 2));
-        orderedpath.add(new Pair<Integer, Integer>(3, 3));
-        orderedpath.add(new Pair<Integer, Integer>(2, 3));
-        orderedpath.add(new Pair<Integer, Integer>(1, 3));
-        orderedpath.add(new Pair<Integer, Integer>(1, 2));
-        LoopManiaWorld d = new LoopManiaWorld(4, 4, orderedpath);
-        Character character = new Character(new PathPosition(0, orderedpath));
-        d.setCharacter(character);
-
-        //VampireCastleCard vampireCastleCard = new VampireCastleCard(new SimpleIntegerProperty(cardEntities.size()), new SimpleIntegerProperty(0));
-    }
 
     @Test
     public void TestconvertCardToBuildingByCoordinate() {
@@ -487,6 +473,36 @@ public class LoopManiaWorldTest {
         assertEquals(101, d.getRound());
         //System.out.println("step 5");
 
+
+    }
+    @Test
+    public void ConsumablesOnPathTest () {
+        List<Pair<Integer, Integer>> orderedpath  = new ArrayList<>();
+        orderedpath.add(new Pair<Integer, Integer>(1, 1));
+        orderedpath.add(new Pair<Integer, Integer>(2, 1));
+        orderedpath.add(new Pair<Integer, Integer>(3, 1));
+        orderedpath.add(new Pair<Integer, Integer>(3, 2));
+        orderedpath.add(new Pair<Integer, Integer>(3, 3));
+        orderedpath.add(new Pair<Integer, Integer>(2, 3));
+        orderedpath.add(new Pair<Integer, Integer>(1, 3));
+        orderedpath.add(new Pair<Integer, Integer>(1, 2));
+        LoopManiaWorld d = new LoopManiaWorld(4, 4, orderedpath);
+        Character character = new Character(new PathPosition(0, orderedpath));
+        d.setCharacter(character);
+
+        for (int i = 0; i < 50; i++) {
+            d.possiblySpawnPotion();
+            d.possiblySpawnGold();
+            character.moveDownPath();
+            d.ConsumablesOnPath();
+        }
+        
+        boolean checker = false;
+        if (d.getGold() > 0) {
+            checker = true;
+        }
+
+        assertEquals(true, checker);
 
     }
 

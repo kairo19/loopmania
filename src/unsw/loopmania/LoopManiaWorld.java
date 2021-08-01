@@ -726,10 +726,13 @@ public class LoopManiaWorld {
     }
 
     public void ConsumablesOnPath(){
+        System.out.println("HEY");
         
         for (Iterator<Gold> iterator = goldSpawned.iterator(); iterator.hasNext();) {
             Gold goldIterator = iterator.next();
+            System.out.println("testing");
             if (goldIterator.getX() == character.getX() && goldIterator.getY() == character.getY()) {
+                System.out.println("YO WE SPAWNED");
                 gold.set(gold.get() + goldIterator.getDrop()); 
                 iterator.remove();
                 goldIterator.destroy();
