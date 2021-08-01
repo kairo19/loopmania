@@ -39,7 +39,6 @@ public class DoggieCoin extends StaticEntity {
      */
     public void fluctuate(boolean elanMuskeAlive, int round) {
         if (round < 41 || round > 41) {
-            // fluctuate randomly
             Random random = new Random();
             int fluctuation = random.nextInt(1) == 0 ? -1 : 1;
             float multiplier = random.nextFloat();
@@ -49,11 +48,9 @@ public class DoggieCoin extends StaticEntity {
             System.out.println("dog coin price: " + getValueProperty());
 
         } else if (elanMuskeAlive) {
-            // increase
             value.set(value.get() * 3);
 
         } else if (!elanMuskeAlive) {
-            // decrease
             value.set(value.get() / 3);
 
         }

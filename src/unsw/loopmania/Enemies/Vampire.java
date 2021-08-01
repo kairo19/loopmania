@@ -19,7 +19,6 @@ public class Vampire extends BasicEnemy implements SpecialAbility {
 
 
     public Vampire(PathPosition pathPosition) {
-        // 3 battle radius, 5 support radius
         super(pathPosition, 50, 20, "Vampire", 30, 20, 3, 5);
         crit = false;
         r = new Random();
@@ -69,7 +68,6 @@ public class Vampire extends BasicEnemy implements SpecialAbility {
             if (counter >= maxCrit) {
                 counter = 0;
                 crit = false;
-                System.out.println("CHANCE CHANGED");
                 maxCrit = r.nextInt(5) + 1;
                 return false;
             }
