@@ -33,6 +33,8 @@ public class ShopSellController {
     @FXML
     private Text currentGold;
     @FXML
+    private Text dogeCoinValue;
+    @FXML
     private VBox helpMenu;
 
     /**
@@ -196,6 +198,11 @@ public class ShopSellController {
         } else  {
             displayWarningText();
         }
+    }
+
+    @FXML
+    public void sellDogeCoin(ActionEvent event) {
+
     }
 
     /**
