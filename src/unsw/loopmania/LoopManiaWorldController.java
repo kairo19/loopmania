@@ -24,6 +24,7 @@ import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Labeled;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
@@ -145,6 +146,19 @@ public class LoopManiaWorldController {
     @FXML
     private Text damageField;
 
+    @FXML
+    private Text shieldField;
+
+    @FXML
+    private Text armourField;
+
+    @FXML
+    private Text helmetField;
+
+    @FXML
+    private Button muteField;
+
+
     // all image views including tiles, character, enemies, cards... even though cards in separate gridpane...
     private List<ImageView> entityImages;
 
@@ -238,6 +252,15 @@ public class LoopManiaWorldController {
      */
     private MenuSwitcher mainMenuSwitcher;
     private MenuSwitcher shopMenuSwitcher;
+    private Media goldSound;
+    private Media gainHealthSound;
+    private Media loseHealthSound;
+    private MediaPlayer gainHealthSoundPlayer;
+    private MediaPlayer goldSoundPlayer;
+    private MediaPlayer loseHealthSoundPlayer;
+
+    private MediaPlayer mediaPlayer;
+    private boolean muted;
 
 
 
@@ -293,9 +316,13 @@ public class LoopManiaWorldController {
         currentlyDraggedType = null;
 
         //initialise media
-
-
-
+        goldSound = new Media(new File("src/music/mixkit-coins-handling-1939.mp3").toURI().toString());
+        goldSoundPlayer = new MediaPlayer(goldSound);
+        gainHealthSound = new Media(new File("src/music/mixkit-casino-bling-achievement-2067.wav").toURI().toString());
+        gainHealthSoundPlayer = new MediaPlayer(gainHealthSound);
+        loseHealthSound = new Media(new File("src/music/Minecraft Damage (Oof) - Sound Effect (HD).mp3").toURI().toString());
+        loseHealthSoundPlayer = new MediaPlayer(loseHealthSound);
+        this.muted = false;
         // initialize them all...
         gridPaneSetOnDragDropped = new EnumMap<DRAGGABLE_TYPE, EventHandler<DragEvent>>(DRAGGABLE_TYPE.class);
         anchorPaneRootSetOnDragOver = new EnumMap<DRAGGABLE_TYPE, EventHandler<DragEvent>>(DRAGGABLE_TYPE.class);
@@ -353,7 +380,8 @@ public class LoopManiaWorldController {
         cycleField.textProperty().bindBidirectional(world.getRoundProperty(), new NumberStringConverter());
         allyField.textProperty().bindBidirectional(world.getNumberAlliesProperty(), new NumberStringConverter());
         damageField.textProperty().bindBidirectional(world.getCharacterDamageProperty(), new NumberStringConverter());
-        
+   
+
     }
 
     /**
@@ -397,19 +425,33 @@ public class LoopManiaWorldController {
 
             }
             allyField.textProperty().bindBidirectional(world.getNumberAlliesProperty(), new NumberStringConverter());
+            armourField.textProperty().bindBidirectional(world.getCharacterArmourProperty(), new NumberStringConverter());
+            shieldField.textProperty().bindBidirectional(world.getCharacterShieldProperty(), new NumberStringConverter());
+            helmetField.textProperty().bindBidirectional(world.getCharacterHelmetProperty(), new NumberStringConverter());
             printThreadingNotes("HANDLED TIMER");
 
-            // Testing //
-            //allyField.textProperty().bindBidirectional(world.getNumberAlliesProperty(), new NumberStringConverter());
-
-            // store spawn after each cycle
-            // call cycle from loop mania world
-            // then launch store
-            // when clicked, check money,
-            // if sufficient then call the boughtItem function in world
-
-
         }));
+        world.getgoldProperty().addListener((obs, oldValue, newValue) -> {
+            if ((newValue.intValue() - oldValue.intValue()) > 20) {
+                goldSoundPlayer.stop();
+                goldSoundPlayer.setStartTime(Duration.ZERO);
+                goldSoundPlayer.play();
+            }
+
+        });
+        world.getCharacterHealthProperty().addListener((obs, oldValue, newValue) -> {
+            if (oldValue.intValue() > newValue.intValue()) {
+                loseHealthSoundPlayer.stop();
+                loseHealthSoundPlayer.setStartTime(Duration.ZERO);
+                loseHealthSoundPlayer.play();
+            } else {
+                gainHealthSoundPlayer.stop();
+                gainHealthSoundPlayer.setStartTime(Duration.ZERO);
+                gainHealthSoundPlayer.setVolume(0.5);
+                gainHealthSoundPlayer.play();
+            }
+        });
+
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
     }
@@ -1099,7 +1141,9 @@ public class LoopManiaWorldController {
     public void setGameMode(String gameMode) {
         this.gameMode = gameMode;
     }
-
+    public void setMediaPlayer(MediaPlayer mediaPlayer) {
+        this.mediaPlayer = mediaPlayer;
+    }
     public void purchaseItem(int storeIndex, ShopController shopController) {
 
         if (world.getGold() - 5 < 0) {
@@ -1132,6 +1176,7 @@ public class LoopManiaWorldController {
         visiblePause.play();   
     }
 
+    
     private double timelineRate = 1.0;
     @FXML
     void decreaseTickSpeed(ActionEvent event) {
@@ -1156,6 +1201,17 @@ public class LoopManiaWorldController {
         } else {
             timeline.play();
             playButton.setText(">");
+        }
+    }
+
+    @FXML
+    void muteButtonPressed(ActionEvent event) {
+        if (muted) {
+            mediaPlayer.play();
+            muted = false;
+        } else {
+            mediaPlayer.stop();
+            muted = true;
         }
     }
 }

@@ -36,10 +36,7 @@ public abstract class Building extends StaticEntity {
     public boolean checkInRange(int characterPosX, int characterPosY) {
 
         int pythagoras = ((characterPosX - getX()) * (characterPosX - getX())) + ((characterPosY - getY()) * (characterPosY - getY()));
-        int radius_squared = radius * radius;
-        // System.out.println("Pythagoras number" + pythagoras);
-        // System.out.println("Radius Squared" + radius_squared);
-        
+        int radius_squared = radius * radius;        
         if (pythagoras < radius_squared) {
             return true;
         }            

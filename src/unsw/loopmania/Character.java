@@ -220,8 +220,7 @@ public class Character extends MovingEntity {
 
     public void lowerCritChance() {
         // do something here hehe xd
-    }
-    
+    }    
 
     /*
      //checkAttackDamage (check nearby boost, check equipped inventory)

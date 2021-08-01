@@ -14,7 +14,7 @@ import unsw.loopmania.Character;
 public class Doggie extends BasicEnemy implements SpecialAbility{
     public Doggie(PathPosition pathPosition) {
         // 2 battle radius, 2 support radius (nullifies since == to battle radius)
-        super(pathPosition, 100, 40, "Doggie", 16, 16, 2, 2); 
+        super(pathPosition, 100, 40, "Doggie", 1000, 250, 2, 2); 
     }
 
     /**

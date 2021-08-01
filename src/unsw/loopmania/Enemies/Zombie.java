@@ -13,7 +13,7 @@ import unsw.loopmania.Character;
 public class Zombie extends BasicEnemy implements SpecialAbility {
     public Zombie(PathPosition pathPosition) {
         // 2 battle radius, 2 support radius (nullifies since == to battle radius)
-        super(pathPosition, 25, 10, "Zombie", 4, 4, 2, 2);
+        super(pathPosition, 25, 10, "Zombie", 20, 20, 2, 2);
     }
 
     /**

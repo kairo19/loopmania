@@ -19,6 +19,7 @@ public class Helmet extends DefensiveItem implements Blinder {
         super(x, y, DAMAGE_REDUCTION);
         this.placableBehaviour = new PlacableHelmet();
     }
+    
 
     /**
      * Returns the integer reduction to character attack caused by the blinding debuff.
