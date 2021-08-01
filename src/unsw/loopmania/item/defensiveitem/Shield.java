@@ -7,7 +7,7 @@ import unsw.loopmania.Enemies.BasicEnemy;
 import unsw.loopmania.Cards.PlacableBehaviour.PlacableBehaviour;
 import unsw.loopmania.Cards.PlacableBehaviour.PlacableShield;
 
-public class Shield extends DefensiveItem {
+public class Shield extends DefensiveItem implements Block{
     private static final double DAMAGE_REDUCTION = 10.0;  
     public Shield(SimpleIntegerProperty x, SimpleIntegerProperty y) {
         super(x, y, DAMAGE_REDUCTION);
