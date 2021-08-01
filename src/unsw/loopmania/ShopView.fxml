@@ -105,9 +105,9 @@
             <Font size="49.0" />
          </font>
       </Text>
-      <Button fx:id="returnButton" layoutX="98.0" layoutY="333.0" mnemonicParsing="false" onAction="#handleReturnButton" text="Return to Loop Mania World" />
+      <Button fx:id="returnButton" layoutX="98.0" layoutY="333.0" mnemonicParsing="false" onAction="#handleReturnButton" style="-fx-background-radius: 10;" text="Return to Loop Mania World" />
       <Text fx:id="warningText" fill="RED" layoutX="64.0" layoutY="228.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Insufficient Funds!" visible="false" wrappingWidth="277.26904296875" />
-      <Button layoutX="141.0" layoutY="287.0" mnemonicParsing="false" onAction="#goToSellShop" text="Sell my items" />
+      <Button layoutX="141.0" layoutY="287.0" mnemonicParsing="false" onAction="#goToSellShop" style="-fx-background-radius: 10;" text="Sell my items" />
       <ImageView fitHeight="26.0" fitWidth="45.0" layoutX="169.0" layoutY="242.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../images/gold_pile.png" />

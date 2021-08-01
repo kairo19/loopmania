@@ -3,6 +3,7 @@ package unsw.loopmania;
 import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.util.converter.NumberStringConverter;
 import javafx.util.Duration;
@@ -31,6 +32,8 @@ public class ShopSellController {
     private Text statusText;
     @FXML
     private Text currentGold;
+    @FXML
+    private VBox helpMenu;
 
     /**
      * Creates controller of ShopSellView.
@@ -207,6 +210,16 @@ public class ShopSellController {
             statusText.setVisible(false);
         });
         visiblePause.play(); 
+    }
+
+    @FXML
+    void closeHelpMenu(ActionEvent event) {
+        helpMenu.setVisible(false);
+    }
+
+    @FXML
+    void toggleHelpMenu(ActionEvent event) {
+        helpMenu.setVisible(true);
     }
 
     @FXML
