@@ -17,14 +17,14 @@
 -----------------------------------------------------------------------------------------------------------------------------------
 ### EnemiesAssumptions:
 #### EnemyHealthPointAssumptions:
-- A slug will have **25** health points.
+- A slug will have **10** health points.
 - A zombie will have **25** health points.
 - A vampire will have **50** health points.
 
 #### EnemyDamangeAssumptions:
-- A slug will do **5** damage each attack.
-- A zombie will do **10** damage each attack.
-- A vampire will do **20** damage each attack.
+- A slug will do **15** damage each attack.
+- A zombie will do **20** damage each attack.
+- A vampire will do **30** damage each attack.
 
 #### EnemeyEquipmentDropRateAssumptions:
 When killing an enemy, it has a chance of dropping a piece of equipment.	
@@ -34,19 +34,13 @@ When killing an enemy, it has a chance of dropping a piece of equipment.
 
 #### EnemeyCardDropRateAssumptions:
 When killing an enemy, it has a specified chance of dropping a card.
-- The VampireCastleCard has a **10%** chance of dropping.
-- The ZombiePitCard has a **20%** chance of dropping.
-- The TowerCard has a **10%** chance of dropping.
-- The VillageCard has a **10%** chance of dropping.
-- The BarracksCard has a **10%** chance of dropping.
-- The TrapCard has a **10%** chance of dropping.
-- The CampfireCard has a **10%** chance of dropping.
+- 70% chance to drop one of the 7 cards.
 
 #### EnemyGoldDropAssumptions:
 When killing an enemy, it drops a specified amount of gold.
 - A slug drops **10** amount of gold.
 - A zombie drops **20** amount of gold.
-- A vampire drop **100** X amount of gold.
+- A vampire drop **30** X amount of gold.
 
 #### EnemyExperienceEarnedAssumptions:
 When killing an enemy, the hero received a specified amount of experience.	
@@ -76,17 +70,22 @@ When killing an enemy, the hero received a specified amount of experience.
 
 #### BuildingDamageBuffAssumptions:
 - Character will gain building buffs in the order of **campfire buff** then **tower buff**.
+- Allow Buildings to be placed over existing buildings. Effects will still continue
+
 #### TowerBuildingAssumptions:
 - During a battle within a shooting radius of **5** tiles, enemies will be attacked by the tower for **20** damage.
 
 #### VillageBuildingAssumptions:
 - When passsing through the village, the hero will regain **20** health points.
+- villagebuilding can overheal character
 
 #### TrapBuildingAssumptions:
 - When an enemy steps on a trap, **50** damage is inflicted onto the enemy.
 
 #### CampfireBuildingAssumptions:
 - The campfire has an effect radius of **5** tiles.
+- When stacking campfires, each campfire stores the double the characters damage at that point in time and will 
+  not reset until character is out of range.
 #### HeroCastleBuildingAssumptions:
 - The hero will be able to purchase all types of items in the hero's castle building.
 
@@ -123,9 +122,11 @@ When killing an enemy, the hero received a specified amount of experience.
 - A helmet reduced the character's attack by **10**.
 
 #### ConsumableItemAssumptions:
+
 - Health potions can be purchased for **100** gold from the hero's castle.
-- Health potions heal the character for **40** health points.
+- Health potions heal the character to full health points.
 - Health potions are consumed immediately when stepped over or purchased from the hero's castle.
+- Health potions can overheal character.
 
 #### RareItemAssumptions:
 - The One Ring has a **1%** chance of dropping from a defeated enemy.
