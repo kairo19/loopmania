@@ -1292,7 +1292,7 @@ public class LoopManiaWorld {
     }
     public void sellPotion() {
         nPotions.set(nPotions.get() - 1);
-        gold.set(gold.get() + generateItemPriceByType("HealtPotion")/2);
+        gold.set(gold.get() + generateItemPriceByType("HealthPotion")/2);
     }
 
     public void removeItemByTypeInUnequippedInventoryItems(String itemType) {
