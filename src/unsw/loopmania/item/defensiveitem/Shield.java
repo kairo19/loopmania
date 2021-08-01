@@ -1,10 +1,6 @@
 package unsw.loopmania.item.defensiveitem;
 
-import unsw.loopmania.StaticEntity;
-
 import javafx.beans.property.SimpleIntegerProperty;
-import unsw.loopmania.Enemies.BasicEnemy;
-import unsw.loopmania.Cards.PlacableBehaviour.PlacableBehaviour;
 import unsw.loopmania.Cards.PlacableBehaviour.PlacableShield;
 
 /**

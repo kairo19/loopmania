@@ -1,7 +1,5 @@
 package unsw.loopmania.Cards;
 
-import java.util.List;
-
 import javafx.beans.property.SimpleIntegerProperty;
 import unsw.loopmania.Cards.PlacableBehaviour.PlacableOnPath;
 
