@@ -1203,6 +1203,10 @@ public class LoopManiaWorldController {
         }
     }
 
+    public LoopManiaWorld getLoopManiaWorld() {
+        return world;
+    }
+
     @FXML
     void muteButtonPressed(ActionEvent event) {
         if (muted) {
