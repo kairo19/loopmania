@@ -101,7 +101,7 @@
                      </Text>
             </children>
          </HBox>
-               <HBox prefHeight="40.0" prefWidth="90.0">
+               <HBox fx:id="dogeCoinContainer" prefHeight="40.0" prefWidth="90.0" visible="false">
                   <children>
                      <ImageView fitHeight="22.0" fitWidth="28.0">
                         <image>
@@ -111,7 +111,7 @@
                            <Insets top="10.0" />
                         </HBox.margin>
                      </ImageView>
-                     <Text fx:id="goldField11" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="70.6279296875">
+                     <Text fx:id="dogeCoinValue" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="70.6279296875">
                         <HBox.margin>
                            <Insets left="15.0" top="10.0" />
                         </HBox.margin>
@@ -443,11 +443,6 @@
                                  <HBox.margin>
                                     <Insets />
                                  </HBox.margin>
-                              </ImageView>
-                              <ImageView fx:id="oneRingImage" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" visible="false">
-                                 <image>
-                                    <Image url="@../../images/the_one_ring.png" />
-                                 </image>
                               </ImageView>
                            </children>
                            <opaqueInsets>

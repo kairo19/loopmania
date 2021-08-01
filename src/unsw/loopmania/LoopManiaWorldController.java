@@ -161,6 +161,12 @@ public class LoopManiaWorldController {
     @FXML
     private ImageView oneRingField;
 
+    @FXML
+    private Text dogeCoinValue;
+
+    @FXML
+    private HBox dogeCoinContainer;
+
 
     // all image views including tiles, character, enemies, cards... even though cards in separate gridpane...
     private List<ImageView> entityImages;
@@ -406,11 +412,20 @@ public class LoopManiaWorldController {
             if (world.getHerosCastleBuilding().PurchaseCycle(world.getRound())) {
                 openStore();
             }
+
+            // set visibilities
             if (world.getTheOneRingBool()) {
                 oneRingField.setVisible(true);
             } else {
                 oneRingField.setVisible(false);
             }
+
+            if (world.isDogeCoinSold()) {
+                dogeCoinContainer.setVisible(false);
+            } else if (world.isDoggieDefeated()) {
+                dogeCoinContainer.setVisible(true);
+            }
+
             world.runTickMoves();
             hasPurchasedDefensiveItem = false;
             hasPurchasedHealthPotion = false;
@@ -440,6 +455,8 @@ public class LoopManiaWorldController {
             armourField.textProperty().bindBidirectional(world.getCharacterArmourProperty(), new NumberStringConverter());
             shieldField.textProperty().bindBidirectional(world.getCharacterShieldProperty(), new NumberStringConverter());
             helmetField.textProperty().bindBidirectional(world.getCharacterHelmetProperty(), new NumberStringConverter());
+            dogeCoinValue.textProperty().bindBidirectional(world.getDoggieProperty(), new NumberStringConverter());
+
             printThreadingNotes("HANDLED TIMER");
 
         }));

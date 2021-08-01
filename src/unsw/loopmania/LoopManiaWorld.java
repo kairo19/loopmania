@@ -530,7 +530,6 @@ public class LoopManiaWorld {
      * run moves which occur with every tick without needing to spawn anything immediately
      */
     public void runTickMoves() {
-        
         if (hasMetGoal()) {
             endGame();
         }
