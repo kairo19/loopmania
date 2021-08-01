@@ -1,3 +1,4 @@
+
 package test.item.weapon;
 
 import static org.junit.Assert.assertEquals;
@@ -11,15 +12,14 @@ import javafx.beans.property.SimpleIntegerProperty;
 import org.javatuples.Pair;
 import unsw.loopmania.PathPosition;
 import unsw.loopmania.Enemies.BasicEnemy;
-import unsw.loopmania.Enemies.Slug;
-import unsw.loopmania.item.weapon.Staff;
+import unsw.loopmania.Enemies.ElanMuske;
+import unsw.loopmania.Enemies.Vampire;
+import unsw.loopmania.item.weapon.Anduril;
 import unsw.loopmania.Character;
 import unsw.loopmania.LoopManiaWorld;
-
-
-public class StaffTest {
+public class AndurilTest {
     @Test
-    public void testStaffDamageBoost() {
+    public void testAndurilDamage(){
         List<Pair<Integer, Integer>> orderedpath  = new ArrayList<>();
         orderedpath.add(new Pair<Integer, Integer>(1, 1));
         orderedpath.add(new Pair<Integer, Integer>(2, 1));
@@ -32,16 +32,15 @@ public class StaffTest {
         LoopManiaWorld d = new LoopManiaWorld(4, 4, orderedpath);
         Character character = new Character(new PathPosition(0, orderedpath));
         d.setCharacter(character);
-        Staff staff = new Staff(new SimpleIntegerProperty(), new SimpleIntegerProperty());
-        BasicEnemy slug = new Slug(new PathPosition(0, orderedpath));
+        Anduril anduril = new Anduril(new SimpleIntegerProperty(), new SimpleIntegerProperty());
+        BasicEnemy vampire = new Vampire(new PathPosition(0, orderedpath));
 
-        character.setWeapon(staff);
-        character.dealDamage(slug, 0);
-        assertEquals(3, slug.getHealth()); 
+        character.setWeapon(anduril);
+        character.dealDamage(vampire, 0);
+        assertEquals(20, vampire.getHealth());
     }
-
     @Test
-    public void testStaffdoSpecial() {
+    public void testAndurildoSpecial(){
         List<Pair<Integer, Integer>> orderedpath  = new ArrayList<>();
         orderedpath.add(new Pair<Integer, Integer>(1, 1));
         orderedpath.add(new Pair<Integer, Integer>(2, 1));
@@ -54,21 +53,12 @@ public class StaffTest {
         LoopManiaWorld d = new LoopManiaWorld(4, 4, orderedpath);
         Character character = new Character(new PathPosition(0, orderedpath));
         d.setCharacter(character);
-        Staff staff = new Staff(new SimpleIntegerProperty(), new SimpleIntegerProperty());
-        BasicEnemy slug = new Slug(new PathPosition(0, orderedpath));
-        slug.setHealth(700);
-        character.setWeapon(staff);
-        for (int tester = 0; tester < 50; tester++) {
-            character.dealDamage(slug, 0);
-            
-        }
-        
-        assertEquals(350, slug.getHealth());
-        assertEquals(true, staff.getTranchedBool());
-        staff.resetTrancedBool();
-        staff.resetTranced();
-        assertEquals(false, staff.getTranchedBool());
-        assertEquals(staff.toString(), "Staff");
-        
+        Anduril anduril = new Anduril(new SimpleIntegerProperty(), new SimpleIntegerProperty());
+        BasicEnemy elanmuske = new ElanMuske(new PathPosition(0, orderedpath));
+
+        character.setWeapon(anduril);
+        character.dealDamage(elanmuske, 0);
+        assertEquals(920, elanmuske.getHealth());
+        assertEquals(anduril.toString(), "Anduril");
     }
 }

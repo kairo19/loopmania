@@ -8,7 +8,7 @@ import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 import org.javatuples.Pair;
-import org.junit.jupiter.api.DisplayNameGenerator.Simple;
+//import org.junit.jupiter.api.DisplayNameGenerator.Simple;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
@@ -120,6 +120,7 @@ public class LoopManiaWorld {
     private DoggieCoin doggieCoin;
     private boolean doggieDefeated;
     private boolean dogeCoinSold;
+    private boolean theOneRing;
 
     private IntegerProperty defeatedBosses;
 
@@ -170,6 +171,7 @@ public class LoopManiaWorld {
         this.doggieCoin = new DoggieCoin(null, null);
         this.doggieDefeated = false;
         this.dogeCoinSold = false;
+        this.theOneRing = false;
     }
     
     public int getWidth() {
@@ -460,11 +462,27 @@ public class LoopManiaWorld {
         StaticEntity item = itemFactory.makeRareItems(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
 
         if (item != null) {
+
+            if (item.toString() == "TheOneRing") {
+                System.out.println("Attached TheOneRing");
+                theOneRing = true;
+                return null;
+            }
+
             unequippedInventoryItems.add(item);
             return item;
         }  
 
         return item;
+    }
+
+    public boolean getTheOneRingBool() {
+        return theOneRing;
+    }
+
+    public void useTheOneRingBool() {
+        theOneRing = false;
+        character.setHealth(100);
     }
 
     public List<BasicEnemy> getEnemiesEntity() {
