@@ -490,7 +490,7 @@ public class LoopManiaWorldTest {
         Character character = new Character(new PathPosition(0, orderedpath));
         d.setCharacter(character);
 
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 20; i++) {
             d.possiblySpawnPotion();
             d.possiblySpawnGold();
             character.moveDownPath();
@@ -504,6 +504,32 @@ public class LoopManiaWorldTest {
 
         assertEquals(true, checker);
 
+    }
+
+    @Test
+    public void TestaddUnequippedRareItem(){
+        List<Pair<Integer, Integer>> orderedpath  = new ArrayList<>();
+        orderedpath.add(new Pair<Integer, Integer>(1, 1));
+        orderedpath.add(new Pair<Integer, Integer>(2, 1));
+        orderedpath.add(new Pair<Integer, Integer>(3, 1));
+        orderedpath.add(new Pair<Integer, Integer>(3, 2));
+        orderedpath.add(new Pair<Integer, Integer>(3, 3));
+        orderedpath.add(new Pair<Integer, Integer>(2, 3));
+        orderedpath.add(new Pair<Integer, Integer>(1, 3));
+        orderedpath.add(new Pair<Integer, Integer>(1, 2));
+        LoopManiaWorld d = new LoopManiaWorld(4, 4, orderedpath);
+        Character character = new Character(new PathPosition(0, orderedpath));
+        d.setCharacter(character);
+
+        for (int i = 0; i < 10000; i++) {
+            d.addUnequippedRareItem();
+        }
+        boolean checker = false;
+        if (d.getGold() > 0) {
+            checker = true;
+        }
+    
+        assertEquals(true, checker);
     }
 
 
