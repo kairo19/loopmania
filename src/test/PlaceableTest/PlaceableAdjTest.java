@@ -32,6 +32,9 @@ public class PlaceableAdjTest {
         LoopManiaWorld world = initialise();
         PlacableBehaviour adj = new PlaceableOnAdjacentPath();
 
+        assertEquals(adj.placable(1, 0, world.getOrderedPath()), true);
+        assertEquals(adj.placable(2, 0, world.getOrderedPath()), true);
+        assertEquals(adj.placable(1, 2, world.getOrderedPath()), true);
         assertEquals(adj.placable(3, 1, world.getOrderedPath()), true);
         assertEquals(adj.placable(4, 1, world.getOrderedPath()), false);
         assertEquals(adj.placable(3, 2, world.getOrderedPath()), true);
