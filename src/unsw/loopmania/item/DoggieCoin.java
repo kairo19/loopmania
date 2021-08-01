@@ -17,7 +17,7 @@ public class DoggieCoin extends StaticEntity {
 
     public DoggieCoin (SimpleIntegerProperty x, SimpleIntegerProperty y) {
         super(x, y);
-        this.value = new SimpleIntegerProperty(0);
+        this.value = new SimpleIntegerProperty(100);
     }
 
     public IntegerProperty getValue() {
@@ -39,18 +39,15 @@ public class DoggieCoin extends StaticEntity {
      */
     public void fluctuate(boolean elanMuskeAlive, int round) {
         if (round < 41 || round > 41) {
-            // fluctuate randomly
             Random random = new Random();
             int fluctuation = random.nextInt(1) == 0 ? -1 : 1;
             float multiplier = random.nextFloat();
-            value.set((int) (value.get() + value.get() * fluctuation * multiplier));
+            value.set(Math.abs((int) (value.get() + 100 * fluctuation * multiplier)));
 
         } else if (elanMuskeAlive) {
-            // increase
             value.set(value.get() * 3);
 
         } else if (!elanMuskeAlive) {
-            // decrease
             value.set(value.get() / 3);
 
         }

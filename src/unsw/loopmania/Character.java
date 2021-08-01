@@ -25,12 +25,11 @@ import unsw.loopmania.item.weapon.Weapon;
 
  
 public class Character extends MovingEntity {
-    // TODO = potentially implement relationships between this class and other classes
     private IntegerProperty health;
     private IntegerProperty damage;
     private IntegerProperty totalDamage;
     private int buffedDamage;
-    private int allies;                     // current placeholder
+    private int allies;
     private Weapon equippedWeapon;
     private Armour equippedArmour;
     private Helmet equippedHelmet;
@@ -45,9 +44,6 @@ public class Character extends MovingEntity {
 
     public Character(PathPosition position) {
         super(position);
-        /*
-            TESTING FOR ALLIES. PLEASE CHANGE IT BACK LATER
-        */
         this.allies = 0;
         this.health = new SimpleIntegerProperty(100);
         this.damage = new SimpleIntegerProperty(5);
@@ -107,7 +103,6 @@ public class Character extends MovingEntity {
     }
 
     public void equipArmour(Armour armour) {
-        //System.out.println("attach armour");
         this.equippedArmour = armour;
         setArmourdefense(new SimpleDoubleProperty(armour.getDamageReduction()));
     }
@@ -125,7 +120,6 @@ public class Character extends MovingEntity {
     // Helmet
 
     public void equipHelmet(Helmet helmet) {
-        //System.out.println("attach helmet");
         this.equippedHelmet = helmet;
     }
 
@@ -137,10 +131,7 @@ public class Character extends MovingEntity {
         return this.equippedHelmet;
     }
 
-    // Shield
-
     public void equipShield(Block shield) {
-        //System.out.println("attach shield");
         this.equippedShield = shield;
     }
 
@@ -153,7 +144,6 @@ public class Character extends MovingEntity {
     }
 
     public void setWeapon(Weapon weapon){
-        //System.out.println("attach weapon");
         this.equippedWeapon = weapon;
     }
 
@@ -188,36 +178,12 @@ public class Character extends MovingEntity {
     public void dealDamage(BasicEnemy enemy, int bonusDamage) {
         
         if (equippedWeapon != null) {
-            // added the buffed damage to buffedDamage
             equippedWeapon.damageBoost(this);
-            // doing special attack to enemy
             
             equippedWeapon.doSpecial(enemy, this);
-        } 
-        //int alliesDamage = 0;
-        /*
-        System.out.println("current allies: " + this.getAllies());
-        System.out.println("damage/character base: " + damage);
-        System.out.println("bonus damage/buildings: " + bonusDamage);
-        System.out.println("buffedDamage/Weapons: " + buffedDamage);
-        System.out.println("alliesDamage: " + alliesDamage);
-        */
+        }        
 
-        
-
-                        // base     buildings    weapons
         int damageDealt = getDamage() + bonusDamage + buffedDamage + getAlliesDamage();
-        
-        // for front-end number
-        /*
-        // for helmet
-        if (equippedHelmet != null) {
-            System.out.println("helmet debuff" + getHelmetDebuff());
-            damageDealt -= getHelmetDebuff();
-        }
-        */
-
-        System.out.println("Enemy health:" + enemy.getHealth() + " - " + damageDealt);
         
         enemy.setHealth(enemy.getHealth() - damageDealt);
         
@@ -230,33 +196,6 @@ public class Character extends MovingEntity {
     }
 
     public void lowerCritChance() {
-        // do something here hehe xd
     }    
 
-    /*
-     //checkAttackDamage (check nearby boost, check equipped inventory)
-    // returns int
-    public void checkAttackdamage(int checkAttackDamage){
-
-    }
-
-    // check for nearby enemies, check equipped inventory
-    // returns int
-    public void checkRecievedamage(){
-
-    }
-    // receiveDamage( get damage recieved, apply damage to character)
-    // returns int
-    public receiveDamage(){
-
-    }
-    //checkNearbyBuildings(loop through buildings check if character is 
-    //within radius if within radius return whatever)
-    //return
-    public checkNearbyBuildings(){
-
-    }
-    */
 }
-
-

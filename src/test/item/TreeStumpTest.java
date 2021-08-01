@@ -1,4 +1,4 @@
-package test.item.weapon;
+package test.item;
 
 import static org.junit.Assert.assertEquals;
 
@@ -11,15 +11,15 @@ import javafx.beans.property.SimpleIntegerProperty;
 import org.javatuples.Pair;
 import unsw.loopmania.PathPosition;
 import unsw.loopmania.Enemies.BasicEnemy;
-import unsw.loopmania.Enemies.Slug;
-import unsw.loopmania.item.weapon.Staff;
+import unsw.loopmania.Enemies.ElanMuske;
+import unsw.loopmania.Enemies.Vampire;
+import unsw.loopmania.item.defensiveitem.TreeStump;
 import unsw.loopmania.Character;
 import unsw.loopmania.LoopManiaWorld;
 
-
-public class StaffTest {
+public class TreeStumpTest {
     @Test
-    public void testStaffDamageBoost() {
+    public void treeStumpDamageReductionTest() {
         List<Pair<Integer, Integer>> orderedpath  = new ArrayList<>();
         orderedpath.add(new Pair<Integer, Integer>(1, 1));
         orderedpath.add(new Pair<Integer, Integer>(2, 1));
@@ -32,16 +32,17 @@ public class StaffTest {
         LoopManiaWorld d = new LoopManiaWorld(4, 4, orderedpath);
         Character character = new Character(new PathPosition(0, orderedpath));
         d.setCharacter(character);
-        Staff staff = new Staff(new SimpleIntegerProperty(), new SimpleIntegerProperty());
-        BasicEnemy slug = new Slug(new PathPosition(0, orderedpath));
+        TreeStump treeStump = new TreeStump(new SimpleIntegerProperty(), new SimpleIntegerProperty());
+        BasicEnemy vampire = new Vampire(new PathPosition(0, orderedpath));
 
-        character.setWeapon(staff);
-        character.dealDamage(slug, 0);
-        assertEquals(3, slug.getHealth()); 
+        character.equipShield(treeStump);
+        vampire.setDamage(50);
+        vampire.dealDamage(character);
+
+        assertEquals(70, character.getHealth());
     }
-
     @Test
-    public void testStaffdoSpecial() {
+    public void treeStumpisBoss() {
         List<Pair<Integer, Integer>> orderedpath  = new ArrayList<>();
         orderedpath.add(new Pair<Integer, Integer>(1, 1));
         orderedpath.add(new Pair<Integer, Integer>(2, 1));
@@ -54,21 +55,13 @@ public class StaffTest {
         LoopManiaWorld d = new LoopManiaWorld(4, 4, orderedpath);
         Character character = new Character(new PathPosition(0, orderedpath));
         d.setCharacter(character);
-        Staff staff = new Staff(new SimpleIntegerProperty(), new SimpleIntegerProperty());
-        BasicEnemy slug = new Slug(new PathPosition(0, orderedpath));
-        slug.setHealth(700);
-        character.setWeapon(staff);
-        for (int tester = 0; tester < 50; tester++) {
-            character.dealDamage(slug, 0);
-            
-        }
-        
-        assertEquals(350, slug.getHealth());
-        assertEquals(true, staff.getTranchedBool());
-        staff.resetTrancedBool();
-        staff.resetTranced();
-        assertEquals(false, staff.getTranchedBool());
-        assertEquals(staff.toString(), "Staff");
-        
+        TreeStump treeStump = new TreeStump(new SimpleIntegerProperty(), new SimpleIntegerProperty());
+        BasicEnemy elanMusk = new ElanMuske(new PathPosition(0, orderedpath));
+
+        character.equipShield(treeStump);
+        elanMusk.setDamage(120);
+        elanMusk.dealDamage(character);
+
+        assertEquals(40, character.getHealth());
     }
 }

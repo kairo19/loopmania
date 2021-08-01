@@ -5,8 +5,6 @@ import org.javatuples.Pair;
 
 import javafx.beans.property.SimpleIntegerProperty;
 import unsw.loopmania.Character;
-import unsw.loopmania.OccupiedBuildings;
-import unsw.loopmania.PathPosition;
 import unsw.loopmania.StaticEntity;
 import unsw.loopmania.Enemies.BasicEnemy;
 

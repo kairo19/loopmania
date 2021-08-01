@@ -33,7 +33,6 @@ public class Staff extends StaticEntity implements Weapon {
      */
     @Override
     public void damageBoost(Character character) {
-        //character.setDamage(character.getDamage() + DAMAGE_BOOST);
         character.setBuffedDamage(DAMAGE_BOOST);
     };
     
@@ -47,8 +46,6 @@ public class Staff extends StaticEntity implements Weapon {
         Random r = new Random();
         int i = r.nextInt(100);
 
-        
-        
         if (i < 10) { 
             isTranced = true;
             numTranced++;
@@ -94,7 +91,6 @@ public class Staff extends StaticEntity implements Weapon {
      */
     @Override
     public String toString() {
-        // TODO Auto-generated method stub
         return "Staff";
     }
 }

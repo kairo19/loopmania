@@ -393,9 +393,14 @@ public class LoopManiaWorldController {
         isPaused = false;
         // trigger adding code to process main game logic to queue. JavaFX will target framerate of 0.3 seconds
         timeline = new Timeline(new KeyFrame(Duration.seconds(0.3), event -> {
-            if (world.isGameover() || world.getCharacterHealthProperty().get() <= 0) {
+            if (world.isGameover() || world.getCharacterHealthProperty().get() <= 0 && world.getTheOneRingBool() == false) {
                 gameOver(world.hasMetGoal());
             }
+
+            if (world.getCharacterHealthProperty().get() <= 0 && world.getTheOneRingBool() == true) {
+                world.useTheOneRingBool();
+            }
+
             if (world.getHerosCastleBuilding().PurchaseCycle(world.getRound())) {
                 openStore();
             }
@@ -529,7 +534,9 @@ public class LoopManiaWorldController {
         } else if (enemy.toString() == "Vampire" && chance < 30) {
             loadItem();
         }
+
         loadRareItem();
+
         if (chance < 70) {
             loadCard();
         }
@@ -1144,10 +1151,10 @@ public class LoopManiaWorldController {
         this.mediaPlayer = mediaPlayer;
     }
     public void purchaseItem(int storeIndex, ShopController shopController) {
+        StaticEntity boughtItem = world.boughtItem(world.generateRandomStore().get(storeIndex));
 
-        if (world.getGold() - 5 < 0) {
+        if (world.getGold() - world.generateItemPriceByType(boughtItem.toString()) < 0) {
             shopController.getWarningText().setText("Insufficient Funds!");
-
             shopController.getWarningText().setVisible(true);
         } else if (gameMode.equals("survival") && hasPurchasedHealthPotion && storeIndex == 6) {
             shopController.getWarningText().setText("Only 1 health potion can be purchased in survival mode!");
@@ -1156,8 +1163,7 @@ public class LoopManiaWorldController {
             shopController.getWarningText().setText("Only 1 defensive item can be purchased in berserker mode!");
             shopController.getWarningText().setVisible(true);
         } else {
-            StaticEntity boughtItem = world.boughtItem(world.generateRandomStore().get(storeIndex));
-            world.setGold(world.getGold() - 5);
+            world.setGold(world.getGold() - world.generateItemPriceByType(boughtItem.toString()));
             onLoad(boughtItem);
             if (storeIndex == 6) {
                 hasPurchasedHealthPotion = true;
@@ -1178,13 +1184,13 @@ public class LoopManiaWorldController {
     
     private double timelineRate = 1.0;
     @FXML
-    void decreaseTickSpeed(ActionEvent event) {
+    public void decreaseTickSpeed(ActionEvent event) {
         timeline.setRate(timelineRate - 0.5);
         timeline.play();
     }
 
     @FXML
-    void increaseTickSpeed(ActionEvent event) {
+    public void increaseTickSpeed(ActionEvent event) {
         timeline.setRate(timelineRate + 0.5);
         timeline.play();
     }
@@ -1193,7 +1199,7 @@ public class LoopManiaWorldController {
     private Button playButton;
 
     @FXML
-    void normaliseTickSpeed(ActionEvent event) {
+    public void normaliseTickSpeed(ActionEvent event) {
         if (playButton.getText().equals(">")) {
             timeline.stop();
             playButton.setText("||");
@@ -1201,6 +1207,10 @@ public class LoopManiaWorldController {
             timeline.play();
             playButton.setText(">");
         }
+    }
+
+    public LoopManiaWorld getLoopManiaWorld() {
+        return world;
     }
 
     @FXML

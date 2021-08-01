@@ -1,12 +1,10 @@
 package unsw.loopmania.item;
 
 import javafx.beans.property.SimpleIntegerProperty;
-import unsw.loopmania.Character;
 import unsw.loopmania.LoopManiaWorld;
 import unsw.loopmania.StaticEntity;
 import unsw.loopmania.Cards.PlacableBehaviour.PlacableBehaviour;
 import unsw.loopmania.Cards.PlacableBehaviour.PlacableOnPath;
-import unsw.loopmania.item.consumable.Consumable;
 
 /**
  * This class represents the gold item.
@@ -45,7 +43,6 @@ public class Gold extends StaticEntity{
      */
     @Override
     public String toString() {
-        // TODO Auto-generated method stub
         return "Gold";
     }
 

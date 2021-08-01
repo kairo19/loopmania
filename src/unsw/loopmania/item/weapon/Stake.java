@@ -1,7 +1,5 @@
 package unsw.loopmania.item.weapon;
 
-import java.lang.ProcessBuilder.Redirect.Type;
-
 import javafx.beans.property.SimpleIntegerProperty;
 import unsw.loopmania.Enemies.BasicEnemy;
 import unsw.loopmania.Character;
@@ -28,7 +26,6 @@ public class Stake extends StaticEntity implements Weapon {
      */
     @Override
     public void damageBoost(Character character) {
-        //character.setDamage(character.getDamage() + DAMAGE_BOOST);
         character.setBuffedDamage(DAMAGE_BOOST);
     }
 
@@ -40,7 +37,6 @@ public class Stake extends StaticEntity implements Weapon {
     @Override
     public void doSpecial(BasicEnemy basicEnemy, Character character) {
         if (basicEnemy.getType().equals("Vampire")) {
-            //character.setDamage((int) (character.getDamage() * 1.5));
             character.setBuffedDamage((int) (character.getDamage() * 1.5));
         }     
     }
@@ -58,7 +54,6 @@ public class Stake extends StaticEntity implements Weapon {
      */
     @Override
     public String toString() {
-        // TODO Auto-generated method stub
         return "Stake";
     }
 }
