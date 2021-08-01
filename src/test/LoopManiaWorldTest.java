@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.lang.model.util.SimpleElementVisitor14;
+
 import org.junit.jupiter.api.Test;
 
 import javafx.beans.property.IntegerProperty;
@@ -15,6 +17,7 @@ import org.javatuples.Pair;
 import unsw.loopmania.LoopManiaWorld;
 import unsw.loopmania.PathPosition;
 import unsw.loopmania.Buildings.Building;
+import unsw.loopmania.Buildings.CampfireBuilding;
 import unsw.loopmania.Buildings.VampireCastleBuilding;
 import unsw.loopmania.Buildings.ZombiePitBuilding;
 import unsw.loopmania.Buildings.HerosCastleBuilding;
@@ -446,24 +449,34 @@ public class LoopManiaWorldTest {
 
         SimpleIntegerProperty zeroProperty = new SimpleIntegerProperty(0);
         SimpleIntegerProperty oneProperty = new SimpleIntegerProperty(1);
+        SimpleIntegerProperty twoProperty = new SimpleIntegerProperty(2);
 
         HerosCastleBuilding herosCastleBuilding = new HerosCastleBuilding(oneProperty, oneProperty);
         d.setHerosCastleBuilding(herosCastleBuilding);
 
         ZombiePitBuilding zombieBuilding = new ZombiePitBuilding(zeroProperty, oneProperty);
+        VampireCastleBuilding vampireBuilding = new VampireCastleBuilding(zeroProperty, oneProperty);
+        CampfireBuilding campfireBuilding = new CampfireBuilding(oneProperty, twoProperty);
 
         List<Building> buildingEntities = d.getBuildingEntities();
         buildingEntities.add(zombieBuilding);
+        buildingEntities.add(vampireBuilding);
+        buildingEntities.add(campfireBuilding);
 
         d.setBuildingEntities(buildingEntities);
-
+        d.ApplyAttackDamage();
+        d.ApplyBuildingEffects();
         // increase cycles count
         //System.out.println("step 1");
-        d.setRound(2);
+        //d.setRound(2);
         //System.out.println("step 2");
 
         // this is meant to add enemies
-        d.HeroCastleEnemies();
+        for (int i = 0; i < 100; i++) {
+            d.HeroCastleEnemies();
+    
+        }
+        
 
         //System.out.println("step 3");
 
@@ -472,7 +485,7 @@ public class LoopManiaWorldTest {
         //System.out.println("step 4");
 
         assertEquals(enemyList.get(0).getType(), "Zombie");
-
+        assertEquals(101, d.getRound());
         //System.out.println("step 5");
 
 

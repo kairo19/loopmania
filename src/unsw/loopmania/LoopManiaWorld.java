@@ -405,6 +405,7 @@ public class LoopManiaWorld {
         }
         Random r = new Random();
         int random = r.nextInt(7);
+        System.out.println("test");
         
         switch(random) {
             case 0:
@@ -1324,6 +1325,6 @@ public class LoopManiaWorld {
         return dogeCoinSold;
     }
 
-    
+
 
 }
