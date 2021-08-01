@@ -5,6 +5,11 @@ import java.util.Random;
 import unsw.loopmania.PathPosition;
 import unsw.loopmania.Character;
 
+/**
+ * This class represents a vampire enemy.
+ * @param pathPosition - enemy position on path.
+ */
+
 public class Vampire extends BasicEnemy implements SpecialAbility {
 
     private boolean crit;
@@ -14,7 +19,6 @@ public class Vampire extends BasicEnemy implements SpecialAbility {
 
 
     public Vampire(PathPosition pathPosition) {
-        // Gives 4 gold and 4 xp
         // 3 battle radius, 5 support radius
         super(pathPosition, 50, 20, "Vampire", 8, 8, 3, 5);
         crit = false;
@@ -24,8 +28,8 @@ public class Vampire extends BasicEnemy implements SpecialAbility {
     }
 
     /**
-     * 
-     * 
+     * Vampire deals damage to character.
+     * @param character - character entity.
      */
     @Override
     public void dealDamage(Character character) {
@@ -35,8 +39,8 @@ public class Vampire extends BasicEnemy implements SpecialAbility {
     }
 
     /**
-     * 
-     * 
+     * Determines whether the vampire does a special attack.
+     * @param character - character entity.  
      */
     @Override
     public boolean doSpecial(Character character) {
@@ -53,8 +57,8 @@ public class Vampire extends BasicEnemy implements SpecialAbility {
     }
 
     /**
-     * 
-     * 
+     * Calculates critical damage from vampire special attack.
+     * @param character - character entity. 
      */
     @Override
     public boolean critDamage(Character character) {
@@ -75,6 +79,10 @@ public class Vampire extends BasicEnemy implements SpecialAbility {
 
         return false;
     }
+
+    /**
+     * Returns enemy name as string.
+     */
     @Override
     public String toString() {
         return "Vampire";
