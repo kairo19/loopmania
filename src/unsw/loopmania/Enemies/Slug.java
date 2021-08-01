@@ -9,7 +9,7 @@ import unsw.loopmania.PathPosition;
 
 public class Slug extends BasicEnemy {
     public Slug(PathPosition pathPosition) {
-        super(pathPosition, 10, 5, "Slug", 3, 3, 2, 2);
+        super(pathPosition, 10, 15, "Slug", 3, 3, 2, 2);
     }
 
     /**

@@ -19,7 +19,7 @@ public class Vampire extends BasicEnemy implements SpecialAbility {
 
 
     public Vampire(PathPosition pathPosition) {
-        super(pathPosition, 50, 20, "Vampire", 30, 20, 3, 5);
+        super(pathPosition, 50, 30, "Vampire", 30, 20, 3, 5);
         crit = false;
         r = new Random();
         maxCrit = r.nextInt(5) + 1;

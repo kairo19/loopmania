@@ -12,7 +12,7 @@ import unsw.loopmania.Character;
 
 public class Zombie extends BasicEnemy implements SpecialAbility {
     public Zombie(PathPosition pathPosition) {
-        super(pathPosition, 25, 10, "Zombie", 20, 20, 2, 2);
+        super(pathPosition, 30, 20, "Zombie", 20, 20, 2, 2);
     }
 
     /**
