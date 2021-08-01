@@ -523,6 +523,7 @@ public class LoopManiaWorldController {
         // TODO = provide different benefits to defeating the enemy based on the type of enemy
         Random r = new Random();
         int chance = r.nextInt(100);
+        // 10, 20, 30 skittles
         if (enemy.toString() == "Slug" && chance < 10) {
             loadItem();   
         } else if (enemy.toString() == "Zombie" && chance < 20) {
@@ -530,7 +531,9 @@ public class LoopManiaWorldController {
         } else if (enemy.toString() == "Vampire" && chance < 30) {
             loadItem();
         }
+
         loadRareItem();
+
         if (chance < 70) {
             loadCard();
         }
