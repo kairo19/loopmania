@@ -1,6 +1,4 @@
 package test.building;
-
-import unsw.loopmania.LoopManiaWorld;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
@@ -11,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import javafx.beans.property.SimpleIntegerProperty;
 
 import unsw.loopmania.Enemies.BasicEnemy;
+import unsw.loopmania.Enemies.Doggie;
 import unsw.loopmania.Enemies.Slug;
 import unsw.loopmania.Enemies.Vampire;
 import unsw.loopmania.Enemies.Zombie;
@@ -21,40 +20,40 @@ import unsw.loopmania.Character;
 import unsw.loopmania.LoopManiaWorld;
 import unsw.loopmania.PathPosition;
 import unsw.loopmania.Buildings.Building;
+import unsw.loopmania.Buildings.CampfireBuilding;
+import unsw.loopmania.Buildings.HerosCastleBuilding;
 import unsw.loopmania.Buildings.TowerBuilding;
+import unsw.loopmania.Buildings.TrapBuilding;
 import unsw.loopmania.Buildings.VampireCastleBuilding;
 import unsw.loopmania.Buildings.VillageBuilding;
 import unsw.loopmania.Buildings.ZombiePitBuilding;
 
-public class VillageBuildingTest {
-    
-    @Test
-    public void VillageBuildingMaxHealthTest(){
-        LoopManiaWorld world = initialise();
+public class CampfireBuildingTest {
 
-        List<Building> buildingEntities = new ArrayList<>();
-        VillageBuilding newBuilding = new VillageBuilding(new SimpleIntegerProperty(1), new SimpleIntegerProperty(1));
-        buildingEntities.add(newBuilding);
+    @Test
+    public void CampfireBuildingBuffTest(){
+
+        LoopManiaWorld world = initialise(); 
+
+        CampfireBuilding newBuilding = new CampfireBuilding(new SimpleIntegerProperty(1), new SimpleIntegerProperty(1));
+        Pair<Integer, Integer> position = new Pair<Integer, Integer>(1, 2);
+        int indexInPath = world.getOrderedPath().indexOf(position);
         
-    
+        
         newBuilding.CharacterBattleBuffAbility(world.getCharacter());
-        assertEquals(100, world.getCharacter().getHealth());
+        assertEquals(newBuilding.getActive(), true);
+        assertEquals(newBuilding.getAttackBonus(), 5);
+        newBuilding.CharacterBattleDebuffAbility(world.getCharacter());
+        assertEquals(newBuilding.getActive(), false);
     }
+
     @Test
-    public void VillageBuildingLessHealthTest(){
-        LoopManiaWorld world = initialise();
-
-        List<Building> buildingEntities = new ArrayList<>();
-        VillageBuilding newBuilding = new VillageBuilding(new SimpleIntegerProperty(1), new SimpleIntegerProperty(1));
-        buildingEntities.add(newBuilding);
-        BasicEnemy zombie = new Zombie(new PathPosition(1, world.getOrderedPath()));
-        zombie.dealDamage(world.getCharacter());
-        newBuilding.CharacterBattleBuffAbility(world.getCharacter());
-        assertEquals(100, world.getCharacter().getHealth());
+    public void CampfireBuildingtoStringTest() {
+        CampfireBuilding newBuilding = new CampfireBuilding(new SimpleIntegerProperty(1), new SimpleIntegerProperty(1));
+        assertEquals(newBuilding.toString(), "CampfireBuilding");
     }
-
+    
     public LoopManiaWorld initialise() {
-
         List<Pair<Integer, Integer>> orderedpath = new ArrayList<>();
         orderedpath.add(new Pair<Integer, Integer>(1, 1));
         orderedpath.add(new Pair<Integer, Integer>(1, 2));
@@ -65,10 +64,4 @@ public class VillageBuildingTest {
         world.setCharacter(character);
         return world;
     }
-    @Test
-    public void VillageBuildingStringTest(){
-        VillageBuilding newBuilding = new VillageBuilding(new SimpleIntegerProperty(1), new SimpleIntegerProperty(1));
-        assertEquals("VillageBuilding", newBuilding.toString());
-    }
-
 }
