@@ -8,7 +8,7 @@ import unsw.loopmania.Cards.PlacableBehaviour.PlacableArmour;
 import unsw.loopmania.Cards.PlacableBehaviour.PlacableBehaviour;
 
 /**
- * This class represents the armour defense item which reduces damage taken from enemies by 30%
+ * This class represents the armour defense item which reduces damage taken from enemies.
  * @param x - item x coord position.
  * @param y - item y coord position.
  */
@@ -25,7 +25,6 @@ public class Armour extends DefensiveItem {
      */
     @Override
     public String toString() {
-        // TODO Auto-generated method stub
         return "Armour";
     }
 
