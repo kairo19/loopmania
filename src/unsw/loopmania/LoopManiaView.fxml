@@ -336,7 +336,7 @@
                   </HBox>
                         <HBox prefHeight="19.0" prefWidth="96.0">
                            <children>
-                              <Text fill="#2e5e31" strokeType="OUTSIDE" strokeWidth="0.0" text="Shield: ">
+                              <Text fill="#2e5e31" strokeType="OUTSIDE" strokeWidth="0.0" text="Defense:">
                                  <font>
                                     <Font name="Verdana" size="14.0" />
                                  </font>
@@ -346,7 +346,7 @@
                               </Text>
                               <Text fx:id="shieldField" fill="#3d6b3f" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="53.546875">
                                  <HBox.margin>
-                                    <Insets left="8.0" />
+                                    <Insets />
                                  </HBox.margin>
                                  <font>
                                     <Font size="16.0" />
@@ -365,26 +365,6 @@
                                  </HBox.margin>
                               </Text>
                               <Text fx:id="armourField" fill="#3d6b3f" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="53.546875">
-                                 <HBox.margin>
-                                    <Insets left="8.0" />
-                                 </HBox.margin>
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                              </Text>
-                           </children>
-                        </HBox>
-                        <HBox prefHeight="19.0" prefWidth="96.0">
-                           <children>
-                              <Text fill="#2e5e31" strokeType="OUTSIDE" strokeWidth="0.0" text="Helmet:">
-                                 <font>
-                                    <Font name="Verdana" size="14.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets left="10.0" right="5.0" top="2.0" />
-                                 </HBox.margin>
-                              </Text>
-                              <Text fx:id="helmetField" fill="#3d6b3f" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="53.546875">
                                  <HBox.margin>
                                     <Insets left="8.0" />
                                  </HBox.margin>

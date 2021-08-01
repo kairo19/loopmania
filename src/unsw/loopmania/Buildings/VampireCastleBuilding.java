@@ -16,11 +16,11 @@ import unsw.loopmania.Enemies.Vampire;
  */
 
 public class VampireCastleBuilding extends Building {
-    //private int buildingAliveRounds = 0;
     public VampireCastleBuilding(SimpleIntegerProperty x, SimpleIntegerProperty y) {
         super(x, y);
         
     }
+
 
     /**
      * Spawns a vampire to the location of the building

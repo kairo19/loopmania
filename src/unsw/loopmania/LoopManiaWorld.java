@@ -995,9 +995,16 @@ public class LoopManiaWorld {
     public IntegerProperty getCharacterHealthProperty() {
         return character.getHealthProperty();
     }
-    public DoubleProperty getCharacterShieldProperty() {
-        if (character.getShield() != null) {
-            return new SimpleDoubleProperty(character.getShield().getDamageReduction());
+    public DoubleProperty getCharacterDefenseProperty() {
+        if (character.getShield() != null && character.getHelmet() != null) {
+            double defense = character.getShield().getDamageReduction() + character.getHelmet().getDamageReduction();
+            return new SimpleDoubleProperty(defense);
+        } else if (character.getShield() != null) {
+            double defense = character.getShield().getDamageReduction();
+            return new SimpleDoubleProperty(defense);
+        } else if (character.getHelmet() != null) {
+            double defense = character.getHelmet().getDamageReduction();
+            return new SimpleDoubleProperty(defense);
         }
         return new SimpleDoubleProperty(0);
         
