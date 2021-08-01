@@ -351,6 +351,7 @@ public class LoopManiaWorldController {
         cycleField.textProperty().bindBidirectional(world.getRoundProperty(), new NumberStringConverter());
         allyField.textProperty().bindBidirectional(world.getNumberAlliesProperty(), new NumberStringConverter());
         damageField.textProperty().bindBidirectional(world.getCharacterDamageProperty(), new NumberStringConverter());
+        
     }
 
     /**

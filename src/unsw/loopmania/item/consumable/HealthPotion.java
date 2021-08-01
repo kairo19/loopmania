@@ -5,7 +5,7 @@ import unsw.loopmania.Character;
 import unsw.loopmania.Cards.PlacableBehaviour.PlacableHealthPotion;
 
 public class HealthPotion extends Consumable {
-    private static final int HEAL = 20;
+    // private static final int HEAL = 20;
     public HealthPotion(SimpleIntegerProperty x, SimpleIntegerProperty y) {
         super(x, y);
         this.placableBehaviour = new PlacableHealthPotion();
@@ -13,8 +13,10 @@ public class HealthPotion extends Consumable {
 
     @Override
     public void consume(Character character) {
-        int rejuvinatedHealth = character.getHealth() + HEAL;
-        character.setHealth(rejuvinatedHealth);
+        if (character.getHealth()  > 100) {
+            return;
+        }
+        character.setHealth(100);
     }    
 
     @Override

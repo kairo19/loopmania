@@ -385,8 +385,11 @@ public class LoopManiaWorld {
 
             setGold(getGold() + 10);
             setExperience(getExperience() + 10);
+            Pair<Integer, Integer> firstAvailableSlot = getFirstAvailableSlotForItem();
+            if (firstAvailableSlot != null){
+                addUnequippedItem();
+            }
             
-            addUnequippedItem();
         }
         Random r = new Random();
         int random = r.nextInt(7);
