@@ -14,7 +14,7 @@ import unsw.loopmania.Enemies.Vampire;
  * a basic form of building in the world
  */
 public class VampireCastleBuilding extends Building {
-    private int buildingAliveRounds = 0;
+    //private int buildingAliveRounds = 0;
     public VampireCastleBuilding(SimpleIntegerProperty x, SimpleIntegerProperty y) {
         super(x, y);
         
@@ -24,10 +24,11 @@ public class VampireCastleBuilding extends Building {
      * @param round
      * @return
      */
-
+    /*
     public int getBuildingAliveRounds() {
         return buildingAliveRounds;
     }
+    */
     /**
      * Spawns a vampire to the location of the building
      * @param world LoopManiaWorld

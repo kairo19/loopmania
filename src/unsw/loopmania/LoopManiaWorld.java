@@ -40,6 +40,7 @@ import unsw.loopmania.item.weapon.Sword;
 import unsw.loopmania.item.weapon.Weapon;
 import unsw.loopmania.item.DoggieCoin;
 import unsw.loopmania.item.Gold;
+import unsw.loopmania.item.ItemFactory;
 import unsw.loopmania.item.consumable.HealthPotion;
 import unsw.loopmania.item.consumable.TheOneRing;
 import unsw.loopmania.item.defensiveitem.Armour;
@@ -461,41 +462,15 @@ public class LoopManiaWorld {
             setExperience(getExperience() + 10);
         }
 
-        Random r = new Random();
-        int num = r.nextInt(7);
+        ItemFactory itemFactory = new ItemFactory();
 
-        switch(num) {
-            case 0: 
-                Sword sword = new Sword(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
-                unequippedInventoryItems.add(sword);
-                return sword;
-            case 1: 
-                Staff staff = new Staff(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
-                unequippedInventoryItems.add(staff);
-                return staff;
-            case 2:
-                Stake stake = new Stake(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
-                unequippedInventoryItems.add(stake);
-                return stake;
-            case 3:
-                Armour armour = new Armour(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
-                unequippedInventoryItems.add(armour);
-                return armour;
-            case 4:
-                Helmet helmet = new Helmet(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
-                unequippedInventoryItems.add(helmet);
-                return helmet;
-            case 5:
-                Shield shield = new Shield(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
-                unequippedInventoryItems.add(shield);
-                return shield;
-            case 6:
-                HealthPotion healthpotion = new HealthPotion(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
-                unequippedInventoryItems.add(healthpotion);
-                return healthpotion;
-                
-        }
-        return null;
+        StaticEntity item = itemFactory.makeItems(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
+
+        unequippedInventoryItems.add(item);
+        
+
+        return item;
+
     }
     
     public StaticEntity addUnequippedRareItem(){
@@ -511,26 +486,16 @@ public class LoopManiaWorld {
             setExperience(getExperience() + 10);
         }
 
-        Random r = new Random();
-        int num = r.nextInt(100);
-        
-        // Skittles
-        switch (num) {
-            case 0:
-                TheOneRing theonering = new TheOneRing(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
-                unequippedInventoryItems.add(theonering);
-                return theonering;
-            case 1:
-                Anduril anduril = new Anduril(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
-                unequippedInventoryItems.add(anduril);
-                return anduril;
-            case 2:
-                TreeStump treeStump = new TreeStump(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
-                unequippedInventoryItems.add(treeStump);
-                return treeStump;
-        }
-        
-        return null;
+        ItemFactory itemFactory = new ItemFactory();
+
+        StaticEntity item = itemFactory.makeRareItems(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
+
+        if (item != null) {
+            unequippedInventoryItems.add(item);
+            return item;
+        }  
+
+        return item;
     }
 
     public List<BasicEnemy> getEnemiesEntity() {
