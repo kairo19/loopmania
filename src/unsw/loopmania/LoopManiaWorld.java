@@ -286,6 +286,9 @@ public class LoopManiaWorld {
                 
                 if (character.getWeapon() != null) {
                     if (character.getWeapon().toString() == "Staff" && e.getHealth() > 0) {
+                        if (e.getType() == "Doggie") {
+                            checkDoggieCoinFluctuate();
+                        }
                         Staff staff = (Staff) character.getWeapon();
                         if (staff.getTranchedBool()) {
                             character.gainAlly();
@@ -309,7 +312,7 @@ public class LoopManiaWorld {
         
                     if (e.getType() == "Doggie") {
 
-                        DoggieCoin doggieCoin = new DoggieCoin(null,null);
+                        doggieCoin = new DoggieCoin(null,null);
                     } 
 
                     
@@ -512,7 +515,7 @@ public class LoopManiaWorld {
         int num = r.nextInt(100);
         
         // Skittles
-        switch (2) {
+        switch (num) {
             case 0:
                 TheOneRing theonering = new TheOneRing(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
                 unequippedInventoryItems.add(theonering);
@@ -715,6 +718,7 @@ public class LoopManiaWorld {
                    spawningEnemies.add(zombieEnemy);
                 }
             }
+            // change skittles
             if (round.get() == 21) {
                 bossSpawn = true;        
                 Pair<Integer, Integer> pos = possiblyGetBasicEnemySpawnPosition();
@@ -1065,8 +1069,9 @@ public class LoopManiaWorld {
                 elanMuskeAlive = true;
             }
         }
-
+        System.out.println("dog coin exist or nah: " + doggieCoin);
         if (doggieCoin != null) {
+            //doggieCoin.fluctuate(elanMuskeAlive, getRound());
             doggieCoin.fluctuate(elanMuskeAlive, getRound());
         }
         
