@@ -117,6 +117,8 @@ public class LoopManiaWorld {
     private List<Gold> goldSpawned;
     private List<HealthPotion> potionSpawned;
     private DoggieCoin doggieCoin;
+    private boolean doggieDefeated;
+    private boolean dogeCoinSold;
 
     private IntegerProperty defeatedBosses;
 
@@ -128,6 +130,7 @@ public class LoopManiaWorld {
     private IntegerProperty nShields;
     private IntegerProperty nHelmets;
     private IntegerProperty nPotions;
+
 
     /**
      * create the world (constructor)
@@ -163,6 +166,9 @@ public class LoopManiaWorld {
         this.nShields = new SimpleIntegerProperty(0);    
         this.nHelmets = new SimpleIntegerProperty(0);    
         this.nPotions = new SimpleIntegerProperty(0);    
+        this.doggieCoin = new DoggieCoin(null, null);
+        this.doggieDefeated = false;
+        this.dogeCoinSold = false;
     }
     
     public int getWidth() {
@@ -312,6 +318,7 @@ public class LoopManiaWorld {
                     if (e.getType() == "Doggie") {
 
                         doggieCoin = new DoggieCoin(null,null);
+                        doggieDefeated = true;
                     } 
 
                     
@@ -587,9 +594,7 @@ public class LoopManiaWorld {
         ApplyAttackDamage();
         character.moveDownPath();
         moveBasicEnemies();
-        checkDoggieCoinFluctuate();
-        
-        
+        checkDoggieCoinFluctuate();        
     }
 
     public void ApplyAttackDamage() {
@@ -1295,6 +1300,11 @@ public class LoopManiaWorld {
         gold.set(gold.get() + generateItemPriceByType("HealthPotion")/2);
     }
 
+    public void sellDogieCoin() {
+        gold.set(gold.get() + doggieCoin.getValueProperty());
+        dogeCoinSold = true;
+    }
+
     public void removeItemByTypeInUnequippedInventoryItems(String itemType) {
         Entity deletedItem = null;
         for (Entity item : unequippedInventoryItems) {
@@ -1326,6 +1336,14 @@ public class LoopManiaWorld {
             default:        // makes ze compiler happy
                 return 0;
         }
+    }
+
+    public boolean isDoggieDefeated() {
+        return doggieDefeated;
+    }
+
+    public boolean isDogeCoinSold() {
+        return dogeCoinSold;
     }
 
 }

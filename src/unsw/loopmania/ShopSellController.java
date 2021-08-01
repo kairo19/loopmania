@@ -36,6 +36,8 @@ public class ShopSellController {
     private Text dogeCoinValue;
     @FXML
     private VBox helpMenu;
+    @FXML
+    private VBox dogeCoinContainer;
 
     /**
      * Creates controller of ShopSellView.
@@ -202,7 +204,8 @@ public class ShopSellController {
 
     @FXML
     public void sellDogeCoin(ActionEvent event) {
-
+        getLoopManiaWorld().sellDogieCoin();
+        setDogeCoinContainerVisible(false);
     }
 
     /**
@@ -220,13 +223,18 @@ public class ShopSellController {
     }
 
     @FXML
-    void closeHelpMenu(ActionEvent event) {
+    public void closeHelpMenu(ActionEvent event) {
         helpMenu.setVisible(false);
     }
 
     @FXML
-    void toggleHelpMenu(ActionEvent event) {
+    public void toggleHelpMenu(ActionEvent event) {
         helpMenu.setVisible(true);
+    }
+
+    @FXML
+    public void setDogeCoinContainerVisible(boolean booleanValue) {
+        dogeCoinContainer.setVisible(booleanValue);
     }
 
     @FXML
@@ -239,5 +247,6 @@ public class ShopSellController {
         nHelmets.textProperty().bindBidirectional(getLoopManiaWorld().getnHelmets(), new NumberStringConverter());
         nPotions.textProperty().bindBidirectional(getLoopManiaWorld().getnPotions(), new NumberStringConverter());
         currentGold.textProperty().bindBidirectional(getLoopManiaWorld().getgoldProperty(), new NumberStringConverter());
+        dogeCoinValue.textProperty().bindBidirectional(getLoopManiaWorld().getDoggieProperty(), new NumberStringConverter());
     }
 }
