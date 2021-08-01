@@ -112,7 +112,7 @@ public class LoopManiaWorld {
 
     private IntegerProperty defeatedBosses;
 
-    // shop sell related fields
+    // shop related fields
     private IntegerProperty nSwords;
     private IntegerProperty nStakes;
     private IntegerProperty nStaffs;
@@ -120,7 +120,6 @@ public class LoopManiaWorld {
     private IntegerProperty nShields;
     private IntegerProperty nHelmets;
     private IntegerProperty nPotions;
-
 
     /**
      * create the world (constructor)
@@ -1128,30 +1127,31 @@ public class LoopManiaWorld {
 
     public void sellSword() {
         nSwords.set(nSwords.get() - 1);
-        gold.set(gold.get() + 5);
+        gold.set(gold.get() + generateItemPriceByType("Sword")/2);
     }
     public void sellStake() {
         nStakes.set(nStakes.get() - 1);
-        gold.set(gold.get() + 5);
+        gold.set(gold.get() + generateItemPriceByType("Stake")/2);
     }
     public void sellStaff() {
         nStaffs.set(nStaffs.get() - 1);
-        gold.set(gold.get() + 5);
+        gold.set(gold.get() + generateItemPriceByType("Staff")/2);
     }
     public void sellArmour() {
         nArmours.set(nArmours.get() - 1);
-        gold.set(gold.get() + 5);
+        gold.set(gold.get() + generateItemPriceByType("Armour")/2);
     }
     public void sellShield() {
         nShields.set(nShields.get() - 1);
-        gold.set(gold.get() + 5);
+        gold.set(gold.get() + generateItemPriceByType("Shield")/2);
     }
     public void sellHelmet() {
         nHelmets.set(nHelmets.get() - 1);
+        gold.set(gold.get() + generateItemPriceByType("Helmet")/2);
     }
     public void sellPotion() {
         nPotions.set(nPotions.get() - 1);
-        gold.set(gold.get() + 5);
+        gold.set(gold.get() + generateItemPriceByType("HealtPotion")/2);
     }
 
     public void removeItemByTypeInUnequippedInventoryItems(String itemType) {
@@ -1165,5 +1165,26 @@ public class LoopManiaWorld {
         deletedItem.destroy();
         unequippedInventoryItems.remove(deletedItem);
     } 
+
+    public int generateItemPriceByType(String itemType) {
+        switch(itemType) {
+            case("Sword"):
+                return 20;
+            case("Stake"):
+                return 30;
+            case("Staff"):
+                return 40;
+            case("Armour"):
+                return 40;
+            case("Shield"):
+                return 50;
+            case("Helmet"):
+                return 20;
+            case("HealthPotion"):
+                return 100;
+            default:        // makes ze compiler happy
+                return 0;
+        }
+    }
 
 }
