@@ -14,6 +14,7 @@ import unsw.loopmania.Character;
 import unsw.loopmania.LoopManiaWorld;
 import unsw.loopmania.PathPosition;
 import unsw.loopmania.Enemies.Vampire;
+import unsw.loopmania.item.defensiveitem.Shield;
 
 public class VampireTest {
 
@@ -26,6 +27,24 @@ public class VampireTest {
         d.setCharacter(character);
 
         Vampire vampire = new Vampire(new PathPosition(0, orderedpath));
+
+        vampire.dealDamage(character);
+
+        assertNotEquals(character.getHealth(), 100);
+    }
+
+    @Test
+    public void vampireDealDamageShield() {
+        List<Pair<Integer, Integer>> orderedpath = new ArrayList<>();
+        orderedpath.add(new Pair<Integer, Integer>(1, 1));
+        LoopManiaWorld d = new LoopManiaWorld(1, 2, orderedpath);
+        Character character = new Character(new PathPosition(0, orderedpath));
+        d.setCharacter(character);
+
+        Vampire vampire = new Vampire(new PathPosition(0, orderedpath));
+
+        Shield equippedShield = new Shield(null, null);
+        character.equipShield(equippedShield);
 
         vampire.dealDamage(character);
 
