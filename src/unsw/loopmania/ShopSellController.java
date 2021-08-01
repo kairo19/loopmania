@@ -54,6 +54,9 @@ public class ShopSellController {
     private Text statusText;
 
     @FXML
+    private Text currentGold;
+
+    @FXML
     public void returnToLMA(ActionEvent event) {
         gameSwitcher.switchMenu();
     }
@@ -159,5 +162,6 @@ public class ShopSellController {
         nShields.textProperty().bindBidirectional(getLoopManiaWorld().getnShields(), new NumberStringConverter());
         nHelmets.textProperty().bindBidirectional(getLoopManiaWorld().getnHelmets(), new NumberStringConverter());
         nPotions.textProperty().bindBidirectional(getLoopManiaWorld().getnPotions(), new NumberStringConverter());
+        currentGold.textProperty().bindBidirectional(getLoopManiaWorld().getgoldProperty(), new NumberStringConverter());
     }
 }

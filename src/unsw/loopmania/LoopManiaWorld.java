@@ -1128,24 +1128,30 @@ public class LoopManiaWorld {
 
     public void sellSword() {
         nSwords.set(nSwords.get() - 1);
+        gold.set(gold.get() + 5);
     }
     public void sellStake() {
         nStakes.set(nStakes.get() - 1);
+        gold.set(gold.get() + 5);
     }
     public void sellStaff() {
         nStaffs.set(nStaffs.get() - 1);
+        gold.set(gold.get() + 5);
     }
     public void sellArmour() {
         nArmours.set(nArmours.get() - 1);
+        gold.set(gold.get() + 5);
     }
     public void sellShield() {
         nShields.set(nShields.get() - 1);
+        gold.set(gold.get() + 5);
     }
     public void sellHelmet() {
         nHelmets.set(nHelmets.get() - 1);
     }
     public void sellPotion() {
         nPotions.set(nPotions.get() - 1);
+        gold.set(gold.get() + 5);
     }
 
     public void removeItemByTypeInUnequippedInventoryItems(String itemType) {
