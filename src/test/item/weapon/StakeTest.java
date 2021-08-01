@@ -12,6 +12,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import unsw.loopmania.PathPosition;
 import unsw.loopmania.Enemies.BasicEnemy;
 import unsw.loopmania.Enemies.Slug;
+import unsw.loopmania.Enemies.Vampire;
 import unsw.loopmania.item.weapon.Stake;
 import unsw.loopmania.Character;
 import unsw.loopmania.LoopManiaWorld;
@@ -55,6 +56,10 @@ public class StakeTest {
         Character character = new Character(new PathPosition(0, orderedpath));
         d.setCharacter(character);
         Stake stake = new Stake(new SimpleIntegerProperty(), new SimpleIntegerProperty());
-        BasicEnemy slug = new Slug(new PathPosition(0, orderedpath));
+        BasicEnemy Vampire = new Vampire(new PathPosition(0, orderedpath));
+
+        character.setWeapon(stake);
+        character.dealDamage(Vampire, 0);
+        assertEquals(38, Vampire.getHealth());
     }
 }
