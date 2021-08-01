@@ -1239,7 +1239,12 @@ public class LoopManiaWorld {
         deletedItem.destroy();
         unequippedInventoryItems.remove(deletedItem);
     } 
-
+    public Character getCharacter() {
+        return character;
+    }
+    public void setEnemies(List<BasicEnemy> enemies) {
+        this.enemies = enemies;
+    }
     public int generateItemPriceByType(String itemType) {
         switch(itemType) {
             case("Sword"):
