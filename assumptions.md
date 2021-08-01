@@ -93,13 +93,14 @@ When killing an enemy, the hero received a specified amount of experience.
 -----------------------------------------------------------------------------------------------------------------------------------
 ### Item Assumptions:
 ***All pieces of equipment destroyed will reward the character with half the gold it is purchased for.***
+***All pieces of equipment sold at the store will be sold at half the price it can be purchased for.***
 #### WeaponAssumptitions:
 ##### SwordAssumptions:
 - A sword can be purchased for **20** gold from the hero's castle.
 - A sword adds **15** additional damage to the character's attack.
 
 ##### StakeAssumptions:
-- A stake can be purchased for **40** gold from the hero's castle.
+- A stake can be purchased for **30** gold from the hero's castle.
 - A stake adds **5** additional damage to the character's attack.
 - A stake increases that character's attack damage significantly by **50%** when combating vampires.
 
@@ -122,7 +123,7 @@ When killing an enemy, the hero received a specified amount of experience.
 - A helmet reduced the character's attack by **10**.
 
 #### ConsumableItemAssumptions:
-- Health potions can be purchased for **20** gold from the hero's castle.
+- Health potions can be purchased for **100** gold from the hero's castle.
 - Health potions heal the character for **40** health points.
 - Health potions are consumed immediately when stepped over or purchased from the hero's castle.
 
@@ -150,3 +151,4 @@ When killing an enemy, the hero received a specified amount of experience.
 - Once the battle starts, *all* entities are halted until the battle is finished.
 - An equipped item is destroyed if another supporting item card is used to replace the currently equipped item. The specified amount of gold and experience (above) is received by the character in return.
 - An equipped item is destroyed after being equiped for **5** combats.
+- When selling an item of a specified type (e.g. sword, staff, ...), the most recently added item, of that type, will be sold.
