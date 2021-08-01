@@ -46,7 +46,7 @@ public class DoggieCoin extends StaticEntity {
             value.set(Math.abs((int) (value.get() + 100 * fluctuation * multiplier)));
 
 
-            System.out.println("dog coin price: " + getValueProperty());
+            //System.out.println("dog coin price: " + getValueProperty());
 
         } else if (elanMuskeAlive) {
             // increase

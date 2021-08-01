@@ -56,7 +56,7 @@ public class LoopManiaWorldTest {
         Character character = new Character(new PathPosition(0, orderedpath));
         d.setCharacter(character);
 
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 60; i++) {
             List<BasicEnemy> basicEnemies = d.possiblySpawnEnemies();
             if (basicEnemies.size() == 1) {
                 checker ++;
@@ -80,15 +80,18 @@ public class LoopManiaWorldTest {
         Character character = new Character(new PathPosition(0, orderedpath));
         d.setCharacter(character);
         d.possiblySpawnEnemies();
-        d.setGoal(new GoalGold(d, 50));
+        d.setGoal(new GoalGold(d, 10000));
         Vampire vampire = new Vampire(new PathPosition(2, orderedpath));
         Zombie zombie = new Zombie(new PathPosition(1, orderedpath));
         
-        d.runTickMoves();
+        for (int i = 0; i < 150; i++) {
+            d.runTickMoves();
+            d.possiblySpawnEnemies();
+            d.runBattles();
+        }
 
-        List<BasicEnemy> basicEnemies = d.runBattles();
 
-        assertEquals(basicEnemies.size(), 0);
+        assertEquals(0, character.getHealth());
     }
 
     @Test

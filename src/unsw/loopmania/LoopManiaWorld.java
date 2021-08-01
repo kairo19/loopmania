@@ -219,6 +219,7 @@ public class LoopManiaWorld {
             Slug slug = new Slug(new PathPosition(indexInPath, orderedPath));
             enemies.add(slug);
             spawningEnemies.add(slug);
+            System.out.println("Spawning");
             return spawningEnemies;
         }
         return spawningEnemies;
@@ -242,11 +243,11 @@ public class LoopManiaWorld {
         boolean elanExist = false;
         BasicEnemy firstEnemy = null;
         int bonusDamage = 0;
-        System.out.println("CHARACTER DAMAGE: " + character.getDamage());
+        //System.out.println("CHARACTER DAMAGE: " + character.getDamage());
         for (Building b: buildingEntities) {
             if (b.checkInRange(character.getX(), character.getY())) {
                 bonusDamage += b.CharacterBattleBuffAbility(character);
-                System.out.println("BONUS DAMAGE: " + bonusDamage);
+                //System.out.println("BONUS DAMAGE: " + bonusDamage);
             }
         }
         List<BasicEnemy> defeatedEnemies = new ArrayList<BasicEnemy>();        
@@ -332,7 +333,7 @@ public class LoopManiaWorld {
                     // if enemy alive, then it deals damage to character
                     e.dealDamage(character);
                     
-                    if (e.getType() == "Zableombie" && character.getAllies() > 0 && e.doSpecial(character)) {
+                    if (e.getType() == "Zombie" && character.getAllies() > 0 && e.doSpecial(character)) {
                         //should be  to add onto list while iterating through it
                         System.out.println("Spawning and adding zombie to list");
         
@@ -582,7 +583,7 @@ public class LoopManiaWorld {
 
     public void ApplyAttackDamage() {
         int totalBuff = 0;
-        System.out.println("totalBuff Beginning" + totalBuff);
+        //System.out.println("totalBuff Beginning" + totalBuff);
         for (Building b : buildingEntities) {
             System.out.println("checking for buffs");
             if (b instanceof CampfireBuilding && b.checkInRange(character.getX(), character.getY()) && !((CampfireBuilding) b).getActive()) {
@@ -606,7 +607,7 @@ public class LoopManiaWorld {
             character.getWeapon().damageBoost(character);
         }
         character.setTotalDamage(totalBuff);
-        System.out.println("Total Buff is " + totalBuff);
+        //System.out.println("Total Buff is " + totalBuff);
     }
 
     /**
@@ -1051,7 +1052,7 @@ public class LoopManiaWorld {
                 elanMuskeAlive = true;
             }
         }
-        System.out.println("dog coin exist or nah: " + doggieCoin);
+        //System.out.println("dog coin exist or nah: " + doggieCoin);
         if (doggieCoin != null) {
             //doggieCoin.fluctuate(elanMuskeAlive, getRound());
             doggieCoin.fluctuate(elanMuskeAlive, getRound());
