@@ -54,6 +54,9 @@ public class Doggie extends BasicEnemy implements SpecialAbility{
         return true;
     }
 
+    /**
+     * Returns enemy name as string.
+     */
     @Override
     public String toString() {
         return "Doggie";
