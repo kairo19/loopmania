@@ -67,7 +67,9 @@ public class VampireTest {
 
         character.setHealth(1000);
 
-        vampire.critDamage(character);
+        for (int i = 0; i < 100; i++) {
+            vampire.critDamage(character);
+        }
 
         int health = Math.abs(vampire.getHealth());
 
