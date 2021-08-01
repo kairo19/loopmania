@@ -8,12 +8,11 @@ import unsw.loopmania.Character;
 
 /**
  * This class represents a doggie enemy.
- * @param position - enemy position on path.
+ * @param pathPosition - enemy position on path.
  */
 
 public class Doggie extends BasicEnemy implements SpecialAbility{
     public Doggie(PathPosition pathPosition) {
-        // Gives 1 gold and 1 xp
         // 2 battle radius, 2 support radius (nullifies since == to battle radius)
         super(pathPosition, 100, 40, "Doggie", 16, 16, 2, 2); 
     }
