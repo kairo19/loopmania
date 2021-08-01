@@ -63,8 +63,8 @@ import unsw.loopmania.item.weapon.Weapon;
  * A world can contain many entities, each occupy a square. More than one
  * entity can occupy the same square.
  */
+
 public class LoopManiaWorld {
-    // TODO = add additional backend functionality
 
     public static final int unequippedInventoryWidth = 4;
     public static final int unequippedInventoryHeight = 4;
@@ -86,18 +86,12 @@ public class LoopManiaWorld {
 
     private Character character;
 
-    // TODO = add more lists for other entities, for equipped inventory items, etc...
-
-    // TODO = expand the range of enemies
     private List<BasicEnemy> enemies;
 
-    // TODO = expand the range of cards
     private List<Card> cardEntities;
 
-    // TODO = expand the range of items
     private List<Entity> unequippedInventoryItems;
 
-    // TODO = expand the range of buildings
     private List<Building> buildingEntities;
 
     private HerosCastleBuilding herosCastleBuilding;
@@ -184,7 +178,7 @@ public class LoopManiaWorld {
 
     /**
      * set the character. This is necessary because it is loaded as a special entity out of the file
-     * @param character the character
+     * @param character - character entity.
      */
     public void setCharacter(Character character) {
         this.character = character;
@@ -206,6 +200,7 @@ public class LoopManiaWorld {
         // for adding non-specific entities (ones without another dedicated list)
         nonSpecifiedEntities.add(entity);
     }
+
     /**
      * spawns enemies if the conditions warrant it, adds to world
      * @return list of the enemies to be displayed on screen
@@ -248,8 +243,6 @@ public class LoopManiaWorld {
             }
         }
         List<BasicEnemy> queuedEnemies = new ArrayList<BasicEnemy>();
-
-        
 
         for (BasicEnemy e: enemies) {
 
@@ -356,7 +349,6 @@ public class LoopManiaWorld {
             }
         }
         
-
         return queuedEnemies; 
         
     }
@@ -425,7 +417,6 @@ public class LoopManiaWorld {
      * spawn a sword in the world and return the sword entity
      * @return a sword to be spawned in the controller as a JavaFX node
      */
-    
     public StaticEntity addUnequippedItem(){
         Pair<Integer, Integer> firstAvailableSlot = getFirstAvailableSlotForItem();
         if (firstAvailableSlot == null){
@@ -513,7 +504,6 @@ public class LoopManiaWorld {
             healthpotion.consume(character);
         }   
     }
-
 
     /**
      * remove an item by x,y coordinates
@@ -766,11 +756,6 @@ public class LoopManiaWorld {
         return null;
     }
 
-
-
-
-        
-
     /**
      * remove an item from the unequipped inventory
      * @param item item to be removed
@@ -865,6 +850,7 @@ public class LoopManiaWorld {
         }
         return null;
     }
+
     /**
      * get a randomly generated position which could be used to spawn gold on the map
      * @return null if random choice is that wont be spawning gold or it isn't possible, or random coordinate pair if should go ahead
@@ -887,6 +873,7 @@ public class LoopManiaWorld {
         }
         return null;
     }
+
     private Pair<Integer, Integer> possiblyGetPotionSpawnPosition(){        
         Random rand = new Random();
         if (potionSpawned.size() < 2){
@@ -904,7 +891,6 @@ public class LoopManiaWorld {
         }
         return null;
     }
-
 
     /**
      * remove a card by its x, y coordinates
@@ -964,6 +950,7 @@ public class LoopManiaWorld {
         return null;
         
     }
+    
     /**
      * Figure out whether ElanMuske is alive and fluctuate doggieCoin accordingly.
      */
