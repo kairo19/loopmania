@@ -437,7 +437,11 @@ public class LoopManiaWorld {
         return item;
 
     }
-    
+
+    /**
+     * Spawn a rare item in the world and return the rare item entity
+     * @return a rare item to be spawned in the controller as a JavaFX node
+     */
     public StaticEntity addUnequippedRareItem(){
         Pair<Integer, Integer> firstAvailableSlot = getFirstAvailableSlotForItem();
         if (firstAvailableSlot == null){
@@ -470,6 +474,9 @@ public class LoopManiaWorld {
         return theOneRing;
     }
 
+    /**
+     * Use the rare item "the one ring", which heals character to full hp.
+     */
     public void useTheOneRingBool() {
         theOneRing = false;
         character.setHealth(100);
@@ -529,6 +536,9 @@ public class LoopManiaWorld {
         checkDoggieCoinFluctuate();        
     }
 
+    /**
+     * Applies attack damage to enemy.
+     */
     public void ApplyAttackDamage() {
         int totalBuff = 0;
         for (Building b : buildingEntities) {
@@ -543,7 +553,6 @@ public class LoopManiaWorld {
                 totalBuff += ((CampfireBuilding) b).getAttackBonus();
             }
             
- 
         }
         if (character.getWeapon() != null) {
             character.getWeapon().damageBoost(character);
@@ -575,6 +584,9 @@ public class LoopManiaWorld {
         }
     }
 
+    /**
+     * Logic for determining whether gold randomly spawns on a tile.
+     */
     public List<Gold> possiblySpawnGold() {
    
         Pair<Integer, Integer> pos = possiblyGetGoldSpawnPosition();
@@ -597,6 +609,9 @@ public class LoopManiaWorld {
         return spawningGold;
     }
 
+    /**
+     * Logic for determining whether a potion randomly spawns on a tile.
+     */
     public List<HealthPotion> possiblySpawnPotion() {
    
         Pair<Integer, Integer> pos = possiblyGetPotionSpawnPosition();
@@ -628,7 +643,6 @@ public class LoopManiaWorld {
         if (herosCastleBuilding.getX() == character.getX() && herosCastleBuilding.getY() == character.getY()) {
             setRound(herosCastleBuilding.AddCycle(getRound()));
             for(Building b: buildingEntities) b.addBuildingAlive();
-
 
             for (Building b: buildingEntities) {
                 if (b.toString().equals("VampireCastleBuilding") && b.getBuildingAliveRounds() % 5 == 0 && b.getBuildingAliveRounds() != 0) {
@@ -663,6 +677,9 @@ public class LoopManiaWorld {
         return spawningEnemies;
     }
 
+    /**
+     * Handles picking up dropped gold and potions on the path.
+     */
     public void ConsumablesOnPath(){
         
         for (Iterator<Gold> iterator = goldSpawned.iterator(); iterator.hasNext();) {
@@ -684,8 +701,9 @@ public class LoopManiaWorld {
         }
     }
 
-
-
+    /**
+     * Handles the store in hero's castle.
+     */
     public List<StaticEntity> generateRandomStore() {
         // Add 7 items into the list
         List<StaticEntity> shop = new ArrayList<>();
@@ -708,7 +726,9 @@ public class LoopManiaWorld {
         return shop;
     }
 
-
+    /**
+     * Handles buying items from the hero's castle store.
+     */
     public StaticEntity boughtItem(StaticEntity itemBought) {
         Pair<Integer, Integer> firstAvailableSlot = getFirstAvailableSlotForItem();
         if (firstAvailableSlot == null) {
@@ -968,6 +988,9 @@ public class LoopManiaWorld {
         
     }
 
+    /**
+     * Removes a card and shifts remaining card positions down.
+     */
     public void DestroyCard(Card card, int cardNodeX) {
         card.destroy();
         cardEntities.remove(card);
@@ -1083,14 +1106,23 @@ public class LoopManiaWorld {
         return goal;
     }
 
+    /**
+     * Checks whether goals have been met.
+     */
     public boolean hasMetGoal() {
         return goal.hasMetGoal(this);
     }
 
+    /**
+     * Returns game over.
+     */
     public boolean isGameover() {
         return gameOver;
     }
 
+    /**
+     * Handles ending the game.
+     */
     public void endGame() {
 
         gameOver = true;
@@ -1214,6 +1246,10 @@ public class LoopManiaWorld {
         dogeCoinSold = true;
     }
 
+    /**
+     * Removes all of a certain type of item from unequipped inventory.
+     * @ param itemType - specific type of item.
+     */
     public void removeItemByTypeInUnequippedInventoryItems(String itemType) {
         Entity deletedItem = null;
         for (Entity item : unequippedInventoryItems) {
@@ -1226,6 +1262,9 @@ public class LoopManiaWorld {
         unequippedInventoryItems.remove(deletedItem);
     } 
 
+    /**
+     * Defines item prices.
+     */
     public int generateItemPriceByType(String itemType) {
         switch(itemType) {
             case("Sword"):
@@ -1247,10 +1286,16 @@ public class LoopManiaWorld {
         }
     }
 
+    /**
+     * Returns whether the Doggie boss has been defeated.
+     */
     public boolean isDoggieDefeated() {
         return doggieDefeated;
     }
 
+    /**
+     * Returns whether Doggiecoin has been sold.
+     */
     public boolean isDogeCoinSold() {
         return dogeCoinSold;
     }
