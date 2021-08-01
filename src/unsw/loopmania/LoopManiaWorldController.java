@@ -426,8 +426,7 @@ public class LoopManiaWorldController {
             }
             allyField.textProperty().bindBidirectional(world.getNumberAlliesProperty(), new NumberStringConverter());
             armourField.textProperty().bindBidirectional(world.getCharacterArmourProperty(), new NumberStringConverter());
-            shieldField.textProperty().bindBidirectional(world.getCharacterShieldProperty(), new NumberStringConverter());
-            helmetField.textProperty().bindBidirectional(world.getCharacterHelmetProperty(), new NumberStringConverter());
+            shieldField.textProperty().bindBidirectional(world.getCharacterDefenseProperty(), new NumberStringConverter());
             printThreadingNotes("HANDLED TIMER");
 
         }));

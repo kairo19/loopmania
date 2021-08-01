@@ -1068,10 +1068,10 @@ public class LoopManiaWorld {
     public IntegerProperty getCharacterHealthProperty() {
         return character.getHealthProperty();
     }
-    public DoubleProperty getCharacterShieldProperty() {
+    public DoubleProperty getCharacterDefenseProperty() {
         if (character.getShield() != null) {
-            System.out.println("Shield Damage" + character.getShield().getDamageReduction());
-            return new SimpleDoubleProperty(character.getShield().getDamageReduction());
+            double defense = character.getShield().getDamageReduction() + character.getHelmet().getDamageReduction();
+            return new SimpleDoubleProperty(defense);
         }
         return new SimpleDoubleProperty(0);
         
