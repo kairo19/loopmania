@@ -5,40 +5,32 @@ import java.util.List;
 import org.javatuples.Pair;
 
 import javafx.beans.property.SimpleIntegerProperty;
-import unsw.loopmania.LoopManiaWorld;
 import unsw.loopmania.PathPosition;
 import unsw.loopmania.Enemies.BasicEnemy;
 import unsw.loopmania.Enemies.Vampire;
 
 /**
- * a basic form of building in the world
+ * This class represents the vampire castle building.
+ * @param x - building x coord position.
+ * @param y - building y coord position.
  */
+
 public class VampireCastleBuilding extends Building {
-    private int BuildingAliveRounds = 0;
     public VampireCastleBuilding(SimpleIntegerProperty x, SimpleIntegerProperty y) {
         super(x, y);
         
     }
-    /**
-     * Counts the amount of rounds active since building spawned
-     * @param round
-     * @return
-     */
-    public int BuildingAlive(int round) {
-        return round++;
-    }
 
-    public int getBuildingAliveRounds() {
-        return BuildingAliveRounds;
-    }
+
     /**
      * Spawns a vampire to the location of the building
-     * @param world LoopManiaWorld
-     * @return
+     * @param orderedPath - all path coords.
      */
     @Override
     public BasicEnemy SpawnAbility(List<Pair<Integer, Integer>> orderedPath) {
+
         Pair<Integer, Integer> position = null;
+
         for (Pair<Integer, Integer> p: orderedPath) {
             if (p.getValue0() == super.getX()) {
                 if ((p.getValue1() == super.getY() + 1) || (p.getValue1() == super.getY() - 1)) {
@@ -51,10 +43,15 @@ public class VampireCastleBuilding extends Building {
                     break;
                 }
             }
-    }
+        }
         int indexInPath = orderedPath.indexOf(position);
         return new Vampire(new PathPosition(indexInPath, orderedPath));
+
     }
+
+    /**
+     * Returns building name as string.
+     */
     @Override
     public String toString() {
         return "VampireCastleBuilding";

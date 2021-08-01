@@ -8,6 +8,11 @@ import javafx.fxml.FXML;
  * TODO = you could extend this, for example with a settings menu, or a menu to load particular maps.
  */
 public class MainMenuController {
+    private LoopManiaWorldController loopManiaWorldController;
+    public MainMenuController(LoopManiaWorldController loopManiaWorldController) {
+        this.loopManiaWorldController = loopManiaWorldController;
+    }
+
     /**
      * facilitates switching to main game
      */
@@ -23,6 +28,7 @@ public class MainMenuController {
      */
     @FXML
     private void switchToStandard() throws IOException {
+        loopManiaWorldController.setGameMode("standard");
         gameSwitcher.switchMenu();
     }
 
@@ -32,6 +38,7 @@ public class MainMenuController {
      */
     @FXML
     private void switchToSurvival() throws IOException {
+        loopManiaWorldController.setGameMode("survival");
         gameSwitcher.switchMenu();
     }
 
@@ -41,6 +48,7 @@ public class MainMenuController {
      */
     @FXML
     private void switchToBerserker() throws IOException {
+        loopManiaWorldController.setGameMode("berserker");
         gameSwitcher.switchMenu();
     }
 }
