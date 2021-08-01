@@ -214,6 +214,7 @@ public class LoopManiaWorld {
             Slug slug = new Slug(new PathPosition(indexInPath, orderedPath));
             enemies.add(slug);
             spawningEnemies.add(slug);
+            System.out.println("Spawning");
             return spawningEnemies;
         }
         return spawningEnemies;
@@ -367,6 +368,7 @@ public class LoopManiaWorld {
         }
         Random r = new Random();
         int random = r.nextInt(7);
+        System.out.println("test");
         
         switch(random) {
             case 0:
@@ -591,6 +593,7 @@ public class LoopManiaWorld {
    
         Pair<Integer, Integer> pos = possiblyGetGoldSpawnPosition();
         List<Gold> spawningGold = new ArrayList<>();
+        
         if (pos != null){
             SimpleIntegerProperty x = new SimpleIntegerProperty(pos.getValue0());
             SimpleIntegerProperty y = new SimpleIntegerProperty(pos.getValue1());
@@ -681,10 +684,13 @@ public class LoopManiaWorld {
      * Handles picking up dropped gold and potions on the path.
      */
     public void ConsumablesOnPath(){
+        System.out.println("HEY");
         
         for (Iterator<Gold> iterator = goldSpawned.iterator(); iterator.hasNext();) {
             Gold goldIterator = iterator.next();
+            System.out.println("testing");
             if (goldIterator.getX() == character.getX() && goldIterator.getY() == character.getY()) {
+                System.out.println("YO WE SPAWNED");
                 gold.set(gold.get() + goldIterator.getDrop()); 
                 iterator.remove();
                 goldIterator.destroy();
@@ -1306,5 +1312,7 @@ public class LoopManiaWorld {
     public boolean isDogeCoinSold() {
         return dogeCoinSold;
     }
+
+
 
 }
