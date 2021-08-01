@@ -6,6 +6,7 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import unsw.loopmania.Enemies.BasicEnemy;
 import unsw.loopmania.item.defensiveitem.Armour;
+import unsw.loopmania.item.defensiveitem.Block;
 import unsw.loopmania.item.defensiveitem.DefensiveItem;
 import unsw.loopmania.item.defensiveitem.Helmet;
 import unsw.loopmania.item.defensiveitem.Shield;
@@ -31,7 +32,7 @@ public class Character extends MovingEntity {
     private Weapon equippedWeapon;
     private Armour equippedArmour;
     private Helmet equippedHelmet;
-    private Shield equippedShield;
+    private Block equippedShield;
     private int alliesDamage;
     /*
     private Armour equippedArmour;
@@ -127,7 +128,7 @@ public class Character extends MovingEntity {
 
     // Shield
 
-    public void equipShield(Shield shield) {
+    public void equipShield(Block shield) {
         //System.out.println("attach shield");
         this.equippedShield = shield;
     }
@@ -136,7 +137,7 @@ public class Character extends MovingEntity {
         this.equippedShield = null;
     }
 
-    public Shield getShield(){
+    public Block getShield(){
         return this.equippedShield;
     }
 

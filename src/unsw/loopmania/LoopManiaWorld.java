@@ -43,6 +43,7 @@ import unsw.loopmania.item.Gold;
 import unsw.loopmania.item.consumable.HealthPotion;
 import unsw.loopmania.item.consumable.TheOneRing;
 import unsw.loopmania.item.defensiveitem.Armour;
+import unsw.loopmania.item.defensiveitem.Block;
 import unsw.loopmania.item.defensiveitem.Helmet;
 import unsw.loopmania.item.defensiveitem.Shield;
 import unsw.loopmania.item.defensiveitem.TreeStump;
@@ -510,7 +511,8 @@ public class LoopManiaWorld {
         Random r = new Random();
         int num = r.nextInt(100);
         
-        switch (num) {
+        // Skittles
+        switch (2) {
             case 0:
                 TheOneRing theonering = new TheOneRing(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
                 unequippedInventoryItems.add(theonering);
@@ -547,7 +549,7 @@ public class LoopManiaWorld {
             Armour armourClass = (Armour) items;
             character.equipArmour(armourClass);
         } else if (store.equals("Shield") || store.equals("TreeStump")) {
-            Shield shieldClass = (Shield) items;
+            Block shieldClass = (Block) items;
             character.equipShield(shieldClass);
         } else if (store.equals("Helmet")) {
             Helmet helmetClass = (Helmet) items;

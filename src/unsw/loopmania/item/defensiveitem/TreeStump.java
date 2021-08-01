@@ -4,7 +4,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import unsw.loopmania.Cards.PlacableBehaviour.PlacableShield;
 import unsw.loopmania.Enemies.BasicEnemy;
 
-public class TreeStump extends DefensiveItem {
+public class TreeStump extends DefensiveItem implements Block {
     private static final double DAMAGE_REDUCTION = 20.0;
     public TreeStump(SimpleIntegerProperty x, SimpleIntegerProperty y) {
         super(x, y, DAMAGE_REDUCTION);
