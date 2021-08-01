@@ -33,10 +33,7 @@ import unsw.loopmania.Buildings.ZombiePitBuilding;
  */
 
 public class BuildingsTest {
-    @Test
-    public void blahTest(){
-        assertEquals("a", "a");
-    }
+
     
     @Test
     public void ZombieBuildingTest(){
@@ -55,7 +52,6 @@ public class BuildingsTest {
         
         assertEquals(newBuilding.SpawnAbility(orderedpath), new Zombie(new PathPosition(1, orderedpath)));
     }
-
 
     
     @Test

@@ -42,6 +42,26 @@ public class VampireBuildingTest {
         enemies.add(enemy);
         assertEquals(enemies.size(), 1);
     }
+
+    @Test
+    public void VampireBuildingAliveTest(){
+
+        LoopManiaWorld world = initialise();
+
+        List<Building> buildingEntities = new ArrayList<>();
+        VampireCastleBuilding newBuilding = new VampireCastleBuilding(new SimpleIntegerProperty(1), new SimpleIntegerProperty(3));
+        buildingEntities.add(newBuilding);
+
+        newBuilding.addBuildingAlive();
+        newBuilding.addBuildingAlive();
+        newBuilding.addBuildingAlive();
+        newBuilding.addBuildingAlive();
+        newBuilding.addBuildingAlive();
+
+
+
+        assertEquals(5, newBuilding.getBuildingAliveRounds());
+    }
     
 
     public LoopManiaWorld initialise() {

@@ -48,6 +48,9 @@ public abstract class Building extends StaticEntity {
     public void setRadius(int radius) {
         this.radius = radius;
     }
+    /**
+     * Counts the amount of rounds active since building spawned
+     */
     public int getBuildingAliveRounds() {
         return buildingAliveRounds;
     }
