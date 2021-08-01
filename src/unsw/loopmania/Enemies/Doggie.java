@@ -37,8 +37,7 @@ public class Doggie extends BasicEnemy implements SpecialAbility{
         boolean check = false;
         Random rand = new Random();
         int chance = rand.nextInt(100);
-        if (chance < 10){
-            System.out.println("CHARACTER STUNNED!!");
+        if (chance < 10) {
             check = true;
             dealDamage(character);
         }

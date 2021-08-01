@@ -64,7 +64,6 @@ public class Vampire extends BasicEnemy implements SpecialAbility {
         
     
         if (crit) {
-            System.out.println("random r:" + maxCrit);
             if (counter >= maxCrit) {
                 counter = 0;
                 crit = false;
