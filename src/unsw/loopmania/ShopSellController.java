@@ -65,37 +65,66 @@ public class ShopSellController {
 
     @FXML
     public void sellArmour(ActionEvent event) {
-        getLoopManiaWorld().sellArmour();
+        if (getLoopManiaWorld().getnArmours().get() != 0) {
+            getLoopManiaWorld().sellArmour();
+            getLoopManiaWorld().removeItemByTypeInUnequippedInventoryItems("Armour");
+        } else {
+            displayWarningText();
+        }
 
     }
 
     @FXML
     public void sellHelmet(ActionEvent event) {
-
-        getLoopManiaWorld().sellHelmet();
+        if (getLoopManiaWorld().getnHelmets().get() != 0) {
+            getLoopManiaWorld().sellHelmet();
+            getLoopManiaWorld().removeItemByTypeInUnequippedInventoryItems("Helmet");
+        } else {
+            displayWarningText();
+        }
     }
 
     @FXML
     public void sellPotion(ActionEvent event) {
-        getLoopManiaWorld().sellPotion();
+        if (getLoopManiaWorld().getnPotions().get() != 0) {
+            getLoopManiaWorld().sellPotion();
+            getLoopManiaWorld().removeItemByTypeInUnequippedInventoryItems("HealthPotion");
+        } else {
+            displayWarningText();
+        }
 
     }
 
     @FXML
     public void sellShield(ActionEvent event) {
-        getLoopManiaWorld().sellShield();
+        if (getLoopManiaWorld().getnShields().get() != 0) {
+            getLoopManiaWorld().sellShield();
+            getLoopManiaWorld().removeItemByTypeInUnequippedInventoryItems("Shield");
+        } else {
+            displayWarningText();
+        }
 
     }
 
     @FXML
     public void sellStaff(ActionEvent event) {
-        getLoopManiaWorld().sellStaff();
+        if (getLoopManiaWorld().getnStaffs().get() != 0) {
+            getLoopManiaWorld().sellStaff();
+            getLoopManiaWorld().removeItemByTypeInUnequippedInventoryItems("Staff");
+        } else {
+            displayWarningText();
+        }
 
     }
 
     @FXML
     public void sellStake(ActionEvent event) {
-        getLoopManiaWorld().sellStake();
+        if (getLoopManiaWorld().getnStakes().get() != 0) {
+            getLoopManiaWorld().sellStake();
+            getLoopManiaWorld().removeItemByTypeInUnequippedInventoryItems("Stake");
+        } else {
+            displayWarningText();
+        }
 
     }
 
@@ -107,15 +136,18 @@ public class ShopSellController {
             // remove from inventory
             getLoopManiaWorld().removeItemByTypeInUnequippedInventoryItems("Sword");
         } else  {
-            statusText.setVisible(true);
-
-            // reset visibility
-            PauseTransition visiblePause = new PauseTransition(Duration.seconds(1));
-            visiblePause.setOnFinished(e -> {
-                statusText.setVisible(false);
-            });
-            visiblePause.play(); 
+            displayWarningText();
         }
+    }
+
+    public void displayWarningText() {
+        statusText.setVisible(true);
+        // reset visibility
+        PauseTransition visiblePause = new PauseTransition(Duration.seconds(1));
+        visiblePause.setOnFinished(e -> {
+            statusText.setVisible(false);
+        });
+        visiblePause.play(); 
     }
 
     @FXML
