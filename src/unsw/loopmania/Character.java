@@ -2,7 +2,9 @@ package unsw.loopmania;
 
 import java.util.ArrayList;
 
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import unsw.loopmania.Enemies.BasicEnemy;
 import unsw.loopmania.item.defensiveitem.Armour;
@@ -34,6 +36,7 @@ public class Character extends MovingEntity {
     private Helmet equippedHelmet;
     private Block equippedShield;
     private int alliesDamage;
+    private DoubleProperty armourdefense;
     /*
     private Armour equippedArmour;
     private Helmet equippedHelmet;
@@ -55,6 +58,7 @@ public class Character extends MovingEntity {
         this.equippedArmour = null;
         this.equippedHelmet = null;
         this.equippedShield = null;
+        this.armourdefense = new SimpleDoubleProperty(0);
     }
 
     public IntegerProperty getHealthProperty() {
@@ -86,6 +90,9 @@ public class Character extends MovingEntity {
     public int getTotalDamage() {
         return totalDamage.get();
     }
+    public DoubleProperty getArmourdefense() {
+        return armourdefense;
+    }
     public IntegerProperty getTotalDamageProperty() {
         return totalDamage;
     }
@@ -102,6 +109,10 @@ public class Character extends MovingEntity {
     public void equipArmour(Armour armour) {
         //System.out.println("attach armour");
         this.equippedArmour = armour;
+        setArmourdefense(new SimpleDoubleProperty(armour.getDamageReduction()));
+    }
+    public void setArmourdefense(DoubleProperty armourdefense) {
+        this.armourdefense = armourdefense;
     }
 
     public void unequipArmour(){

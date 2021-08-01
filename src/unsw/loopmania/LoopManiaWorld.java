@@ -1069,8 +1069,14 @@ public class LoopManiaWorld {
         return character.getHealthProperty();
     }
     public DoubleProperty getCharacterDefenseProperty() {
-        if (character.getShield() != null) {
+        if (character.getShield() != null && character.getHelmet() != null) {
             double defense = character.getShield().getDamageReduction() + character.getHelmet().getDamageReduction();
+            return new SimpleDoubleProperty(defense);
+        } else if (character.getShield() != null) {
+            double defense = character.getShield().getDamageReduction();
+            return new SimpleDoubleProperty(defense);
+        } else if (character.getHelmet() != null) {
+            double defense = character.getHelmet().getDamageReduction();
             return new SimpleDoubleProperty(defense);
         }
         return new SimpleDoubleProperty(0);
@@ -1183,5 +1189,12 @@ public class LoopManiaWorld {
 
     public HerosCastleBuilding getHerosCastleBuilding() {
         return herosCastleBuilding;
+    }
+    public Character getCharacter() {
+        return character;
+    }
+
+    public void setEnemies(List<BasicEnemy> enemies) {
+        this.enemies = enemies;
     }
 }
