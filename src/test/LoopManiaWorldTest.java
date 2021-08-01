@@ -126,6 +126,7 @@ public class LoopManiaWorldTest {
         character.setWeapon(staff);
 
         d.generateRandomStore();
+        d.updateSellingItems();
         d.boughtItem(sword);
         d.boughtItem(staff);
         d.boughtItem(stake);
