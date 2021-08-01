@@ -1175,10 +1175,9 @@ public class LoopManiaWorldController {
     public void setMediaPlayer(MediaPlayer mediaPlayer) {
         this.mediaPlayer = mediaPlayer;
     }
-    public void purchaseItem(int storeIndex, ShopController shopController) {
-        StaticEntity boughtItem = world.boughtItem(world.generateRandomStore().get(storeIndex));
-
-        if (world.getGold() - world.generateItemPriceByType(boughtItem.toString()) < 0) {
+    public void purchaseItem(int storeIndex, ShopController shopController, String itemType) {
+        
+        if (world.getGold() - world.generateItemPriceByType(itemType) < 0) {
             shopController.getWarningText().setText("Insufficient Funds!");
             shopController.getWarningText().setVisible(true);
         } else if (gameMode.equals("survival") && hasPurchasedHealthPotion && storeIndex == 6) {
@@ -1188,7 +1187,8 @@ public class LoopManiaWorldController {
             shopController.getWarningText().setText("Only 1 defensive item can be purchased in berserker mode!");
             shopController.getWarningText().setVisible(true);
         } else {
-            world.setGold(world.getGold() - world.generateItemPriceByType(boughtItem.toString()));
+            world.setGold(world.getGold() - world.generateItemPriceByType(itemType));
+            StaticEntity boughtItem = world.boughtItem(world.generateRandomStore().get(storeIndex));
             onLoad(boughtItem);
             if (storeIndex == 6) {
                 hasPurchasedHealthPotion = true;
