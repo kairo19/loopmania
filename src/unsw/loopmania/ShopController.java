@@ -15,21 +15,22 @@ public class ShopController {
     private Text currentGold;
 
     /**
-     * @param loopManiaWorldController main controller of game
+     * Creates controller of ShopView.
+     * @param loopManiaWorldController Main controller of game.
      */
     public ShopController(LoopManiaWorldController loopManiaWorldController) {
         this.loopManiaWorldController = loopManiaWorldController;
     }
 
     /**
-     * @param gameSwitcher switcher that alternates from shopview and loopmaniaworldview
+     * @param gameSwitcher Switcher that alternates from shopview and loopmaniaworldview.
      */
     public void setGameSwitcher(MenuSwitcher gameSwitcher) {
         this.gameSwitcher = gameSwitcher;
     }
 
     /**
-     * @param shopSwitcher swtitcher that alternated from shopview and shopsellview
+     * @param shopSwitcher Swtitcher that alternated from shopview and shopsellview.
      */
     public void setShopSwitcher(MenuSwitcher shopSwitcher) {
         this.shopSwitcher = shopSwitcher;
@@ -41,7 +42,7 @@ public class ShopController {
 
     
     /**
-     * method is triggered when button clicked to go to lmw view
+     * Method is triggered when button clicked to go to lmw view
      * @param event 
      */
     @FXML
@@ -50,7 +51,7 @@ public class ShopController {
     }
 
     /**
-     * method is triggered when button clicked to go to shop sell view
+     * Method is triggered when button clicked to go to shop sell view
      * @param event
      */
     @FXML
@@ -60,7 +61,7 @@ public class ShopController {
     }
     
     /**
-     * method is triggered when button clicked to purchase sword
+     * Method is triggered when button clicked to purchase sword
      * @param event
      */
     @FXML
@@ -69,7 +70,7 @@ public class ShopController {
     }
 
     /**
-     * method is triggered when button clicked to purchase stake
+     * Method is triggered when button clicked to purchase stake
      * @param event
      */
     @FXML
@@ -78,7 +79,7 @@ public class ShopController {
     }
 
     /**
-     * method is triggered when button clicked to purchase staff
+     * Method is triggered when button clicked to purchase staff
      * @param event
      */
     @FXML
@@ -87,7 +88,7 @@ public class ShopController {
     }
 
     /**
-     * method is triggered when button clicked to purchase armour
+     * Method is triggered when button clicked to purchase armour
      * @param event
      */
     @FXML
@@ -96,7 +97,7 @@ public class ShopController {
     }
 
     /**
-     * method is triggered when button clicked to purchase shield
+     * Method is triggered when button clicked to purchase shield
      * @param event
      */
     @FXML
@@ -105,7 +106,7 @@ public class ShopController {
     }
 
     /**
-     * method is triggered when button clicked to purchase helmet
+     * Method is triggered when button clicked to purchase helmet
      * @param event
      */
     @FXML
@@ -114,7 +115,7 @@ public class ShopController {
     }
 
     /**
-     * method is triggered when button clicked to purchase potion
+     * Method is triggered when button clicked to purchase potion
      * @param event
      */
     @FXML
