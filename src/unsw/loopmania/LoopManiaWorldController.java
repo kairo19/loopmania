@@ -158,6 +158,15 @@ public class LoopManiaWorldController {
     @FXML
     private Button muteField;
 
+    @FXML
+    private ImageView oneRingField;
+
+    @FXML
+    private Text dogeCoinValue;
+
+    @FXML
+    private HBox dogeCoinContainer;
+
 
     // all image views including tiles, character, enemies, cards... even though cards in separate gridpane...
     private List<ImageView> entityImages;
@@ -381,7 +390,6 @@ public class LoopManiaWorldController {
         allyField.textProperty().bindBidirectional(world.getNumberAlliesProperty(), new NumberStringConverter());
         damageField.textProperty().bindBidirectional(world.getCharacterDamageProperty(), new NumberStringConverter());
    
-
     }
 
     /**
@@ -404,6 +412,20 @@ public class LoopManiaWorldController {
             if (world.getHerosCastleBuilding().PurchaseCycle(world.getRound())) {
                 openStore();
             }
+
+            // set visibilities
+            if (world.getTheOneRingBool()) {
+                oneRingField.setVisible(true);
+            } else {
+                oneRingField.setVisible(false);
+            }
+
+            if (world.isDogeCoinSold()) {
+                dogeCoinContainer.setVisible(false);
+            } else if (world.isDoggieDefeated()) {
+                dogeCoinContainer.setVisible(true);
+            }
+
             world.runTickMoves();
             hasPurchasedDefensiveItem = false;
             hasPurchasedHealthPotion = false;
@@ -431,7 +453,10 @@ public class LoopManiaWorldController {
             }
             allyField.textProperty().bindBidirectional(world.getNumberAlliesProperty(), new NumberStringConverter());
             armourField.textProperty().bindBidirectional(world.getCharacterArmourProperty(), new NumberStringConverter());
-            shieldField.textProperty().bindBidirectional(world.getCharacterDefenseProperty(), new NumberStringConverter());
+            shieldField.textProperty().bindBidirectional(world.getCharacterShieldProperty(), new NumberStringConverter());
+            helmetField.textProperty().bindBidirectional(world.getCharacterHelmetProperty(), new NumberStringConverter());
+            dogeCoinValue.textProperty().bindBidirectional(world.getDoggieProperty(), new NumberStringConverter());
+
             printThreadingNotes("HANDLED TIMER");
 
         }));
@@ -1150,10 +1175,9 @@ public class LoopManiaWorldController {
     public void setMediaPlayer(MediaPlayer mediaPlayer) {
         this.mediaPlayer = mediaPlayer;
     }
-    public void purchaseItem(int storeIndex, ShopController shopController) {
-        StaticEntity boughtItem = world.boughtItem(world.generateRandomStore().get(storeIndex));
-
-        if (world.getGold() - world.generateItemPriceByType(boughtItem.toString()) < 0) {
+    public void purchaseItem(int storeIndex, ShopController shopController, String itemType) {
+        
+        if (world.getGold() - world.generateItemPriceByType(itemType) < 0) {
             shopController.getWarningText().setText("Insufficient Funds!");
             shopController.getWarningText().setVisible(true);
         } else if (gameMode.equals("survival") && hasPurchasedHealthPotion && storeIndex == 6) {
@@ -1163,7 +1187,8 @@ public class LoopManiaWorldController {
             shopController.getWarningText().setText("Only 1 defensive item can be purchased in berserker mode!");
             shopController.getWarningText().setVisible(true);
         } else {
-            world.setGold(world.getGold() - world.generateItemPriceByType(boughtItem.toString()));
+            world.setGold(world.getGold() - world.generateItemPriceByType(itemType));
+            StaticEntity boughtItem = world.boughtItem(world.generateRandomStore().get(storeIndex));
             onLoad(boughtItem);
             if (storeIndex == 6) {
                 hasPurchasedHealthPotion = true;

@@ -12,7 +12,7 @@
 
 <AnchorPane style="-fx-background-color: #d3dba0;" xmlns="http://javafx.com/javafx/11.0.4" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox alignment="CENTER" prefHeight="606.0" prefWidth="480.0" spacing="20.0">
+      <VBox alignment="CENTER" prefHeight="551.0" prefWidth="531.0" spacing="20.0">
          <children>
             <Label contentDisplay="BOTTOM" text="LOOP MANIA">
                <font>
