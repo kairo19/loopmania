@@ -76,7 +76,7 @@ public class ShopController {
      */
     @FXML
     public void purchaseSword(ActionEvent event) {
-        loopManiaWorldController.purchaseItem(0, this);
+        loopManiaWorldController.purchaseItem(0, this, "Sword");
     }
 
     /**
@@ -85,7 +85,7 @@ public class ShopController {
      */
     @FXML
     public void purchaseStake(ActionEvent event) {
-        loopManiaWorldController.purchaseItem(1, this);
+        loopManiaWorldController.purchaseItem(1, this, "Stake");
     }
 
     /**
@@ -94,7 +94,7 @@ public class ShopController {
      */
     @FXML
     public void purchaseStaff(ActionEvent event) {
-        loopManiaWorldController.purchaseItem(2, this);
+        loopManiaWorldController.purchaseItem(2, this, "Staff");
     }
 
     /**
@@ -103,7 +103,7 @@ public class ShopController {
      */
     @FXML
     public void purchaseArmour(ActionEvent event) {
-        loopManiaWorldController.purchaseItem(3, this);
+        loopManiaWorldController.purchaseItem(3, this, "Armour");
     }
 
     /**
@@ -112,7 +112,7 @@ public class ShopController {
      */
     @FXML
     public void purchaseShield(ActionEvent event) {
-        loopManiaWorldController.purchaseItem(4, this);
+        loopManiaWorldController.purchaseItem(4, this, "Shield");
     }
 
     /**
@@ -121,7 +121,7 @@ public class ShopController {
      */
     @FXML
     public void purchaseHelmet(ActionEvent event) {
-        loopManiaWorldController.purchaseItem(5, this);
+        loopManiaWorldController.purchaseItem(5, this, "Helmet");
     }
 
     /**
@@ -130,7 +130,7 @@ public class ShopController {
      */
     @FXML
     public void purchasePotion(ActionEvent event) {
-        loopManiaWorldController.purchaseItem(6, this);
+        loopManiaWorldController.purchaseItem(6, this, "HealthPotion");
     }
 
     @FXML
