@@ -1,9 +1,12 @@
 package unsw.loopmania;
 
+import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.text.Text;
 import javafx.util.converter.NumberStringConverter;
+import javafx.util.Duration;
+
 
 public class ShopSellController {
     private MenuSwitcher shopSwitcher;
@@ -46,6 +49,9 @@ public class ShopSellController {
 
     @FXML
     private Text nPotions;
+
+    @FXML
+    private Text statusText;
 
     @FXML
     public void returnToLMA(ActionEvent event) {
@@ -95,10 +101,21 @@ public class ShopSellController {
 
     @FXML
     public void sellSword(ActionEvent event) {
-        // decrease counter value by 1 
-        getLoopManiaWorld().sellSword();
-        // remove from inventory
-        getLoopManiaWorld().removeItemByTypeInUnequippedInventoryItems("Sword");
+        if (getLoopManiaWorld().getnSwords().get() != 0) {
+            // decrease counter value by 1 
+            getLoopManiaWorld().sellSword();
+            // remove from inventory
+            getLoopManiaWorld().removeItemByTypeInUnequippedInventoryItems("Sword");
+        } else  {
+            statusText.setVisible(true);
+
+            // reset visibility
+            PauseTransition visiblePause = new PauseTransition(Duration.seconds(1));
+            visiblePause.setOnFinished(e -> {
+                statusText.setVisible(false);
+            });
+            visiblePause.play(); 
+        }
     }
 
     @FXML

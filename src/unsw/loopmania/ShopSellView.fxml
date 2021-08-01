@@ -178,5 +178,6 @@
             </HBox>
          </children>
       </VBox>
+      <Text fx:id="statusText" fill="RED" layoutX="128.0" layoutY="212.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You got none left mate..." visible="false" />
    </children>
 </AnchorPane>
