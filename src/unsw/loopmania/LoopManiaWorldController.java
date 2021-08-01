@@ -1145,10 +1145,10 @@ public class LoopManiaWorldController {
         this.mediaPlayer = mediaPlayer;
     }
     public void purchaseItem(int storeIndex, ShopController shopController) {
+        StaticEntity boughtItem = world.boughtItem(world.generateRandomStore().get(storeIndex));
 
-        if (world.getGold() - 5 < 0) {
+        if (world.getGold() - world.generateItemPriceByType(boughtItem.toString()) < 0) {
             shopController.getWarningText().setText("Insufficient Funds!");
-
             shopController.getWarningText().setVisible(true);
         } else if (gameMode.equals("survival") && hasPurchasedHealthPotion && storeIndex == 6) {
             shopController.getWarningText().setText("Only 1 health potion can be purchased in survival mode!");
@@ -1157,8 +1157,7 @@ public class LoopManiaWorldController {
             shopController.getWarningText().setText("Only 1 defensive item can be purchased in berserker mode!");
             shopController.getWarningText().setVisible(true);
         } else {
-            StaticEntity boughtItem = world.boughtItem(world.generateRandomStore().get(storeIndex));
-            world.setGold(world.getGold() - 5);
+            world.setGold(world.getGold() - world.generateItemPriceByType(boughtItem.toString()));
             onLoad(boughtItem);
             if (storeIndex == 6) {
                 hasPurchasedHealthPotion = true;
@@ -1179,13 +1178,13 @@ public class LoopManiaWorldController {
     
     private double timelineRate = 1.0;
     @FXML
-    void decreaseTickSpeed(ActionEvent event) {
+    public void decreaseTickSpeed(ActionEvent event) {
         timeline.setRate(timelineRate - 0.5);
         timeline.play();
     }
 
     @FXML
-    void increaseTickSpeed(ActionEvent event) {
+    public void increaseTickSpeed(ActionEvent event) {
         timeline.setRate(timelineRate + 0.5);
         timeline.play();
     }
@@ -1194,7 +1193,7 @@ public class LoopManiaWorldController {
     private Button playButton;
 
     @FXML
-    void normaliseTickSpeed(ActionEvent event) {
+    public void normaliseTickSpeed(ActionEvent event) {
         if (playButton.getText().equals(">")) {
             timeline.stop();
             playButton.setText("||");

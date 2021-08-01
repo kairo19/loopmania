@@ -120,6 +120,14 @@ public class LoopManiaWorld {
 
     private IntegerProperty defeatedBosses;
 
+    // shop related fields
+    private IntegerProperty nSwords;
+    private IntegerProperty nStakes;
+    private IntegerProperty nStaffs;
+    private IntegerProperty nArmours;
+    private IntegerProperty nShields;
+    private IntegerProperty nHelmets;
+    private IntegerProperty nPotions;
 
     /**
      * create the world (constructor)
@@ -148,7 +156,13 @@ public class LoopManiaWorld {
         this.herosCastleBuilding = null;
         this.goldSpawned = new ArrayList<>();
         this.potionSpawned = new ArrayList<>();
-        
+        this.nSwords = new SimpleIntegerProperty(0);    
+        this.nStakes = new SimpleIntegerProperty(0);    
+        this.nStaffs = new SimpleIntegerProperty(0);    
+        this.nArmours = new SimpleIntegerProperty(0);    
+        this.nShields = new SimpleIntegerProperty(0);    
+        this.nHelmets = new SimpleIntegerProperty(0);    
+        this.nPotions = new SimpleIntegerProperty(0);    
     }
     
     public int getWidth() {
@@ -1189,4 +1203,129 @@ public class LoopManiaWorld {
     public HerosCastleBuilding getHerosCastleBuilding() {
         return herosCastleBuilding;
     }
+
+    // methods relating to sell shop functionality 
+    // ===========================================
+    public void updateSellingItems() {
+        // initialise to 0
+        nSwords.set(0);
+        nStakes.set(0);
+        nStaffs.set(0);
+        nArmours.set(0);
+        nShields.set(0);
+        nHelmets.set(0);
+        nPotions.set(0);
+
+        // update number of swords, stakes, ...
+        for (Entity item : unequippedInventoryItems) {
+            switch(item.toString()) {
+                case "Sword":
+                    nSwords.set(nSwords.get() + 1);
+                    break;
+                case "Stake":
+                    nStakes.set(nStakes.get() + 1);
+                    break;
+                case "Staff":
+                    nStaffs.set(nStaffs.get() + 1);
+                    break;
+                case "Armour":
+                    nArmours.set(nArmours.get() + 1);
+                    break;
+                case "Shield":
+                    nShields.set(nShields.get() + 1);
+                    break;
+                case "Helmet":
+                    nHelmets.set(nHelmets.get() + 1);
+                    break;
+                case "HealthPotion":
+                    nPotions.set(nPotions.get() + 1);
+                    break;
+            }
+        }
+    }
+
+    public IntegerProperty getnSwords() {
+        return nSwords;
+    }
+    public IntegerProperty getnStakes() {
+        return nStakes;
+    }
+    public IntegerProperty getnStaffs() {
+        return nStaffs;
+    }
+    public IntegerProperty getnArmours() {
+        return nArmours;
+    }
+    public IntegerProperty getnShields() {
+        return nShields;
+    }
+    public IntegerProperty getnHelmets() {
+        return nHelmets;
+    }
+    public IntegerProperty getnPotions() {
+        return nPotions;
+    }
+
+    public void sellSword() {
+        nSwords.set(nSwords.get() - 1);
+        gold.set(gold.get() + generateItemPriceByType("Sword")/2);
+    }
+    public void sellStake() {
+        nStakes.set(nStakes.get() - 1);
+        gold.set(gold.get() + generateItemPriceByType("Stake")/2);
+    }
+    public void sellStaff() {
+        nStaffs.set(nStaffs.get() - 1);
+        gold.set(gold.get() + generateItemPriceByType("Staff")/2);
+    }
+    public void sellArmour() {
+        nArmours.set(nArmours.get() - 1);
+        gold.set(gold.get() + generateItemPriceByType("Armour")/2);
+    }
+    public void sellShield() {
+        nShields.set(nShields.get() - 1);
+        gold.set(gold.get() + generateItemPriceByType("Shield")/2);
+    }
+    public void sellHelmet() {
+        nHelmets.set(nHelmets.get() - 1);
+        gold.set(gold.get() + generateItemPriceByType("Helmet")/2);
+    }
+    public void sellPotion() {
+        nPotions.set(nPotions.get() - 1);
+        gold.set(gold.get() + generateItemPriceByType("HealtPotion")/2);
+    }
+
+    public void removeItemByTypeInUnequippedInventoryItems(String itemType) {
+        Entity deletedItem = null;
+        for (Entity item : unequippedInventoryItems) {
+            if (item.toString().equals(itemType)) {
+                deletedItem = item;
+                break;
+            }
+        }
+        deletedItem.destroy();
+        unequippedInventoryItems.remove(deletedItem);
+    } 
+
+    public int generateItemPriceByType(String itemType) {
+        switch(itemType) {
+            case("Sword"):
+                return 20;
+            case("Stake"):
+                return 30;
+            case("Staff"):
+                return 40;
+            case("Armour"):
+                return 40;
+            case("Shield"):
+                return 50;
+            case("Helmet"):
+                return 20;
+            case("HealthPotion"):
+                return 100;
+            default:        // makes ze compiler happy
+                return 0;
+        }
+    }
+
 }
