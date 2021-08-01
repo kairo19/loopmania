@@ -43,6 +43,7 @@ import unsw.loopmania.item.weapon.Sword;
 import unsw.loopmania.item.weapon.Weapon;
 import unsw.loopmania.item.DoggieCoin;
 import unsw.loopmania.item.Gold;
+import unsw.loopmania.item.ItemFactory;
 import unsw.loopmania.item.consumable.HealthPotion;
 import unsw.loopmania.item.consumable.TheOneRing;
 import unsw.loopmania.item.defensiveitem.Armour;
@@ -117,8 +118,19 @@ public class LoopManiaWorld {
     private List<Gold> goldSpawned;
     private List<HealthPotion> potionSpawned;
     private DoggieCoin doggieCoin;
+    private boolean doggieDefeated;
+    private boolean dogeCoinSold;
 
     private IntegerProperty defeatedBosses;
+
+    // shop related fields
+    private IntegerProperty nSwords;
+    private IntegerProperty nStakes;
+    private IntegerProperty nStaffs;
+    private IntegerProperty nArmours;
+    private IntegerProperty nShields;
+    private IntegerProperty nHelmets;
+    private IntegerProperty nPotions;
 
 
     /**
@@ -148,7 +160,16 @@ public class LoopManiaWorld {
         this.herosCastleBuilding = null;
         this.goldSpawned = new ArrayList<>();
         this.potionSpawned = new ArrayList<>();
-        
+        this.nSwords = new SimpleIntegerProperty(0);    
+        this.nStakes = new SimpleIntegerProperty(0);    
+        this.nStaffs = new SimpleIntegerProperty(0);    
+        this.nArmours = new SimpleIntegerProperty(0);    
+        this.nShields = new SimpleIntegerProperty(0);    
+        this.nHelmets = new SimpleIntegerProperty(0);    
+        this.nPotions = new SimpleIntegerProperty(0);    
+        this.doggieCoin = new DoggieCoin(null, null);
+        this.doggieDefeated = false;
+        this.dogeCoinSold = false;
     }
     
     public int getWidth() {
@@ -272,6 +293,9 @@ public class LoopManiaWorld {
                 character.dealDamage(e, bonusDamage);
                 if (character.getWeapon() != null) {
                     if (character.getWeapon().toString() == "Staff" && e.getHealth() > 0) {
+                        if (e.getType() == "Doggie") {
+                            checkDoggieCoinFluctuate();
+                        }
                         Staff staff = (Staff) character.getWeapon();
                         if (staff.getTranchedBool()) {
                             character.gainAlly();
@@ -295,6 +319,7 @@ public class LoopManiaWorld {
                     if (e.getType() == "Doggie") {
 
                         doggieCoin = new DoggieCoin(null,null);
+                        doggieDefeated = true;
                     } 
 
                     
@@ -441,41 +466,15 @@ public class LoopManiaWorld {
             setExperience(getExperience() + 10);
         }
 
-        Random r = new Random();
-        int num = r.nextInt(7);
+        ItemFactory itemFactory = new ItemFactory();
 
-        switch(num) {
-            case 0: 
-                Sword sword = new Sword(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
-                unequippedInventoryItems.add(sword);
-                return sword;
-            case 1: 
-                Staff staff = new Staff(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
-                unequippedInventoryItems.add(staff);
-                return staff;
-            case 2:
-                Stake stake = new Stake(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
-                unequippedInventoryItems.add(stake);
-                return stake;
-            case 3:
-                Armour armour = new Armour(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
-                unequippedInventoryItems.add(armour);
-                return armour;
-            case 4:
-                Helmet helmet = new Helmet(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
-                unequippedInventoryItems.add(helmet);
-                return helmet;
-            case 5:
-                Shield shield = new Shield(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
-                unequippedInventoryItems.add(shield);
-                return shield;
-            case 6:
-                HealthPotion healthpotion = new HealthPotion(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
-                unequippedInventoryItems.add(healthpotion);
-                return healthpotion;
-                
-        }
-        return null;
+        StaticEntity item = itemFactory.makeItems(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
+
+        unequippedInventoryItems.add(item);
+        
+
+        return item;
+
     }
     
     public StaticEntity addUnequippedRareItem(){
@@ -491,26 +490,16 @@ public class LoopManiaWorld {
             setExperience(getExperience() + 10);
         }
 
-        Random r = new Random();
-        int num = r.nextInt(100);
-        
-        // Skittles
-        switch (num) {
-            case 0:
-                TheOneRing theonering = new TheOneRing(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
-                unequippedInventoryItems.add(theonering);
-                return theonering;
-            case 1:
-                Anduril anduril = new Anduril(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
-                unequippedInventoryItems.add(anduril);
-                return anduril;
-            case 2:
-                TreeStump treeStump = new TreeStump(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
-                unequippedInventoryItems.add(treeStump);
-                return treeStump;
-        }
-        
-        return null;
+        ItemFactory itemFactory = new ItemFactory();
+
+        StaticEntity item = itemFactory.makeRareItems(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
+
+        if (item != null) {
+            unequippedInventoryItems.add(item);
+            return item;
+        }  
+
+        return item;
     }
 
     public List<BasicEnemy> getEnemiesEntity() {
@@ -570,9 +559,7 @@ public class LoopManiaWorld {
         ApplyAttackDamage();
         character.moveDownPath();
         moveBasicEnemies();
-        checkDoggieCoinFluctuate();
-        
-        
+        checkDoggieCoinFluctuate();        
     }
 
     public void ApplyAttackDamage() {
@@ -698,6 +685,7 @@ public class LoopManiaWorld {
                    spawningEnemies.add(zombieEnemy);
                 }
             }
+            // change skittles
             if (round.get() == 21) {
                 bossSpawn = true;        
                 Pair<Integer, Integer> pos = possiblyGetBasicEnemySpawnPosition();
@@ -1048,8 +1036,9 @@ public class LoopManiaWorld {
                 elanMuskeAlive = true;
             }
         }
-
+        System.out.println("dog coin exist or nah: " + doggieCoin);
         if (doggieCoin != null) {
+            //doggieCoin.fluctuate(elanMuskeAlive, getRound());
             doggieCoin.fluctuate(elanMuskeAlive, getRound());
         }
         
@@ -1184,4 +1173,142 @@ public class LoopManiaWorld {
     public HerosCastleBuilding getHerosCastleBuilding() {
         return herosCastleBuilding;
     }
+
+    // methods relating to sell shop functionality 
+    // ===========================================
+    public void updateSellingItems() {
+        // initialise to 0
+        nSwords.set(0);
+        nStakes.set(0);
+        nStaffs.set(0);
+        nArmours.set(0);
+        nShields.set(0);
+        nHelmets.set(0);
+        nPotions.set(0);
+
+        // update number of swords, stakes, ...
+        for (Entity item : unequippedInventoryItems) {
+            switch(item.toString()) {
+                case "Sword":
+                    nSwords.set(nSwords.get() + 1);
+                    break;
+                case "Stake":
+                    nStakes.set(nStakes.get() + 1);
+                    break;
+                case "Staff":
+                    nStaffs.set(nStaffs.get() + 1);
+                    break;
+                case "Armour":
+                    nArmours.set(nArmours.get() + 1);
+                    break;
+                case "Shield":
+                    nShields.set(nShields.get() + 1);
+                    break;
+                case "Helmet":
+                    nHelmets.set(nHelmets.get() + 1);
+                    break;
+                case "HealthPotion":
+                    nPotions.set(nPotions.get() + 1);
+                    break;
+            }
+        }
+    }
+
+    public IntegerProperty getnSwords() {
+        return nSwords;
+    }
+    public IntegerProperty getnStakes() {
+        return nStakes;
+    }
+    public IntegerProperty getnStaffs() {
+        return nStaffs;
+    }
+    public IntegerProperty getnArmours() {
+        return nArmours;
+    }
+    public IntegerProperty getnShields() {
+        return nShields;
+    }
+    public IntegerProperty getnHelmets() {
+        return nHelmets;
+    }
+    public IntegerProperty getnPotions() {
+        return nPotions;
+    }
+
+    public void sellSword() {
+        nSwords.set(nSwords.get() - 1);
+        gold.set(gold.get() + generateItemPriceByType("Sword")/2);
+    }
+    public void sellStake() {
+        nStakes.set(nStakes.get() - 1);
+        gold.set(gold.get() + generateItemPriceByType("Stake")/2);
+    }
+    public void sellStaff() {
+        nStaffs.set(nStaffs.get() - 1);
+        gold.set(gold.get() + generateItemPriceByType("Staff")/2);
+    }
+    public void sellArmour() {
+        nArmours.set(nArmours.get() - 1);
+        gold.set(gold.get() + generateItemPriceByType("Armour")/2);
+    }
+    public void sellShield() {
+        nShields.set(nShields.get() - 1);
+        gold.set(gold.get() + generateItemPriceByType("Shield")/2);
+    }
+    public void sellHelmet() {
+        nHelmets.set(nHelmets.get() - 1);
+        gold.set(gold.get() + generateItemPriceByType("Helmet")/2);
+    }
+    public void sellPotion() {
+        nPotions.set(nPotions.get() - 1);
+        gold.set(gold.get() + generateItemPriceByType("HealthPotion")/2);
+    }
+
+    public void sellDogieCoin() {
+        gold.set(gold.get() + doggieCoin.getValueProperty());
+        dogeCoinSold = true;
+    }
+
+    public void removeItemByTypeInUnequippedInventoryItems(String itemType) {
+        Entity deletedItem = null;
+        for (Entity item : unequippedInventoryItems) {
+            if (item.toString().equals(itemType)) {
+                deletedItem = item;
+                break;
+            }
+        }
+        deletedItem.destroy();
+        unequippedInventoryItems.remove(deletedItem);
+    } 
+
+    public int generateItemPriceByType(String itemType) {
+        switch(itemType) {
+            case("Sword"):
+                return 20;
+            case("Stake"):
+                return 30;
+            case("Staff"):
+                return 40;
+            case("Armour"):
+                return 40;
+            case("Shield"):
+                return 50;
+            case("Helmet"):
+                return 20;
+            case("HealthPotion"):
+                return 100;
+            default:        // makes ze compiler happy
+                return 0;
+        }
+    }
+
+    public boolean isDoggieDefeated() {
+        return doggieDefeated;
+    }
+
+    public boolean isDogeCoinSold() {
+        return dogeCoinSold;
+    }
+
 }

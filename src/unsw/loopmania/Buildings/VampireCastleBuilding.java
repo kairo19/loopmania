@@ -17,7 +17,7 @@ import unsw.loopmania.Enemies.Vampire;
  */
 
 public class VampireCastleBuilding extends Building {
-    private int buildingAliveRounds = 0;
+    //private int buildingAliveRounds = 0;
     public VampireCastleBuilding(SimpleIntegerProperty x, SimpleIntegerProperty y) {
         super(x, y);
         
@@ -26,10 +26,11 @@ public class VampireCastleBuilding extends Building {
     /**
      * Counts the amount of rounds active since building spawned
      */
+    /*
     public int getBuildingAliveRounds() {
         return buildingAliveRounds;
     }
-
+    */
     /**
      * Spawns a vampire to the location of the building
      * @param orderedPath - all path coords.
