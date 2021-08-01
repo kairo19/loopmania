@@ -2,6 +2,7 @@ package unsw.loopmania;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.util.converter.NumberStringConverter;
 
@@ -13,6 +14,8 @@ public class ShopController {
     private Text warningText;
     @FXML
     private Text currentGold;
+    @FXML
+    private VBox helpMenu;
 
     /**
      * Creates controller of ShopView.
@@ -121,6 +124,16 @@ public class ShopController {
     @FXML
     public void purchasePotion(ActionEvent event) {
         loopManiaWorldController.purchaseItem(6, this);
+    }
+
+    @FXML
+    void closeHelpMenu(ActionEvent event) {
+        helpMenu.setVisible(false);
+    }
+
+    @FXML
+    void toggleHelpMenu(ActionEvent event) {
+        helpMenu.setVisible(true);
     }
 
     public Text getWarningText() {
