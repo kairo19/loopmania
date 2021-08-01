@@ -197,6 +197,7 @@ public class LoopManiaWorldController {
     private Image goldImage;
     private Image andurilImage;
     private Image treeStumpImage;
+    private Image emptyPotionImage;
 
 
     /**
@@ -271,6 +272,7 @@ public class LoopManiaWorldController {
         helmetImage = new Image((new File("src/images/helmet.png")).toURI().toString());
         theoneringImage = new Image((new File("src/images/the_one_ring.png")).toURI().toString());
         healthpotionImage = new Image((new File("src/images/brilliant_blue_new.png")).toURI().toString());
+        emptyPotionImage = new Image((new File("src/images/potion.png")).toURI().toString());
         goldImage = new Image((new File("src/images/gold_pile.png")).toURI().toString());
         andurilImage = new Image((new File("src/images/anduril_flame_of_the_west.png")).toURI().toString());
         treeStumpImage = new Image((new File("src/images/tree_stump.png")).toURI().toString());
@@ -697,11 +699,30 @@ public class LoopManiaWorldController {
 
                             case ITEM:
                                 if (staticEntity.checkItemPlacable(x,y)){
-                                    removeDraggableDragEventHandlers(draggableType, targetGridPane);
                                 // TODO = spawn an item in the new location. The above code for spawning a building will help, it is very similar
-                                    removeItemByCoordinates(nodeX, nodeY);
-                                    targetGridPane.add(image, x, y, 1, 1);
-                                    world.addCharacterDraggedEntity(staticEntity);
+                                    
+                                    if (x == 2 && y == 0) { 
+                                        if (world.getCharacterHealthProperty().get() < 100){
+                                            
+                                            image = new ImageView(emptyPotionImage);
+                                            removeDraggableDragEventHandlers(draggableType, targetGridPane);
+                                            removeItemByCoordinates(nodeX, nodeY);
+                                            targetGridPane.add(image, x, y, 1, 1);
+                                            world.addCharacterDraggedEntity(staticEntity);
+                                            break;
+                                        }else {
+                                            node.setOpacity(1);
+                                            return;
+                                        }
+                            
+                                    } else {  
+                                        removeDraggableDragEventHandlers(draggableType, targetGridPane);
+                                        removeItemByCoordinates(nodeX, nodeY);
+                                        targetGridPane.add(image, x, y, 1, 1);
+                                        world.addCharacterDraggedEntity(staticEntity);
+
+                                    }
+                                    
                                 } else {
                                     node.setOpacity(1);
                                     return;
