@@ -141,8 +141,12 @@ public class LoopManiaWorldTest {
         d.boughtItem(shield);
         d.boughtItem(healthPotion);
         d.updateSellingItems();
-
-        
+        d.sellSword();
+        d.sellStaff();
+        d.sellStake();
+        d.sellArmour();
+        d.sellHelmet();
+        d.sellShield();
 
         assertEquals(staff, character.getWeapon());
     }
