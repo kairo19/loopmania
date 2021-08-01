@@ -112,7 +112,8 @@ public class LoopManiaWorld {
 
     private IntegerProperty defeatedBosses;
 
-
+    // shop sell related fields
+    private IntegerProperty nSwords;
     /**
      * create the world (constructor)
      * 
@@ -140,7 +141,7 @@ public class LoopManiaWorld {
         this.herosCastleBuilding = null;
         this.goldSpawned = new ArrayList<>();
         this.potionSpawned = new ArrayList<>();
-        
+        this.nSwords = new SimpleIntegerProperty(0);    
     }
     
     public int getWidth() {
@@ -1048,4 +1049,23 @@ public class LoopManiaWorld {
     public HerosCastleBuilding getHerosCastleBuilding() {
         return herosCastleBuilding;
     }
+
+    public void updateSellingItems() {
+        nSwords.set(0);
+        for (Entity item : unequippedInventoryItems) {
+            if (item.toString().equals("Sword")) {
+                nSwords.set(nSwords.get() + 1);
+            }
+        }
+    }
+
+    public IntegerProperty getnSwords() {
+        return nSwords;
+    }
+
+    public void sellSword() {
+        nSwords.set(nSwords.get() - 1);
+    }
+
+
 }

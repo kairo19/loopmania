@@ -345,6 +345,7 @@ public class LoopManiaWorldController {
         cycleField.textProperty().bindBidirectional(world.getRoundProperty(), new NumberStringConverter());
         allyField.textProperty().bindBidirectional(world.getNumberAlliesProperty(), new NumberStringConverter());
         //damageField.textProperty().bindBidirectional(world.getCharacterDamageProperty(), new NumberStringConverter());
+            
     }
 
     /**
@@ -1085,13 +1086,13 @@ public class LoopManiaWorldController {
 
     private double timelineRate = 1.0;
     @FXML
-    void decreaseTickSpeed(ActionEvent event) {
+    public void decreaseTickSpeed(ActionEvent event) {
         timeline.setRate(timelineRate - 0.5);
         timeline.play();
     }
 
     @FXML
-    void increaseTickSpeed(ActionEvent event) {
+    public void increaseTickSpeed(ActionEvent event) {
         timeline.setRate(timelineRate + 0.5);
         timeline.play();
     }
@@ -1100,7 +1101,7 @@ public class LoopManiaWorldController {
     private Button playButton;
 
     @FXML
-    void normaliseTickSpeed(ActionEvent event) {
+    public void normaliseTickSpeed(ActionEvent event) {
         if (playButton.getText().equals(">")) {
             timeline.stop();
             playButton.setText("||");
@@ -1108,5 +1109,9 @@ public class LoopManiaWorldController {
             timeline.play();
             playButton.setText(">");
         }
+    }
+
+    public LoopManiaWorld getLoopManiaWorld() {
+        return world;
     }
 }

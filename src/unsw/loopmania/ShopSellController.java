@@ -3,10 +3,16 @@ package unsw.loopmania;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.text.Text;
+import javafx.util.converter.NumberStringConverter;
 
 public class ShopSellController {
-    MenuSwitcher shopSwitcher;
-    MenuSwitcher gameSwitcher;
+    private MenuSwitcher shopSwitcher;
+    private MenuSwitcher gameSwitcher;
+    private LoopManiaWorldController loopManiaWorldController;
+
+    public ShopSellController(LoopManiaWorldController loopManiaWorldController) {
+        this.loopManiaWorldController = loopManiaWorldController;
+    }
 
     public void setShopSwitcher(MenuSwitcher shopSwitcher) {
         this.shopSwitcher = shopSwitcher;
@@ -14,6 +20,10 @@ public class ShopSellController {
 
     public void setGameSwitcher(MenuSwitcher gameSwitcher) {
         this.gameSwitcher = gameSwitcher;
+    }
+
+    private LoopManiaWorld getLoopManiaWorld() {
+        return loopManiaWorldController.getLoopManiaWorld();
     }
 
     @FXML
@@ -38,48 +48,54 @@ public class ShopSellController {
     private Text nPotions;
 
     @FXML
-    void returnToLMA(ActionEvent event) {
+    public void returnToLMA(ActionEvent event) {
         gameSwitcher.switchMenu();
     }
 
     @FXML
-    void returnToShop(ActionEvent event) {
+    public void returnToShop(ActionEvent event) {
         shopSwitcher.switchMenu();
     }
 
     @FXML
-    void sellArmour(ActionEvent event) {
+    public void sellArmour(ActionEvent event) {
 
     }
 
     @FXML
-    void sellHelmet(ActionEvent event) {
+    public void sellHelmet(ActionEvent event) {
 
     }
 
     @FXML
-    void sellPotion(ActionEvent event) {
+    public void sellPotion(ActionEvent event) {
 
     }
 
     @FXML
-    void sellShield(ActionEvent event) {
+    public void sellShield(ActionEvent event) {
 
     }
 
     @FXML
-    void sellStaff(ActionEvent event) {
+    public void sellStaff(ActionEvent event) {
 
     }
 
     @FXML
-    void sellStake(ActionEvent event) {
+    public void sellStake(ActionEvent event) {
 
     }
 
     @FXML
-    void sellSword(ActionEvent event) {
-
+    public void sellSword(ActionEvent event) {
+        // decrease counter value by 1 
+        getLoopManiaWorld().sellSword();
+        // remove from inventory
     }
 
+    @FXML
+    public void initialize() {
+        nSwords.textProperty().bindBidirectional(getLoopManiaWorld().getnSwords(), new NumberStringConverter());
+    }
 }

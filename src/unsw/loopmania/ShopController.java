@@ -32,6 +32,7 @@ public class ShopController {
 
     @FXML
     void goToSellShop(ActionEvent event) {
+        loopManiaWorldController.getLoopManiaWorld().updateSellingItems();
         shopSwitcher.switchMenu();
     }
     
@@ -39,6 +40,7 @@ public class ShopController {
     void purchaseSword(ActionEvent event) {
         warningText.setVisible(false);
         loopManiaWorldController.purchaseItem(0, this);
+        loopManiaWorldController.getLoopManiaWorld().updateSellingItems();
     }
 
     @FXML
@@ -56,14 +58,12 @@ public class ShopController {
     @FXML
     void purchaseArmour(ActionEvent event) {
         warningText.setVisible(false);
-
         loopManiaWorldController.purchaseItem(3, this);
     }
 
     @FXML
     void purchaseShield(ActionEvent event) {
         warningText.setVisible(false);
-
         loopManiaWorldController.purchaseItem(4, this);
     }
 
@@ -77,7 +77,6 @@ public class ShopController {
     @FXML
     void purchasePotion(ActionEvent event) {
         warningText.setVisible(false);
-
         loopManiaWorldController.purchaseItem(6, this);
     }
 
