@@ -58,7 +58,7 @@ public class StaffTest {
         BasicEnemy slug = new Slug(new PathPosition(0, orderedpath));
         slug.setHealth(700);
         character.setWeapon(staff);
-        for (int tester = 0; tester < 30; tester++) {
+        for (int tester = 0; tester < 50; tester++) {
             character.dealDamage(slug, 0);
             
         }
